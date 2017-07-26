@@ -104,22 +104,11 @@ Partial Class _Default
 
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         'Calendar1.ddlAutoPostBack = True
-
-        If IsNumeric(grdSR.Text) Then
-            grdSR.Text = ""
-            'btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
-        End If
         Dim gp As New ctiCatalogos
         Dim r() As String = gp.agregarPartidaJornada(Convert.ToInt32(idempleado.Text), Convert.ToInt32(idjornada.Text), fecha.Text)
-
         gp = Nothing
-
-
-            Dim sgr As New clsCTI
-          
-            sgr = Nothing
-        
-
+        Dim sgr As New clsCTI
+        sgr = Nothing
     End Sub
 
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
