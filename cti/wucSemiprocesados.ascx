@@ -1,0 +1,2 @@
+﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="wucSemiprocesados.ascx.vb" Inherits="cti_wucSemiprocesados" %>
+<asp:DropDownList ID="ddlSemiprocesados" runat="server" Width="200" CssClass="txtCaptura"></asp:DropDownList>

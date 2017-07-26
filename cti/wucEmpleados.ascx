@@ -1,0 +1,2 @@
+﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="wucEmpleados.ascx.vb" Inherits="cti_wucEmpleados" %>
+<asp:DropDownList ID="ddlEmpleados" runat="server" Width="200" CssClass="txtCaptura"></asp:DropDownList>
