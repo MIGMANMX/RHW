@@ -8,34 +8,36 @@
     <style type="text/css">
         .auto-style1 {
             width: 183px;
-            height: 22px;
-        }
-        .auto-style2 {
-            width: 80px;
+            height: 15px;
         }
         .auto-style3 {
-            height: 22px;
-        }
-        .auto-style4 {
-            width: 80px;
-            height: 22px;
+            height: 15px;
+            width: 97px;
         }
         .auto-style5 {
-            width: 756px;
+            width: 798px;
         }
         .auto-style6 {
-            height: 22px;
-            width: 151px;
+            height: 26px;
+            width: 97px;
         }
         .auto-style7 {
-            height: 22px;
-            width: 180px;
+            height: 15px;
+            width: 144px;
         }
         .auto-style8 {
             width: 183px;
+            height: 26px;
         }
         .auto-style9 {
             width: 115px;
+        }
+        .auto-style10 {
+            height: 26px;
+            width: 144px;
+        }
+        .auto-style11 {
+            margin-top: 0px;
         }
     </style>
 </asp:Content>
@@ -46,11 +48,14 @@
                 <td class="auto-style7">Sucursal:<uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
                 <td class="auto-style3">Empleado:<uc2:wucempleados2 ID="wucEmpleados2" runat="server" /></td>
          
-                <td class="auto-style4">&nbsp;</td>
-                <td class="auto-style1">&nbsp;</td>
+                <td class="auto-style1"></td>
             </tr>
-            <td class="auto-style7">Dia:<br />
-                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="114px" />
+            <td class="auto-style10">Dia:<br />
+                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" />
+            
+                                   
+            
+                    Jornada:<uc3:wucjornadas ID="wucJornadas" runat="server" />
             
                                    
             
@@ -68,11 +73,8 @@
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
                  </td>
-                <td class="auto-style2">
-                    Jornada:<br />
-                    <uc3:wucjornadas ID="wucJornadas" runat="server" /></td>
             <td class="auto-style8">
-                <asp:Calendar ID="Calendar1" runat="server" Width="209px">
+                <asp:Calendar ID="Calendar1" runat="server" Width="396px" CssClass="auto-style11" Height="176px">
                 <DayHeaderStyle BackColor="#FFCC66" />
                 <TitleStyle BackColor="#FF9900" Font-Bold="True" ForeColor="White" />
             </asp:Calendar>
@@ -108,11 +110,12 @@
             ForeColor="#333333" GridLines="None" Width="574px" Height="71px">
             <Columns>
                 <asp:BoundField DataField="idempleado" ItemStyle-Width="1" ItemStyle-Font-Size="1" /> 
+                <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />
                 <asp:BoundField DataField="jornada" HeaderText="jornada" SortExpression="jornada" />
-                  <asp:BoundField DataField="inicio" HeaderText="inicio" SortExpression="inicio" />
+                <asp:BoundField DataField="inicio" HeaderText="inicio" SortExpression="inicio" />
                 <asp:BoundField DataField="fin" HeaderText="fin" SortExpression="fin" />
-                  <asp:BoundField DataField="fecha" HeaderText="fecha" SortExpression="fecha" />
-               
+                <asp:BoundField DataField="fecha" HeaderText="fecha" SortExpression="fecha" />
+                <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
                 
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />

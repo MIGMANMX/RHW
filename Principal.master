@@ -114,8 +114,7 @@
               <ul class="treeview-menu">
                <li><a href="<%=ResolveUrl("Jornada.aspx")%>"><i class="fa fa-calendar-check-o"></i> Jornadas</a></li>
                <li><a href="<%=ResolveUrl("RegistroHorario.aspx")%>"><i class="fa fa-calendar-plus-o"></i> Horarios</a></li>
-               <li><a href="<%=ResolveUrl("PartidaJornada.aspx")%>"><i class="fa fa-calendar-times-o"></i> Asignar Horario</a></li>
-               <li><a href="<%=ResolveUrl("UPartidaJornada.aspx")%>"><i class="fa fa-calendar-minus-o"></i> Alterar Horario</a></li>
+               <li><a href="<%=ResolveUrl("HPartidasJornadas.aspx")%>"><i class="fa fa-calendar-times-o"></i> Asignar Horario</a></li>
                <li><a href="<%=ResolveUrl("index.aspx")%>"><i class="fa fa-hand-o-up"></i> Chequeos</a></li>
               </ul>
             </li>
