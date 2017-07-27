@@ -33,7 +33,7 @@
                 <td class="separa10"></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td><asp:CheckBox ID="chkActivo" runat="server" Checked="true" AutoPostBack="true" Visible="False" /><asp:TextBox ID="idjornada" runat="server" CssClass="txtCaptura" MaxLength="40" Width="59px" Height="16px" /><asp:TextBox ID="idempleado" runat="server" CssClass="txtCaptura" MaxLength="40" Width="69px" Height="19px" /></td>
+                <td><asp:CheckBox ID="chkActivo" runat="server" Checked="true" AutoPostBack="true" Visible="False" /><asp:TextBox ID="idjornada" runat="server" CssClass="txtCaptura" MaxLength="40" Width="59px" Height="16px" Visible="False" /><asp:TextBox ID="idempleado" runat="server" CssClass="txtCaptura" MaxLength="40" Width="69px" Height="19px" Visible="False" /></td>
                 <td>
                     <br />
                 </td>

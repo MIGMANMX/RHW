@@ -1,4 +1,5 @@
-﻿Imports RHLogica
+﻿Imports System.Data
+Imports RHLogica
 
 Partial Class _Default
     Inherits System.Web.UI.Page
@@ -30,9 +31,6 @@ Partial Class _Default
 
         _schuleData = getSchedule()
 
-
-
-
         If Not IsPostBack Then
             FechaC.Visible = False
         End If
@@ -42,13 +40,15 @@ Partial Class _Default
 
         Dim cal As New ctiCalendario
         'Dim datos() As String = cal.datosJornada(1)
+
         Dim datos() As String = cal.datosCalendario
         Dim schedule As New Hashtable
 
+
         'schedule(datos(0)) = datos(1)
-        
-        schedule(FormatDateTime(datos(0), DateFormat.ShortDate)) = datos(1) & "<br />" & datos(2) & "<br />" & datos(3)
-        
+
+        schedule(FormatDateTime(datos(4), DateFormat.ShortDate)) = datos(1) & "<br />" & datos(2) & "<br />" & datos(3)
+
         Return schedule
     End Function
 
@@ -109,36 +109,30 @@ Partial Class _Default
         gp = Nothing
         Dim sgr As New clsCTI
         sgr = Nothing
+
+        _schuleData = getSchedule()
+
     End Sub
 
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Editar" Then
-
             Dim dsP As New ctiCatalogos
             Dim datos() As String = dsP.datosEmpleado(CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text))
-
-         
             dsP = Nothing
             If datos(0).StartsWith("Error") Then
-
             Else
                 empleado.Text = datos(0)
                 wucSucursales.idSucursal = CInt(datos(1))
                 idempleado.Text = datos(15)
-
-
-
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI
-
                 gvp = Nothing
-
             End If
         End If
     End Sub
 
     Protected Sub wucJornadas_jornadaSeleccionada(sender As Object, e As System.EventArgs) Handles wucJornadas.jornadaSeleccionado
-           Dim dsJ As New ctiCalendario
+        Dim dsJ As New ctiCalendario
         Dim datos2() As String = dsJ.datosJornada(wucJornadas.idJornada)
         idjornada.Text = datos2(0)
         Dim gvp As New clsCTI
