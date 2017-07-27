@@ -33,7 +33,7 @@ Partial Class cti_wucEmpleados2
             ddlEmpleados.AutoPostBack = value
         End Set
     End Property
-    Public Sub ddlDataSource(activo As Boolean, idSucursal As Integer)
+    Public Sub ddlDataSource(idSucursal As Integer)
         Dim lista As New ctiWUC
         ddlEmpleados.DataSource = lista.wucEmpleados2(idSucursal)
         lista = Nothing

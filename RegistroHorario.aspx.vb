@@ -37,7 +37,7 @@ Partial Class _RegistroHorario
         schedule("17/07/2017") = "Tiempo Completo" & "<br />" & "8:00:00" & "<br />" & "16:00:00"
         schedule("18/07/2017") = "Tiempo Completo" & "<br />" & "8:00:00" & "<br />" & "16:00:00"
         schedule("19/07/2017") = "Tiempo Completo" & "<br />" & "8:00:00" & "<br />" & "16:00:00"
-        schedule(FormatDateTime(datos(0), DateFormat.ShortDate)) = datos(1) & "<br />" & datos(2) & "<br />" & datos(3)
+        'schedule(FormatDateTime(datos(0), DateFormat.ShortDate)) = datos(1) & "<br />" & datos(2) & "<br />" & datos(3)
         schedule("21/07/2017") = "Tiempo Completo" & "<br />" & "8:00:00" & "<br />" & "16:00:00"
         schedule("22/07/2017") = "Tiempo Completo" & "<br />" & "8:00:00" & "<br />" & "16:00:00"
         schedule("23/07/2017") = "Descanso" & "<br />" & "" & "<br />" & ""
