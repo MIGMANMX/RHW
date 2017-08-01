@@ -8,6 +8,15 @@ Partial Class _RegistroHorario
     Private _schuleData As Hashtable
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
+        If Not Page.IsPostBack Then
+            Session("menu") = "C"
+            wucSucursales.ddlAutoPostBack = True
+            wucEmpleados2.ddlAutoPostBack = True
+        End If
+
+
+
         Calendar1.Caption = "Horario de empleado"
         Calendar1.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
         Calendar1.NextPrevFormat = NextPrevFormat.ShortMonth
@@ -44,7 +53,7 @@ Partial Class _RegistroHorario
         Return schedule
     End Function
 
-   
+
     Protected Sub Calendar1_DayRender(sender As Object, e As DayRenderEventArgs) Handles Calendar1.DayRender
 
         If (_schuleData(e.Day.Date.ToShortDateString)) <> Nothing Then
@@ -67,6 +76,30 @@ Partial Class _RegistroHorario
         '    e.Cell.BackColor = Drawing.Color.CadetBlue
         '    e.Cell.ForeColor = Drawing.Color.Black
         'End If
+    End Sub
+    Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
+        Dim gvds As New ctiWUC
+        wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
+
+        gvds = Nothing
+        wucEmpleados2.ddlAutoPostBack = True
+        If IsNumeric(grdSR.Text) Then
+            grdSR.Text = ""
+        End If
+
+    End Sub
+
+    Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
+        Dim gvds As New ctiCatalogos
+        'GridView1.DataSource = gvds.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+        'gvds = Nothing
+        'GridView1.DataBind()
+        If IsNumeric(grdSR.Text) Then
+            grdSR.Text = ""
+
+
+        End If
+
     End Sub
 End Class
 

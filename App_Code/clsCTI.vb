@@ -28,7 +28,18 @@ Public Class clsCTI
         End While
         Return sr
     End Function
-
+    Public Function seleccionarGridRow2(ByVal grd As GridView, ByVal val As Integer) As Integer
+        Dim ik As Integer = 0, sr As Integer = 0
+        While ik < grd.Rows.Count
+            If CInt(grd.Rows(Convert.ToInt32(ik)).Cells(2).Text) = val Then
+                grd.Rows(Convert.ToInt32(ik)).RowState = DataControlRowState.Selected
+                sr = ik
+                ik = grd.Rows.Count
+            End If
+            ik += 1
+        End While
+        Return sr
+    End Function
     Public Function gridViewScrollPos(rw As Integer) As Integer
         Return rw * 24
     End Function

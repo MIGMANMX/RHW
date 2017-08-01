@@ -3,6 +3,7 @@ Imports RHLogica
 
 Partial Class _HPartidasJornadas
     Inherits System.Web.UI.Page
+    Public gvPos As Integer
     Private _schuleData As Hashtable
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
@@ -11,6 +12,28 @@ Partial Class _HPartidasJornadas
             btnEditar.Enabled = False
             wucSucursales.ddlAutoPostBack = True
             wucEmpleados2.ddlAutoPostBack = True
+
+            If Request("btnSi") <> "" Then
+                Dim ec As New ctiCatalogos
+                Dim err As String = ec.eliminarPartidas_Jornada(CInt(Session("idz_e")))
+                GridView1.DataSource = ec.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                ec = Nothing
+                GridView1.DataBind()
+                If err.StartsWith("Error") Then
+                    Lmsg.CssClass = "error"
+                    grdSR.Text = ""
+
+                Else
+                    Lmsg.CssClass = "correcto"
+                    grdSR.Text = ""
+
+
+
+                End If
+                Lmsg.Text = err
+            End If
+            Session("idz_e") = ""
+
 
             btnActualizarr.Visible = False
 
@@ -38,7 +61,7 @@ Partial Class _HPartidasJornadas
         Calendar1.OtherMonthDayStyle.BackColor = System.Drawing.Color.LightGoldenrodYellow
 
         Calendar1.TodayDayStyle.BackColor = System.Drawing.Color.LightGreen
-
+        idpartidas_jornadaT.Text = ""
 
         'Calendar1.SelectedDate = Today
 
@@ -70,7 +93,6 @@ Partial Class _HPartidasJornadas
         End If
 
     End Sub
-
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
         Dim gvds As New ctiCatalogos
         GridView1.DataSource = gvds.gvPartida_Jornada(wucEmpleados2.idEmpleado)
@@ -100,16 +122,33 @@ Partial Class _HPartidasJornadas
     Protected Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
         fecha.Text = ""
         wucJornadas.idJornada = 0
+        idpartidas_jornadaT.Text = ""
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
-        fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
+        fecha.Text = FechaC.SelectedDate.ToString
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         Dim gp As New ctiCatalogos
+        If IsNumeric(grdSR.Text) Then
+            grdSR.Text = ""
+
+        End If
+        Dim gc As New ctiCatalogos
         Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-        gp = Nothing
-        Dim sgr As New clsCTI
-        sgr = Nothing
+        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+        gc = Nothing
+        GridView1.DataBind()
+        If r(0).StartsWith("Error") Then
+            Lmsg.CssClass = "error"
+        Else
+            Lmsg.CssClass = "correcto"
+            Dim sgr As New clsCTI
+            grdSR.Text = sgr.seleccionarGridRow2(GridView1, CInt(r(1))).ToString
+            gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+            sgr = Nothing
+
+        End If
+        Lmsg.Text = r(0)
 
     End Sub
     Protected Sub Calendar1_DayRender(sender As Object, e As DayRenderEventArgs) Handles Calendar1.DayRender
@@ -128,5 +167,69 @@ Partial Class _HPartidasJornadas
             'e.Cell.CssClass = "calendar-active calendar-event"
 
         End If
+    End Sub
+    Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
+        Dim ap As New ctiCatalogos
+        Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(2).Text)
+
+        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+        ap = Nothing
+        GridView1.DataBind()
+        If r.StartsWith("Error") Then
+            Lmsg.CssClass = "error"
+        Else
+            Lmsg.CssClass = "correcto"
+        End If
+
+        Dim gvp As New clsCTI
+        grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+        If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+            GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+            gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+        Else
+            fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
+        End If
+        gvp = Nothing
+        Lmsg.Text = r
+    End Sub
+    Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
+        If e.CommandName = "Eliminar" Then
+            Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text
+            Session("dz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(2).Text
+        ElseIf e.CommandName = "Editar" Then
+            If IsNumeric(grdSR.Text) Then
+                GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal
+                grdSR.Text = ""
+            End If
+
+            Dim dsP As New ctiCatalogos
+            Dim datos() As String = dsP.datosPartidaJornada(CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(2).Text))
+            dsP = Nothing
+            If datos(0).StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+                Lmsg.Text = datos(0)
+            Else
+                idpartidas_jornadaT.Text = datos(0)
+                wucEmpleados2.idEmpleado = CInt(datos(1))
+                wucJornadas.idJornada = datos(2)
+                fecha.Text = datos(3).ToString
+                grdSR.Text = e.CommandArgument.ToString
+                GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
+                Dim gvp As New clsCTI
+                gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
+                gvp = Nothing
+
+            End If
+        End If
+    End Sub
+    Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridView1.PageIndexChanging
+        GridView1.PageIndex = e.NewPageIndex
+
+        Dim ap As New ctiCatalogos
+        Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(2).Text)
+        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+        ap = Nothing
+        GridView1.DataBind()
     End Sub
 End Class

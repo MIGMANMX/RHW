@@ -5,6 +5,18 @@
 <%@ Register src="cti/wucEmpleados2.ascx" tagname="wucEmpleados2" tagprefix="uc2" %>
 <%@ Register src="cti/wucJornadas.ascx" tagname="wucJornadas" tagprefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+       <% If IsNumeric(Session("idz_e")) Then
+            Response.Write("<div id=confirmar style='position:fixed; left:200; top:300; background-color:White; border-style:solid; border-width:1px; border-color:Black;'>")
+            Response.Write("<table>")
+            Response.Write("<tr><td rowspan=7 width=5 /><td height=6 /><td rowspan=7 width=6 /></tr>")
+            Response.Write("<tr><td class=c_titulo>Confirmación</td></tr>")
+            Response.Write("<tr><td height=6 /></tr>")
+              Response.Write("<tr><td class=c_texto>¿Confirma la eliminación :    <b><i>" & Session("dz_e") & "</i></b> ?</td></tr>")
+            Response.Write("<tr><td height=6 /></tr>")
+            Response.Write("<tr><td align=center><input type=submit name=btnSi value='   Sí   ' class='boton' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+            Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
+            Response.Write("<tr><td height=6 /></tr></table></div>")
+        End If%>
     <style type="text/css">
         .auto-style1 {
             width: 183px;
@@ -48,7 +60,9 @@
                 <td class="auto-style7">Sucursal:<uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
                 <td class="auto-style3">Empleado:<uc2:wucempleados2 ID="wucEmpleados2" runat="server" /></td>
          
-                <td class="auto-style1"></td>
+                <td class="auto-style1">
+                    <asp:TextBox ID="idpartidas_jornadaT" runat="server" Visible="False"></asp:TextBox>
+                </td>
             </tr>
             <td class="auto-style10">Dia:<br />
                     <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" />
@@ -80,6 +94,7 @@
             </asp:Calendar>
             </td>
         </table>
+          <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
           <br />
           <table>
               <tr>
@@ -107,14 +122,17 @@
               <tr><td>
         <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="idempleado" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="574px" Height="71px">
+            ForeColor="#333333" GridLines="None" Width="574px" Height="92px" AllowPaging="True" AllowSorting="True" PageSize="30">
             <Columns>
-                <asp:BoundField DataField="idempleado" ItemStyle-Width="1" ItemStyle-Font-Size="1" /> 
+                <asp:BoundField DataField="idempleado" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
+<ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
+                </asp:BoundField>
                 <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />
-                <asp:BoundField DataField="jornada" HeaderText="jornada" SortExpression="jornada" />
-                <asp:BoundField DataField="inicio" HeaderText="inicio" SortExpression="inicio" />
-                <asp:BoundField DataField="fin" HeaderText="fin" SortExpression="fin" />
-                <asp:BoundField DataField="fecha" HeaderText="fecha" SortExpression="fecha" />
+                <asp:BoundField DataField="idpartidas_jornada" HeaderText="IdJornada" SortExpression="idpartidas_jornada" />
+                <asp:BoundField DataField="jornada" HeaderText="Jornada" SortExpression="jornada" />
+                <asp:BoundField DataField="inicio" HeaderText="Inicio" SortExpression="inicio" />
+                <asp:BoundField DataField="fin" HeaderText="Fin" SortExpression="fin" />
+                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
                 <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
                 
            </Columns>
@@ -122,7 +140,7 @@
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />
             <AlternatingRowStyle BackColor="#fbfbfb" />
             <SelectedRowStyle BackColor="#fffcbf" />
-            <FooterStyle BackColor="#3088b0" Font-Size="1" Height="1" />
+            <FooterStyle BackColor="#FF9933" Font-Size="1" Height="1" />
             <PagerStyle BackColor="#3088b0" ForeColor="#333333" HorizontalAlign="Center" />
         </asp:GridView>
                   </td>
