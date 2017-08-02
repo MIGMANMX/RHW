@@ -10,6 +10,7 @@ Partial Class _HPartidasJornadas
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
+        Dim gvds As New ctiWUC
 
 
         If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
@@ -73,10 +74,23 @@ Partial Class _HPartidasJornadas
 
         _schuleData = getSchedule()
 
+        If wucEmpleados2.idEmpleado = 0 Then
+            If datos(0) = 2 Then
+                wucSucursales.idSucursal = datos(1)
+                wucSucursales.Visible = False
+                suc.Visible = False
+                wucEmpleados2.ddlDataSource(datos(1))
 
-        If datos(0) = 2 Then
-            wucSucursales.idSucursal = datos(1)
+                gvds = Nothing
+                wucEmpleados2.ddlAutoPostBack = True
+                If IsNumeric(grdSR.Text) Then
+                    grdSR.Text = ""
+                End If
+            End If
+        Else
+            wucEmpleados2.ddlAutoPostBack = True
         End If
+
     End Sub
     Function getSchedule() As Hashtable
 
@@ -97,14 +111,7 @@ Partial Class _HPartidasJornadas
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiWUC
         Dim acceso As New ctiCatalogos
-        Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
-        If datos(0) = 2 Then
-            wucEmpleados2.ddlDataSource(datos(1))
-        Else
-            wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
-        End If
-
-
+        wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
         gvds = Nothing
         wucEmpleados2.ddlAutoPostBack = True
         If IsNumeric(grdSR.Text) Then
@@ -117,12 +124,14 @@ Partial Class _HPartidasJornadas
         GridView1.DataSource = gvds.gvPartida_Jornada(wucEmpleados2.idEmpleado)
         GridView1.Visible = False
         gvds = Nothing
+
         GridView1.DataBind()
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
 
 
         End If
+        'wucEmpleados2.ddlAutoPostBack = True
         btnEditar.Enabled = True
     End Sub
     Protected Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
@@ -144,7 +153,7 @@ Partial Class _HPartidasJornadas
         idpartidas_jornadaT.Text = ""
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
-        fecha.Text = FechaC.SelectedDate.ToString
+        fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         Dim gp As New ctiCatalogos

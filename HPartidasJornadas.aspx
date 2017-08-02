@@ -57,7 +57,7 @@
       <div id="listaDatos">
         <table class="auto-style5">
             <tr>
-                <td class="auto-style7">Sucursal:<uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
+                <td class="auto-style7" id="suc" runat="server">Sucursal:<uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
                 <td class="auto-style3">Empleado:<uc2:wucempleados2 ID="wucEmpleados2" runat="server" /></td>
          
                 <td class="auto-style1">
@@ -70,7 +70,12 @@
             
                                    
             
-                    Jornada:<uc3:wucjornadas ID="wucJornadas" runat="server" />
+                    <br />
+            
+                                   
+            
+                    Jornada:<br />
+                <uc3:wucjornadas ID="wucJornadas" runat="server" />
             
                                    
             
