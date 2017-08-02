@@ -5,7 +5,13 @@ Partial Class _HPartidasJornadas
     Inherits System.Web.UI.Page
     Public gvPos As Integer
     Private _schuleData As Hashtable
+
+
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim acceso As New ctiCatalogos
+        Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
+
+
         If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
         If Not Page.IsPostBack Then
             Session("menu") = "C"
@@ -66,6 +72,11 @@ Partial Class _HPartidasJornadas
         'Calendar1.SelectedDate = Today
 
         _schuleData = getSchedule()
+
+
+        If datos(0) = 2 Then
+            wucSucursales.idSucursal = datos(1)
+        End If
     End Sub
     Function getSchedule() As Hashtable
 
@@ -82,9 +93,17 @@ Partial Class _HPartidasJornadas
 
         Return schedule
     End Function
+
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiWUC
-        wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
+        Dim acceso As New ctiCatalogos
+        Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
+        If datos(0) = 2 Then
+            wucEmpleados2.ddlDataSource(datos(1))
+        Else
+            wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
+        End If
+
 
         gvds = Nothing
         wucEmpleados2.ddlAutoPostBack = True
