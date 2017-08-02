@@ -64,6 +64,7 @@
                     <asp:TextBox ID="idpartidas_jornadaT" runat="server" Visible="False"></asp:TextBox>
                 </td>
             </tr>
+            <tr>
             <td class="auto-style10">Dia:<br />
                     <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" />
             
@@ -76,7 +77,7 @@
                  </td>
                  <td class="auto-style6">
             
-          <asp:Calendar ID="FechaC" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="16px" Width="168px" TitleFormat="Month" >
+          <asp:Calendar ID="FechaC" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="27px" Width="160px" TitleFormat="Month" >
                     <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
                     <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
                     <OtherMonthDayStyle ForeColor="#999999" />
@@ -93,7 +94,9 @@
                 <TitleStyle BackColor="#FF9900" Font-Bold="True" ForeColor="White" />
             </asp:Calendar>
             </td>
+                </tr>
         </table>
+            </div> <!-- listaDatos --> 
           <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
           <br />
           <table>
@@ -148,5 +151,5 @@
                   </tr>
               </table>
         <asp:TextBox ID="grdSR" runat="server" Visible="false"></asp:TextBox>
-    </div> <!-- listaDatos --> 
+  
 </asp:Content>
