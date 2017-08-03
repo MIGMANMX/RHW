@@ -1,7 +1,4 @@
 ﻿
-Imports System.Data
-Imports System.Data.SqlClient
-
 Imports RHLogica
 
 Partial Class _HPartidasJornadas
@@ -66,8 +63,8 @@ Partial Class _HPartidasJornadas
         Calendar1.ShowGridLines = True
         Calendar1.DayStyle.HorizontalAlign = HorizontalAlign.Left
         Calendar1.DayStyle.VerticalAlign = VerticalAlign.Top
-        Calendar1.DayStyle.Height = New Unit(50)
-        Calendar1.DayStyle.Width = New Unit(110)
+        Calendar1.DayStyle.Height = New Unit(40)
+        Calendar1.DayStyle.Width = New Unit(100)
         Calendar1.OtherMonthDayStyle.BackColor = System.Drawing.Color.LightGoldenrodYellow
 
         Calendar1.TodayDayStyle.BackColor = System.Drawing.Color.LightGreen
@@ -75,7 +72,7 @@ Partial Class _HPartidasJornadas
 
         'Calendar1.SelectedDate = Today
 
-        _schuleData = loadSchedule()
+        _schuleData = getSchedule()
 
         If wucEmpleados2.idEmpleado = 0 Then
             If datos(0) = 2 Then
@@ -83,7 +80,7 @@ Partial Class _HPartidasJornadas
                 wucSucursales.Visible = False
                 suc.Visible = False
                 wucEmpleados2.ddlDataSource(datos(1))
-                _schuleData = getSchedule()
+
                 gvds = Nothing
                 wucEmpleados2.ddlAutoPostBack = True
                 If IsNumeric(grdSR.Text) Then
@@ -92,37 +89,25 @@ Partial Class _HPartidasJornadas
             End If
         Else
             wucEmpleados2.ddlAutoPostBack = True
-            _schuleData = getSchedule()
         End If
 
     End Sub
-    Function loadSchedule() As Hashtable
-        Dim schedule As New Hashtable
-        schedule("17/07/2017") = "" & "<br />" & "" & "<br />" & ""
-        Return schedule
-    End Function
     Function getSchedule() As Hashtable
+
+        Dim cal As New ctiCalendario
+        'Dim datos() As String = cal.datosJornada(1)
+
+        Dim datos() As String = cal.datosCalendario
         Dim schedule As New Hashtable
 
-        Dim strSQL As String = "SELECT * FROM MostrarCalendario where idEmpleado = '" & wucEmpleados2.idEmpleado & "'"
-        'buscar todos los eventos de la base de datos
-        Using con As New SqlConnection
-            con.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-            Dim cmd As New SqlCommand(strSQL, con)
-            Dim ds As SqlClient.SqlDataReader
 
-            con.Open()
-            ds = cmd.ExecuteReader()
-            While ds.Read
-                schedule(FormatDateTime(ds(4), DateFormat.ShortDate)) = ds(1)
-            End While
-            ds = Nothing
-            cmd = Nothing
-            con.Close()
-        End Using
+        'schedule(datos(0)) = datos(1)
+
+        schedule(FormatDateTime(datos(4), DateFormat.ShortDate)) = datos(1) & "<br />" & datos(2) & "-" & datos(3)
 
         Return schedule
     End Function
+
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiWUC
         Dim acceso As New ctiCatalogos
@@ -135,7 +120,6 @@ Partial Class _HPartidasJornadas
 
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
-        _schuleData = getSchedule()
         Dim gvds As New ctiCatalogos
         GridView1.DataSource = gvds.gvPartida_Jornada(wucEmpleados2.idEmpleado)
         GridView1.Visible = False
@@ -167,7 +151,6 @@ Partial Class _HPartidasJornadas
         fecha.Text = ""
         wucJornadas.idJornada = 0
         idpartidas_jornadaT.Text = ""
-        _schuleData = loadSchedule()
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
@@ -194,7 +177,7 @@ Partial Class _HPartidasJornadas
 
         End If
         Lmsg.Text = r(0)
-        _schuleData = getSchedule()
+
     End Sub
     Protected Sub Calendar1_DayRender(sender As Object, e As DayRenderEventArgs) Handles Calendar1.DayRender
         If (_schuleData(e.Day.Date.ToShortDateString)) <> Nothing Then
@@ -225,7 +208,6 @@ Partial Class _HPartidasJornadas
             Lmsg.CssClass = "error"
         Else
             Lmsg.CssClass = "correcto"
-
         End If
 
         Dim gvp As New clsCTI
@@ -238,7 +220,6 @@ Partial Class _HPartidasJornadas
         End If
         gvp = Nothing
         Lmsg.Text = r
-        _schuleData = getSchedule()
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then

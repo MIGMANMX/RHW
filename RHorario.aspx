@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_RHorario" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RHorario.aspx.vb" Inherits="_RHorario" %>
 
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucsucursales" tagprefix="uc1" %>
 
