@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RegistroHorario.aspx.vb" Inherits="_RegistroHorario" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="ConsHorario.aspx.vb" Inherits="_ConsHorario" %>
 
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados2.ascx" tagname="wucEmpleados2" tagprefix="uc2" %>
@@ -9,8 +9,8 @@
      <div id="listaDatos">
         <table>
             <tr>
-                <td>Sucursal:</td>
-                <td><uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
+                <td id="suc" runat="server">Sucursal:</td>
+                <td id="suc1" runat="server"><uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
          
                 <td>Empleado:</td>
                 <td><uc2:wucempleados2 ID="wucEmpleados2" runat="server" /></td>
@@ -25,4 +25,3 @@
         <asp:TextBox ID="grdSR" runat="server" Visible="false"></asp:TextBox>
     
 </asp:Content>
-

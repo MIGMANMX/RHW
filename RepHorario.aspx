@@ -1,8 +1,14 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_RHorario" %>
-
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_Default" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucsucursales" tagprefix="uc1" %>
 
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+<script runat="server">
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs)
+
+    End Sub
+</script>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
@@ -23,6 +29,10 @@
         }
         .auto-style4 {
             width: 141px;
+        }
+    }
+        .auto-style2 {
+            margin-right: 165px;
         }
     </style>
 </asp:Content>
@@ -79,24 +89,8 @@
             </tr>
      
               </table>
+    
         <br />
 </div>
-   <div class="right">
-
-       <table>
-           <tr>
-                <td>
-                          &nbsp;</td>
-                        
-                     <td>
-                         &nbsp;</td>
-               
-                <td>
-                    &nbsp;</td>
-               </tr>
-       </table>
-    </div>
-    
-  
      </asp:Content>
 
