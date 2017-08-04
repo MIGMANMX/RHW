@@ -1,8 +1,14 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_RHorario" %>
-
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_Default" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucsucursales" tagprefix="uc1" %>
 
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+<script runat="server">
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs)
+
+    End Sub
+</script>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style type="text/css">
@@ -23,6 +29,10 @@
         }
         .auto-style4 {
             width: 141px;
+        }
+    }
+        .auto-style2 {
+            margin-right: 165px;
         }
     </style>
 </asp:Content>
@@ -79,36 +89,8 @@
             </tr>
      
               </table>
-        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="609px">
-            <AlternatingRowStyle BackColor="White" />
-            <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
-            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
-            <SortedAscendingCellStyle BackColor="#FDF5AC" />
-            <SortedAscendingHeaderStyle BackColor="#4D0000" />
-            <SortedDescendingCellStyle BackColor="#FCF6C0" />
-            <SortedDescendingHeaderStyle BackColor="#820000" />
-        </asp:GridView>
+    
         <br />
 </div>
-   <div class="right">
-
-       <table>
-           <tr>
-                <td>
-                          &nbsp;</td>
-                        
-                     <td>
-                         &nbsp;</td>
-               
-                <td>
-                    &nbsp;</td>
-               </tr>
-       </table>
-    </div>
-    
-  
      </asp:Content>
 
