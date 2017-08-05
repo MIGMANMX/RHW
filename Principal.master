@@ -24,7 +24,9 @@
     </asp:ContentPlaceHolder>
   </head>
   <body class="hold-transition skin-yellow sidebar-mini">
+
       <form id="form1" runat="server">
+          <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="wrapper">
 
       <header class="main-header">

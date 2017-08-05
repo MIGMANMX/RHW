@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="nomRHDataSet" targetNamespace="http://tempuri.org/nomRHDataSet.xsd" xmlns:mstns="http://tempuri.org/nomRHDataSet.xsd" xmlns="http://tempuri.org/nomRHDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="StarTconnStrRH" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="StarTconnStrRH (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.StarTconnStrRH.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vm_ReporteHorarioTableAdapter" GeneratorDataComponentClassName="vm_ReporteHorarioTableAdapter" Name="vm_ReporteHorario" UserDataComponentName="vm_ReporteHorarioTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StarTconnStrRH (Web.config)" DbObjectName="nomRH.dbo.vm_ReporteHorario" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT idempleado, empleado, puesto, sucursal, fecha, idjornada, inicio, fin FROM dbo.vm_ReporteHorario</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="idempleado" DataSetColumn="idempleado" />
+              <Mapping SourceColumn="empleado" DataSetColumn="empleado" />
+              <Mapping SourceColumn="puesto" DataSetColumn="puesto" />
+              <Mapping SourceColumn="sucursal" DataSetColumn="sucursal" />
+              <Mapping SourceColumn="fecha" DataSetColumn="fecha" />
+              <Mapping SourceColumn="idjornada" DataSetColumn="idjornada" />
+              <Mapping SourceColumn="inicio" DataSetColumn="inicio" />
+              <Mapping SourceColumn="fin" DataSetColumn="fin" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="nomRHDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="False" msprop:Generator_DataSetName="nomRHDataSet" msprop:Generator_UserDSName="nomRHDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vm_ReporteHorario" msprop:Generator_TableClassName="vm_ReporteHorarioDataTable" msprop:Generator_TableVarName="tablevm_ReporteHorario" msprop:Generator_TablePropName="vm_ReporteHorario" msprop:Generator_RowDeletingName="vm_ReporteHorarioRowDeleting" msprop:Generator_RowChangingName="vm_ReporteHorarioRowChanging" msprop:Generator_RowEvHandlerName="vm_ReporteHorarioRowChangeEventHandler" msprop:Generator_RowDeletedName="vm_ReporteHorarioRowDeleted" msprop:Generator_UserTableName="vm_ReporteHorario" msprop:Generator_RowChangedName="vm_ReporteHorarioRowChanged" msprop:Generator_RowEvArgName="vm_ReporteHorarioRowChangeEvent" msprop:Generator_RowClassName="vm_ReporteHorarioRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idempleado" msprop:Generator_ColumnVarNameInTable="columnidempleado" msprop:Generator_ColumnPropNameInRow="idempleado" msprop:Generator_ColumnPropNameInTable="idempleadoColumn" msprop:Generator_UserColumnName="idempleado" type="xs:int" />
+              <xs:element name="empleado" msprop:Generator_ColumnVarNameInTable="columnempleado" msprop:Generator_ColumnPropNameInRow="empleado" msprop:Generator_ColumnPropNameInTable="empleadoColumn" msprop:Generator_UserColumnName="empleado" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="puesto" msprop:Generator_ColumnVarNameInTable="columnpuesto" msprop:Generator_ColumnPropNameInRow="puesto" msprop:Generator_ColumnPropNameInTable="puestoColumn" msprop:Generator_UserColumnName="puesto" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="sucursal" msprop:Generator_ColumnVarNameInTable="columnsucursal" msprop:Generator_ColumnPropNameInRow="sucursal" msprop:Generator_ColumnPropNameInTable="sucursalColumn" msprop:Generator_UserColumnName="sucursal" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="fecha" msprop:Generator_ColumnVarNameInTable="columnfecha" msprop:Generator_ColumnPropNameInRow="fecha" msprop:Generator_ColumnPropNameInTable="fechaColumn" msprop:Generator_UserColumnName="fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="idjornada" msprop:Generator_ColumnVarNameInTable="columnidjornada" msprop:Generator_ColumnPropNameInRow="idjornada" msprop:Generator_ColumnPropNameInTable="idjornadaColumn" msprop:Generator_UserColumnName="idjornada" type="xs:int" minOccurs="0" />
+              <xs:element name="inicio" msprop:Generator_ColumnVarNameInTable="columninicio" msprop:Generator_ColumnPropNameInRow="inicio" msprop:Generator_ColumnPropNameInTable="inicioColumn" msprop:Generator_UserColumnName="inicio" type="xs:duration" minOccurs="0" />
+              <xs:element name="fin" msprop:Generator_ColumnVarNameInTable="columnfin" msprop:Generator_ColumnPropNameInRow="fin" msprop:Generator_ColumnPropNameInTable="finColumn" msprop:Generator_UserColumnName="fin" type="xs:duration" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
