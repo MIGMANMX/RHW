@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_Default" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_RepHorario" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucsucursales" tagprefix="uc1" %>
 
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
@@ -24,6 +24,14 @@
         .auto-style5 {
             width: 147px;
         }
+    }
+        .auto-style2 {
+            height: 37px;
+            margin-left: 40px;
+        }
+        .auto-style3 {
+            height: 37px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -31,12 +39,13 @@
    <div id="left">
         <table class="auto-style3">
             <tr>
-                <td class="auto-style1">Sucursal:<br />
+                <td class="auto-style1">Sucursal:<asp:TextBox ID="tSuc" runat="server" Visible="False"></asp:TextBox>
+                    <br />
                     <uc1:wucsucursales ID="wucSucursales" runat="server" />&nbsp; </td>
-                <td class="auto-style5">
-                     <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Limpiar" Enabled="false" Width="107px" />
+                <td class="auto-style3">
+                     <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Limpiar" Width="107px" />
                 
-                   </td><td class="auto-style6">
+                   </td><td class="auto-style2">
                      <asp:Button ID="btnGenerar" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Generar" ToolTip="Generar" Width="120px" style="margin-left: 21" />
                 
                 </td>
@@ -78,7 +87,8 @@
      
             <tr>
                     <td class="auto-style4">
-                        &nbsp;</td>
+                        <asp:Label ID="Mens" runat="server" Width="214px"></asp:Label>
+                    </td>
                  <td class="auto-style5">
                      &nbsp;</td>
                
@@ -87,14 +97,20 @@
      
               </table>
     
-        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="855px">
-            <LocalReport ReportPath="Report1.rdlc">
+        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="493px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="810px">
+            <LocalReport ReportPath="ReportFechas.rdlc">
                 <DataSources>
                     <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
                 </DataSources>
             </LocalReport>
         </rsweb:ReportViewer>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_ReporteHorarioTableAdapter"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDataRepSema" TypeName="nomRHDataSetTableAdapters.RepSemaTableAdapter">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="tSuc" Name="sucursal" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="TFInicio" Name="Fech1" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="TFFinal0" Name="Fech2" PropertyName="Text" Type="String" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
     
         <br />
 </div>
