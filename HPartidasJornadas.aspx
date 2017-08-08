@@ -68,6 +68,7 @@
                 <td class="auto-style7" id="suc" runat="server">Sucursal:<uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
                 <td class="auto-style3">Empleado:<uc2:wucempleados2 ID="wucEmpleados2" runat="server" />
                     <asp:TextBox ID="idpartidas_jornadaT" runat="server" Visible="False" Width="37px"></asp:TextBox>
+                    <asp:TextBox ID="TIDPJ" runat="server" Visible="False" Width="37px"></asp:TextBox>
                 </td>
          
             </tr>

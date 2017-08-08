@@ -7,7 +7,10 @@ Partial Class _HPartidasJornadas
     Inherits System.Web.UI.Page
     Public gvPos As Integer
     Private _schuleData As Hashtable
+    Public bandera As Boolean
+    Public IDP As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Lmsg.Text = ""
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         Dim gvds As New ctiWUC
@@ -60,7 +63,7 @@ Partial Class _HPartidasJornadas
                 btnActualizarr.Enabled = False
             End If
         End If
-            Calendar1.Caption = "Horario de empleado"
+        Calendar1.Caption = "Horario de empleado"
         Calendar1.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
         Calendar1.NextPrevFormat = NextPrevFormat.ShortMonth
         Calendar1.TitleFormat = TitleFormat.MonthYear
@@ -72,7 +75,7 @@ Partial Class _HPartidasJornadas
         Calendar1.OtherMonthDayStyle.BackColor = System.Drawing.Color.LightGoldenrodYellow
 
         Calendar1.TodayDayStyle.BackColor = System.Drawing.Color.LightGreen
-        idpartidas_jornadaT.Text = ""
+        'idpartidas_jornadaT.Text = ""
 
         'Calendar1.SelectedDate = Today
 
@@ -95,7 +98,7 @@ Partial Class _HPartidasJornadas
             wucEmpleados2.ddlAutoPostBack = True
             _schuleData = getSchedule()
         End If
-
+        bandera = True
     End Sub
     Function loadSchedule() As Hashtable
         Dim schedule As New Hashtable
@@ -150,6 +153,7 @@ Partial Class _HPartidasJornadas
         End If
         'wucEmpleados2.ddlAutoPostBack = True
         btnEditar.Enabled = True
+
     End Sub
     Protected Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
         If GridView1.Visible = False Then
@@ -159,8 +163,6 @@ Partial Class _HPartidasJornadas
         ElseIf GridView1.Visible = True Then
             GridView1.Visible = False
             btnGuardarNuevo.Enabled = True
-
-
         End If
 
     End Sub
@@ -168,13 +170,40 @@ Partial Class _HPartidasJornadas
         fecha.Text = ""
         wucJornadas.idJornada = 0
         idpartidas_jornadaT.Text = ""
+        TIDPJ.Text = ""
         wucSucursales.idSucursal = 0
         wucEmpleados2.idEmpleado = 0
         _schuleData = loadSchedule()
+        Lmsg.Text = ""
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
+        wucJornadas.idJornada = 0
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
-        btnActualizarr.Enabled = True
+
+        Dim dts As New ctiCatalogos
+        Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, fecha.Text)
+        dts = Nothing
+        If da(0).StartsWith("Error") Then
+            Lmsg.CssClass = "error"
+            Lmsg.Text = da(0)
+        Else
+            TIDPJ.Text = da(0)
+            IDP = da(0)
+            wucJornadas.idJornada = da(1)
+        End If
+        'If wucJornadas.idJornada = 0 Then
+        '    'btnGuardarNuevo.Enabled = True
+        'End If
+        If TIDPJ.Text <> "" Then
+            bandera = False
+            btnActualizarr.Enabled = True
+            'btnGuardarNuevo.Enabled = False
+        Else
+            bandera = True
+            btnActualizarr.Enabled = False
+            'btnGuardarNuevo.Enabled = True
+        End If
+        Lmsg.Text = ""
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         Dim gp As New ctiCatalogos
@@ -203,7 +232,7 @@ Partial Class _HPartidasJornadas
     Protected Sub Calendar1_DayRender(sender As Object, e As DayRenderEventArgs) Handles Calendar1.DayRender
         If (_schuleData(e.Day.Date.ToShortDateString)) <> Nothing Then
             Dim lit As New Literal
-            lit.Text = "<br />"
+            lit.Text = "<br/>"
             e.Cell.Controls.Add(lit)
 
             Dim lbl As New Label
@@ -218,36 +247,63 @@ Partial Class _HPartidasJornadas
         End If
     End Sub
     Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
-
-        Dim dt As New ctiCatalogos
-
-
-
         Dim ap As New ctiCatalogos
-        Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(2).Text)
+        If bandera = True Then
 
-        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-        ap = Nothing
-        GridView1.DataBind()
-        If r.StartsWith("Error") Then
-            Lmsg.CssClass = "error"
-        Else
-            Lmsg.CssClass = "correcto"
+            Dim idA As Integer = CInt(idpartidas_jornadaT.Text)
 
+            Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+            GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+            ap = Nothing
+            GridView1.DataBind()
+            If r.StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+            Else
+                Lmsg.CssClass = "correcto"
+
+            End If
+
+            Dim gvp As New clsCTI
+            grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+            If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+                GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+                gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+            Else
+                fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
+            End If
+            gvp = Nothing
+            Lmsg.Text = r
+            _schuleData = getSchedule()
+
+        ElseIf bandera = False Then
+
+            Dim idA As Integer = CInt(TIDPJ.Text)
+
+            Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+            GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+            ap = Nothing
+            GridView1.DataBind()
+            If r.StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+            Else
+                Lmsg.CssClass = "correcto"
+
+            End If
+
+            Dim gvp As New clsCTI
+            grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+            If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+                GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+                gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+            Else
+                fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
+            End If
+            gvp = Nothing
+            Lmsg.Text = r
+            _schuleData = getSchedule()
+            bandera = True
         End If
-
-        Dim gvp As New clsCTI
-        grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
-        If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
-            GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
-            gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
-        Else
-            fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
-        End If
-        gvp = Nothing
-        Lmsg.Text = r
-        _schuleData = getSchedule()
+        btnActualizarr.Enabled = False
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
@@ -277,6 +333,9 @@ Partial Class _HPartidasJornadas
                 gvp = Nothing
 
             End If
+            bandera = True
+            btnActualizarr.Enabled = True
+            Lmsg.Text = ""
         End If
     End Sub
     Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridView1.PageIndexChanging
