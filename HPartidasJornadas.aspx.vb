@@ -7,13 +7,11 @@ Partial Class _HPartidasJornadas
     Inherits System.Web.UI.Page
     Public gvPos As Integer
     Private _schuleData As Hashtable
-
-
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         Dim gvds As New ctiWUC
-
+        FechaC.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
 
         If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
         If Not Page.IsPostBack Then
@@ -220,6 +218,11 @@ Partial Class _HPartidasJornadas
         End If
     End Sub
     Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
+
+        Dim dt As New ctiCatalogos
+
+
+
         Dim ap As New ctiCatalogos
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(2).Text)
 
