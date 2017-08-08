@@ -189,4 +189,5 @@ Partial Class _Default
         fecha_baja.Text = CFBaja.SelectedDate.ToString("dd/MM/yyyy")
         CFBaja.Visible = False
     End Sub
+
 End Class

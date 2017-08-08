@@ -41,14 +41,14 @@
     <div id="registroDatos">
         <table>
             <tr>
-                <td colspan="3">
+                <td colspan="2">
                     <h4>
                         Editar registro<span class="agregarElemento"> de la jornada </span>&nbsp;<span class="agregarElemento">
                             </span>
                     </h4>
                 </td>
                 <td>
-                    <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="90px" />
+                    <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="90px" />               
                 </td>
                
                 <td>
@@ -57,26 +57,18 @@
             </tr>
             <tr><td colspan="2"><asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label></td></tr>
             <tr>
-                <td class="auto-style1">Jornada:</td>
-                <td class="auto-style1"><asp:TextBox ID="jornada" runat="server" MaxLength="40" Width="250px" CssClass="txtCaptura" /></td>
-                <td rowspan="2" class="auto-style1"></td>
+                <td class="auto-style1" style="width: 169px">Jornada:<br />
+                    <asp:TextBox ID="jornada" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" />&nbsp;</td>
+                <td class="auto-style1">Color:<br />
+                    <asp:TextBox ID="color" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
             </tr>
             <tr>
-                <td class="auto-style1">Hora de Inicio:</td>
-                <td class="auto-style1"><asp:TextBox ID="inicio" runat="server" MaxLength="40" Width="250px" CssClass="txtCaptura" /></td>
-                <td rowspan="2" class="auto-style1"></td>
+                <td class="auto-style1" style="width: 169px">Hora de Inicio:<br />
+                    <asp:TextBox ID="inicio" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" />&nbsp;</td>
+                <td class="auto-style1">Hora de Fin:<br />
+                    <asp:TextBox ID="fin" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
             </tr>
-            <tr>
-                <td class="auto-style1">Hora de Fin:</td>
-                <td class="auto-style1"><asp:TextBox ID="fin" runat="server" MaxLength="40" Width="250px" CssClass="txtCaptura" /></td>
-                <td rowspan="2" class="auto-style1"></td>
-            </tr>
-            <tr>
-                <td class="auto-style1">Color:</td>
-                <td class="auto-style1"><asp:TextBox ID="color" runat="server" MaxLength="40" Width="250px" CssClass="txtCaptura" /></td>
-                <td rowspan="2" class="auto-style1">&nbsp;</td>
-            </tr>
-        </table>
+            </table>
     </div> <!-- registroDatos -->
 </asp:Content>
 
