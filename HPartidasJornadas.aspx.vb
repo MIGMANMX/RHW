@@ -44,29 +44,33 @@ Partial Class _HPartidasJornadas
             Session("idz_e") = ""
 
 
-            btnActualizarr.Visible = False
+            btnActualizarr.Visible = True
 
             If GridView1.Visible = False Then
                 GridView1.Visible = True
                 btnGuardarNuevo.Enabled = False
-                btnActualizarr.Visible = True
+
             ElseIf GridView1.Visible = True Then
                 GridView1.Visible = False
                 btnGuardarNuevo.Enabled = True
-
-                btnActualizarr.Visible = False
             End If
 
+
+            If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                btnActualizarr.Enabled = True
+            Else
+                btnActualizarr.Enabled = False
+            End If
         End If
-        Calendar1.Caption = "Horario de empleado"
+            Calendar1.Caption = "Horario de empleado"
         Calendar1.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
         Calendar1.NextPrevFormat = NextPrevFormat.ShortMonth
         Calendar1.TitleFormat = TitleFormat.MonthYear
         Calendar1.ShowGridLines = True
         Calendar1.DayStyle.HorizontalAlign = HorizontalAlign.Left
         Calendar1.DayStyle.VerticalAlign = VerticalAlign.Top
-        Calendar1.DayStyle.Height = New Unit(50)
-        Calendar1.DayStyle.Width = New Unit(110)
+        Calendar1.DayStyle.Height = New Unit(55)
+        Calendar1.DayStyle.Width = New Unit(140)
         Calendar1.OtherMonthDayStyle.BackColor = System.Drawing.Color.LightGoldenrodYellow
 
         Calendar1.TodayDayStyle.BackColor = System.Drawing.Color.LightGreen
@@ -153,12 +157,12 @@ Partial Class _HPartidasJornadas
         If GridView1.Visible = False Then
             GridView1.Visible = True
             btnGuardarNuevo.Enabled = False
-            btnActualizarr.Visible = True
+
         ElseIf GridView1.Visible = True Then
             GridView1.Visible = False
             btnGuardarNuevo.Enabled = True
 
-            btnActualizarr.Visible = False
+
         End If
 
     End Sub
@@ -166,10 +170,13 @@ Partial Class _HPartidasJornadas
         fecha.Text = ""
         wucJornadas.idJornada = 0
         idpartidas_jornadaT.Text = ""
+        wucSucursales.idSucursal = 0
+        wucEmpleados2.idEmpleado = 0
         _schuleData = loadSchedule()
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
+        btnActualizarr.Enabled = True
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         Dim gp As New ctiCatalogos
@@ -204,8 +211,8 @@ Partial Class _HPartidasJornadas
             Dim lbl As New Label
             Dim str As String = _schuleData(e.Day.Date.ToShortDateString)
             lbl.Text += str
-            lbl.Font.Size = New FontUnit(FontSize.XXSmall)
-            lbl.ForeColor = Drawing.Color.Gray
+            lbl.Font.Size = New FontUnit(FontSize.Smaller)
+            lbl.ForeColor = Drawing.Color.Black
             e.Cell.Controls.Add(lbl)
             'e.Cell.BackColor = Drawing.Color.Orange
             'e.Cell.CssClass = "calendar-active calendar-event"
@@ -277,5 +284,11 @@ Partial Class _HPartidasJornadas
         GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
         ap = Nothing
         GridView1.DataBind()
+    End Sub
+    Protected Sub wucJornadas_jornadaSeleccionado(sender As Object, e As System.EventArgs) Handles wucJornadas.jornadaSeleccionado
+        wucJornadas.ddlAutoPostBack = True
+        If IsNumeric(grdSR.Text) Then
+            grdSR.Text = ""
+        End If
     End Sub
 End Class

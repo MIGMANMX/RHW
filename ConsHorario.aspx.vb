@@ -100,7 +100,7 @@ Partial Class _ConsHorario
             Dim str As String = _schuleData(e.Day.Date.ToShortDateString)
             lbl.Text += str
             lbl.Font.Size = New FontUnit(FontSize.Smaller)
-            lbl.ForeColor = Drawing.Color.Gray
+            lbl.ForeColor = Drawing.Color.Black
             e.Cell.Controls.Add(lbl)
             'e.Cell.BackColor = Drawing.Color.Orange
             'e.Cell.CssClass = "calendar-active calendar-event"
