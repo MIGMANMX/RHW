@@ -179,7 +179,7 @@ Partial Class _HPartidasJornadas
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
         wucJornadas.idJornada = 0
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
-
+        TIDPJ.Text = ""
         Dim dts As New ctiCatalogos
         Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, fecha.Text)
         dts = Nothing
@@ -197,11 +197,11 @@ Partial Class _HPartidasJornadas
         If TIDPJ.Text <> "" Then
             bandera = False
             btnActualizarr.Enabled = True
-            'btnGuardarNuevo.Enabled = False
+            btnGuardarNuevo.Enabled = False
         Else
             bandera = True
             btnActualizarr.Enabled = False
-            'btnGuardarNuevo.Enabled = True
+            btnGuardarNuevo.Enabled = True
         End If
         Lmsg.Text = ""
     End Sub
