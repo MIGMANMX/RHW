@@ -37,7 +37,6 @@ Partial Class _Default
 
         End If
     End Sub
-
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
             Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text
@@ -81,7 +80,6 @@ Partial Class _Default
             End If
         End If
     End Sub
-
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
@@ -104,7 +102,6 @@ Partial Class _Default
         End If
         Lmsg.Text = r(0)
     End Sub
-
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ap As New ctiCatalogos
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
@@ -123,12 +120,12 @@ Partial Class _Default
             GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
             gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
         Else
-            empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSucursal.idSucursal = 0
+            empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSucursal.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
+            nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
         End If
         gvp = Nothing
         Lmsg.Text = r
     End Sub
-
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiCatalogos
         GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
@@ -150,7 +147,6 @@ Partial Class _Default
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
         End If
     End Sub
-
     Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
         If FIngreso.Visible = True Then
             FIngreso.Visible = False
@@ -158,12 +154,10 @@ Partial Class _Default
             FIngreso.Visible = True
         End If
     End Sub
-
     Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
         fecha_ingreso.Text = FIngreso.SelectedDate.ToString("dd/MM/yyyy")
         FIngreso.Visible = False
     End Sub
-
     Protected Sub ImageButton3_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton3.Click
         If CFBaja.Visible = True Then
             CFBaja.Visible = False
@@ -171,7 +165,6 @@ Partial Class _Default
             CFBaja.Visible = True
         End If
     End Sub
-
     Protected Sub ImageButton2_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton2.Click
         If CFNacimiento.Visible = True Then
             CFNacimiento.Visible = False
@@ -179,15 +172,12 @@ Partial Class _Default
             CFNacimiento.Visible = True
         End If
     End Sub
-
     Protected Sub CFNacimiento_SelectionChanged(sender As Object, e As EventArgs) Handles CFNacimiento.SelectionChanged
         fecha_nacimiento.Text = CFNacimiento.SelectedDate.ToString("dd/MM/yyyy")
         CFNacimiento.Visible = False
     End Sub
-
     Protected Sub CFBaja_SelectionChanged(sender As Object, e As EventArgs) Handles CFBaja.SelectionChanged
         fecha_baja.Text = CFBaja.SelectedDate.ToString("dd/MM/yyyy")
         CFBaja.Visible = False
     End Sub
-
 End Class
