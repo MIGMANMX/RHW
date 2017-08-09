@@ -98,7 +98,7 @@ Partial Class _HPartidasJornadas
             wucEmpleados2.ddlAutoPostBack = True
             _schuleData = getSchedule()
         End If
-        bandera = True
+        'bandera = True
     End Sub
     Function loadSchedule() As Hashtable
         Dim schedule As New Hashtable
@@ -139,6 +139,8 @@ Partial Class _HPartidasJornadas
 
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
+        fecha.Text = ""
+        wucJornadas.idJornada = 0
         _schuleData = getSchedule()
         Dim gvds As New ctiCatalogos
         GridView1.DataSource = gvds.gvPartida_Jornada(wucEmpleados2.idEmpleado)
