@@ -2,6 +2,7 @@
 
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucPuestos.ascx" tagname="wucPuestos" tagprefix="uc2" %>
+<%@ Register src="cti/wucSuc.ascx" tagname="wucSuc" tagprefix="uc3" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -119,7 +120,7 @@
             <tr>
                 <td class="auto-style5">Activo:<asp:checkbox ID="activo" runat="server" /></td>
                 <td class="auto-style2">Sucursal:<br />
-                    <uc1:wucsucursales ID="wucSucursal" runat="server" /></td>
+                    <uc3:wucsuc ID="wucSuc" runat="server" /></td>
             </tr>
             <tr>
                 <td class="auto-style3">NSS:<br />
