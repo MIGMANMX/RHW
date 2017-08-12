@@ -186,7 +186,7 @@
             </tr>
             <tr>
                 <td class="auto-style5">Correo:<asp:TextBox ID="correo" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" /></td>
-                <td class="auto-style2">Fecha de Baja:<br />
+                <td class="auto-style2" id="baj" runat="server">Fecha de Baja:<br />
                     <asp:TextBox ID="fecha_baja" runat="server" CssClass="txtCaptura" MaxLength="40" Width="152px" />
 
                      &nbsp;<asp:ImageButton ID="ImageButton3" runat="server" Height="18px" ImageUrl="~/img/favicon.ico" Width="19px" />

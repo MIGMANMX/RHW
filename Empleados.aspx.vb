@@ -36,6 +36,7 @@ Partial Class _Default
             CFBaja.Visible = False
 
         End If
+        baj.Visible = False
         fecha_baja.Visible = False
         ImageButton3.Visible = False
         CFBaja.Visible = False
@@ -49,6 +50,7 @@ Partial Class _Default
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal
                 grdSR.Text = ""
             End If
+            baj.Visible = True
             fecha_baja.Visible = True
             ImageButton3.Visible = True
             CFBaja.Visible = True
@@ -92,9 +94,8 @@ Partial Class _Default
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
         End If
         Dim gp As New ctiCatalogos
-        Dim FB As String
 
-        Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text)
+        Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto)
         GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
         gp = Nothing
         GridView1.DataBind()
