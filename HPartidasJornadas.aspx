@@ -109,6 +109,17 @@
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
                  </td>     </tr>
+            <tr>
+            <td class="auto-style10"> <asp:Label ID="Label1" runat="server" Text="Selecciona una fecha para añadir a toda la semana"></asp:Label>
+            
+                                   
+            
+                 </td>
+                 <td class="auto-style6">
+            
+                    <asp:Button ID="btnFechaSemana" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Toda la semana"  ToolTip="Agregar toda la semana" Enabled="true" Width="130px" /> 
+                   
+                 </td>     </tr>
         </table></div>
             <div id="derecho" class="auto-style12">
                 <asp:Calendar ID="Calendar1" runat="server" Width="396px" CssClass="auto-style11" Height="176px">
@@ -117,7 +128,9 @@
             </asp:Calendar>
             
            
-            </div> <!-- listaDatos --> </div>
+            </div> <!-- listaDatos -->  
+                   
+    </div>
           <br />
           <table>
               <tr>

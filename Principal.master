@@ -103,6 +103,7 @@
                 <li><a href="<%=ResolveUrl("Empleados.aspx")%>"><i class="fa fa-male"></i> Empleados</a></li>
                 <li><a href="<%=ResolveUrl("Usuarios.aspx")%>"><i class="fa fa-users"></i> Usuarios</a></li>
                 <li><a href="<%=ResolveUrl("Puesto.aspx")%>"><i class="fa fa-plus-square-o"></i> Puestos</a></li>
+                <li id="direc" runat="server"><a href="<%=ResolveUrl("Directorio.aspx")%>"><i class="fa fa-plus-square-o"></i> Directorio</a></li>
                  
               </ul>
             </li>

@@ -65,8 +65,6 @@ Partial Class _Default
                 wucSuc.idSucursal = CInt(datos(1))
                 WucPuestos.idPuesto = datos(2)
                 activo.Checked = datos(3)
-
-
                 nss.Text = datos(4)
                 fecha_ingreso.Text = datos(5)
                 rfc.Text = datos(6)

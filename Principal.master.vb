@@ -12,10 +12,11 @@ Partial Class Principal
         If IsNothing(Session("idusuario")) Then
             Response.Redirect("Login.aspx", True)
         End If
-
+        direc.Visible = False
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         If datos(0) = 2 Then
+            direc.Visible = True
             catalogo.Visible = False
             nomina.Visible = False
             acc.Visible = False
