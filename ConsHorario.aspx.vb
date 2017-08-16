@@ -99,6 +99,7 @@ Partial Class _ConsHorario
             Dim lbl As New Label
             Dim str As String = _schuleData(e.Day.Date.ToShortDateString)
             lbl.Text += str
+            lbl.Font.Bold = True
             lbl.Font.Size = New FontUnit(FontSize.Smaller)
             lbl.ForeColor = Drawing.Color.Black
             e.Cell.Controls.Add(lbl)

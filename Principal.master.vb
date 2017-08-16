@@ -22,6 +22,7 @@ Partial Class Principal
             jor.Visible = False
             rep.Visible = False
             che.Visible = False
+            repo.Visible = False
         End If
     End Sub
 End Class

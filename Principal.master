@@ -132,7 +132,16 @@
                 <li><a href="<%=ResolveUrl("index.aspx")%>"><i class="fa fa-bar-chart"></i> Generar</a></li>
               </ul>
             </li>
-                       
+              <li class="treeview" id="repo" runat="server">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i> <span>Reportes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<%=ResolveUrl("RepEmpleadosSucursal.aspx")%>"><i class="fa fa-building"></i>Empleados por sucursal</a></li>
+                
+              </ul>
+            </li>          
             <li class="treeview" id="acc" runat="server">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Acceso</span>

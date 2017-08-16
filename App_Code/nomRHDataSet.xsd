@@ -2,7 +2,7 @@
 <xs:schema id="nomRHDataSet" targetNamespace="http://tempuri.org/nomRHDataSet.xsd" xmlns:mstns="http://tempuri.org/nomRHDataSet.xsd" xmlns="http://tempuri.org/nomRHDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="StarTconnStrRH" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="StarTconnStrRH (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.StarTconnStrRH.ConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
@@ -33,6 +33,39 @@ WHERE        (sucursal = @sucursal) AND (fecha BETWEEN @Fech1 AND @Fech2)</Comma
               <Mapping SourceColumn="idjornada" DataSetColumn="idjornada" />
               <Mapping SourceColumn="inicio" DataSetColumn="inicio" />
               <Mapping SourceColumn="fin" DataSetColumn="fin" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="RepEmSucTableAdapter" GeneratorDataComponentClassName="RepEmSucTableAdapter" Name="RepEmSuc" UserDataComponentName="RepEmSucTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StarTconnStrRH (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="FillRepEmSuc" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataEmSuc" GeneratorSourceName="FillRepEmSuc" GetMethodModifier="Public" GetMethodName="GetDataEmSuc" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataEmSuc" UserSourceName="FillRepEmSuc">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        dbo.dbo.Empleados.empleado, dbo.dbo.Empleados.puesto, dbo.dbo.Sucursales.sucursal, dbo.dbo.Empleados.nss, dbo.dbo.Empleados.fecha_ingreso, 
+                         dbo.dbo.Empleados.rfc, dbo.dbo.Empleados.fecha_nacimiento, dbo.dbo.Empleados.calle, dbo.dbo.Empleados.numero, dbo.dbo.Empleados.colonia, 
+                         dbo.dbo.Empleados.cp, dbo.dbo.Empleados.telefono, dbo.dbo.Empleados.correo
+FROM            dbo.dbo.Empleados INNER JOIN
+                         dbo.dbo.Sucursales ON dbo.dbo.Empleados.idsucursal = dbo.dbo.Sucursales.idsucursal
+WHERE        (dbo.dbo.Empleados.activo = 1)</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="empleado" DataSetColumn="empleado" />
+              <Mapping SourceColumn="puesto" DataSetColumn="puesto" />
+              <Mapping SourceColumn="sucursal" DataSetColumn="sucursal" />
+              <Mapping SourceColumn="nss" DataSetColumn="nss" />
+              <Mapping SourceColumn="fecha_ingreso" DataSetColumn="fecha_ingreso" />
+              <Mapping SourceColumn="rfc" DataSetColumn="rfc" />
+              <Mapping SourceColumn="fecha_nacimiento" DataSetColumn="fecha_nacimiento" />
+              <Mapping SourceColumn="calle" DataSetColumn="calle" />
+              <Mapping SourceColumn="numero" DataSetColumn="numero" />
+              <Mapping SourceColumn="colonia" DataSetColumn="colonia" />
+              <Mapping SourceColumn="cp" DataSetColumn="cp" />
+              <Mapping SourceColumn="telefono" DataSetColumn="telefono" />
+              <Mapping SourceColumn="correo" DataSetColumn="correo" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -73,6 +106,85 @@ WHERE        (sucursal = @sucursal) AND (fecha BETWEEN @Fech1 AND @Fech2)</Comma
               <xs:element name="idjornada" msprop:Generator_ColumnVarNameInTable="columnidjornada" msprop:Generator_ColumnPropNameInRow="idjornada" msprop:Generator_ColumnPropNameInTable="idjornadaColumn" msprop:Generator_UserColumnName="idjornada" type="xs:int" minOccurs="0" />
               <xs:element name="inicio" msprop:Generator_ColumnVarNameInTable="columninicio" msprop:Generator_ColumnPropNameInRow="inicio" msprop:Generator_ColumnPropNameInTable="inicioColumn" msprop:Generator_UserColumnName="inicio" type="xs:duration" minOccurs="0" />
               <xs:element name="fin" msprop:Generator_ColumnVarNameInTable="columnfin" msprop:Generator_ColumnPropNameInRow="fin" msprop:Generator_ColumnPropNameInTable="finColumn" msprop:Generator_UserColumnName="fin" type="xs:duration" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RepEmSuc" msprop:Generator_TableClassName="RepEmSucDataTable" msprop:Generator_TableVarName="tableRepEmSuc" msprop:Generator_RowChangedName="RepEmSucRowChanged" msprop:Generator_TablePropName="RepEmSuc" msprop:Generator_RowDeletingName="RepEmSucRowDeleting" msprop:Generator_RowChangingName="RepEmSucRowChanging" msprop:Generator_RowEvHandlerName="RepEmSucRowChangeEventHandler" msprop:Generator_RowDeletedName="RepEmSucRowDeleted" msprop:Generator_RowClassName="RepEmSucRow" msprop:Generator_UserTableName="RepEmSuc" msprop:Generator_RowEvArgName="RepEmSucRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="empleado" msprop:Generator_ColumnVarNameInTable="columnempleado" msprop:Generator_ColumnPropNameInRow="empleado" msprop:Generator_ColumnPropNameInTable="empleadoColumn" msprop:Generator_UserColumnName="empleado" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="puesto" msprop:Generator_ColumnVarNameInTable="columnpuesto" msprop:Generator_ColumnPropNameInRow="puesto" msprop:Generator_ColumnPropNameInTable="puestoColumn" msprop:Generator_UserColumnName="puesto" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="sucursal" msprop:Generator_ColumnVarNameInTable="columnsucursal" msprop:Generator_ColumnPropNameInRow="sucursal" msprop:Generator_ColumnPropNameInTable="sucursalColumn" msprop:Generator_UserColumnName="sucursal" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nss" msprop:Generator_ColumnVarNameInTable="columnnss" msprop:Generator_ColumnPropNameInRow="nss" msprop:Generator_ColumnPropNameInTable="nssColumn" msprop:Generator_UserColumnName="nss" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="fecha_ingreso" msprop:Generator_ColumnVarNameInTable="columnfecha_ingreso" msprop:Generator_ColumnPropNameInRow="fecha_ingreso" msprop:Generator_ColumnPropNameInTable="fecha_ingresoColumn" msprop:Generator_UserColumnName="fecha_ingreso" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="rfc" msprop:Generator_ColumnVarNameInTable="columnrfc" msprop:Generator_ColumnPropNameInRow="rfc" msprop:Generator_ColumnPropNameInTable="rfcColumn" msprop:Generator_UserColumnName="rfc" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="fecha_nacimiento" msprop:Generator_ColumnVarNameInTable="columnfecha_nacimiento" msprop:Generator_ColumnPropNameInRow="fecha_nacimiento" msprop:Generator_ColumnPropNameInTable="fecha_nacimientoColumn" msprop:Generator_UserColumnName="fecha_nacimiento" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="calle" msprop:Generator_ColumnVarNameInTable="columncalle" msprop:Generator_ColumnPropNameInRow="calle" msprop:Generator_ColumnPropNameInTable="calleColumn" msprop:Generator_UserColumnName="calle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="numero" msprop:Generator_ColumnVarNameInTable="columnnumero" msprop:Generator_ColumnPropNameInRow="numero" msprop:Generator_ColumnPropNameInTable="numeroColumn" msprop:Generator_UserColumnName="numero" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="colonia" msprop:Generator_ColumnVarNameInTable="columncolonia" msprop:Generator_ColumnPropNameInRow="colonia" msprop:Generator_ColumnPropNameInTable="coloniaColumn" msprop:Generator_UserColumnName="colonia" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cp" msprop:Generator_ColumnVarNameInTable="columncp" msprop:Generator_ColumnPropNameInRow="cp" msprop:Generator_ColumnPropNameInTable="cpColumn" msprop:Generator_UserColumnName="cp" type="xs:int" minOccurs="0" />
+              <xs:element name="telefono" msprop:Generator_ColumnVarNameInTable="columntelefono" msprop:Generator_ColumnPropNameInRow="telefono" msprop:Generator_ColumnPropNameInTable="telefonoColumn" msprop:Generator_UserColumnName="telefono" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="12" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="correo" msprop:Generator_ColumnVarNameInTable="columncorreo" msprop:Generator_ColumnPropNameInRow="correo" msprop:Generator_ColumnPropNameInTable="correoColumn" msprop:Generator_UserColumnName="correo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
