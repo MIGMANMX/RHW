@@ -18,6 +18,8 @@ Partial Class Principal
         If datos(0) = 2 Then
             direc.Visible = True
             catalogo.Visible = False
+            catalogo2.Visible = False
+            catalogo1.Visible = False
             nomina.Visible = False
             acc.Visible = False
             jor.Visible = False
