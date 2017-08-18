@@ -1,6 +1,6 @@
 ﻿Imports RHLogica
 
-Partial Class _Default
+Partial Class _Empleados
     Inherits System.Web.UI.Page
     Public gvPos As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load

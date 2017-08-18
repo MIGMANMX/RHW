@@ -1,6 +1,6 @@
 ﻿Imports RHLogica
 
-Partial Class _Default
+Partial Class _Jornada
     Inherits System.Web.UI.Page
     Public gvPos As Integer
 

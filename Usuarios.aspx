@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="Usuarios.aspx.vb" Inherits="_Default" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="Usuarios.aspx.vb" Inherits="_Usuarios" %>
 
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados.ascx" tagname="wucEmpleados" tagprefix="uc2" %>

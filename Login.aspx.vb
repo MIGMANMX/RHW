@@ -20,7 +20,7 @@ Partial Class Login
                 Session("nivel") = ingreso.Split(",")(2)
                 Session("idsucursal") = ingreso.Split(",")(3)
                 Session("sucursal") = ingreso.Split(",")(4)
-                Response.Redirect("index.aspx")
+                Response.Redirect("Default.aspx")
             Else
                 eValidar.Text = "No existe este usuario o la clave es incorrecta."
             End If

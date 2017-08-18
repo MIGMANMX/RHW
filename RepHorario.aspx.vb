@@ -25,14 +25,14 @@ Partial Class _RepHorario
         If wucSucursales.idSucursal <> 0 Then
             If TFInicio.Text <> "" And TFFinal0.Text <> "" Then
                 Dim dt1 As Date
-                dt1 = TFInicio.Text
+                dt1 = (TFInicio.Text)
                 Dim dt2 As Date
-                dt2 = TFFinal0.Text
+                dt2 = (TFFinal0.Text)
 
-                Dim p As New ReportParameter("Fech1", dt1.ToString("dd/MM/yy"))
+                Dim p As New ReportParameter("Fech1", dt1)
                 ReportViewer1.LocalReport.SetParameters(p)
 
-                p = New ReportParameter("Fech2", dt2.ToString("dd/MM/yy"))
+                p = New ReportParameter("Fech2", dt2)
                 ReportViewer1.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("sucursal", wucSucursales.sucursal)

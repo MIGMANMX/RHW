@@ -15,6 +15,9 @@ Partial Class Principal
         direc.Visible = False
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
+        If datos(0) >= 3 Then
+            Response.Redirect("Login.aspx", True)
+        End If
         If datos(0) = 2 Then
             direc.Visible = True
             catalogo.Visible = False
@@ -26,6 +29,8 @@ Partial Class Principal
             rep.Visible = False
             che.Visible = False
             repo.Visible = False
+            incide.Visible = False
+
         End If
     End Sub
 End Class
