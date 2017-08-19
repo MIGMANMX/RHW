@@ -12,7 +12,7 @@ Partial Class _ConsHorario
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         Dim gvds As New ctiWUC
 
-        If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
+        If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
             Session("menu") = "C"
             wucSucursales.ddlAutoPostBack = True

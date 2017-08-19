@@ -16,7 +16,7 @@ Partial Class _HPartidasJornadas
         Dim gvds As New ctiWUC
         FechaC.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
 
-        If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
+        If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
             Session("menu") = "C"
             btnEditar.Enabled = False
@@ -183,7 +183,7 @@ Partial Class _HPartidasJornadas
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
         TIDPJ.Text = ""
         Dim dts As New ctiCatalogos
-        Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, fecha.Text)
+        Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, FechaC.SelectedDate.ToString("MM/dd/yyyy"))
         dts = Nothing
         If da(0).StartsWith("Error") Then
             Lmsg.CssClass = "error"

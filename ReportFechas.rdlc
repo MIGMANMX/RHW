@@ -411,6 +411,21 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
+        <Image Name="Image1">
+          <Source>Embedded</Source>
+          <Value>CarlsJrlogo2017</Value>
+          <Sizing>FitProportional</Sizing>
+          <Top>0.62245cm</Top>
+          <Left>0.4012cm</Left>
+          <Height>3.33458cm</Height>
+          <Width>7.45312cm</Width>
+          <ZIndex>6</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
         <Textbox Name="Fech1">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
@@ -419,10 +434,7 @@
               <TextRuns>
                 <TextRun>
                   <Value>=Parameters!Fech1.Value</Value>
-                  <Style>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>dd/MM/yyyy</Format>
-                  </Style>
+                  <Style />
                 </TextRun>
               </TextRuns>
               <Style />
@@ -430,10 +442,10 @@
           </Paragraphs>
           <rd:DefaultName>Fech1</rd:DefaultName>
           <Top>3.35703cm</Top>
-          <Left>11.32099cm</Left>
+          <Left>10.88411cm</Left>
           <Height>0.6cm</Height>
-          <Width>2.26598cm</Width>
-          <ZIndex>6</ZIndex>
+          <Width>2.5cm</Width>
+          <ZIndex>7</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -452,10 +464,7 @@
               <TextRuns>
                 <TextRun>
                   <Value>=Parameters!Fech2.Value</Value>
-                  <Style>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>dd/MM/yyyy</Format>
-                  </Style>
+                  <Style />
                 </TextRun>
               </TextRuns>
               <Style />
@@ -463,10 +472,10 @@
           </Paragraphs>
           <rd:DefaultName>Fech2</rd:DefaultName>
           <Top>3.35703cm</Top>
-          <Left>14.50828cm</Left>
+          <Left>14.5971cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
-          <ZIndex>7</ZIndex>
+          <ZIndex>8</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -477,21 +486,6 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Image Name="Image1">
-          <Source>Embedded</Source>
-          <Value>CarlsJrlogo2017</Value>
-          <Sizing>FitProportional</Sizing>
-          <Top>0.62245cm</Top>
-          <Left>0.4012cm</Left>
-          <Height>3.33458cm</Height>
-          <Width>7.45312cm</Width>
-          <ZIndex>8</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </Image>
       </ReportItems>
       <Style>
         <Border>

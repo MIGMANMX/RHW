@@ -70,17 +70,7 @@
                 <asp:BoundField DataField="empleado" HeaderText="Empleado" SortExpression="empleado" />
                 <asp:BoundField DataField="puesto" HeaderText="Puesto" SortExpression="puesto" />
                 
-                <%-- <asp:BoundField DataField="nss" HeaderText="Nss" SortExpression="nss" />
-                <asp:BoundField DataField="fecha_ingreso" HeaderText="fecha_ingreso" SortExpression="fecha_ingreso" />
-                 <asp:BoundField DataField="rfc" HeaderText="rfc" SortExpression="rfc" />--%>
-              <%--   <asp:BoundField DataField="fecha_nacimiento" HeaderText="fecha_nacimiento" SortExpression="fecha_nacimiento" />
-                 <asp:BoundField DataField="calle" HeaderText="calle" SortExpression="calle" />
-                 <asp:BoundField DataField="numero" HeaderText="numero" SortExpression="numero" />
-                <asp:BoundField DataField="colonia" HeaderText="colonia" SortExpression="colonia" />
-                <asp:BoundField DataField="cp" HeaderText="cp" SortExpression="cp" />
-                <asp:BoundField DataField="telefono" HeaderText="telefono" SortExpression="telefono" />
-                <asp:BoundField DataField="correo" HeaderText="correo" SortExpression="correo" />
-                 <asp:BoundField DataField="fecha_baja" HeaderText="fecha_baja" SortExpression="fecha_baja" />--%>
+             
 
                 <asp:CheckBoxField DataField="activo" HeaderText="Activo" />
                 <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png"></asp:ButtonField> 

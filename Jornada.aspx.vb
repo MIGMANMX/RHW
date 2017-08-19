@@ -5,7 +5,7 @@ Partial Class _Jornada
     Public gvPos As Integer
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
+        If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         Session("menu") = "C"
         Lmsg.Text = "" : gvPos = 0
         If Not Page.IsPostBack Then

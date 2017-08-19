@@ -32,7 +32,7 @@
       <header class="main-header">
 
         <!-- Logo -->
-        <a href= "<%=ResolveUrl("Default.aspx")%>" class="logo">
+        <a href= "<%=ResolveUrl("Personal.aspx")%>" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>RH</b>S</span>
           <!-- logo for regular state and mobile devices -->
@@ -120,7 +120,7 @@
                <li><a href="<%=ResolveUrl("ConsHorario.aspx")%>"><i class="fa fa-calendar-plus-o"></i> Horarios</a></li>
                <li><a href="<%=ResolveUrl("HPartidasJornadas.aspx")%>"><i class="fa fa-calendar-times-o"></i> Asignar Horario</a></li>
                <li id="rep" runat="server"><a href="<%=ResolveUrl("RepHorario.aspx")%>"><i class="fa fa-file-text-o"></i> Reporte Semanal</a></li>
-               <li id="che" runat="server"><a href="<%=ResolveUrl("Default.aspx")%>"><i class="fa fa-hand-o-up"></i> Chequeos</a></li>
+               <li id="che" runat="server"><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-hand-o-up"></i> Chequeos</a></li>
               </ul>
             </li>
             <li class="treeview" id="nomina" runat="server">
@@ -130,8 +130,8 @@
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<%=ResolveUrl("Default.aspx")%>"><i class="fa fa-credit-card"></i> Pagos</a></li>
-                <li><a href="<%=ResolveUrl("Default.aspx")%>"><i class="fa fa-bar-chart"></i> Generar</a></li>
+                <li><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-credit-card"></i> Pagos</a></li>
+                <li><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-bar-chart"></i> Generar</a></li>
               </ul>
             </li>
               <li class="treeview" id="repo" runat="server">
@@ -150,7 +150,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<%=ResolveUrl("Default.aspx")%>"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                <li><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-circle-o"></i> Usuarios</a></li>
                 
               </ul>
             </li>

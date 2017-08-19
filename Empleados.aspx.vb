@@ -4,7 +4,7 @@ Partial Class _Empleados
     Inherits System.Web.UI.Page
     Public gvPos As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        If IsNothing(Session("usuario")) Then Response.Redirect("Login.aspx", True)
+        If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
             Session("menu") = "C"
             wucSucursales.ddlAutoPostBack = True
@@ -93,7 +93,7 @@ Partial Class _Empleados
         End If
         Dim gp As New ctiCatalogos
 
-        Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto)
+        Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, Convert.ToDateTime(fecha_ingreso.Text), rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto)
         GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
         gp = Nothing
         GridView1.DataBind()
