@@ -40,6 +40,16 @@ Partial Class _Empleados
         fecha_baja.Visible = False
         ImageButton3.Visible = False
         CFBaja.Visible = False
+
+        Dim dsP As New ctiCatalogos
+        Dim datos() As String = dsP.clave_att
+        Dim clave As Integer = 0
+        clave = Convert.ToInt32(datos(0))
+        clave = clave + 1
+        claveTX.Text = clave
+
+
+
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
@@ -77,6 +87,7 @@ Partial Class _Empleados
                 correo.Text = datos(13)
                 fecha_baja.Text = datos(14)
                 claveTX.Text = datos(16)
+                claveTX.Enabled = True
 
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
