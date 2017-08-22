@@ -59,6 +59,8 @@ Partial Class _Jornada
                 inicio.Text = datos(2)
                 fin.Text = datos(3)
                 color.Text = datos(4)
+                IDatt.Text = datos(5)
+
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI
@@ -73,7 +75,7 @@ Partial Class _Jornada
         Dim ap As New ctiCalendario
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
 
-        Dim r As String = ap.actualizarJornada(idA, jornada.Text, inicio.Text, fin.Text, color.Text)
+        Dim r As String = ap.actualizarJornada(idA, jornada.Text, inicio.Text, fin.Text, color.Text, IDatt.Text)
 
         GridView1.DataSource = ap.gvJornada
         ap = Nothing
@@ -86,6 +88,8 @@ Partial Class _Jornada
             inicio.Text = ""
             fin.Text = ""
             color.Text = ""
+            IDatt.Text = ""
+
         End If
         Dim gvp As New clsCTI
         grdSR.Text = gvp.seleccionarGridRow(GridView1, idA)
@@ -101,7 +105,7 @@ Partial Class _Jornada
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
         End If
         Dim gc As New ctiCalendario
-        Dim j() As String = gc.agregarJornada(jornada.Text, inicio.Text, fin.Text, color.Text)
+        Dim j() As String = gc.agregarJornada(jornada.Text, inicio.Text, fin.Text, color.Text, IDatt.Text)
         GridView1.DataSource = gc.gvJornada
         gc = Nothing
         GridView1.DataBind()
@@ -118,6 +122,8 @@ Partial Class _Jornada
             inicio.Text = ""
             fin.Text = ""
             color.Text = ""
+            IDatt.Text = ""
+
         End If
         Lmsg.Text = j(0)
     End Sub

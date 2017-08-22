@@ -69,10 +69,8 @@
                 <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png"></asp:ButtonField>
                 <asp:BoundField DataField="empleado" HeaderText="Empleado" SortExpression="empleado" />
                 <asp:BoundField DataField="puesto" HeaderText="Puesto" SortExpression="puesto" />
-                
-             
-
                 <asp:CheckBoxField DataField="activo" HeaderText="Activo" />
+                <asp:BoundField DataField="clave_att" HeaderText="Clave" SortExpression="clave_att" />
                 <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png"></asp:ButtonField> 
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
@@ -108,7 +106,9 @@
                     <uc2:wucpuestos ID="WucPuestos" runat="server" /></td>        
             </tr>
             <tr>
-                <td class="auto-style5">Activo:<asp:checkbox ID="activo" runat="server" /></td>
+                <td class="auto-style5">Activo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clave:<br />
+                    <asp:checkbox ID="activo" runat="server" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                    <asp:TextBox ID="claveTX" runat="server" CssClass="txtCaptura" MaxLength="40" Width="99px" style="margin-left: 0" /></td>
                 <td class="auto-style2">Sucursal:<br />
                     <uc3:wucsuc ID="wucSuc" runat="server" /></td>
             </tr>

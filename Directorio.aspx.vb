@@ -36,10 +36,10 @@ Partial Class _Directorio
     End Sub
 
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
-        If idempleado.Text <> "" And empleado.Text <> "" And idsucursal.Text <> "" And calle.Text <> "" And numero.Text <> "" And colonia.Text <> "" And cp.Text <> "" And telefono.Text <> "" And correo.Text <> "" Then
+        If idempleado.Text <> "" And empleado.Text <> "" And idsucursal.Text <> "" And calle.Text <> "" And numero.Text <> "" And colonia.Text <> "" And cp.Text <> "" And telefono.Text <> "" And correo.Text <> "" And claveTX.Text <> "" Then
             Dim ap As New ctiCatalogos
 
-            Dim r As String = ap.actualizarDirectorio(Convert.ToInt32(idempleado.Text), empleado.Text, idsucursal.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text)
+            Dim r As String = ap.actualizarDirectorio(Convert.ToInt32(idempleado.Text), empleado.Text, idsucursal.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, claveTX.Text)
 
             ap = Nothing
 
@@ -83,6 +83,7 @@ Partial Class _Directorio
             telefono.Text = datos(12)
             correo.Text = datos(13)
             idempleado.Text = datos(15)
+            claveTX.Text = datos(16)
         End If
     End Sub
 

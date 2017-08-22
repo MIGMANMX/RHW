@@ -27,6 +27,7 @@
                 <asp:BoundField DataField="inicio" HeaderText="Inicio"  />
                 <asp:BoundField DataField="fin" HeaderText="Fin"  />
                 <asp:BoundField DataField="color" HeaderText="Color"  />
+                <%--<asp:BoundField DataField="id_att" HeaderText="IDatt"  />--%>
                 <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
             </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
@@ -37,6 +38,8 @@
             <PagerStyle BackColor="#3088b0" ForeColor="#333333" HorizontalAlign="Center" />
         </asp:GridView>
         <asp:TextBox ID="grdSR" runat="server" Visible="false"></asp:TextBox>
+        <br />
+        <br />
     </div> <!-- listaDatos -->
     <div id="registroDatos">
         <table>
@@ -48,25 +51,32 @@
                     </h4>
                 </td>
                 <td>
-                    <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="90px" />               
+                    <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="106px" />               
+                &nbsp;
+                    <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Agregar" ToolTip="Agregar" Width="108px" />
                 </td>
                
                 <td>
-                    <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Agregar" ToolTip="Agregar" Width="108px" />
-                </td>
+                    &nbsp;</td>
             </tr>
             <tr><td colspan="2"><asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label></td></tr>
             <tr>
                 <td class="auto-style1" style="width: 169px">Jornada:<br />
                     <asp:TextBox ID="jornada" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" />&nbsp;</td>
-                <td class="auto-style1">Color:<br />
+                <td class="auto-style1" style="margin-left: 40px">Color:<br />
                     <asp:TextBox ID="color" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
+                <td class="auto-style1" style="margin-left: 40px">IDatt:<br />
+                    <asp:TextBox ID="IDatt" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
             </tr>
             <tr>
                 <td class="auto-style1" style="width: 169px">Hora de Inicio:<br />
                     <asp:TextBox ID="inicio" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" />&nbsp;</td>
                 <td class="auto-style1">Hora de Fin:<br />
                     <asp:TextBox ID="fin" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
+            </tr>
+            <tr>
+                <td class="auto-style1" style="width: 169px">&nbsp;</td>
+                <td class="auto-style1">&nbsp;</td>
             </tr>
             </table>
     </div> <!-- registroDatos -->

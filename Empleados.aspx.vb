@@ -76,6 +76,7 @@ Partial Class _Empleados
                 telefono.Text = datos(12)
                 correo.Text = datos(13)
                 fecha_baja.Text = datos(14)
+                claveTX.Text = datos(16)
 
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
@@ -93,7 +94,7 @@ Partial Class _Empleados
         End If
         Dim gp As New ctiCatalogos
 
-        Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, Convert.ToDateTime(fecha_ingreso.Text), rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto)
+        Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, Convert.ToDateTime(fecha_ingreso.Text), rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto, claveTX.Text)
         GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
         gp = Nothing
         GridView1.DataBind()
@@ -112,7 +113,7 @@ Partial Class _Empleados
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ap As New ctiCatalogos
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, fecha_baja.Text)
+        Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, fecha_baja.Text, claveTX.Text)
         GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
         ap = Nothing
         GridView1.DataBind()
@@ -128,7 +129,7 @@ Partial Class _Empleados
             gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
         Else
             empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
-            nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
+            nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = "" : claveTX.Text = ""
         End If
         gvp = Nothing
         Lmsg.Text = r

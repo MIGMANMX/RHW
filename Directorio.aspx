@@ -57,7 +57,8 @@
             <tr>
                 <td class="auto-style5">Empleado:<br />
                     <asp:TextBox ID="empleado" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" Enabled="False" /></td>
-                <td class="auto-style2">&nbsp;</td>        
+                <td class="auto-style2">Clave:<br />
+                    <asp:TextBox ID="claveTX" runat="server" CssClass="txtCaptura" MaxLength="40" Width="155px" style="margin-left: 0" Height="24px" /></td>        
             </tr>
              <tr>
                 <td class="auto-style5">Calle:<br />

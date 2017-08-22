@@ -12,7 +12,7 @@
               <DbSource ConnectionRef="StarTconnStrRH (Web.config)" DbObjectName="nomRH.dbo.vm_ReporteHorario" DbObjectType="View" FillMethodModifier="Public" FillMethodName="FillRepSema" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataRepSema" GeneratorSourceName="FillRepSema" GetMethodModifier="Public" GetMethodName="GetDataRepSema" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataRepSema" UserSourceName="FillRepSema">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        idempleado, empleado, puesto, sucursal, fecha, idjornada, inicio, fin
+                    <CommandText>SELECT        idempleado, empleado, puesto, sucursal, fecha, idjornada, inicio, fin, clave_att
 FROM            vm_ReporteHorario
 WHERE        (sucursal = @sucursal) AND (fecha BETWEEN @Fech1 AND @Fech2)</CommandText>
                     <Parameters>
@@ -33,6 +33,7 @@ WHERE        (sucursal = @sucursal) AND (fecha BETWEEN @Fech1 AND @Fech2)</Comma
               <Mapping SourceColumn="idjornada" DataSetColumn="idjornada" />
               <Mapping SourceColumn="inicio" DataSetColumn="inicio" />
               <Mapping SourceColumn="fin" DataSetColumn="fin" />
+              <Mapping SourceColumn="clave_att" DataSetColumn="clave_att" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -106,6 +107,13 @@ WHERE        (dbo.dbo.Empleados.activo = 1)</CommandText>
               <xs:element name="idjornada" msprop:Generator_ColumnVarNameInTable="columnidjornada" msprop:Generator_ColumnPropNameInRow="idjornada" msprop:Generator_ColumnPropNameInTable="idjornadaColumn" msprop:Generator_UserColumnName="idjornada" type="xs:int" minOccurs="0" />
               <xs:element name="inicio" msprop:Generator_ColumnVarNameInTable="columninicio" msprop:Generator_ColumnPropNameInRow="inicio" msprop:Generator_ColumnPropNameInTable="inicioColumn" msprop:Generator_UserColumnName="inicio" type="xs:duration" minOccurs="0" />
               <xs:element name="fin" msprop:Generator_ColumnVarNameInTable="columnfin" msprop:Generator_ColumnPropNameInRow="fin" msprop:Generator_ColumnPropNameInTable="finColumn" msprop:Generator_UserColumnName="fin" type="xs:duration" minOccurs="0" />
+              <xs:element name="clave_att" msprop:Generator_ColumnVarNameInTable="columnclave_att" msprop:Generator_ColumnPropNameInRow="clave_att" msprop:Generator_ColumnPropNameInTable="clave_attColumn" msprop:Generator_UserColumnName="clave_att" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="6" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
