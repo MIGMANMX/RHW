@@ -6,8 +6,8 @@ Partial Class _RegistroIncidencias
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        'btnActualizarr.Enabled = False
-
+        btnActualizarr.Enabled = False
+        btnGuardarNuevo.Enabled = True
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         Dim gvds As New ctiWUC
@@ -59,7 +59,6 @@ Partial Class _RegistroIncidencias
             wucEmpleados2.ddlAutoPostBack = True
 
         End If
-        'bandera = True
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
@@ -104,7 +103,7 @@ Partial Class _RegistroIncidencias
 
             End If
             Dim gc As New ctiCatalogos
-            Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text)
+            Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, FechaC.SelectedDate.ToString, TxObservaciones.Text)
             GridView1.DataSource = gc.gvAsigIncidencias(wucEmpleados2.idEmpleado)
             gc = Nothing
             GridView1.DataBind()
@@ -146,6 +145,8 @@ Partial Class _RegistroIncidencias
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
                 gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
             Else
+            btnActualizarr.Enabled = False
+            btnGuardarNuevo.Enabled = True
             fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
         End If
             gvp = Nothing
@@ -180,9 +181,10 @@ Partial Class _RegistroIncidencias
                 gvp = Nothing
 
             End If
-
-            'btnActualizarr.Enabled = True
+            btnGuardarNuevo.Enabled = False
+            btnActualizarr.Enabled = True
             Lmsg.Text = ""
         End If
     End Sub
+
 End Class
