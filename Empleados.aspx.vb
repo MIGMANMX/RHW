@@ -99,51 +99,65 @@ Partial Class _Empleados
         End If
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        If IsNumeric(grdSR.Text) Then
-            grdSR.Text = ""
-            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
-        End If
-        Dim gp As New ctiCatalogos
-
-        Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, Convert.ToDateTime(fecha_ingreso.Text), rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto, claveTX.Text)
-        GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
-        gp = Nothing
-        GridView1.DataBind()
-        If r(0).StartsWith("Error") Then
-            Lmsg.CssClass = "error"
+        If empleado.Text = "" Or nss.Text = "" Or fecha_ingreso.Text = "" Or rfc.Text = "" Or fecha_nacimiento.Text = "" Or calle.Text = "" Or numero.Text = "" Or colonia.Text = "" Or cp.Text = "" Or telefono.Text = "" Or correo.Text = "" Or fecha_baja.Text = "" Or claveTX.Text = "" Then
+            Lmsg.Text = "Falta capturar un dato"
+            'fecha_baja.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_ingreso.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_nacimiento.Text = DateTime.Now.ToString("dd/MM/yyyy")
+            'nss.Text = " " : rfc.Text = " " : calle.Text = " " : colonia.Text = " " : numero.Text = " " : cp.Text = 0 : telefono.Text = " " : correo.Text = "" : claveTX.Text = ""
         Else
-            Lmsg.CssClass = "correcto"
-            Dim sgr As New clsCTI
-            grdSR.Text = sgr.seleccionarGridRow(GridView1, CInt(r(1))).ToString
-            gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
-            sgr = Nothing
-            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+
+            If IsNumeric(grdSR.Text) Then
+                grdSR.Text = ""
+                btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
+            End If
+            Dim gp As New ctiCatalogos
+
+            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, Convert.ToDateTime(fecha_ingreso.Text), rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto, claveTX.Text)
+            GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
+            gp = Nothing
+            GridView1.DataBind()
+            If r(0).StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+            Else
+                Lmsg.CssClass = "correcto"
+                Dim sgr As New clsCTI
+                grdSR.Text = sgr.seleccionarGridRow(GridView1, CInt(r(1))).ToString
+                gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+                sgr = Nothing
+                btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+            End If
+            Lmsg.Text = r(0)
         End If
-        Lmsg.Text = r(0)
     End Sub
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
-        Dim ap As New ctiCatalogos
-        Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, fecha_baja.Text, claveTX.Text)
-        GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
-        ap = Nothing
-        GridView1.DataBind()
-        If r.StartsWith("Error") Then
-            Lmsg.CssClass = "error"
+        If empleado.Text = "" Or nss.Text = "" Or fecha_ingreso.Text = "" Or rfc.Text = "" Or fecha_nacimiento.Text = "" Or calle.Text = "" Or numero.Text = "" Or colonia.Text = "" Or cp.Text = "" Or telefono.Text = "" Or correo.Text = "" Or fecha_baja.Text = "" Or claveTX.Text = "" Then
+            Lmsg.Text = "Falta capturar un dato"
+            'fecha_baja.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_ingreso.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_nacimiento.Text = DateTime.Now.ToString("dd/MM/yyyy")
+            'nss.Text = " " : rfc.Text = " " : calle.Text = " " : colonia.Text = " " : numero.Text = " " : cp.Text = 0 : telefono.Text = " " : correo.Text = "" : claveTX.Text = ""
         Else
-            Lmsg.CssClass = "correcto"
+            Dim ap As New ctiCatalogos
+            Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
+            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, fecha_baja.Text, claveTX.Text)
+            GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
+            ap = Nothing
+            GridView1.DataBind()
+            If r.StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+            Else
+                Lmsg.CssClass = "correcto"
+            End If
+            Dim gvp As New clsCTI
+            grdSR.Text = gvp.seleccionarGridRow(GridView1, idA)
+            If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+                GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+                gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+            Else
+                empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
+                nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = "" : claveTX.Text = ""
+            End If
+            gvp = Nothing
+            Lmsg.Text = r
         End If
-        Dim gvp As New clsCTI
-        grdSR.Text = gvp.seleccionarGridRow(GridView1, idA)
-        If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
-            GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
-            gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
-        Else
-            empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
-            nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = "" : claveTX.Text = ""
-        End If
-        gvp = Nothing
-        Lmsg.Text = r
+
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiCatalogos

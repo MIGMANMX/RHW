@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_RepHorario" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepHorario.aspx.vb" Inherits="_RepHorario" UICulture="es" Culture="es-MX"%>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucsucursales" tagprefix="uc1" %>
 
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
