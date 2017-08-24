@@ -26,11 +26,11 @@ Partial Class Principal
             nomina.Visible = False
             acc.Visible = False
             jor.Visible = False
-            rep.Visible = False
+            rep.Visible = True
             che.Visible = False
             repo.Visible = False
             incide.Visible = False
-
+            regInidencia.Visible = True
         End If
     End Sub
 End Class
