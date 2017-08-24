@@ -9,12 +9,11 @@ Partial Class _RepHorario
         TFInicio.Text = FIngreso.SelectedDate.ToString("dd/MM/yyyy")
 
         Dim fe As New Date
-        fe = Convert.ToDateTime(TFInicio.Text)
+        fe = FIngreso.SelectedDate.ToString
+        Ffin.Text = DateAdd(DateInterval.Day, 7, fe)
 
-        dt1 = Convert.ToDateTime(FIngreso.SelectedDate.ToString("MM/dd/yyyy"))
-        Ffin.Text = DateAdd(DateInterval.Day, 7, fe).ToString("dd/MM/yyyy")
-
-        dt2 = Convert.ToDateTime(DateAdd(DateInterval.Day, 7, fe).ToString("MM/dd/yyyy"))
+        dt1 = (FIngreso.SelectedDate.ToString("dd/MM/yyyy"))
+        dt2 = (DateAdd(DateInterval.Day, 7, fe))
     End Sub
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         tSuc.Text = wucSucursales.sucursal

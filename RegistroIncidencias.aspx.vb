@@ -155,7 +155,7 @@ Partial Class _RegistroIncidencias
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
             Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text
-            Session("dz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(2).Text
+            Session("dz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(3).Text
         ElseIf e.CommandName = "Editar" Then
             If IsNumeric(grdSR.Text) Then
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal
