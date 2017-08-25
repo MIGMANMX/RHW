@@ -182,8 +182,11 @@ Partial Class _HPartidasJornadas
         'wucJornadas.idJornada = 0
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
         TIDPJ.Text = ""
+        Dim sr As String
+        sr = fecha.Text
+
         Dim dts As New ctiCatalogos
-        Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, FechaC.SelectedDate)
+        Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, Format(CDate(sr), "yyyy-MM-dd"))
         dts = Nothing
         If da(0).StartsWith("Error") Then
             Lmsg.CssClass = "error"
@@ -224,8 +227,8 @@ Partial Class _HPartidasJornadas
             Else
                 Lmsg.CssClass = "correcto"
                 Dim sgr As New clsCTI
-                grdSR.Text = sgr.seleccionarGridRow2(GridView1, CInt(r(1))).ToString
-                gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+                'grdSR.Text = sgr.seleccionarGridRow2(GridView1, CInt(r(1))).ToString
+                'gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
                 sgr = Nothing
 
             End If
