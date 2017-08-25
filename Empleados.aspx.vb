@@ -100,7 +100,7 @@ Partial Class _Empleados
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         If empleado.Text = "" Or nss.Text = "" Or fecha_ingreso.Text = "" Or rfc.Text = "" Or fecha_nacimiento.Text = "" Or calle.Text = "" Or numero.Text = "" Or colonia.Text = "" Or cp.Text = "" Or telefono.Text = "" Or correo.Text = "" Or fecha_baja.Text = "" Or claveTX.Text = "" Then
-            Lmsg.Text = "Falta capturar un dato"
+            Lmsg.Text = "Error : Falta capturar un dato"
             'fecha_baja.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_ingreso.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_nacimiento.Text = DateTime.Now.ToString("dd/MM/yyyy")
             'nss.Text = " " : rfc.Text = " " : calle.Text = " " : colonia.Text = " " : numero.Text = " " : cp.Text = 0 : telefono.Text = " " : correo.Text = "" : claveTX.Text = ""
         Else
@@ -130,7 +130,7 @@ Partial Class _Empleados
     End Sub
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         If empleado.Text = "" Or nss.Text = "" Or fecha_ingreso.Text = "" Or rfc.Text = "" Or fecha_nacimiento.Text = "" Or calle.Text = "" Or numero.Text = "" Or colonia.Text = "" Or cp.Text = "" Or telefono.Text = "" Or correo.Text = "" Or fecha_baja.Text = "" Or claveTX.Text = "" Then
-            Lmsg.Text = "Falta capturar un dato"
+            Lmsg.Text = "Error : Falta capturar un dato"
             'fecha_baja.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_ingreso.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_nacimiento.Text = DateTime.Now.ToString("dd/MM/yyyy")
             'nss.Text = " " : rfc.Text = " " : calle.Text = " " : colonia.Text = " " : numero.Text = " " : cp.Text = 0 : telefono.Text = " " : correo.Text = "" : claveTX.Text = ""
         Else

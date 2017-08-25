@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
- <img src="img/carls_jr_logo.png" alt="HTML5 Icon" width="1000" height="300">
+ <img src="img/Logo-SSL-(Horizontal).png" alt="HTML5 Icon" width="900" height="400">
 
 </asp:Content>
 
