@@ -179,11 +179,11 @@ Partial Class _HPartidasJornadas
         Lmsg.Text = ""
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
-        wucJornadas.idJornada = 0
+        'wucJornadas.idJornada = 0
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
         TIDPJ.Text = ""
         Dim dts As New ctiCatalogos
-        Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, FechaC.SelectedDate.ToString("MM/dd/yyyy"))
+        Dim da() As String = dts.datosPJ(wucEmpleados2.idEmpleado, FechaC.SelectedDate)
         dts = Nothing
         If da(0).StartsWith("Error") Then
             Lmsg.CssClass = "error"
@@ -322,7 +322,11 @@ Partial Class _HPartidasJornadas
             End If
 
             Dim dsP As New ctiCatalogos
-            Dim datos() As String = dsP.datosPartidaJornada(CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(2).Text))
+            Dim sr As String
+
+            sr = GridView1.Rows(Convert.ToString(e.CommandArgument)).Cells(6).Text
+
+            Dim datos() As String = dsP.datosPartidaJornada(wucEmpleados2.idEmpleado, Format(CDate(sr), "yyyy-MM-dd"))
             dsP = Nothing
             If datos(0).StartsWith("Error") Then
                 Lmsg.CssClass = "error"

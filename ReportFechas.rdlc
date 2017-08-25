@@ -54,29 +54,21 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="inicio">
+                    <Textbox Name="jornada">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!inicio.Value</Value>
-                              <Style />
-                            </TextRun>
-                            <TextRun>
-                              <Value> - </Value>
-                              <Style />
-                            </TextRun>
-                            <TextRun>
-                              <Value>=Fields!fin.Value</Value>
+                              <Value>=Fields!jornada.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>inicio</rd:DefaultName>
+                      <rd:DefaultName>jornada</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -421,6 +413,14 @@
         <Field Name="fin">
           <DataField>fin</DataField>
           <rd:TypeName>System.TimeSpan</rd:TypeName>
+        </Field>
+        <Field Name="clave_att">
+          <DataField>clave_att</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="jornada">
+          <DataField>jornada</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

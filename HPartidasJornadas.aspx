@@ -164,7 +164,8 @@
 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
                 </asp:BoundField>
                 <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />
-                <asp:BoundField DataField="idpartidas_jornada" HeaderText="IdJornada" SortExpression="idpartidas_jornada" />
+                <asp:BoundField DataField="idpartidas_jornada" HeaderText="IdJornada" SortExpression="idpartidas_jornada" Visible="false" />
+                
                 <asp:BoundField DataField="jornada" HeaderText="Jornada" SortExpression="jornada" />
                 <asp:BoundField DataField="inicio" HeaderText="Inicio" SortExpression="inicio" />
                 <asp:BoundField DataField="fin" HeaderText="Fin" SortExpression="fin" />

@@ -54,10 +54,10 @@
                     <td class="auto-style4">
                         Fecha Inicio:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         Fecha Fin:<br />
-<asp:TextBox ID="TFInicio" runat="server" Width="135px"></asp:TextBox>   
+<asp:TextBox ID="TFInicio" runat="server" Width="135px" Enabled="False"></asp:TextBox>   
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:TextBox ID="Ffin" runat="server" Width="126px"></asp:TextBox>
+                        <asp:TextBox ID="Ffin" runat="server" Width="126px" Enabled="False"></asp:TextBox>
 
                 <asp:Calendar ID="FIngreso" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="148px" TitleFormat="Month" >
                     <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />

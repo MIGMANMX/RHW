@@ -8,11 +8,11 @@ Partial Class _RepHorario
     'Dim dt1 As Date
     'Dim dt2 As Date
     Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
-        TFInicio.Text = FIngreso.SelectedDate.ToString("dd/MM/yyyy")
+        TFInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
 
-        Dim fe As New Date
-        fe = FIngreso.SelectedDate.ToString
-        Ffin.Text = DateAdd(DateInterval.Day, 7, fe)
+        'Dim fe As String
+        'fe = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
+        Ffin.Text = DateAdd(DateInterval.Day, 6, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
 
         'dt1 = (FIngreso.SelectedDate.ToString("dd/MM/yyyy"))
         'dt2 = (DateAdd(DateInterval.Day, 7, fe))
@@ -46,11 +46,18 @@ Partial Class _RepHorario
         If wucSucursales.idSucursal <> 0 Then
             If TFInicio.Text <> "" Then
                 Dim dt1 As DateTime
-                dt1 = Convert.ToDateTime(TFInicio.Text)
+                dt1 = Format(CDate(TFInicio.Text), "yyyy-MM-dd")
                 Dim dt2 As DateTime
-                dt2 = Convert.ToDateTime(Ffin.Text)
+                dt2 = Format(CDate(Ffin.Text), "yyyy-MM-dd")
 
-                Dim p As New ReportParameter("Fech1", dt1.ToString("dd/MM/yyyy"))
+                ' Dim d1 As String = "2017-07-31"
+                'Dim d2 As String = "2017-08-7"
+
+                'TFInicio.Text = d1
+                'Ffin.Text = d2
+
+
+                Dim p As New ReportParameter("Fech1", dt1)
                 ReportViewer1.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("Fech2", dt2)

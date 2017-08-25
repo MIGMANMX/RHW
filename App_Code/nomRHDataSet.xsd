@@ -12,7 +12,7 @@
               <DbSource ConnectionRef="StarTconnStrRH (Web.config)" DbObjectName="nomRH.dbo.vm_ReporteHorario" DbObjectType="View" FillMethodModifier="Public" FillMethodName="FillRepSema" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetDataRepSema" GeneratorSourceName="FillRepSema" GetMethodModifier="Public" GetMethodName="GetDataRepSema" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetDataRepSema" UserSourceName="FillRepSema">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        idempleado, empleado, puesto, sucursal, fecha, idjornada, inicio, fin, clave_att
+                    <CommandText>SELECT        idempleado, empleado, puesto, sucursal, fecha, idjornada, inicio, fin, clave_att, jornada
 FROM            vm_ReporteHorario
 WHERE        (sucursal = @sucursal) AND (fecha BETWEEN @Fech1 AND @Fech2)</CommandText>
                     <Parameters>
@@ -34,6 +34,7 @@ WHERE        (sucursal = @sucursal) AND (fecha BETWEEN @Fech1 AND @Fech2)</Comma
               <Mapping SourceColumn="inicio" DataSetColumn="inicio" />
               <Mapping SourceColumn="fin" DataSetColumn="fin" />
               <Mapping SourceColumn="clave_att" DataSetColumn="clave_att" />
+              <Mapping SourceColumn="jornada" DataSetColumn="jornada" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -78,7 +79,7 @@ WHERE        (dbo.dbo.Empleados.activo = 1)</CommandText>
   <xs:element name="nomRHDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="False" msprop:Generator_DataSetName="nomRHDataSet" msprop:Generator_UserDSName="nomRHDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="RepSema" msprop:Generator_TableClassName="RepSemaDataTable" msprop:Generator_TableVarName="tableRepSema" msprop:Generator_TablePropName="RepSema" msprop:Generator_RowDeletingName="RepSemaRowDeleting" msprop:Generator_RowChangingName="RepSemaRowChanging" msprop:Generator_RowEvHandlerName="RepSemaRowChangeEventHandler" msprop:Generator_RowDeletedName="RepSemaRowDeleted" msprop:Generator_UserTableName="RepSema" msprop:Generator_RowChangedName="RepSemaRowChanged" msprop:Generator_RowEvArgName="RepSemaRowChangeEvent" msprop:Generator_RowClassName="RepSemaRow">
+        <xs:element name="RepSema" msprop:Generator_TableClassName="RepSemaDataTable" msprop:Generator_TableVarName="tableRepSema" msprop:Generator_RowChangedName="RepSemaRowChanged" msprop:Generator_TablePropName="RepSema" msprop:Generator_RowDeletingName="RepSemaRowDeleting" msprop:Generator_RowChangingName="RepSemaRowChanging" msprop:Generator_RowEvHandlerName="RepSemaRowChangeEventHandler" msprop:Generator_RowDeletedName="RepSemaRowDeleted" msprop:Generator_RowClassName="RepSemaRow" msprop:Generator_UserTableName="RepSema" msprop:Generator_RowEvArgName="RepSemaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="idempleado" msprop:Generator_ColumnVarNameInTable="columnidempleado" msprop:Generator_ColumnPropNameInRow="idempleado" msprop:Generator_ColumnPropNameInTable="idempleadoColumn" msprop:Generator_UserColumnName="idempleado" type="xs:int" />
@@ -114,10 +115,17 @@ WHERE        (dbo.dbo.Empleados.activo = 1)</CommandText>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="jornada" msprop:Generator_ColumnVarNameInTable="columnjornada" msprop:Generator_ColumnPropNameInRow="jornada" msprop:Generator_ColumnPropNameInTable="jornadaColumn" msprop:Generator_UserColumnName="jornada">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RepEmSuc" msprop:Generator_TableClassName="RepEmSucDataTable" msprop:Generator_TableVarName="tableRepEmSuc" msprop:Generator_RowChangedName="RepEmSucRowChanged" msprop:Generator_TablePropName="RepEmSuc" msprop:Generator_RowDeletingName="RepEmSucRowDeleting" msprop:Generator_RowChangingName="RepEmSucRowChanging" msprop:Generator_RowEvHandlerName="RepEmSucRowChangeEventHandler" msprop:Generator_RowDeletedName="RepEmSucRowDeleted" msprop:Generator_RowClassName="RepEmSucRow" msprop:Generator_UserTableName="RepEmSuc" msprop:Generator_RowEvArgName="RepEmSucRowChangeEvent">
+        <xs:element name="RepEmSuc" msprop:Generator_TableClassName="RepEmSucDataTable" msprop:Generator_TableVarName="tableRepEmSuc" msprop:Generator_TablePropName="RepEmSuc" msprop:Generator_RowDeletingName="RepEmSucRowDeleting" msprop:Generator_RowChangingName="RepEmSucRowChanging" msprop:Generator_RowEvHandlerName="RepEmSucRowChangeEventHandler" msprop:Generator_RowDeletedName="RepEmSucRowDeleted" msprop:Generator_UserTableName="RepEmSuc" msprop:Generator_RowChangedName="RepEmSucRowChanged" msprop:Generator_RowEvArgName="RepEmSucRowChangeEvent" msprop:Generator_RowClassName="RepEmSucRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="empleado" msprop:Generator_ColumnVarNameInTable="columnempleado" msprop:Generator_ColumnPropNameInRow="empleado" msprop:Generator_ColumnPropNameInTable="empleadoColumn" msprop:Generator_UserColumnName="empleado" minOccurs="0">
