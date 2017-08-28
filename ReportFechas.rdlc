@@ -188,7 +188,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Top>0.10266cm</Top>
-        <Left>1.87537cm</Left>
+        <Left>0.28787cm</Left>
         <Height>1.2cm</Height>
         <Width>5cm</Width>
         <Style>
@@ -198,13 +198,13 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>2in</Height>
+    <Height>0.9375in</Height>
     <Style />
   </Body>
-  <Width>35.0657in</Width>
+  <Width>5.24342in</Width>
   <Page>
     <PageHeader>
-      <Height>5.76792cm</Height>
+      <Height>4.65667cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -226,7 +226,7 @@
           </Paragraphs>
           <rd:DefaultName>sucursal</rd:DefaultName>
           <Top>3.13132cm</Top>
-          <Left>11.32099cm</Left>
+          <Left>10.68599cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <Style>
@@ -257,7 +257,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox12</rd:DefaultName>
           <Top>3.13132cm</Top>
-          <Left>8.48995cm</Left>
+          <Left>7.85495cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>1</ZIndex>
@@ -289,7 +289,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
           <Top>2.39021cm</Top>
-          <Left>8.48995cm</Left>
+          <Left>7.85495cm</Left>
           <Height>0.6cm</Height>
           <Width>5.33104cm</Width>
           <ZIndex>2</ZIndex>
@@ -303,6 +303,19 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
+        <Image Name="Image2">
+          <Source>Embedded</Source>
+          <Value>LogoSSLHorizontal1</Value>
+          <Sizing>FitProportional</Sizing>
+          <Height>4.63021cm</Height>
+          <Width>7.69689cm</Width>
+          <ZIndex>3</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
         <Textbox Name="Textbox14">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
@@ -321,10 +334,10 @@
           </Paragraphs>
           <rd:DefaultName>Textbox14</rd:DefaultName>
           <Top>1.61382cm</Top>
-          <Left>8.48995cm</Left>
+          <Left>7.85495cm</Left>
           <Height>0.6cm</Height>
           <Width>5.33104cm</Width>
-          <ZIndex>3</ZIndex>
+          <ZIndex>4</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -335,20 +348,6 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Image Name="Image2">
-          <Source>Embedded</Source>
-          <Value>LogoSSLHorizontal1</Value>
-          <Sizing>FitProportional</Sizing>
-          <Left>0.14923cm</Left>
-          <Height>5.76792cm</Height>
-          <Width>8.1996cm</Width>
-          <ZIndex>4</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </Image>
       </ReportItems>
       <Style>
         <Border>
@@ -358,10 +357,10 @@
     </PageHeader>
     <PageHeight>21cm</PageHeight>
     <PageWidth>29.7cm</PageWidth>
-    <LeftMargin>2cm</LeftMargin>
-    <RightMargin>2cm</RightMargin>
-    <TopMargin>2cm</TopMargin>
-    <BottomMargin>2cm</BottomMargin>
+    <LeftMargin>1cm</LeftMargin>
+    <RightMargin>1cm</RightMargin>
+    <TopMargin>1cm</TopMargin>
+    <BottomMargin>1cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>

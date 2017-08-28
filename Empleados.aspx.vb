@@ -44,8 +44,17 @@ Partial Class _Empleados
         Dim dsP As New ctiCatalogos
         Dim datos() As String = dsP.clave_att
         Dim clave As Integer = 0
-        clave = Convert.ToInt32(datos(0))
-        clave = clave + 1
+        Dim _clave As Integer
+
+
+        If datos(0) = " " Then
+            _clave = 0
+        Else
+            _clave = Convert.ToInt32(datos(0))
+        End If
+
+
+        clave = _clave + 1
         claveTX.Text = clave
 
 
@@ -91,6 +100,7 @@ Partial Class _Empleados
 
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
+
                 Dim gvp As New clsCTI
                 gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
                 gvp = Nothing
