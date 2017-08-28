@@ -99,11 +99,79 @@ Partial Class _Empleados
         End If
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        If empleado.Text = "" Or nss.Text = "" Or fecha_ingreso.Text = "" Or rfc.Text = "" Or fecha_nacimiento.Text = "" Or calle.Text = "" Or numero.Text = "" Or colonia.Text = "" Or cp.Text = "" Or telefono.Text = "" Or correo.Text = "" Or claveTX.Text = "" Then
+        If empleado.Text = "" Then
             Lmsg.Text = "Error : Falta capturar un dato"
-            'fecha_baja.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_ingreso.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_nacimiento.Text = DateTime.Now.ToString("dd/MM/yyyy")
-            'nss.Text = " " : rfc.Text = " " : calle.Text = " " : colonia.Text = " " : numero.Text = " " : cp.Text = 0 : telefono.Text = " " : correo.Text = "" : claveTX.Text = ""
         Else
+
+            Dim _nss As String
+            If nss.Text <> "" Then
+                _nss = Convert.ToString(nss.Text)
+            Else
+                _nss = " "
+            End If
+
+            Dim _rfc As String
+            If rfc.Text <> "" Then
+                _rfc = Convert.ToString(rfc.Text)
+            Else
+                _rfc = " "
+            End If
+
+            Dim _calle As String
+            If calle.Text <> "" Then
+                _calle = Convert.ToString(calle.Text)
+            Else
+                _calle = " "
+            End If
+
+            Dim _numero As String
+            If numero.Text <> "" Then
+                _numero = Convert.ToString(numero.Text)
+            Else
+                _numero = " "
+            End If
+
+            Dim _colonia As String
+            If colonia.Text <> "" Then
+                _colonia = Convert.ToString(colonia.Text)
+            Else
+                _colonia = " "
+            End If
+
+            Dim _cp As String
+            If cp.Text <> "" Then
+                _cp = Convert.ToString(cp.Text)
+            Else
+                _cp = " "
+            End If
+
+            Dim _telefono As String
+            If telefono.Text <> "" Then
+                _telefono = Convert.ToString(telefono.Text)
+            Else
+                _telefono = " "
+            End If
+
+            Dim _correo As String
+            If correo.Text <> "" Then
+                _correo = Convert.ToString(correo.Text)
+            Else
+                _correo = " "
+            End If
+
+            Dim _fecha_ingreso As String
+            If fecha_ingreso.Text <> "" Then
+                _fecha_ingreso = Convert.ToString(fecha_ingreso.Text)
+            Else
+                _fecha_ingreso = "2017-01-01"
+            End If
+
+            Dim _fecha_nacimiento As String
+            If fecha_nacimiento.Text <> "" Then
+                _fecha_nacimiento = Convert.ToString(fecha_nacimiento.Text)
+            Else
+                _fecha_nacimiento = "2017-01-01"
+            End If
 
             If IsNumeric(grdSR.Text) Then
                 grdSR.Text = ""
@@ -111,7 +179,7 @@ Partial Class _Empleados
             End If
             Dim gp As New ctiCatalogos
 
-            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, nss.Text, Convert.ToDateTime(fecha_ingreso.Text), rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, WucPuestos.idPuesto, claveTX.Text)
+            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, WucPuestos.idPuesto, claveTX.Text)
             GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
             gp = Nothing
             GridView1.DataBind()
@@ -129,14 +197,88 @@ Partial Class _Empleados
         End If
     End Sub
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
-        If empleado.Text = "" Or nss.Text = "" Or fecha_ingreso.Text = "" Or rfc.Text = "" Or fecha_nacimiento.Text = "" Or calle.Text = "" Or numero.Text = "" Or colonia.Text = "" Or cp.Text = "" Or telefono.Text = "" Or correo.Text = "" Or fecha_baja.Text = "" Or claveTX.Text = "" Then
+        If empleado.Text = "" Then
             Lmsg.Text = "Error : Falta capturar un dato"
-            'fecha_baja.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_ingreso.Text = DateTime.Now.ToString("dd/MM/yyyy") : fecha_nacimiento.Text = DateTime.Now.ToString("dd/MM/yyyy")
-            'nss.Text = " " : rfc.Text = " " : calle.Text = " " : colonia.Text = " " : numero.Text = " " : cp.Text = 0 : telefono.Text = " " : correo.Text = "" : claveTX.Text = ""
         Else
+            Dim _nss As String
+            If nss.Text <> "" Then
+                _nss = Convert.ToString(nss.Text)
+            Else
+                _nss = " "
+            End If
+
+            Dim _rfc As String
+            If rfc.Text <> "" Then
+                _rfc = Convert.ToString(rfc.Text)
+            Else
+                _rfc = " "
+            End If
+
+            Dim _calle As String
+            If calle.Text <> "" Then
+                _calle = Convert.ToString(calle.Text)
+            Else
+                _calle = " "
+            End If
+
+            Dim _numero As String
+            If numero.Text <> "" Then
+                _numero = Convert.ToString(numero.Text)
+            Else
+                _numero = " "
+            End If
+
+            Dim _colonia As String
+            If colonia.Text <> "" Then
+                _colonia = Convert.ToString(colonia.Text)
+            Else
+                _colonia = " "
+            End If
+
+            Dim _cp As String
+            If cp.Text <> "" Then
+                _cp = Convert.ToString(cp.Text)
+            Else
+                _cp = " "
+            End If
+
+            Dim _telefono As String
+            If telefono.Text <> "" Then
+                _telefono = Convert.ToString(telefono.Text)
+            Else
+                _telefono = " "
+            End If
+
+            Dim _correo As String
+            If correo.Text <> "" Then
+                _correo = Convert.ToString(correo.Text)
+            Else
+                _correo = " "
+            End If
+
+            Dim _fecha_ingreso As String
+            If fecha_ingreso.Text <> "" Then
+                _fecha_ingreso = Convert.ToString(fecha_ingreso.Text)
+            Else
+                _fecha_ingreso = "2017-01-01"
+            End If
+
+            Dim _fecha_nacimiento As String
+            If fecha_nacimiento.Text <> "" Then
+                _fecha_nacimiento = Convert.ToString(fecha_nacimiento.Text)
+            Else
+                _fecha_nacimiento = "2017-01-01"
+            End If
+            Dim _fecha_baja As String
+            If fecha_baja.Text <> "" Then
+                _fecha_baja = Convert.ToString(fecha_baja.Text)
+            Else
+                _fecha_baja = "2017-01-01"
+            End If
+
             Dim ap As New ctiCatalogos
             Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, nss.Text, fecha_ingreso.Text, rfc.Text, fecha_nacimiento.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, fecha_baja.Text, claveTX.Text)
+            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja, claveTX.Text)
             GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
             ap = Nothing
             GridView1.DataBind()

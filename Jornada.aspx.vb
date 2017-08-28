@@ -74,8 +74,14 @@ Partial Class _Jornada
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ap As New ctiCalendario
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-
-        Dim r As String = ap.actualizarJornada(idA, jornada.Text, inicio.Text, fin.Text, color.Text, IDatt.Text)
+        Dim att As Integer
+        'att = Convert.ToInt32(IDatt.Text)
+        If IDatt.Text <> "" Then
+            att = Convert.ToInt32(IDatt.Text)
+        Else
+            att = 0
+        End If
+        Dim r As String = ap.actualizarJornada(idA, jornada.Text, inicio.Text, fin.Text, color.Text, att)
 
         GridView1.DataSource = ap.gvJornada
         ap = Nothing
@@ -105,7 +111,14 @@ Partial Class _Jornada
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
         End If
         Dim gc As New ctiCalendario
-        Dim j() As String = gc.agregarJornada(jornada.Text, inicio.Text, fin.Text, color.Text, IDatt.Text)
+        Dim att As Integer
+        'att = Convert.ToInt32(IDatt.Text)
+        If IDatt.Text <> "" Then
+            att = Convert.ToInt32(IDatt.Text)
+        Else
+            att = 0
+        End If
+        Dim j() As String = gc.agregarJornada(jornada.Text, inicio.Text, fin.Text, color.Text, att)
         GridView1.DataSource = gc.gvJornada
         gc = Nothing
         GridView1.DataBind()

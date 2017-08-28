@@ -273,13 +273,13 @@ Partial Class _HPartidasJornadas
             End If
 
             Dim gvp As New clsCTI
-            grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
-            If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
-                GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
-                gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
-            Else
-                fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
-            End If
+            'grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+            'If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+            '    GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+            '    gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+            'Else
+            '    fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
+            'End If
             gvp = Nothing
             Lmsg.Text = r
             _schuleData = getSchedule()
@@ -300,13 +300,13 @@ Partial Class _HPartidasJornadas
             End If
 
             Dim gvp As New clsCTI
-            grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
-            If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
-                GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
-                gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
-            Else
-                fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
-            End If
+            'grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+            'If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+            '    GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+            '    gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+            'Else
+            '    fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0
+            'End If
             gvp = Nothing
             Lmsg.Text = r
             _schuleData = getSchedule()
