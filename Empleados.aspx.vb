@@ -47,18 +47,15 @@ Partial Class _Empleados
         Dim _clave As Integer
 
 
-        If datos(0) = " " Then
-            _clave = 0
+        If datos(0) = "" Or datos(0) = " " Then
+            datos(0) = 0
+            _clave = datos(0)
+            Lmsg.Text = "Error : Hay registros Nulos en claveAtt"
         Else
-            _clave = Convert.ToInt32(datos(0))
+            _clave = datos(0)
+            clave = _clave + 1
+            claveTX.Text = clave
         End If
-
-
-        clave = _clave + 1
-        claveTX.Text = clave
-
-
-
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then

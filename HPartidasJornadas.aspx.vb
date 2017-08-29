@@ -10,6 +10,8 @@ Partial Class _HPartidasJornadas
     Public bandera As Boolean
     Public IDP As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'Eliminar.Visible = False
+
         Lmsg.Text = ""
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
@@ -17,6 +19,9 @@ Partial Class _HPartidasJornadas
         FechaC.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
 
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
+        If (Session("nivel")) = 1 Then
+            'Eliminar.Visible = True
+        End If
         If Not Page.IsPostBack Then
             Session("menu") = "C"
             btnEditar.Enabled = False
@@ -316,8 +321,34 @@ Partial Class _HPartidasJornadas
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
-            Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text
-            Session("dz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(2).Text
+            If idpartidas_jornadaT.Text = "" Or idpartidas_jornadaT.Text = " " Then
+                Lmsg.Text = "Error : Selecciona primero una fecha a eliminar"
+            Else
+                Dim ec As New ctiCatalogos
+                Dim err As String = ec.eliminarPartidas_Jornada(idpartidas_jornadaT.Text)
+                GridView1.DataSource = ec.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                ec = Nothing
+                GridView1.DataBind()
+                If err.StartsWith("Error") Then
+                    Lmsg.CssClass = "error"
+                    grdSR.Text = ""
+
+                Else
+                    Lmsg.CssClass = "correcto"
+                    grdSR.Text = ""
+
+
+
+                End If
+                Lmsg.Text = err
+                _schuleData = getSchedule()
+                fecha.Text = ""
+                wucJornadas.idJornada = 0
+                idpartidas_jornadaT.Text = ""
+                TIDPJ.Text = ""
+            End If
+
+
         ElseIf e.CommandName = "Editar" Then
             If IsNumeric(grdSR.Text) Then
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal

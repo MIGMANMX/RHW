@@ -170,7 +170,7 @@
                 <asp:BoundField DataField="inicio" HeaderText="Inicio" SortExpression="inicio" />
                 <asp:BoundField DataField="fin" HeaderText="Fin" SortExpression="fin" />
                 <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
-                <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
+             <asp:ButtonField   ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
                 
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
