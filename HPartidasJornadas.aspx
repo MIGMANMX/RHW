@@ -108,6 +108,7 @@
                     <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
+                     <br />
                  </td>     </tr>
             <tr>
             <td class="auto-style10"> <asp:Label ID="Label1" runat="server" Text="Selecciona una fecha para añadir a toda la semana"></asp:Label>
@@ -119,6 +120,8 @@
             
                     <asp:Button ID="btnFechaSemana" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Toda la semana"  ToolTip="Agregar toda la semana" Enabled="true" Width="130px" /> 
                    
+                     <br />
+            
                  </td>     </tr>
         </table></div>
             <div id="derecho" class="auto-style12">
@@ -129,6 +132,10 @@
             
            
             </div> <!-- listaDatos -->  
+                   
+          <br />
+            
+                    <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Eliminar"  ToolTip="Elminar registro" Enabled="true" Width="130px" /> 
                    
     </div>
           <br />
@@ -145,7 +152,7 @@
                    <br />
                    </td> 
                   <td class="auto-style9">
-                      <asp:Button ID="btnActualizarr" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Actualizar" ToolTip="Actualizar" Width="108px" />                
+                      <asp:Button ID="btnActualizarr" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Actualizar" ToolTip="Actualizar" Width="108px" />                
                     <br />
                   </td> 
                     <td class="auto-style9">
@@ -170,7 +177,7 @@
                 <asp:BoundField DataField="inicio" HeaderText="Inicio" SortExpression="inicio" />
                 <asp:BoundField DataField="fin" HeaderText="Fin" SortExpression="fin" />
                 <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
-             <asp:ButtonField   ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
+             <%--<asp:ButtonField   ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>
                 
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />

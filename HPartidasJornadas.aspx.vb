@@ -10,7 +10,7 @@ Partial Class _HPartidasJornadas
     Public bandera As Boolean
     Public IDP As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'Eliminar.Visible = False
+        btnEliminar.Visible = False
 
         Lmsg.Text = ""
         Dim acceso As New ctiCatalogos
@@ -20,7 +20,8 @@ Partial Class _HPartidasJornadas
 
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If (Session("nivel")) = 1 Then
-            'Eliminar.Visible = True
+            btnEliminar.Visible = True
+
         End If
         If Not Page.IsPostBack Then
             Session("menu") = "C"
@@ -182,6 +183,7 @@ Partial Class _HPartidasJornadas
         wucEmpleados2.idEmpleado = 0
         _schuleData = loadSchedule()
         Lmsg.Text = ""
+        GridView1.Visible = False
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
         'wucJornadas.idJornada = 0
@@ -199,6 +201,7 @@ Partial Class _HPartidasJornadas
         Else
             TIDPJ.Text = da(0)
             IDP = da(0)
+            idpartidas_jornadaT.Text = da(0)
             wucJornadas.idJornada = da(1)
         End If
         'If wucJornadas.idJornada = 0 Then
@@ -320,36 +323,11 @@ Partial Class _HPartidasJornadas
         btnActualizarr.Enabled = False
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
-        If e.CommandName = "Eliminar" Then
-            If idpartidas_jornadaT.Text = "" Or idpartidas_jornadaT.Text = " " Then
-                Lmsg.Text = "Error : Selecciona primero una fecha a eliminar"
-            Else
-                Dim ec As New ctiCatalogos
-                Dim err As String = ec.eliminarPartidas_Jornada(idpartidas_jornadaT.Text)
-                GridView1.DataSource = ec.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                ec = Nothing
-                GridView1.DataBind()
-                If err.StartsWith("Error") Then
-                    Lmsg.CssClass = "error"
-                    grdSR.Text = ""
-
-                Else
-                    Lmsg.CssClass = "correcto"
-                    grdSR.Text = ""
+        '    If e.CommandName = "Eliminar" Then
 
 
-
-                End If
-                Lmsg.Text = err
-                _schuleData = getSchedule()
-                fecha.Text = ""
-                wucJornadas.idJornada = 0
-                idpartidas_jornadaT.Text = ""
-                TIDPJ.Text = ""
-            End If
-
-
-        ElseIf e.CommandName = "Editar" Then
+        '    Else
+        If e.CommandName = "Editar" Then
             If IsNumeric(grdSR.Text) Then
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal
                 grdSR.Text = ""
@@ -398,6 +376,7 @@ Partial Class _HPartidasJornadas
         End If
     End Sub
     Protected Sub btnFechaSemana_Click(sender As Object, e As EventArgs) Handles btnFechaSemana.Click
+
         Dim cont As Integer
         cont = 0
 
@@ -463,6 +442,35 @@ Partial Class _HPartidasJornadas
 
         End If
 
+
+    End Sub
+    Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+        If idpartidas_jornadaT.Text = "" Or idpartidas_jornadaT.Text = " " Then
+            Lmsg.Text = "Error : Selecciona primero una fecha a eliminar"
+        Else
+            Dim ec As New ctiCatalogos
+            Dim err As String = ec.eliminarPartidas_Jornada(idpartidas_jornadaT.Text)
+            GridView1.DataSource = ec.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+            ec = Nothing
+            GridView1.DataBind()
+            If err.StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+                grdSR.Text = ""
+
+            Else
+                Lmsg.CssClass = "correcto"
+                grdSR.Text = ""
+
+
+
+            End If
+            Lmsg.Text = err
+            _schuleData = getSchedule()
+            fecha.Text = ""
+            wucJornadas.idJornada = 0
+            idpartidas_jornadaT.Text = ""
+            TIDPJ.Text = ""
+        End If
 
     End Sub
 End Class
