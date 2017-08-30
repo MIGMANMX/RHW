@@ -10,18 +10,19 @@ Partial Class _RepEmpleadosSucursal
         Mens.Text = ""
     End Sub
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         tSuc.Text = wucSucursales.sucursal
         Mens.Text = ""
-        RepoEmSuc.ServerReport.Refresh()
+        ReportViewer1.ServerReport.Refresh()
     End Sub
     Protected Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
         Mens.Text = ""
-        RepoEmSuc.ServerReport.Refresh()
+        ReportViewer1.ServerReport.Refresh()
         If wucSucursales.idSucursal <> 0 Then
             Dim p As New ReportParameter("sucursal", wucSucursales.sucursal)
-            RepoEmSuc.LocalReport.SetParameters(p)
+            ReportViewer1.LocalReport.SetParameters(p)
 
-            RepoEmSuc.ServerReport.Refresh()
+            ReportViewer1.ServerReport.Refresh()
 
         Else
             Mens.Text = "Error: Debes seleccionar una sucursal"

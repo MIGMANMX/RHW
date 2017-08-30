@@ -16,7 +16,7 @@
                      <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Limpiar" Width="107px" />
                 
                    </td><td class="auto-style2">
-                     <asp:Button ID="btnGenerar" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Generar" ToolTip="Generar" Width="120px" style="margin-left: 21" />
+                     <asp:Button ID="btnGenerar" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Generar" ToolTip="Generar" Width="120px"  />
                 
                 </td>
                 </tr>
@@ -33,16 +33,17 @@
             </tr>   
   
         </table>
-         <rsweb:ReportViewer ID="RepoEmSuc" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="526px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="921px">
-             <LocalReport ReportPath="ReportEmpSuc.rdlc">
+         <br />
+         <rsweb:ReportViewer ID="ReportViewer1" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="911px">
+             <LocalReport ReportPath="ReportEmpleados.rdlc">
                  <DataSources>
                      <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
                  </DataSources>
              </LocalReport>
          </rsweb:ReportViewer>
-         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDataEmSuc" TypeName="nomRHDataSetTableAdapters.RepEmSucTableAdapter">
+         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDataEmpleados" TypeName="nomRHDataSetTableAdapters.vm_ReporteEmpleadoSucursalTableAdapter">
              <SelectParameters>
-                 <asp:ControlParameter ControlID="tSuc" Name="Suc" PropertyName="Text" Type="Int32" />
+                 <asp:ControlParameter ControlID="tSuc" Name="sucursal" PropertyName="Text" Type="String" />
              </SelectParameters>
          </asp:ObjectDataSource>
      </div>

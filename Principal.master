@@ -142,7 +142,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<%=ResolveUrl("RepEmpleadosSucursal.aspx")%>"><i class="fa fa-building"></i>Empleados por sucursal</a></li>
-                
+                 <li><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias por sucursal</a></li>
               </ul>
             </li>          
             <li class="treeview" id="acc" runat="server">
