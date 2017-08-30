@@ -168,14 +168,14 @@ Partial Class _Empleados
 
             Dim _fecha_ingreso As String
             If fecha_ingreso.Text <> "" Then
-                _fecha_ingreso = Convert.ToString(fecha_ingreso.Text)
+                _fecha_ingreso = Format(CDate(fecha_ingreso.Text), "yyyy-MM-dd")
             Else
                 _fecha_ingreso = "2017-01-01"
             End If
 
             Dim _fecha_nacimiento As String
             If fecha_nacimiento.Text <> "" Then
-                _fecha_nacimiento = Convert.ToString(fecha_nacimiento.Text)
+                _fecha_nacimiento = Format(CDate(fecha_nacimiento.Text), "yyyy-MM-dd")
             Else
                 _fecha_nacimiento = "2017-01-01"
             End If
@@ -265,20 +265,20 @@ Partial Class _Empleados
 
             Dim _fecha_ingreso As String
             If fecha_ingreso.Text <> "" Then
-                _fecha_ingreso = Convert.ToString(fecha_ingreso.Text)
+                _fecha_ingreso = Format(CDate(fecha_ingreso.Text), "yyyy-MM-dd")
             Else
                 _fecha_ingreso = "2017-01-01"
             End If
 
             Dim _fecha_nacimiento As String
             If fecha_nacimiento.Text <> "" Then
-                _fecha_nacimiento = Convert.ToString(fecha_nacimiento.Text)
+                _fecha_nacimiento = Format(CDate(fecha_nacimiento.Text), "yyyy-MM-dd")
             Else
                 _fecha_nacimiento = "2017-01-01"
             End If
             Dim _fecha_baja As String
             If fecha_baja.Text <> "" Then
-                _fecha_baja = Convert.ToString(fecha_baja.Text)
+                _fecha_baja = Format(CDate(fecha_baja.Text), "yyyy-MM-dd")
             Else
                 _fecha_baja = "2017-01-01"
             End If
