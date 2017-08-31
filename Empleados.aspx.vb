@@ -45,8 +45,6 @@ Partial Class _Empleados
         Dim datos() As String = dsP.clave_att
         Dim clave As Integer = 0
         Dim _clave As Integer
-
-
         If datos(0) = "" Or datos(0) = " " Then
             datos(0) = 0
             _clave = datos(0)
@@ -199,6 +197,23 @@ Partial Class _Empleados
                 gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
                 sgr = Nothing
                 btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+
+                Dim dsP As New ctiCatalogos
+                Dim datos() As String = dsP.clave_att
+                Dim clave As Integer = 0
+                Dim _clave As Integer
+                If datos(0) = "" Or datos(0) = " " Then
+                    datos(0) = 0
+                    _clave = datos(0)
+                    Lmsg.Text = "Error : Hay registros Nulos en claveAtt"
+                Else
+                    _clave = datos(0)
+                    clave = _clave + 1
+                    claveTX.Text = clave
+                End If
+                empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
+                nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
+
             End If
             Lmsg.Text = r(0)
         End If
@@ -301,7 +316,21 @@ Partial Class _Empleados
                 gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
             Else
                 empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
-                nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = "" : claveTX.Text = ""
+                nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
+
+                Dim dsP As New ctiCatalogos
+                Dim datos() As String = dsP.clave_att
+                Dim clave As Integer = 0
+                Dim _clave As Integer
+                If datos(0) = "" Or datos(0) = " " Then
+                    datos(0) = 0
+                    _clave = datos(0)
+                    Lmsg.Text = "Error : Hay registros Nulos en claveAtt"
+                Else
+                    _clave = datos(0)
+                    clave = _clave + 1
+                    claveTX.Text = clave
+                End If
             End If
             gvp = Nothing
             Lmsg.Text = r

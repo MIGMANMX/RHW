@@ -98,6 +98,8 @@
             
                      <asp:TextBox ID="DiaS" runat="server" Visible="False"></asp:TextBox>
             
+                     <asp:TextBox ID="THORA" runat="server" Visible="False"></asp:TextBox>
+            
                      <br />
             
           <asp:Calendar ID="FechaC" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="27px" Width="160px" TitleFormat="Month" >
