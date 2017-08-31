@@ -96,7 +96,7 @@
                  </td>
                  <td class="auto-style6">
             
-                     <asp:TextBox ID="DiaS" runat="server"></asp:TextBox>
+                     <asp:TextBox ID="DiaS" runat="server" Visible="False"></asp:TextBox>
             
                      <br />
             
