@@ -254,7 +254,7 @@ Partial Class _HPartidasJornadas
                 Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
             End If
         Else
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
+            If DiaS.Text = "M" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
                 Lmsg.Text = "No esta permitido capturar"
             Else
                 If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
@@ -367,7 +367,7 @@ Partial Class _HPartidasJornadas
             End If
             btnActualizarr.Enabled = False
         Else
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
+            If DiaS.Text = "M" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
                 Lmsg.Text = "No esta permitido capturar"
             Else
                 Dim ap As New ctiCatalogos
@@ -555,7 +555,7 @@ Partial Class _HPartidasJornadas
             End If
 
         Else
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
+            If DiaS.Text = "M" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
                 Lmsg.Text = "No esta permitido capturar"
             Else
                 Dim cont As Integer
