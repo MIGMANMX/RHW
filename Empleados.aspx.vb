@@ -147,7 +147,7 @@ Partial Class _Empleados
             If cp.Text <> "" Then
                 _cp = Convert.ToString(cp.Text)
             Else
-                _cp = " "
+                _cp = "0"
             End If
 
             Dim _telefono As String
