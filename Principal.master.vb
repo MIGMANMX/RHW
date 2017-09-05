@@ -31,6 +31,7 @@ Partial Class Principal
             repo.Visible = False
             incide.Visible = False
             regInidencia.Visible = True
+            dia.Visible = False
         End If
     End Sub
 End Class
