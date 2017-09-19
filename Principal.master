@@ -133,7 +133,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-credit-card"></i> Pagos</a></li>
-                <li><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-bar-chart"></i> Generar</a></li>
+                <li><a href="<%=ResolveUrl("CalculoHoras.aspx")%>"><i class="fa fa-bar-chart"></i> Calculo de Horas</a></li>
               </ul>
             </li>
               <li class="treeview" id="repo" runat="server">
@@ -158,7 +158,7 @@
             </li>
              <li>
               <a href="#">
-                <i class="fa fa-plus-square"></i> <span>Ayuda</span>
+                <i class="fa fa-star"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
               </a>
             </li>
