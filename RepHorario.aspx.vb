@@ -82,4 +82,7 @@ Partial Class _RepHorario
         Ffin.Text = ""
         Mens.Text = ""
     End Sub
+    Protected Sub Ffin_TextChanged(sender As Object, e As EventArgs) Handles Ffin.TextChanged
+
+    End Sub
 End Class
