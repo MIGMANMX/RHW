@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="CalculoHoras.aspx.vb" Inherits="CalculoHoras" %>
+
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados2.ascx" tagname="wucEmpleados2" tagprefix="uc2" %>
 
@@ -110,7 +112,7 @@
                 <td>
                   <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="chec" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="501px" Height="92px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" PageSize="15">
+            ForeColor="#333333" GridLines="None" Width="455px" Height="92px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" PageSize="15">
             <Columns>
                 <asp:BoundField DataField="chec" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
                 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
@@ -161,6 +163,18 @@
                     <asp:TextBox ID="TextBox4" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /></td>
             </tr>
             </table>
+
+        <table>
+            <tr>
+                <td>  <asp:Button ID="btnReporte" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Reporte"  ToolTip="Reporte" Width="100px" /></td>
+            </tr>
+        </table>
+
+         <table>
+            <tr>
+                <rsweb:ReportViewer ID="ReportViewer1" runat="server" Height="367px"></rsweb:ReportViewer>
+            </tr>
+        </table>
     </div>
         
     
