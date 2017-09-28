@@ -139,7 +139,7 @@
             <tr>
                
                 <td class="auto-style19">Horas Totales:<br />
-                    <asp:TextBox ID="nss" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /></td>
+                    <asp:TextBox ID="TxHtotales" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /></td>
                 <td class="auto-style18">Horas Trabajadas:<br />
                     <asp:TextBox ID="rfc" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /></td>
                  <td class="auto-style5">

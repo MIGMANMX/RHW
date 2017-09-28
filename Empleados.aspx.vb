@@ -3,6 +3,7 @@
 Partial Class _Empleados
     Inherits System.Web.UI.Page
     Public gvPos As Integer
+    Dim Catt As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
@@ -90,7 +91,9 @@ Partial Class _Empleados
                 telefono.Text = datos(12)
                 correo.Text = datos(13)
                 fecha_baja.Text = datos(14)
+                claveTX.Text = ""
                 claveTX.Text = datos(16)
+                Catt = datos(16)
                 claveTX.Enabled = True
 
                 grdSR.Text = e.CommandArgument.ToString
@@ -100,6 +103,7 @@ Partial Class _Empleados
                 gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
                 gvp = Nothing
                 btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+                btnGuardarNuevo.Enabled = False
             End If
         End If
     End Sub
@@ -278,6 +282,19 @@ Partial Class _Empleados
                 _correo = " "
             End If
 
+
+
+            'Dim _claveAtt As String
+            'If Catt <> claveTX.Text Then
+            '    _claveAtt = Convert.ToString(claveTX.Text)
+            'Else
+            '    _claveAtt = Catt
+            'End If
+
+
+
+
+
             Dim _fecha_ingreso As String
             If fecha_ingreso.Text <> "" Then
                 _fecha_ingreso = Format(CDate(fecha_ingreso.Text), "yyyy-MM-dd")
@@ -300,7 +317,7 @@ Partial Class _Empleados
 
             Dim ap As New ctiCatalogos
             Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja, claveTX.Text)
+            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja)
             GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
             ap = Nothing
             GridView1.DataBind()
@@ -309,6 +326,7 @@ Partial Class _Empleados
             Else
                 Lmsg.CssClass = "correcto"
             End If
+
             Dim gvp As New clsCTI
             grdSR.Text = gvp.seleccionarGridRow(GridView1, idA)
             If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
@@ -317,20 +335,24 @@ Partial Class _Empleados
             Else
                 empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
                 nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
+                btnGuardarNuevo.Enabled = True
 
-                Dim dsP As New ctiCatalogos
-                Dim datos() As String = dsP.clave_att
-                Dim clave As Integer = 0
-                Dim _clave As Integer
-                If datos(0) = "" Or datos(0) = " " Then
-                    datos(0) = 0
-                    _clave = datos(0)
-                    Lmsg.Text = "Error : Hay registros Nulos en claveAtt"
-                Else
-                    _clave = datos(0)
-                    clave = _clave + 1
-                    claveTX.Text = clave
-                End If
+
+
+            End If
+
+            Dim dsP As New ctiCatalogos
+            Dim datos() As String = dsP.clave_att
+            Dim clave As Integer = 0
+            Dim _clave As Integer
+            If datos(0) = "" Or datos(0) = " " Then
+                datos(0) = 0
+                _clave = datos(0)
+                Lmsg.Text = "Error : Hay registros Nulos en claveAtt"
+            Else
+                _clave = datos(0)
+                clave = _clave + 1
+                claveTX.Text = clave
             End If
             gvp = Nothing
             Lmsg.Text = r
