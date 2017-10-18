@@ -3,7 +3,7 @@
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados2.ascx" tagname="wucEmpleados2" tagprefix="uc2" %>
-
+<%@ Register src="cti/wucIncidencias.ascx" tagname="wucIncidencias" tagprefix="uc3" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -27,6 +27,24 @@
             height: 1521px;
         }
       
+        .auto-style3 {
+            width: 244px;
+            height: 70px;
+        }
+      
+        .auto-style4 {
+            height: 70px;
+        }
+      
+        .auto-style5 {
+            height: 70px;
+            width: 199px;
+        }
+        .auto-style6 {
+            height: 70px;
+            width: 156px;
+        }
+      
         </style>
     <div id="contenedor" class="auto-style2">
     <h3>Cálculo de Horas </h3>
@@ -39,6 +57,7 @@
                   <asp:TextBox ID="idEmpleadoTX" runat="server" Visible="False" Width="46px"></asp:TextBox>
                   <br />
                   <uc2:wucempleados2 ID="wucEmpleados2" runat="server" />  
+                  <asp:TextBox ID="TxEmpleado" runat="server" Visible="False" Width="46px"></asp:TextBox>
             </tr>
     
             <tr>
@@ -83,10 +102,27 @@
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>               
 
+                   <asp:TextBox ID="TxId" runat="server" Visible="False"></asp:TextBox>
+
                 </td>
                
+            </tr></table>
+        <table>
+             <tr>
+                 <td class="auto-style6" id="wuc" runat="server" >Incidencia:<br />
+                        <uc3:wucincidencias ID="wucIncidencias" runat="server" />
+                 &nbsp;</td>
+                 <td class="auto-style3" id="obs" runat="server"  >Observaciones:<br />
+                    <asp:TextBox ID="TxObservacion" runat="server" CssClass="txtCaptura"  MaxLength="40" Width="226px" Height="50px" />
+                 </td>
+                 <td class="auto-style4">
+
+                     <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-warning btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar Registros" Width="90px" />
+                 </td>
+             </tr>
+            <tr>
+                <td>&nbsp;</td>
             </tr>
-             
             </table>
         <table>
             <tr>
@@ -97,7 +133,7 @@
             DataKeyNames ="chec" AutoGenerateColumns="False" CellPadding="4" 
             ForeColor="#333333" GridLines="None" Width="537px" Height="303px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" PageSize="12">
             <Columns>
-                <asp:BoundField DataField="chec" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
+                <asp:BoundField DataField="idchequeo" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
                 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
                 </asp:BoundField>
 
@@ -106,24 +142,24 @@
                 <asp:BoundField DataField="tipo" HeaderText="Tipo" SortExpression="tipo" />
                 <asp:TemplateField HeaderText="Incidencia">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                        <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="incidencia" DataValueField="incidencia"></asp:DropDownList>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:StarTconnStrRH %>" SelectCommand="SELECT [incidencia] FROM [Incidencia] order by  [Incidencia] asc "></asp:SqlDataSource>
+                
                     </EditItemTemplate>
                     <ItemTemplate>
-                       
-                      <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="incidencia" DataValueField="incidencia"></asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:StarTconnStrRH %>" SelectCommand="SELECT [incidencia] FROM [Incidencia] order by  [Incidencia] asc "></asp:SqlDataSource>
+                        <asp:Label Text='<%# Eval("incidencia") %>' runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
                <asp:TemplateField HeaderText="Observacion">
                         <ItemTemplate>
-                            <asp:Label Text='' runat="server" />
+                           <asp:Label Text='<%# Eval("observaciones") %>' runat="server" />
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:TextBox ID="txtObservacion" Text='' runat="server" />
                         </EditItemTemplate>
                        
                     </asp:TemplateField>
-                   <asp:ButtonField ButtonType="Image" CommandName="Guardar" ImageUrl="~/imagenes/seleccionar.png" />
+                   <%--<asp:ButtonField ButtonType="Image" CommandName="Guardar" ImageUrl="~/imagenes/seleccionar.png" />--%>
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />

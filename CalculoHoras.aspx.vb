@@ -8,6 +8,12 @@ Partial Class CalculoHoras
     Inherits System.Web.UI.Page
     Public gvPos As Integer
 
+    '''''''''Lineas para cambiar
+    '88
+    '108
+    '239
+    '271
+    '538
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
@@ -19,7 +25,9 @@ Partial Class CalculoHoras
 
         reporte.ServerReport.Refresh()
 
-
+        wuc.Visible = False
+        obs.Visible = False
+        btnActualizar.Visible = False
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
 
@@ -30,8 +38,8 @@ Partial Class CalculoHoras
 
         sr = dsP.datosEmpleado(wucEmpleados2.idEmpleado)
 
-        '  TxEmpleado.Text = sr(0)
-        ' TxEmpleado.Text = wucEmpleados
+        TxEmpleado.Text = sr(0)
+
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiWUC
@@ -53,7 +61,7 @@ Partial Class CalculoHoras
     Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
         TxFechaInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
         FIngreso.Visible = False
-        TxFechaFin.Text = DateAdd(DateInterval.Day, 16, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
+        TxFechaFin.Text = DateAdd(DateInterval.Day, 14, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
     End Sub
     Protected Sub ImageButton2_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton2.Click
         If FFinal.Visible = True Then
@@ -79,7 +87,7 @@ Partial Class CalculoHoras
 
                 Dim ec As New ctiCalculo
                 GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
-                ' GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal), "yyyy-MM-dd"))
+                'GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal2), "yyyy-MM-dd"), 3)
 
                 ec = Nothing
                 GridView1.DataBind()
@@ -93,13 +101,20 @@ Partial Class CalculoHoras
     Protected Sub GridView1_PageIndexChanging1(sender As Object, e As GridViewPageEventArgs)
         GridView1.PageIndex = e.NewPageIndex
         Dim ec As New ctiCalculo
-        GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(TxFechaFin.Text), "yyyy-dd-MM"), 3)
+        Dim FechaFinal As Date
+        Dim FechaFinal2 As Date
+        FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
+        FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
+
+        GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
+        'GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal2), "yyyy-MM-dd"), 3)
+
         ec = Nothing
         GridView1.DataBind()
     End Sub
     Protected Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
         HTotales()
-        HTrabajadas()
+        HTrabajadasCont()
         HorasExtras()
         'DDescansados()
         'DDescansadosTrabajados()
@@ -138,7 +153,7 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select inicio,fin From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-MM-dd") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-dd-MM") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
                 'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
@@ -150,19 +165,25 @@ Partial Class CalculoHoras
                     ReDim dsP(3)
                     dsP(0) = rdr("inicio").ToString
                     dsP(1) = rdr("fin").ToString
+                    dsP(2) = rdr("jornada").ToString
 
                     HoraIn = dsP(0)
                     HoraFn = dsP(1)
                     HI = Convert.ToInt32(HoraIn.ToString("HH"))
                     HF = Convert.ToInt32(HoraFn.ToString("HH"))
 
-                    'Diferencia de horas
-                    tsDiferencia = 0
-                    tsDiferencia = HF - HI
-                    'Limpiar variables
-                    HI = 0
-                    HF = 0
-                    If tsDiferencia < 1 Then
+                    'Saber si es SUSPENSION/VACACIONES/INCAPACIDAD/DESCANSO
+                    If dsP(2) <> "SUSPENSION" Or dsP(2) <> "VACACIONES" Or dsP(2) <> "INCAPACIDAD" Or dsP(2) <> "DESCANSO" Then
+                        'Diferencia de horas
+                        tsDiferencia = 0
+                        tsDiferencia = HF - HI
+                        'Limpiar variables
+                        HI = 0
+                        HF = 0
+                        If tsDiferencia < 1 Then
+                            tsDiferencia = 0
+                        End If
+                    Else
                         tsDiferencia = 0
                     End If
                 End If
@@ -175,6 +196,125 @@ Partial Class CalculoHoras
             tsDiferencia = 0
         End While
         TxHtotales.Text = Acum
+    End Sub
+    Public Sub HTrabajadasCont()
+        'Datos de los campos de texto
+        Dim FIn As Date
+        Dim FFn As Date
+
+        'Variable global
+        Dim Fech As Date
+        'Variables para operaciones
+        Dim HoraIn As Date
+        Dim HoraFn As Date
+        Dim HI As Integer
+        Dim HF As Integer
+        Dim MI As Integer
+        Dim MF As Integer
+        Dim tsDiferencia As Integer
+        Dim Acum As Integer
+
+
+        'Valores de fechas obtenidas
+
+        'Asignar los datos de los campos de texto a Variables
+        FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+        'Igualar Fecha de inicio a la Variable Global
+        Fech = FIn
+
+        'Inicio del ciclo de comparacion
+        While (Fech <= FFn)
+            'Borramos datos de las variables
+            tsDiferencia = 0
+            HI = 0
+            HF = 0
+            'Conexion y busqueda de registros
+            Using dbC As New SqlConnection
+                dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+                dbC.Open()
+
+                'Hora de Entrada
+                Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ASC ", dbC)
+                'Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ASC", dbC)
+
+                cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                cmd.Parameters.AddWithValue("chec", Fech)
+                Dim rdr As SqlDataReader = cmd.ExecuteReader
+                Dim dsP As String()
+                While rdr.Read
+                    'Lectura de registros
+                    ReDim dsP(3)
+                    dsP(0) = rdr("idchequeo").ToString
+                    dsP(1) = rdr("chec").ToString
+                    dsP(2) = rdr("tipo").ToString
+
+                    'Valor de fecha Inicial
+                    'Consultar Hora
+                    Dim acceso As New ctiCalculo
+                    Dim datos() As String = acceso.datosHora(dsP(0))
+
+                    HoraIn = datos(0)
+                    'Valores de Horas y Minutos
+                    HI = Convert.ToInt32(HoraIn.ToString("HH"))
+                    MI = Convert.ToInt32(HoraIn.ToString("mm"))
+                    'Despues de 05 min es una hora extra
+                    If MI > 5 Then
+                        HI = HI + 1
+                    End If
+                End While
+                rdr.Close() : rdr = Nothing
+
+
+                'Hora de Salida
+                cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
+                'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
+
+                'cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                'cmd.Parameters.AddWithValue("chec", Fech)
+                Dim rdr2 As SqlDataReader = cmd.ExecuteReader
+                Dim dsP2 As String()
+                While rdr2.Read
+                    'Lectura de registros
+                    ReDim dsP2(3)
+                    dsP2(0) = rdr2("idchequeo").ToString
+                    dsP2(1) = rdr2("chec").ToString
+                    dsP2(2) = rdr2("tipo").ToString
+
+                    'Valor de fecha Final
+                    'Consultar Hora
+                    Dim acceso As New ctiCalculo
+                    Dim datos() As String = acceso.datosHora(dsP2(0))
+
+                    HoraFn = datos(0)
+                    'Valores de Horas y Minutos
+                    HF = Convert.ToInt32(HoraFn.ToString("HH"))
+                    MF = Convert.ToInt32(HoraFn.ToString("mm"))
+                    'Despues de 50m se puede checar la salida
+                    If MF > 49 Then
+                        HF = HF + 1
+                    End If
+                End While
+
+                'Diferencia de horas
+                tsDiferencia = 0
+                tsDiferencia = HF - HI
+                'Limpiar variables
+                HI = 0
+                HF = 0
+
+                rdr2.Close() : rdr2 = Nothing
+                cmd.Dispose() : dbC.Close() : dbC.Dispose()
+
+            End Using
+            'Acumulador de fecha
+            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+            'Acumulador de horas
+            Acum = tsDiferencia + Acum
+            tsDiferencia = 0
+        End While
+        TxHorasTrabajadas.Text = Acum
     End Sub
     Public Sub HTrabajadas()
         'Datos de los campos de texto
@@ -210,8 +350,8 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ", dbC)
-                'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
+                'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ", dbC)
+                Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("chec", Fech)
@@ -258,10 +398,6 @@ Partial Class CalculoHoras
                 'Limpiar variables
                 HI = 0
                 HF = 0
-                'Insertar en tabla
-                'Dim Hora As New ctiCalculo
-                'Dim dato() As String = Hora.agregarHora(Format(CDate(Fech), "yyyy-MM-dd"), wucEmpleados2.idEmpleado, HoraIn.ToShortTimeString, HoraFn.ToShortTimeString, tsDiferencia)
-
                 rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
             End Using
             'Acumulador de fecha
@@ -279,67 +415,12 @@ Partial Class CalculoHoras
 
     End Sub
     Public Sub HorasExtras()
-        Dim A, B As Integer
-        A = Convert.ToInt32(TxHorasTrabajadas.Text)
-        B = Convert.ToInt32(TxHtotales.Text)
-        TxHorasExtras.Text = A - B
+        'Dim A, B As Integer
+        'A = Convert.ToInt32(TxHorasTrabajadas.Text)
+        'B = Convert.ToInt32(TxHtotales.Text)
+        'TxHorasExtras.Text = A - B
     End Sub
-
-    'Protected Sub GVCalculoH_RowCancelingEdit(sender As Object, e As GridViewCancelEditEventArgs) Handles GVCalculoH.RowCancelingEdit
-    '    'Dim FechaFinal As Date
-    '    'Dim FechaFinal2 As Date
-    '    'FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
-    '    'FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
-
-
-    '    'Dim ec As New ctiCalculo
-    '    'GVCalculoH.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
-    '    '' GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal), "yyyy-MM-dd"))
-
-    '    'ec = Nothing
-    '    'GVCalculoH.DataBind()
-
-    '    'GVCalculoH.EditIndex = -1
-
-    'End Sub
-    'Protected Sub GVCalculoH_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles GVCalculoH.RowEditing
-    'Dim FechaFinal As Date
-    'Dim FechaFinal2 As Date
-    'FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
-    'FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
-
-
-    'Dim ec As New ctiCalculo
-    'GVCalculoH.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
-    '' GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal), "yyyy-MM-dd"))
-
-    'ec = Nothing
-    'GVCalculoH.DataBind()
-
-
-
-    'GVCalculoH.EditIndex = e.NewEditIndex
-
-    ' End Sub
-    'Protected Sub GVCalculoH_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles GVCalculoH.RowDeleting
-    '    'Dim FechaFinal As Date
-    '    'Dim FechaFinal2 As Date
-    '    'FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
-    '    'FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
-
-
-    '    'Dim ec As New ctiCalculo
-    '    'GVCalculoH.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
-    '    '' GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal), "yyyy-MM-dd"))
-
-    '    'ec = Nothing
-    '    'GVCalculoH.DataBind()
-    '    'GVCalculoH.EditIndex = -1
-
-    'End Sub
     Protected Sub btnReporte_Click(sender As Object, e As EventArgs) Handles btnReporte.Click
-
-
         'Creación de un objeto CultureInfo con referencia cultural de México
         Dim c As CultureInfo = New CultureInfo("es-MX")
 
@@ -348,8 +429,13 @@ Partial Class CalculoHoras
             If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
                 Dim dt1 As DateTime
                 dt1 = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+                Dim dtf As DateTime
+                dtf = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+
                 Dim dt2 As DateTime
-                dt2 = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+                dt2 = DateAdd(DateInterval.Day, 1, dtf)
+                dt2 = Format(CDate(dt2), "yyyy-MM-dd")
 
                 Dim Htotales As Integer = 0
                 Dim HTrabajadas As Integer = 0
@@ -375,54 +461,26 @@ Partial Class CalculoHoras
                 p = New ReportParameter("idempleado", idEmpleadoTX.Text)
                 reporte.LocalReport.SetParameters(p)
 
-                'p = New ReportParameter("HTotales", Htotales)
-                'reporte.LocalReport.SetParameters(p)
+                p = New ReportParameter("HTotales", Htotales)
+                reporte.LocalReport.SetParameters(p)
 
-                'p = New ReportParameter("HTrabajadas", HTrabajadas)
-                'reporte.LocalReport.SetParameters(p)
+                p = New ReportParameter("HTrabajadas", HTrabajadas)
+                reporte.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("sucursal", wucSucursales.sucursal)
+                reporte.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("empleado", TxEmpleado.Text)
+                reporte.LocalReport.SetParameters(p)
 
                 reporte.ServerReport.Refresh()
             Else
-                    Lmsg.Text = "Error: Debes capturar una fecha"
+                Lmsg.Text = "Error: Debes capturar una fecha"
             End If
         Else
             Lmsg.Text = "Error: Debes seleccionar una sucursal"
         End If
     End Sub
-
-
-    'Protected Sub GVCalculoH_RowUpdating(sender As Object, e As GridViewUpdateEventArgs) Handles GVCalculoH.RowUpdating
-
-    '    Dim cad1 As String = GVCalculoH.Rows(1).Cells(0).ToString()
-    '    Dim cad2 As String = GVCalculoH.Rows(1).Cells(3).ToString()
-
-
-    '    Dim ec As New ctiCalculo
-    '    GVCalculoH.DataSource = ec.gvAsigIncidencias(3,
-    '                                                  wucEmpleados2.idEmpleado, GVCalculoH.Rows(1).Cells(0).ToString,
-    '                                                 GVCalculoH.Rows(1).Cells(3).ToString)
-    '    'CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text))
-
-    '    ec = Nothing
-    '    GVCalculoH.DataBind()
-    'End Sub
-    'Protected Sub GVCalculoH_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GVCalculoH.RowCommand
-    '    'If e.CommandName = "Update" Then
-    '    '    If IsNumeric(grdSR.Text) Then
-    '    '        GVCalculoH.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal
-    '    '        grdSR.Text = ""
-    '    '    End If
-
-
-    '    '    Dim sr As String
-
-    '    '    'sr = GVCalculoH.Rows(1).Cells(0).Text
-    '    '    'TxDDescasados.Text = sr
-
-    '    '    TxDDescasados.Text = GVCalculoH.SelectedRow.Cells(0).Text
-
-    '    'End If
-    'End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Editar" Then
             If IsNumeric(grdSR.Text) Then
@@ -430,14 +488,68 @@ Partial Class CalculoHoras
                 grdSR.Text = ""
             End If
 
+            Dim dsP As New ctiCalculo
+            Dim datos() As String = dsP.datosCheqIncidencias(CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text))
+            dsP = Nothing
+            If datos(0).StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+                Lmsg.Text = datos(0)
+            Else
+                If datos(0) <> "" Then
+                    wucIncidencias.idIncidencia = CInt(datos(0))
+                    TxObservacion.Text = datos(1).ToString
+                    TxId.Text = datos(2).ToString
+
+                    grdSR.Text = e.CommandArgument.ToString
+                    GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
+                    Dim gvp As New clsCTI
+                    gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
+                    gvp = Nothing
+                Else
+
+                    wucIncidencias.idIncidencia = 0
+                    TxObservacion.Text = datos(1).ToString
+                    TxId.Text = datos(2).ToString
+
+                    grdSR.Text = e.CommandArgument.ToString
+                    GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
+                    Dim gvp As New clsCTI
+                    gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
+                    gvp = Nothing
+
+                End If
+                obs.Visible = True
+                wuc.Visible = True
+                btnActualizar.Visible = True
+            End If
+        End If
+    End Sub
+    Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
+        Dim idA As Integer = CInt(TxId.Text)
+        If wucIncidencias.idIncidencia <> 0 Then
+            Dim FechaFinal As Date
+            Dim FechaFinal2 As Date
+            FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
+            FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
+
+            Dim ap As New ctiCalculo
+            Dim r As String = ap.actualizarIncidencias(TxId.Text, wucIncidencias.idIncidencia, TxObservacion.Text)
+            GridView1.DataSource = ap.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
+            'GridView1.DataSource = ap.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal2), "yyyy-MM-dd"), 3)
+
+            ap = Nothing
+            GridView1.DataBind()
+            If r.StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+            Else
+                Lmsg.CssClass = "correcto"
+
+            End If
+            Lmsg.Text = r
 
 
-            Dim dsP As New ctiCatalogos
-            Dim sr As String
-
-            sr = GridView1.Rows(Convert.ToString(e.CommandArgument)).Cells(3).Text
-
-            TxDDescasados.Text = sr
+        Else
+            Lmsg.Text = "Error : Falta seleccionar incidencia"
         End If
     End Sub
 End Class
