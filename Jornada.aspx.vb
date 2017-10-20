@@ -32,7 +32,7 @@ Partial Class _Jornada
                 inicio.Text = ""
                 fin.Text = ""
                 color.Text = ""
-
+                ChCierre.Checked = False
             End If
             Lmsg.Text = err
         End If
@@ -60,15 +60,20 @@ Partial Class _Jornada
                 fin.Text = datos(3)
                 color.Text = datos(4)
                 IDatt.Text = datos(5)
+                If datos(6) = "" Then
+                    ChCierre.Checked = False
+                Else
+                    ChCierre.Checked = datos(6)
+                End If
 
                 grdSR.Text = e.CommandArgument.ToString
-                GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
-                Dim gvp As New clsCTI
-                gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
-                gvp = Nothing
-                btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+                    GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
+                    Dim gvp As New clsCTI
+                    gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
+                    gvp = Nothing
+                    btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+                End If
             End If
-        End If
     End Sub
 
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
@@ -81,7 +86,13 @@ Partial Class _Jornada
         Else
             att = 0
         End If
-        Dim r As String = ap.actualizarJornada(idA, jornada.Text, inicio.Text, fin.Text, color.Text, att)
+        Dim cierres As Boolean
+        If ChCierre.Checked = True Then
+            cierres = True
+        ElseIf ChCierre.Checked = False Then
+            cierres = False
+        End If
+        Dim r As String = ap.actualizarJornada(idA, jornada.Text, inicio.Text, fin.Text, color.Text, att, cierres)
 
         GridView1.DataSource = ap.gvJornada
         ap = Nothing
@@ -95,7 +106,7 @@ Partial Class _Jornada
             fin.Text = ""
             color.Text = ""
             IDatt.Text = ""
-
+            ChCierre.Checked = False
         End If
         Dim gvp As New clsCTI
         grdSR.Text = gvp.seleccionarGridRow(GridView1, idA)
@@ -118,7 +129,13 @@ Partial Class _Jornada
         Else
             att = 0
         End If
-        Dim j() As String = gc.agregarJornada(jornada.Text, inicio.Text, fin.Text, color.Text, att)
+        Dim cierres As Boolean
+        If ChCierre.Checked = True Then
+            cierres = True
+        ElseIf ChCierre.Checked = False Then
+            cierres = False
+        End If
+        Dim j() As String = gc.agregarJornada(jornada.Text, inicio.Text, fin.Text, color.Text, att, cierres)
         GridView1.DataSource = gc.gvJornada
         gc = Nothing
         GridView1.DataBind()
@@ -136,10 +153,8 @@ Partial Class _Jornada
             fin.Text = ""
             color.Text = ""
             IDatt.Text = ""
-
+            ChCierre.Checked = False
         End If
         Lmsg.Text = j(0)
     End Sub
-
-
 End Class

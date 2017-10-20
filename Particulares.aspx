@@ -18,20 +18,20 @@
              float:right;
         }
         .auto-style2 {
-            height: 620px;
+            height: 434px;
             width: 929px;
         }
         .auto-style3 {
-            width: 350px;
-        }
-        .auto-style4 {
-            width: 127px;
+            width: 386px;
         }
         .auto-style5 {
             width: 213px;
         }
         .auto-style6 {
-            width: 135px;
+            width: 153px;
+        }
+        .auto-style7 {
+            width: 87px;
         }
   </style>
     <div id="contenedor" class="auto-style2">
@@ -58,14 +58,7 @@
                <td>Empleado:<br />
                    <uc2:wucempleados2 ID="wucEmpleados2" runat="server" />
                </td>
-               <td>Tipo:<br />
-                   <asp:DropDownList ID="dropLTipo" runat="server" AutoPostBack="True" Height="24px" Width="152px" Enabled="False">
-                       <asp:ListItem Value="0">Seleccionar....</asp:ListItem>
-                       <asp:ListItem Value="1">Horas Extras</asp:ListItem>
-                       <asp:ListItem Value="2">Faltas Justificadas</asp:ListItem>
-                       <asp:ListItem Value="3">Faltas Injustificadas</asp:ListItem>
-                   </asp:DropDownList>
-               </td>
+               
             </tr>
         </table>
         <asp:GridView ID="GridView1" runat="server" 
@@ -92,19 +85,27 @@
     <div id="derecho">
         <table class="auto-style3">
             <tr>
-                <td class="auto-style4">
+                <td class="auto-style7">
                     <h4 class="auto-style5">
                         Registro</h4>  </td>
                     <td class="auto-style6">
                         &nbsp;</td>
                
-                <td>
-                    &nbsp;</td>
-                
             </tr>
-            <tr><td class="auto-style4"><asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label></td></tr>
             <tr>
-                <td class="auto-style4">Fecha:<br />
+                <td class="auto-style7">Tipo:<br />
+                   <asp:DropDownList ID="dropLTipo" runat="server" AutoPostBack="True" Height="24px" Width="175px" Enabled="False">
+                       <asp:ListItem Value="0">Seleccionar....</asp:ListItem>
+                       <asp:ListItem Value="HExtras">Horas Extras</asp:ListItem>
+                       <asp:ListItem Value="Justificadas">Faltas Justificadas</asp:ListItem>
+                       <asp:ListItem Value="Injustificadas">Faltas Injustificadas</asp:ListItem>
+                   </asp:DropDownList>
+               </td>
+                <td class="auto-style6"><asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label></td>
+
+            </tr>
+            <tr>
+                <td class="auto-style7">Fecha:<br />
                     <asp:TextBox ID="fecha_ingreso" runat="server" CssClass="txtCaptura" MaxLength="40" Width="135px" />
 
                     
@@ -112,12 +113,12 @@
 
                     </td>
                 <td class="auto-style6">Cantidad:<br />
-                    <asp:TextBox ID="empleado" runat="server" CssClass="txtCaptura" MaxLength="40" Width="134px" />
+                    <asp:TextBox ID="cantidad" runat="server" CssClass="txtCaptura" MaxLength="40" Width="134px" />
 
                     </td>        
             </tr>
             <tr>
-                <td>
+                <td class="auto-style7">
                       <asp:Calendar ID="FIngreso" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="161px" TitleFormat="Month" >
                     <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
                     <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
@@ -129,13 +130,13 @@
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
                 </td>
-                <td>
+                <td class="auto-style6">
 
                 </td>
             </tr>
              <tr>
-                <td class="auto-style4">Observaciones:<br />
-                    <asp:TextBox ID="calle" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" Height="57px" TextMode="MultiLine" /></td>
+                <td class="auto-style7">Observaciones:<br />
+                    <asp:TextBox ID="observaciones" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" Height="57px" TextMode="MultiLine" /></td>
                 <td class="auto-style6">
                     <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="108px" />
                     <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Agregar" ToolTip="Agregar" Width="108px" />
@@ -143,7 +144,7 @@
                 
             </tr>
                  <tr>
-                      <td class="auto-style4">
+                      <td class="auto-style7">
                           Ultima edicíon:
                        <asp:Label ID="LabFUE" runat="server" Font-Size="XX-Small"></asp:Label>
                  </td>    

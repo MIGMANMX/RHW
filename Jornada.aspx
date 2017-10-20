@@ -27,7 +27,7 @@
                 <asp:BoundField DataField="inicio" HeaderText="Inicio"  />
                 <asp:BoundField DataField="fin" HeaderText="Fin"  />
                 <asp:BoundField DataField="color" HeaderText="Color"  />
-                <%--<asp:BoundField DataField="id_att" HeaderText="IDatt"  />--%>
+                <asp:CheckBoxField DataField="cierre" HeaderText="Cierre" />
                 <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
             </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
@@ -69,11 +69,17 @@
                     <asp:TextBox ID="IDatt" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
             </tr>
             <tr>
-                <td class="auto-style1" style="width: 169px">Hora de Inicio:<br />
+                <td class="auto-style1" style="width: 169px; height: 47px;">Hora de Inicio:<br />
                     <asp:TextBox ID="inicio" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" />&nbsp;</td>
-                <td class="auto-style1">Hora de Fin:<br />
+                <td class="auto-style1" style="height: 47px">Hora de Fin:<br />
                     <asp:TextBox ID="fin" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
+                <td style="height: 47px">
+                    <asp:CheckBox ID="ChCierre" runat="server" Text="Jornada de cierre" />
+             
+                </td>
+                
             </tr>
+            
             <tr>
                 <td class="auto-style1" style="width: 169px">&nbsp;</td>
                 <td class="auto-style1">&nbsp;</td>

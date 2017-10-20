@@ -190,7 +190,7 @@ Partial Class CalculoHoras
                 rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
             End Using
             'Acumulador de fecha
-            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM")
             'Acumulador de horas
             Acum = tsDiferencia + Acum
             tsDiferencia = 0
