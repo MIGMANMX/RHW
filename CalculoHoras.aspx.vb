@@ -78,14 +78,12 @@ Partial Class CalculoHoras
         If wucEmpleados2.idEmpleado <> 0 Then
             If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
 
-
                 Dim FechaFinal As Date
                 Dim FechaFinal2 As Date
                 FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
                 FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
-
-
                 Dim ec As New ctiCalculo
+
                 GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
                 'GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal2), "yyyy-MM-dd"), 3)
 
@@ -153,7 +151,7 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-dd-MM") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-MM-dd") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
                 'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
@@ -190,7 +188,7 @@ Partial Class CalculoHoras
                 rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
             End Using
             'Acumulador de fecha
-            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM")
+            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
             'Acumulador de horas
             Acum = tsDiferencia + Acum
             tsDiferencia = 0
@@ -249,9 +247,10 @@ Partial Class CalculoHoras
                     dsP(0) = rdr("idchequeo").ToString
                     dsP(1) = rdr("chec").ToString
                     dsP(2) = rdr("tipo").ToString
-
+                    dsP(3) = rdr("idincidencia").ToString
                     'Valor de fecha Inicial
                     'Consultar Hora
+
                     Dim acceso As New ctiCalculo
                     Dim datos() As String = acceso.datosHora(dsP(0))
 
@@ -259,10 +258,14 @@ Partial Class CalculoHoras
                     'Valores de Horas y Minutos
                     HI = Convert.ToInt32(HoraIn.ToString("HH"))
                     MI = Convert.ToInt32(HoraIn.ToString("mm"))
-                    'Despues de 05 min es una hora extra
-                    If MI > 5 Then
-                        HI = HI + 1
+                    'No descontar la hora si el retardo no es culpa del empleado
+                    If dsP(3) <> 6 Then
+                        'Despues de 05 min es una hora extra
+                        If MI > 5 Then
+                            HI = HI + 1
+                        End If
                     End If
+
                 End While
                 rdr.Close() : rdr = Nothing
 
@@ -281,7 +284,7 @@ Partial Class CalculoHoras
                     dsP2(0) = rdr2("idchequeo").ToString
                     dsP2(1) = rdr2("chec").ToString
                     dsP2(2) = rdr2("tipo").ToString
-
+                    dsP(3) = rdr("idincidencia").ToString
                     'Valor de fecha Final
                     'Consultar Hora
                     Dim acceso As New ctiCalculo
@@ -316,98 +319,98 @@ Partial Class CalculoHoras
         End While
         TxHorasTrabajadas.Text = Acum
     End Sub
-    Public Sub HTrabajadas()
-        'Datos de los campos de texto
-        Dim FIn As Date
-        Dim FFn As Date
+    'Public Sub HTrabajadas()
+    '    'Datos de los campos de texto
+    '    Dim FIn As Date
+    '    Dim FFn As Date
 
-        'Variable global
-        Dim Fech As Date
-        'Variables para operaciones
-        Dim HoraIn As Date
-        Dim HoraFn As Date
-        Dim HI As Integer
-        Dim HF As Integer
-        Dim MI As Integer
-        Dim MF As Integer
-        Dim tsDiferencia As Integer
-        Dim Acum As Integer
+    '    'Variable global
+    '    Dim Fech As Date
+    '    'Variables para operaciones
+    '    Dim HoraIn As Date
+    '    Dim HoraFn As Date
+    '    Dim HI As Integer
+    '    Dim HF As Integer
+    '    Dim MI As Integer
+    '    Dim MF As Integer
+    '    Dim tsDiferencia As Integer
+    '    Dim Acum As Integer
 
-        'Asignar los datos de los campos de texto a Variables
-        FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
-        FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+    '    'Asignar los datos de los campos de texto a Variables
+    '    FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+    '    FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
 
-        'Igualar Fecha de inicio a la Variable Global
-        Fech = FIn
+    '    'Igualar Fecha de inicio a la Variable Global
+    '    Fech = FIn
 
-        'Inicio del ciclo de comparacion
-        While (Fech <= FFn)
-            'Borramos datos de las variables
-            tsDiferencia = 0
-            HI = 0
-            HF = 0
-            'Conexion y busqueda de registros
-            Using dbC As New SqlConnection
-                dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-                dbC.Open()
-                'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ", dbC)
-                Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
+    '    'Inicio del ciclo de comparacion
+    '    While (Fech <= FFn)
+    '        'Borramos datos de las variables
+    '        tsDiferencia = 0
+    '        HI = 0
+    '        HF = 0
+    '        'Conexion y busqueda de registros
+    '        Using dbC As New SqlConnection
+    '            dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+    '            dbC.Open()
+    '            'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ", dbC)
+    '            Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
 
-                cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                cmd.Parameters.AddWithValue("chec", Fech)
-                Dim rdr As SqlDataReader = cmd.ExecuteReader
-                Dim dsP As String()
-                While rdr.Read
-                    'Lectura de registros
-                    ReDim dsP(3)
-                    dsP(0) = rdr("idchequeo").ToString
-                    dsP(1) = rdr("chec").ToString
-                    dsP(2) = rdr("tipo").ToString
-                    'Condicion de E/S
-                    If dsP(2) = "Entrada" Then
-                        'Consultar Hora
-                        Dim acceso As New ctiCalculo
-                        Dim datos() As String = acceso.datosHora(dsP(0))
+    '            cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+    '            cmd.Parameters.AddWithValue("chec", Fech)
+    '            Dim rdr As SqlDataReader = cmd.ExecuteReader
+    '            Dim dsP As String()
+    '            While rdr.Read
+    '                'Lectura de registros
+    '                ReDim dsP(3)
+    '                dsP(0) = rdr("idchequeo").ToString
+    '                dsP(1) = rdr("chec").ToString
+    '                dsP(2) = rdr("tipo").ToString
+    '                'Condicion de E/S
+    '                If dsP(2) = "Entrada" Then
+    '                    'Consultar Hora
+    '                    Dim acceso As New ctiCalculo
+    '                    Dim datos() As String = acceso.datosHora(dsP(0))
 
-                        HoraIn = datos(0)
+    '                    HoraIn = datos(0)
 
-                        HI = Convert.ToInt32(HoraIn.ToString("HH"))
-                        MI = Convert.ToInt32(HoraIn.ToString("mm"))
+    '                    HI = Convert.ToInt32(HoraIn.ToString("HH"))
+    '                    MI = Convert.ToInt32(HoraIn.ToString("mm"))
 
-                        If MI > 5 Then
-                            HI = HI + 1
-                        End If
-                    ElseIf dsP(2) = "Salida" Then
-                        'Consultar Hora
-                        Dim acceso As New ctiCalculo
-                        Dim datos() As String = acceso.datosHora(dsP(0))
+    '                    If MI > 5 Then
+    '                        HI = HI + 1
+    '                    End If
+    '                ElseIf dsP(2) = "Salida" Then
+    '                    'Consultar Hora
+    '                    Dim acceso As New ctiCalculo
+    '                    Dim datos() As String = acceso.datosHora(dsP(0))
 
-                        HoraFn = datos(0)
+    '                    HoraFn = datos(0)
 
-                        HF = Convert.ToInt32(HoraFn.ToString("HH"))
-                        MF = Convert.ToInt32(HoraFn.ToString("mm"))
-                        If MF > 49 Then
-                            HF = HF + 1
-                        End If
-                    End If
+    '                    HF = Convert.ToInt32(HoraFn.ToString("HH"))
+    '                    MF = Convert.ToInt32(HoraFn.ToString("mm"))
+    '                    If MF > 49 Then
+    '                        HF = HF + 1
+    '                    End If
+    '                End If
 
-                End While
-                'Diferencia de horas
-                tsDiferencia = 0
-                tsDiferencia = HF - HI
-                'Limpiar variables
-                HI = 0
-                HF = 0
-                rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
-            End Using
-            'Acumulador de fecha
-            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
-            'Acumulador de horas
-            Acum = tsDiferencia + Acum
-            tsDiferencia = 0
-        End While
-        TxHorasTrabajadas.Text = Acum
-    End Sub
+    '            End While
+    '            'Diferencia de horas
+    '            tsDiferencia = 0
+    '            tsDiferencia = HF - HI
+    '            'Limpiar variables
+    '            HI = 0
+    '            HF = 0
+    '            rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+    '        End Using
+    '        'Acumulador de fecha
+    '        Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+    '        'Acumulador de horas
+    '        Acum = tsDiferencia + Acum
+    '        tsDiferencia = 0
+    '    End While
+    '    TxHorasTrabajadas.Text = Acum
+    'End Sub
     Public Sub DDescansados()
 
     End Sub
@@ -552,4 +555,72 @@ Partial Class CalculoHoras
             Lmsg.Text = "Error : Falta seleccionar incidencia"
         End If
     End Sub
+    Public Function RetardoNA() As Boolean
+        'Dim Ret As Boolean = False
+
+        ''Datos de los campos de texto
+        'Dim FIn As Date
+        'Dim FFn As Date
+        ''Variable global
+        'Dim Fech As Date
+
+        ''Asignar los datos de los campos de texto a Variables
+        'FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        'FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+        ''Igualar Fecha de inicio a la Variable Global
+        'Fech = FIn
+
+        ''Inicio del ciclo de comparacion
+        'While (Fech <= FFn)
+        '    'Conexion y busqueda de registros
+        '    Using dbC As New SqlConnection
+        '        dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+        '        dbC.Open()
+        '        Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-MM-dd") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
+        '        'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
+
+        '        cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+        '        cmd.Parameters.AddWithValue("fecha", Fech)
+        '        Dim rdr As SqlDataReader = cmd.ExecuteReader
+        '        Dim dsP As String()
+        '        If rdr.Read Then
+        '            'Lectura de registros
+        '            ReDim dsP(3)
+        '            dsP(0) = rdr("inicio").ToString
+        '            dsP(1) = rdr("fin").ToString
+        '            dsP(2) = rdr("jornada").ToString
+
+        '            HoraIn = dsP(0)
+        '            HoraFn = dsP(1)
+        '            HI = Convert.ToInt32(HoraIn.ToString("HH"))
+        '            HF = Convert.ToInt32(HoraFn.ToString("HH"))
+
+        '            'Saber si es SUSPENSION/VACACIONES/INCAPACIDAD/DESCANSO
+        '            If dsP(2) <> "SUSPENSION" Or dsP(2) <> "VACACIONES" Or dsP(2) <> "INCAPACIDAD" Or dsP(2) <> "DESCANSO" Then
+        '                'Diferencia de horas
+        '                tsDiferencia = 0
+        '                tsDiferencia = HF - HI
+        '                'Limpiar variables
+        '                HI = 0
+        '                HF = 0
+        '                If tsDiferencia < 1 Then
+        '                    tsDiferencia = 0
+        '                End If
+        '            Else
+        '                tsDiferencia = 0
+        '            End If
+        '        End If
+        '        rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+        '    End Using
+        '    'Acumulador de fecha
+        '    Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+        '    'Acumulador de horas
+
+        'End While
+
+
+        'Return Ret
+    End Function
+
 End Class
