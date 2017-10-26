@@ -114,6 +114,7 @@ Partial Class CalculoHoras
         HTotales()
         HTrabajadasCont()
         HorasExtras()
+        DDescansados()
         'DDescansados()
         'DDescansadosTrabajados()
     End Sub
@@ -243,7 +244,7 @@ Partial Class CalculoHoras
                 Dim dsP As String()
                 While rdr.Read
                     'Lectura de registros
-                    ReDim dsP(3)
+                    ReDim dsP(4)
                     dsP(0) = rdr("idchequeo").ToString
                     dsP(1) = rdr("chec").ToString
                     dsP(2) = rdr("tipo").ToString
@@ -259,12 +260,12 @@ Partial Class CalculoHoras
                     HI = Convert.ToInt32(HoraIn.ToString("HH"))
                     MI = Convert.ToInt32(HoraIn.ToString("mm"))
                     'No descontar la hora si el retardo no es culpa del empleado
-                    If dsP(3) <> 6 Then
-                        'Despues de 05 min es una hora extra
-                        If MI > 5 Then
+                    ' If dsP(3) = "" And dsP(3) <> 6 Then
+                    'Despues de 05 min es una hora extra
+                    If MI > 5 Then
                             HI = HI + 1
                         End If
-                    End If
+                    '  End If
 
                 End While
                 rdr.Close() : rdr = Nothing
@@ -280,11 +281,11 @@ Partial Class CalculoHoras
                 Dim dsP2 As String()
                 While rdr2.Read
                     'Lectura de registros
-                    ReDim dsP2(3)
+                    ReDim dsP2(4)
                     dsP2(0) = rdr2("idchequeo").ToString
                     dsP2(1) = rdr2("chec").ToString
                     dsP2(2) = rdr2("tipo").ToString
-                    dsP(3) = rdr("idincidencia").ToString
+                    ' dsP(3) = rdr("idincidencia").ToString
                     'Valor de fecha Final
                     'Consultar Hora
                     Dim acceso As New ctiCalculo
@@ -412,7 +413,57 @@ Partial Class CalculoHoras
     '    TxHorasTrabajadas.Text = Acum
     'End Sub
     Public Sub DDescansados()
+        'Datos de los campos de texto
+        Dim FIn As Date
+        Dim FFn As Date
 
+        'Variable global
+        Dim Fech As Date
+
+        'Variables para operaciones
+        Dim Acum As Integer = 0
+
+        'Asignar los datos de los campos de texto a Variables
+        FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+        'Igualar Fecha de inicio a la Variable Global
+        Fech = FIn
+
+        'Inicio del ciclo de comparacion
+        While (Fech <= FFn)
+
+            'Conexion y busqueda de registros
+            Using dbC As New SqlConnection
+                dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+                dbC.Open()
+                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
+
+                cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                cmd.Parameters.AddWithValue("fecha", Fech)
+                Dim rdr As SqlDataReader = cmd.ExecuteReader
+                Dim dsP As String()
+                If rdr.Read Then
+                    'Lectura de registros
+                    ReDim dsP(1)
+
+                    dsP(0) = rdr("jornada").ToString
+
+                    'Saber si es DESCANSO
+                    If dsP(0) = "DESCANSO" Then
+                        Acum = Acum + 1
+                    Else
+                        Acum = Acum
+                    End If
+                End If
+                rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+            End Using
+            'Acumulador de fecha
+            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+
+        End While
+        TxDDescasados.Text = Acum
+        Acum = 0
     End Sub
     Public Sub DDescansadosTrabajados()
 
