@@ -133,7 +133,7 @@ Partial Class CalculoHoras
         Dim HI As Integer
         Dim HF As Integer
         Dim tsDiferencia As Integer
-        ' Dim Acum As TimeSpan = TimeSpan.Zero
+
         Dim Acum As Integer
         'Asignar los datos de los campos de texto a Variables
         FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
@@ -153,7 +153,7 @@ Partial Class CalculoHoras
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
                 Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-MM-dd") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
-                'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
+
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("fecha", Fech)
@@ -165,6 +165,8 @@ Partial Class CalculoHoras
                     dsP(0) = rdr("inicio").ToString
                     dsP(1) = rdr("fin").ToString
                     dsP(2) = rdr("jornada").ToString
+                    Dim cadena As String
+                    cadena = dsP(2)
 
                     HoraIn = dsP(0)
                     HoraFn = dsP(1)
@@ -172,16 +174,19 @@ Partial Class CalculoHoras
                     HF = Convert.ToInt32(HoraFn.ToString("HH"))
 
                     'Saber si es SUSPENSION/VACACIONES/INCAPACIDAD/DESCANSO
-                    If dsP(2) <> "SUSPENSION" Or dsP(2) <> "VACACIONES" Or dsP(2) <> "INCAPACIDAD" Or dsP(2) <> "DESCANSO" Then
+                    If Not cadena = "DESCANSO" Or cadena = "SUSPENSION" Or cadena = "VACACIONES" Or cadena = "INCAPACIDAD" Then
                         'Diferencia de horas
                         tsDiferencia = 0
                         tsDiferencia = HF - HI
+
+                        If tsDiferencia < 1 Then
+                            Dim HF_ As Integer = 0
+                            HF_ = 24 + HF
+                            tsDiferencia = HF_ - HI
+                        End If
                         'Limpiar variables
                         HI = 0
                         HF = 0
-                        If tsDiferencia < 1 Then
-                            tsDiferencia = 0
-                        End If
                     Else
                         tsDiferencia = 0
                     End If
@@ -469,10 +474,54 @@ Partial Class CalculoHoras
 
     End Sub
     Public Sub HorasExtras()
-        'Dim A, B As Integer
-        'A = Convert.ToInt32(TxHorasTrabajadas.Text)
-        'B = Convert.ToInt32(TxHtotales.Text)
-        'TxHorasExtras.Text = A - B
+        'Datos de los campos de texto
+        Dim FIn As Date
+        Dim FFn As Date
+
+        'Variable global
+        Dim Fech As Date
+
+        'Variables para operaciones
+        Dim Acum As Integer = 0
+
+        'Asignar los datos de los campos de texto a Variables
+        FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+        'Igualar Fecha de inicio a la Variable Global
+        Fech = FIn
+
+        'Inicio del ciclo de comparacion
+        While (Fech <= FFn)
+
+            'Conexion y busqueda de registros
+            Using dbC As New SqlConnection
+                dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+                dbC.Open()
+                Dim cmd As New SqlCommand("Select cantidad From Particulares where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-MM-dd") & "' AND tipo ='HExtras'Order BY fecha", dbC)
+
+                cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                cmd.Parameters.AddWithValue("fecha", Fech)
+                Dim rdr As SqlDataReader = cmd.ExecuteReader
+                Dim dsP As String()
+                If rdr.Read Then
+                    'Lectura de registros
+                    ReDim dsP(1)
+
+                    dsP(0) = rdr("cantidad").ToString
+                    Dim cant As Integer = 0
+                    cant = dsP(0)
+                    Acum = Acum + cant
+                    cant = 0
+                End If
+                rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+            End Using
+            'Acumulador de fecha
+            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+
+        End While
+        TxHorasExtras.Text = Acum
+        Acum = 0
     End Sub
     Protected Sub btnReporte_Click(sender As Object, e As EventArgs) Handles btnReporte.Click
         'Creación de un objeto CultureInfo con referencia cultural de México
@@ -493,6 +542,7 @@ Partial Class CalculoHoras
 
                 Dim Htotales As Integer = 0
                 Dim HTrabajadas As Integer = 0
+                Dim DDescansados As Integer = 0
 
                 If TxHorasTrabajadas.Text <> "" Then
                     HTrabajadas = TxHorasTrabajadas.Text
@@ -504,6 +554,11 @@ Partial Class CalculoHoras
                     Htotales = TxHtotales.Text
                 Else
                     Htotales = 0
+                End If
+                If TxDDescasados.Text <> "" Then
+                    DDescansados = TxDDescasados.Text
+                Else
+                    DDescansados = 0
                 End If
 
                 Dim p As New ReportParameter("Fech1", dt1)
@@ -519,6 +574,9 @@ Partial Class CalculoHoras
                 reporte.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("HTrabajadas", HTrabajadas)
+                reporte.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("DDescansados", DDescansados)
                 reporte.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("sucursal", wucSucursales.sucursal)
