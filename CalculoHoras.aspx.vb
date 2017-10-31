@@ -218,9 +218,12 @@ Partial Class CalculoHoras
         Dim tsDiferencia As Integer
         Dim Acum As Integer
 
+        'Operaciones de cierre
+        Dim CHI As Integer
+        Dim CHF As Integer
+        Dim CtsDiferencia As Integer
 
         'Valores de fechas obtenidas
-
         'Asignar los datos de los campos de texto a Variables
         FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
         FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
@@ -254,6 +257,7 @@ Partial Class CalculoHoras
                     dsP(1) = rdr("chec").ToString
                     dsP(2) = rdr("tipo").ToString
                     dsP(3) = rdr("idincidencia").ToString
+                    Dim Incid As Integer = 0
                     'Valor de fecha Inicial
                     'Consultar Hora
 
@@ -264,6 +268,8 @@ Partial Class CalculoHoras
                     'Valores de Horas y Minutos
                     HI = Convert.ToInt32(HoraIn.ToString("HH"))
                     MI = Convert.ToInt32(HoraIn.ToString("mm"))
+                    'Checar si la Hora es antes de 
+
                     'No descontar la hora si el retardo no es culpa del empleado
                     ' If dsP(3) = "" And dsP(3) <> 6 Then
                     'Despues de 05 min es una hora extra
@@ -280,8 +286,6 @@ Partial Class CalculoHoras
                 cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
                 'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
 
-                'cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                'cmd.Parameters.AddWithValue("chec", Fech)
                 Dim rdr2 As SqlDataReader = cmd.ExecuteReader
                 Dim dsP2 As String()
                 While rdr2.Read
@@ -309,6 +313,9 @@ Partial Class CalculoHoras
                 'Diferencia de horas
                 tsDiferencia = 0
                 tsDiferencia = HF - HI
+                'Asignar tsDiferencia a CtsDiferencia
+                CtsDiferencia = tsDiferencia
+
                 'Limpiar variables
                 HI = 0
                 HF = 0
