@@ -6,19 +6,19 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.76458cm</Width>
+              <Width>2.52556cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.62091cm</Width>
+              <Width>1.88571cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.83015cm</Width>
+              <Width>2.72935cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.40796cm</Width>
+              <Width>3.3334cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.61199cm</Width>
+              <Width>6.24638cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -374,9 +374,9 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Top>2.74849cm</Top>
-        <Left>1.64676cm</Left>
+        <Left>2.28176cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.23559cm</Width>
+        <Width>16.72039cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -386,7 +386,7 @@
       <Line Name="Line1">
         <Top>2.30807cm</Top>
         <Height>0cm</Height>
-        <Width>22.85861cm</Width>
+        <Width>21.90611cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -439,7 +439,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>0.18955cm</Top>
-        <Left>6.04453cm</Left>
+        <Left>6.36203cm</Left>
         <Height>0.6cm</Height>
         <Width>2.92256cm</Width>
         <ZIndex>3</ZIndex>
@@ -469,7 +469,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>0.18955cm</Top>
-        <Left>11.03313cm</Left>
+        <Left>12.17083cm</Left>
         <Height>0.6cm</Height>
         <Width>3.29298cm</Width>
         <ZIndex>4</ZIndex>
@@ -498,8 +498,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>0.18955cm</Top>
-        <Left>16.51cm</Left>
+        <Top>1.11545cm</Top>
+        <Left>12.17083cm</Left>
         <Height>0.6cm</Height>
         <Width>4.9334cm</Width>
         <ZIndex>5</ZIndex>
@@ -558,40 +558,10 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>1.11545cm</Top>
-        <Left>6.04453cm</Left>
+        <Left>6.36203cm</Left>
         <Height>0.6cm</Height>
         <Width>2.49922cm</Width>
         <ZIndex>7</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox23">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Horas Extras Triples:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>1.11545cm</Top>
-        <Left>11.03313cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.37235cm</Width>
-        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -621,7 +591,7 @@
         <Left>4.44183cm</Left>
         <Height>0.6cm</Height>
         <Width>1.24789cm</Width>
-        <ZIndex>9</ZIndex>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -648,10 +618,10 @@
         </Paragraphs>
         <rd:DefaultName>HTrabajadas</rd:DefaultName>
         <Top>0.18955cm</Top>
-        <Left>9.35515cm</Left>
+        <Left>9.67265cm</Left>
         <Height>0.6cm</Height>
         <Width>1.44167cm</Width>
-        <ZIndex>10</ZIndex>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -678,10 +648,10 @@
         </Paragraphs>
         <rd:DefaultName>DDescansados</rd:DefaultName>
         <Top>0.18955cm</Top>
-        <Left>14.5025cm</Left>
+        <Left>17.49229cm</Left>
         <Height>0.6cm</Height>
         <Width>1.69974cm</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -703,14 +673,46 @@
                 <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>HExtras</rd:DefaultName>
         <Top>1.11545cm</Top>
-        <Left>9.35515cm</Left>
+        <Left>9.67265cm</Left>
         <Height>0.6cm</Height>
         <Width>1.44167cm</Width>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="DFTrabajados">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!DFTrabajados.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>DFTrabajados</rd:DefaultName>
+        <Top>1.11545cm</Top>
+        <Left>4.44183cm</Left>
+        <Height>0.6cm</Height>
+        <Width>1.24789cm</Width>
         <ZIndex>12</ZIndex>
         <Style>
           <Border>
@@ -722,11 +724,41 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="DDTrabajados">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!DDTrabajados.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>DDTrabajados</rd:DefaultName>
+        <Top>1.11545cm</Top>
+        <Left>17.49229cm</Left>
+        <Height>0.6cm</Height>
+        <Width>1.69974cm</Width>
+        <ZIndex>13</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>2in</Height>
+    <Height>1.72917in</Height>
     <Style />
   </Body>
-  <Width>8.99945in</Width>
+  <Width>8.62445in</Width>
   <Page>
     <PageHeader>
       <Height>4.75078cm</Height>
@@ -1160,6 +1192,14 @@
     </ReportParameter>
     <ReportParameter Name="HExtras">
       <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DFTrabajados">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DDTrabajados">
+      <DataType>Integer</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

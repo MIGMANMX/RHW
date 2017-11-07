@@ -242,8 +242,6 @@ Partial Class CalculoHoras
                 'Hora de Entrada
                 Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ASC ", dbC)
                 'Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ASC", dbC)
-                'Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ASC ", dbC)
-                Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ASC", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("chec", Fech)
@@ -279,8 +277,8 @@ Partial Class CalculoHoras
 
 
                 'Hora de Salida
-                'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
-                cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
+                cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
+                'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
 
                 'cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 'cmd.Parameters.AddWithValue("chec", Fech)
@@ -673,6 +671,8 @@ Partial Class CalculoHoras
                 Dim HTrabajadas As Integer = 0
                 Dim DDescansados As Integer = 0
                 Dim HExtras As Integer = 0
+                Dim DT As Integer = 0
+                Dim FT As Integer = 0
 
                 If TxHorasTrabajadas.Text <> "" Then
                     HTrabajadas = TxHorasTrabajadas.Text
@@ -696,6 +696,17 @@ Partial Class CalculoHoras
                     HExtras = 0
                 End If
 
+                If TextBox2.Text <> "" Then
+                    DT = TextBox2.Text
+                Else
+                    DT = 0
+                End If
+                If TextBox3.Text <> "" Then
+                    FT = TextBox3.Text
+                Else
+                    FT = 0
+                End If
+
                 Dim p As New ReportParameter("Fech1", dt1)
                 reporte.LocalReport.SetParameters(p)
 
@@ -715,6 +726,12 @@ Partial Class CalculoHoras
                 reporte.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("HExtras", HExtras)
+                reporte.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("DDTrabajados", DT)
+                reporte.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("DFTrabajados", FT)
                 reporte.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("sucursal", wucSucursales.sucursal)
