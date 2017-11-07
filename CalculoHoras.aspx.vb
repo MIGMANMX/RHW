@@ -11,9 +11,9 @@ Partial Class CalculoHoras
     '''''''''Lineas para cambiar
     '88
     '108
-    '239
-    '271
-    '538
+    '243
+    '280
+    '785
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
@@ -218,12 +218,9 @@ Partial Class CalculoHoras
         Dim tsDiferencia As Integer
         Dim Acum As Integer
 
-        'Operaciones de cierre
-        Dim CHI As Integer
-        Dim CHF As Integer
-        Dim CtsDiferencia As Integer
 
         'Valores de fechas obtenidas
+
         'Asignar los datos de los campos de texto a Variables
         FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
         FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
@@ -237,7 +234,7 @@ Partial Class CalculoHoras
             tsDiferencia = 0
             HI = 0
             HF = 0
-            ''Conexion y busqueda de registros
+            'Conexion y busqueda de registros
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
@@ -245,19 +242,20 @@ Partial Class CalculoHoras
                 'Hora de Entrada
                 Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ASC ", dbC)
                 'Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ASC", dbC)
+                'Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ASC ", dbC)
+                Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ASC", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("chec", Fech)
                 Dim rdr As SqlDataReader = cmd.ExecuteReader
                 Dim dsP As String()
                 While rdr.Read
-                    'Lectura de registros 
+                    'Lectura de registros
                     ReDim dsP(4)
                     dsP(0) = rdr("idchequeo").ToString
                     dsP(1) = rdr("chec").ToString
                     dsP(2) = rdr("tipo").ToString
                     dsP(3) = rdr("idincidencia").ToString
-                    Dim Incid As Integer = 0
                     'Valor de fecha Inicial
                     'Consultar Hora
 
@@ -266,26 +264,26 @@ Partial Class CalculoHoras
 
                     HoraIn = datos(0)
                     'Valores de Horas y Minutos
-                    HI = 0
                     HI = Convert.ToInt32(HoraIn.ToString("HH"))
                     MI = Convert.ToInt32(HoraIn.ToString("mm"))
-                    'Checar si la Hora es antes de 
-
                     'No descontar la hora si el retardo no es culpa del empleado
                     ' If dsP(3) = "" And dsP(3) <> 6 Then
                     'Despues de 05 min es una hora extra
                     If MI > 5 Then
-                            HI = HI + 1
-                        End If
+                        HI = HI + 1
+                    End If
                     '  End If
+
                 End While
                 rdr.Close() : rdr = Nothing
-                CHI = HI
+
 
                 'Hora de Salida
-                cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
-                'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
+                'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
+                cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
 
+                'cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                'cmd.Parameters.AddWithValue("chec", Fech)
                 Dim rdr2 As SqlDataReader = cmd.ExecuteReader
                 Dim dsP2 As String()
                 While rdr2.Read
@@ -302,7 +300,6 @@ Partial Class CalculoHoras
 
                     HoraFn = datos(0)
                     'Valores de Horas y Minutos
-
                     HF = Convert.ToInt32(HoraFn.ToString("HH"))
                     MF = Convert.ToInt32(HoraFn.ToString("mm"))
                     'Despues de 50m se puede checar la salida
@@ -311,25 +308,9 @@ Partial Class CalculoHoras
                     End If
                 End While
 
-
-                ''''''''
-                If HI > 6 Then
-                    '''''
-                    'Consulta nueva
-
-                Else
-                    CHI = 0
-                    CHF = 0
-                    CtsDiferencia = 0
-                End If
-
                 'Diferencia de horas
                 tsDiferencia = 0
                 tsDiferencia = HF - HI
-
-                'Asignar tsDiferencia a CtsDiferencia
-                CtsDiferencia = tsDiferencia
-
                 'Limpiar variables
                 HI = 0
                 HF = 0
@@ -677,19 +658,21 @@ Partial Class CalculoHoras
         reporte.ServerReport.Refresh()
         If wucSucursales.idSucursal <> 0 Then
             If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
-                Dim dt1 As DateTime
+
+                Dim dt1 As Date
                 dt1 = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
-                Dim dtf As DateTime
+                Dim dtf As Date
                 dtf = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
 
 
-                Dim dt2 As DateTime
+                Dim dt2 As Date
                 dt2 = DateAdd(DateInterval.Day, 1, dtf)
                 dt2 = Format(CDate(dt2), "yyyy-MM-dd")
-
+                TxFechaFin2.Text = dt2
                 Dim Htotales As Integer = 0
                 Dim HTrabajadas As Integer = 0
                 Dim DDescansados As Integer = 0
+                Dim HExtras As Integer = 0
 
                 If TxHorasTrabajadas.Text <> "" Then
                     HTrabajadas = TxHorasTrabajadas.Text
@@ -707,11 +690,16 @@ Partial Class CalculoHoras
                 Else
                     DDescansados = 0
                 End If
+                If TxHorasExtras.Text <> "" Then
+                    HExtras = TxHorasExtras.Text
+                Else
+                    HExtras = 0
+                End If
 
                 Dim p As New ReportParameter("Fech1", dt1)
                 reporte.LocalReport.SetParameters(p)
 
-                p = New ReportParameter("Fech2", dt2)
+                p = New ReportParameter("Fech2", dtf)
                 reporte.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("idempleado", idEmpleadoTX.Text)
@@ -724,6 +712,9 @@ Partial Class CalculoHoras
                 reporte.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("DDescansados", DDescansados)
+                reporte.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("HExtras", HExtras)
                 reporte.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("sucursal", wucSucursales.sucursal)
@@ -878,5 +869,4 @@ Partial Class CalculoHoras
 
         'Return Ret
     End Function
-
 End Class
