@@ -9,7 +9,7 @@
               <Width>2.76458cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.3606cm</Width>
+              <Width>2.62091cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.83015cm</Width>
@@ -376,7 +376,7 @@
         <Top>2.74849cm</Top>
         <Left>1.64676cm</Left>
         <Height>1.2cm</Height>
-        <Width>17.97528cm</Width>
+        <Width>18.23559cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -549,7 +549,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Horas Extras Dobles:</Value>
+                <Value>Horas Extras:</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -560,7 +560,7 @@
         <Top>1.11545cm</Top>
         <Left>6.04453cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.50464cm</Width>
+        <Width>2.49922cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -588,7 +588,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
         <Top>1.11545cm</Top>
-        <Left>11.95917cm</Left>
+        <Left>11.03313cm</Left>
         <Height>0.6cm</Height>
         <Width>3.37235cm</Width>
         <ZIndex>8</ZIndex>
@@ -682,6 +682,36 @@
         <Height>0.6cm</Height>
         <Width>1.69974cm</Width>
         <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="HExtras">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!HExtras.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>HExtras</rd:DefaultName>
+        <Top>1.11545cm</Top>
+        <Left>9.35515cm</Left>
+        <Height>0.6cm</Height>
+        <Width>1.44167cm</Width>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1126,6 +1156,10 @@
     </ReportParameter>
     <ReportParameter Name="DDescansados">
       <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="HExtras">
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

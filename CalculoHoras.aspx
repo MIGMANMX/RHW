@@ -74,6 +74,10 @@
 
                 
 
+                    <asp:TextBox ID="TxFechaFin2" runat="server" MaxLength="40" Width="100px" CssClass="txtCaptura" Height="24px" Enabled="False" Visible="False" />
+
+                                    
+
                     <td><asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Buscar"  ToolTip="Buscar Registros" Width="90px" /></td>               
                     </td>
             </tr>  
@@ -166,7 +170,7 @@
             <AlternatingRowStyle BackColor="#fbfbfb" />
             <SelectedRowStyle BackColor="#fffcbf" />
             <FooterStyle BackColor="#FF9933" Font-Size="1" Height="1" />
-            <PagerStyle BackColor="#3088b0" ForeColor="#333333" HorizontalAlign="Center" />
+            <PagerStyle BackColor="#3088b0" ForeColor="#333333" HorizontalAlign="Center"  />
         </asp:GridView>
                 
                 
@@ -239,11 +243,9 @@
             <SelectParameters>
                 <asp:ControlParameter ControlID="idEmpleadoTX" Name="idempleado" PropertyName="Text" Type="Int32" />
                 <asp:ControlParameter ControlID="TxFechaInicio" Name="Fech1" PropertyName="Text" Type="DateTime" />
-                <asp:ControlParameter ControlID="TxFechaFin" Name="Fech2" PropertyName="Text" Type="DateTime" />
+                <asp:ControlParameter ControlID="TxFechaFin2" Name="Fech2" PropertyName="Text" Type="DateTime" />
             </SelectParameters>
         </asp:ObjectDataSource>
    </div>
       
 </asp:Content>
-
-

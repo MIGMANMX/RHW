@@ -115,8 +115,8 @@ Partial Class CalculoHoras
         HTrabajadasCont()
         HorasExtras()
         DDescansados()
-        'DDescansados()
-        'DDescansadosTrabajados()
+        DFestivosTrabajados()
+        DDescansadosTrabajados()
     End Sub
     Public Sub HTotales()
         'Datos de los campos de texto
@@ -152,7 +152,7 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-MM-dd") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-dd-MM") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
 
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
@@ -237,7 +237,7 @@ Partial Class CalculoHoras
             tsDiferencia = 0
             HI = 0
             HF = 0
-            'Conexion y busqueda de registros
+            ''Conexion y busqueda de registros
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
@@ -251,7 +251,7 @@ Partial Class CalculoHoras
                 Dim rdr As SqlDataReader = cmd.ExecuteReader
                 Dim dsP As String()
                 While rdr.Read
-                    'Lectura de registros
+                    'Lectura de registros 
                     ReDim dsP(4)
                     dsP(0) = rdr("idchequeo").ToString
                     dsP(1) = rdr("chec").ToString
@@ -266,6 +266,7 @@ Partial Class CalculoHoras
 
                     HoraIn = datos(0)
                     'Valores de Horas y Minutos
+                    HI = 0
                     HI = Convert.ToInt32(HoraIn.ToString("HH"))
                     MI = Convert.ToInt32(HoraIn.ToString("mm"))
                     'Checar si la Hora es antes de 
@@ -277,10 +278,9 @@ Partial Class CalculoHoras
                             HI = HI + 1
                         End If
                     '  End If
-
                 End While
                 rdr.Close() : rdr = Nothing
-
+                CHI = HI
 
                 'Hora de Salida
                 cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
@@ -302,6 +302,7 @@ Partial Class CalculoHoras
 
                     HoraFn = datos(0)
                     'Valores de Horas y Minutos
+
                     HF = Convert.ToInt32(HoraFn.ToString("HH"))
                     MF = Convert.ToInt32(HoraFn.ToString("mm"))
                     'Despues de 50m se puede checar la salida
@@ -310,9 +311,22 @@ Partial Class CalculoHoras
                     End If
                 End While
 
+
+                ''''''''
+                If HI > 6 Then
+                    '''''
+                    'Consulta nueva
+
+                Else
+                    CHI = 0
+                    CHF = 0
+                    CtsDiferencia = 0
+                End If
+
                 'Diferencia de horas
                 tsDiferencia = 0
                 tsDiferencia = HF - HI
+
                 'Asignar tsDiferencia a CtsDiferencia
                 CtsDiferencia = tsDiferencia
 
@@ -449,7 +463,7 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("fecha", Fech)
@@ -478,7 +492,133 @@ Partial Class CalculoHoras
         Acum = 0
     End Sub
     Public Sub DDescansadosTrabajados()
+        'Datos de los campos de texto
+        Dim FIn As Date
+        Dim FFn As Date
 
+        'Variable global
+        Dim Fech As Date
+
+        'Variables para operaciones
+        Dim Acum As Integer = 0
+
+        'Asignar los datos de los campos de texto a Variables
+        FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+        'Igualar Fecha de inicio a la Variable Global
+        Fech = FIn
+
+        'Inicio del ciclo de comparacion
+        While (Fech <= FFn)
+
+            'Conexion y busqueda de registros
+            Using dbC As New SqlConnection
+                dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+                dbC.Open()
+                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
+
+                cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                cmd.Parameters.AddWithValue("fecha", Fech)
+                Dim rdr As SqlDataReader = cmd.ExecuteReader
+                Dim dsP As String()
+                If rdr.Read Then
+                    'Lectura de registros
+                    ReDim dsP(1)
+
+                    dsP(0) = rdr("jornada").ToString
+
+                    'Formato para las fechas
+                    Dim F As Date
+                    F = Fech
+                    F = Format(CDate(Fech), "yyyy-MM-dd")
+                    Dim FF As Date
+                    FF = DateAdd(DateInterval.Day, 1, F).ToString("yyyy-MM-dd")
+
+                    'Saber si es DESCANSO
+                    If dsP(0) = "DESCANSO" Then
+
+                        'Consulta si trabajo segun la fecha
+                        Dim acceso As New ctiCalculo
+                        Dim datos() As String = acceso.ConsultaAsistencia(wucEmpleados2.idEmpleado, F, FF)
+                        Dim dat As Integer = datos(0)
+                        If datos(0) > 0 Then
+                            'Acumular el dia
+                            Acum = Acum + 1
+                        Else
+                            Acum = Acum
+                        End If
+                    End If
+                End If
+                rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+            End Using
+            'Acumulador de fecha
+            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+
+        End While
+        TextBox2.Text = Acum
+        Acum = 0
+    End Sub
+    Public Sub DFestivosTrabajados()
+        'Datos de los campos de texto
+        Dim FIn As Date
+        Dim FFn As Date
+
+        'Variable global
+        Dim Fech As Date
+
+        'Variables para operaciones
+        Dim Acum As Integer = 0
+
+        'Asignar los datos de los campos de texto a Variables
+        FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+        'Fecha Fin
+        Dim FFin As Date
+        FFin = DateAdd(DateInterval.Day, 1, FFn).ToString("yyyy-MM-dd")
+        'Igualar Fecha de inicio a la Variable Global
+        Fech = FIn
+
+
+        'Conexion y busqueda de registros
+        Using dbC As New SqlConnection
+                dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+                dbC.Open()
+            Dim cmd As New SqlCommand("Select dia,fecha From Dia_Festivo where fecha BETWEEN '" & FIn.ToString("yyyy-dd-MM") & "'  AND '" & FFn.ToString("yyyy-dd-MM") & "' Order BY fecha ", dbC)
+            cmd.Parameters.AddWithValue("fecha", Fech)
+                Dim rdr As SqlDataReader = cmd.ExecuteReader
+                Dim dsP As String()
+            'Lectura de registros
+            While rdr.Read
+                ReDim dsP(2)
+                'Obtener valores
+                dsP(0) = rdr("dia").ToString
+                dsP(1) = rdr("fecha").ToString
+
+                'Formato para las fechas
+                Dim F As Date
+                F = dsP(1)
+                F = Format(CDate(dsP(1)), "yyyy-MM-dd")
+                Dim FF As Date
+                FF = DateAdd(DateInterval.Day, 1, F).ToString("yyyy-MM-dd")
+
+                'Consulta si trabajo segun la fecha
+                Dim acceso As New ctiCalculo
+                Dim datos() As String = acceso.ConsultaAsistencia(wucEmpleados2.idEmpleado, F, FF)
+                If datos(0) <> 0 Then
+                    'Acumular el dia
+                    Acum = Acum + 1
+                Else
+                    Acum = Acum
+                End If
+
+            End While
+            rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+        End Using
+
+        TextBox3.Text = Acum
+        Acum = 0
     End Sub
     Public Sub HorasExtras()
         'Datos de los campos de texto
