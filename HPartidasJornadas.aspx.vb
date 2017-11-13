@@ -71,7 +71,7 @@ Partial Class _HPartidasJornadas
             If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
                 btnActualizarr.Enabled = True
             Else
-                btnActualizarr.Enabled = False
+                btnActualizarr.Enabled = True
             End If
         End If
         Calendar1.Caption = "Horario de empleado"
@@ -209,6 +209,7 @@ Partial Class _HPartidasJornadas
         Else
             TIDPJ.Text = da(0)
             IDP = da(0)
+
             idpartidas_jornadaT.Text = da(0)
             wucJornadas.idJornada = da(1)
         End If
@@ -221,7 +222,7 @@ Partial Class _HPartidasJornadas
             btnGuardarNuevo.Enabled = False
         Else
             bandera = True
-            btnActualizarr.Enabled = False
+            btnActualizarr.Enabled = True
             btnGuardarNuevo.Enabled = True
         End If
         Lmsg.Text = ""
@@ -406,7 +407,7 @@ Partial Class _HPartidasJornadas
                 _schuleData = getSchedule()
                 bandera = True
             End If
-            btnActualizarr.Enabled = False
+            btnActualizarr.Enabled = True
         Else
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
                 If DiaS.Text = "Monday" And hora < 10 Then
@@ -466,7 +467,7 @@ Partial Class _HPartidasJornadas
                         _schuleData = getSchedule()
                         bandera = True
                     End If
-                    btnActualizarr.Enabled = False
+                    btnActualizarr.Enabled = True
                     h = False
                 Else
                     Lmsg.Text = "Termino el tiempo de Captura"
@@ -533,7 +534,7 @@ Partial Class _HPartidasJornadas
                     _schuleData = getSchedule()
                     bandera = True
                 End If
-                btnActualizarr.Enabled = False
+                btnActualizarr.Enabled = True
             End If
         End If
     End Sub
