@@ -41,7 +41,10 @@ Partial Class DiaFestivo
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ap As New ctiCatalogos
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        Dim r As String = ap.actualizarDiaFestivo(idA, TDia.Text, TFecha.Text)
+        Dim FF As Date
+        FF = TFecha.Text.ToString
+        Convert.ToDateTime(FF)
+        Dim r As String = ap.actualizarDiaFestivo(idA, TDia.Text, FF.ToString("MM/dd/yyyy"))
         GridView1.DataSource = ap.gvDiaFestivo
         ap = Nothing
         GridView1.DataBind()
@@ -65,7 +68,10 @@ Partial Class DiaFestivo
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
         End If
         Dim gc As New ctiCatalogos
-        Dim r() As String = gc.agregarDiaFestivo(TDia.Text, TFecha.Text)
+        Dim FF As Date
+        FF = TFecha.Text.ToString
+        Convert.ToDateTime(FF)
+        Dim r() As String = gc.agregarDiaFestivo(TDia.Text, FF.ToString("MM/dd/yyyy"))
         GridView1.DataSource = gc.gvDiaFestivo
         gc = Nothing
         GridView1.DataBind()
@@ -100,7 +106,7 @@ Partial Class DiaFestivo
                 Lmsg.Text = datos(0)
             Else
                 TDia.Text = datos(0)
-                TFecha.Text = datos(1)
+                TFecha.Text = Convert.ToDateTime(datos(1)).ToString("dd/MM/yyyy")
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI

@@ -3,7 +3,7 @@ Imports RHLogica
 
 Partial Class Particulares
     Inherits System.Web.UI.Page
-
+    Dim Fech As Date
     Public gvPos As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         Dim acceso As New ctiCatalogos
@@ -98,7 +98,8 @@ Partial Class Particulares
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ap As New ctiCalendario
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, fecha_ingreso.Text, observaciones.Text, cantidad.Text, DateTime.Now())
+
+        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, Fech.ToString("dd/MM/yyyy"), observaciones.Text, cantidad.Text, DateTime.Now())
         GridView1.DataSource = ap.gvParticulares(wucEmpleados2.idEmpleado)
         ap = Nothing
         GridView1.DataBind()
@@ -133,7 +134,10 @@ Partial Class Particulares
         End If
 
         Dim gc As New ctiCalendario
-        Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, fecha_ingreso.Text, observaciones.Text, canti)
+        Dim FF As Date
+        FF = fecha_ingreso.Text.ToString
+        Convert.ToDateTime(FF)
+        Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, canti)
         GridView1.DataSource = gc.gvParticulares(wucEmpleados2.idEmpleado)
         gc = Nothing
         GridView1.DataBind()
@@ -174,7 +178,9 @@ Partial Class Particulares
             Else
                 wucEmpleados2.idEmpleado = datos(1)
                 dropLTipo.SelectedValue = datos(2)
-                fecha_ingreso.Text = datos(3)
+                fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
+                Fech = Convert.ToDateTime(datos(3)).ToString("MM/dd/yyyy")
+
                 observaciones.Text = datos(4)
                 cantidad.Text = datos(5)
                 LabFUE.Text = datos(6)

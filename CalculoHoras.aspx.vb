@@ -36,9 +36,6 @@ Partial Class CalculoHoras
 
         reporte.ServerReport.Refresh()
 
-        wuc.Visible = False
-        obs.Visible = False
-        btnActualizar.Visible = False
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
 
@@ -72,7 +69,7 @@ Partial Class CalculoHoras
     Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
         TxFechaInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
         FIngreso.Visible = False
-        TxFechaFin.Text = DateAdd(DateInterval.Day, 14, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
+        TxFechaFin.Text = DateAdd(DateInterval.Day, 13, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
     End Sub
     Protected Sub ImageButton2_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton2.Click
         If FFinal.Visible = True Then
@@ -88,15 +85,24 @@ Partial Class CalculoHoras
     Protected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
         If wucEmpleados2.idEmpleado <> 0 Then
             If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
+                '''''''''Botones
+                HTotales()
+                'HTrabajadasCont()
+                HorasExtras()
+                DDescansados()
+                DFestivosTrabajados()
+                'DDescansadosTrabajados()
+                CalculoHrsTrab()
 
+                '''''''''''
                 Dim FechaFinal As Date
                 Dim FechaFinal2 As Date
                 FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
                 FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
                 Dim ec As New ctiCalculo
 
-                GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
-                'GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal2), "yyyy-MM-dd"), 3)
+                'GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
+                GridView1.DataSource = ec.gvChequeo()
 
                 ec = Nothing
                 GridView1.DataBind()
@@ -115,19 +121,19 @@ Partial Class CalculoHoras
         FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
         FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
 
-        GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
-        'GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal2), "yyyy-MM-dd"), 3)
+        'GridView1.DataSource = ec.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
+        GridView1.DataSource = ec.gvChequeo()
 
         ec = Nothing
         GridView1.DataBind()
     End Sub
     Protected Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
-        'HTotales()
-        HTrabajadasCont()
+        HTotales()
+        'HTrabajadasCont()
         HorasExtras()
         DDescansados()
         DFestivosTrabajados()
-        DDescansadosTrabajados()
+        'DDescansadosTrabajados()
         CalculoHrsTrab()
     End Sub
     Public Sub HTotales()
@@ -164,8 +170,8 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-dd-MM") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
-
+                ' Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-dd-MM") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-MM-dd") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("fecha", Fech)
@@ -252,8 +258,8 @@ Partial Class CalculoHoras
                 dbC.Open()
 
                 'Hora de Entrada
-                Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ASC ", dbC)
-                'Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ASC", dbC)
+                'Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec ASC ", dbC)
+                Dim cmd As New SqlCommand("Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ASC", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("chec", Fech)
@@ -289,8 +295,8 @@ Partial Class CalculoHoras
 
 
                 'Hora de Salida
-                cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
-                'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
+                'cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM") & "' AND idempleado=@idempleado Order BY chec DESC "
+                cmd.CommandText = "Select TOP (1) * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec DESC "
 
                 'cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 'cmd.Parameters.AddWithValue("chec", Fech)
@@ -454,7 +460,8 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
+                'Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("fecha", Fech)
@@ -507,7 +514,8 @@ Partial Class CalculoHoras
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
+                'Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-dd-MM") & "' Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select jornada From vm_Jornada where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd.Parameters.AddWithValue("fecha", Fech)
@@ -576,9 +584,10 @@ Partial Class CalculoHoras
         Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-            Dim cmd As New SqlCommand("Select dia,fecha From Dia_Festivo where fecha BETWEEN '" & FIn.ToString("yyyy-dd-MM") & "'  AND '" & FFn.ToString("yyyy-dd-MM") & "' Order BY fecha ", dbC)
+            'Dim cmd As New SqlCommand("Select dia,fecha From Dia_Festivo where fecha BETWEEN '" & FIn.ToString("yyyy-dd-MM") & "'  AND '" & FFn.ToString("yyyy-dd-MM") & "' Order BY fecha ", dbC)
+            Dim cmd As New SqlCommand("Select dia,fecha From Dia_Festivo where fecha BETWEEN '" & FIn.ToString("yyyy-MM-dd") & "'  AND '" & FFn.ToString("yyyy-MM-dd") & "' Order BY fecha ", dbC)
             cmd.Parameters.AddWithValue("fecha", Fech)
-                Dim rdr As SqlDataReader = cmd.ExecuteReader
+            Dim rdr As SqlDataReader = cmd.ExecuteReader
                 Dim dsP As String()
             'Lectura de registros
             While rdr.Read
@@ -775,8 +784,7 @@ Partial Class CalculoHoras
                 Lmsg.Text = datos(0)
             Else
                 If datos(0) <> "" Then
-                    wucIncidencias.idIncidencia = CInt(datos(0))
-                    TxObservacion.Text = datos(1).ToString
+
                     TxId.Text = datos(2).ToString
 
                     grdSR.Text = e.CommandArgument.ToString
@@ -786,8 +794,7 @@ Partial Class CalculoHoras
                     gvp = Nothing
                 Else
 
-                    wucIncidencias.idIncidencia = 0
-                    TxObservacion.Text = datos(1).ToString
+
                     TxId.Text = datos(2).ToString
 
                     grdSR.Text = e.CommandArgument.ToString
@@ -797,115 +804,19 @@ Partial Class CalculoHoras
                     gvp = Nothing
 
                 End If
-                obs.Visible = True
-                wuc.Visible = True
-                btnActualizar.Visible = True
+
             End If
         End If
     End Sub
-    Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
-        Dim idA As Integer = CInt(TxId.Text)
-        If wucIncidencias.idIncidencia <> 0 Then
-            Dim FechaFinal As Date
-            Dim FechaFinal2 As Date
-            FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
-            FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
-
-            Dim ap As New ctiCalculo
-            Dim r As String = ap.actualizarIncidencias(TxId.Text, wucIncidencias.idIncidencia, TxObservacion.Text)
-            GridView1.DataSource = ap.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"), Format(CDate(FechaFinal2), "yyyy-dd-MM"), 3)
-            'GridView1.DataSource = ap.gvChequeo(wucEmpleados2.idEmpleado, Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(FechaFinal2), "yyyy-MM-dd"), 3)
-
-            ap = Nothing
-            GridView1.DataBind()
-            If r.StartsWith("Error") Then
-                Lmsg.CssClass = "error"
-            Else
-                Lmsg.CssClass = "correcto"
-
-            End If
-            Lmsg.Text = r
-
-
-        Else
-            Lmsg.Text = "Error : Falta seleccionar incidencia"
-        End If
-    End Sub
-    Public Function RetardoNA() As Boolean
-        'Dim Ret As Boolean = False
-
-        ''Datos de los campos de texto
-        'Dim FIn As Date
-        'Dim FFn As Date
-        ''Variable global
-        'Dim Fech As Date
-
-        ''Asignar los datos de los campos de texto a Variables
-        'FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
-        'FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
-
-        ''Igualar Fecha de inicio a la Variable Global
-        'Fech = FIn
-
-        ''Inicio del ciclo de comparacion
-        'While (Fech <= FFn)
-        '    'Conexion y busqueda de registros
-        '    Using dbC As New SqlConnection
-        '        dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-        '        dbC.Open()
-        '        Dim cmd As New SqlCommand("Select inicio,fin,jornada From vm_Jornada where idempleado=@idempleado AND fecha BETWEEN '" & Fech.ToString("yyyy-MM-dd") & "'  AND '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' Order BY fecha", dbC)
-        '        'Dim cmd As New SqlCommand("Select * From Chequeo where chec>=@chec AND chec <= '" & DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd") & "' AND idempleado=@idempleado Order BY chec ", dbC)
-
-        '        cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-        '        cmd.Parameters.AddWithValue("fecha", Fech)
-        '        Dim rdr As SqlDataReader = cmd.ExecuteReader
-        '        Dim dsP As String()
-        '        If rdr.Read Then
-        '            'Lectura de registros
-        '            ReDim dsP(3)
-        '            dsP(0) = rdr("inicio").ToString
-        '            dsP(1) = rdr("fin").ToString
-        '            dsP(2) = rdr("jornada").ToString
-
-        '            HoraIn = dsP(0)
-        '            HoraFn = dsP(1)
-        '            HI = Convert.ToInt32(HoraIn.ToString("HH"))
-        '            HF = Convert.ToInt32(HoraFn.ToString("HH"))
-
-        '            'Saber si es SUSPENSION/VACACIONES/INCAPACIDAD/DESCANSO
-        '            If dsP(2) <> "SUSPENSION" Or dsP(2) <> "VACACIONES" Or dsP(2) <> "INCAPACIDAD" Or dsP(2) <> "DESCANSO" Then
-        '                'Diferencia de horas
-        '                tsDiferencia = 0
-        '                tsDiferencia = HF - HI
-        '                'Limpiar variables
-        '                HI = 0
-        '                HF = 0
-        '                If tsDiferencia < 1 Then
-        '                    tsDiferencia = 0
-        '                End If
-        '            Else
-        '                tsDiferencia = 0
-        '            End If
-        '        End If
-        '        rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
-        '    End Using
-        '    'Acumulador de fecha
-        '    Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
-        '    'Acumulador de horas
-
-        'End While
-
-
-        'Return Ret
-    End Function
     Public Sub CalculoHrsTrab()
-        Dim FIn, FFn As Date
+        Dim FIn, FFn, Checada As Date
         Dim HEntrada, HSalida, ChqEnt, ChqSal As String
         Dim FHEntrada, FHPuntual, FinTolerancia, FHSalida, FHSalida2, FHSalida3, HoraEnt, Salida, IniTolerancia, IniDia, SigDia, FFnCierre As String
-        Dim calc, ent, sal, acum As Integer
+        Dim calc, ent, sal, acum, entrada As Integer
         Dim cerrador As Boolean
         Dim puntualidad, hrstarde As Integer
-        Dim incidencia As String
+        Dim incidencia, idjornada, detalle As String
+        Dim revisar As String
 
         FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
         FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
@@ -917,20 +828,26 @@ Partial Class CalculoHoras
         dbc2.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
         dbc2.Open()
         Dim cmd2 As New SqlCommand("", dbc2)
+
         'Dim rdr2 As SqlDataReader
 
         'LIMPIAR TABLA TEMPORAL
         cmd2 = New SqlCommand("DELETE FROM Temp_Calculo", dbc2)
         cmd2.ExecuteNonQuery()
 
-        Dim cmd As New SqlCommand("SELECT * FROM vm_Jornada WHERE fecha >=@FIn AND fecha <=@FFn  AND idempleado=@idempleado AND Jornada <> 'DESCANSO' Order BY fecha ASC", dbc)
+        Dim cmd As New SqlCommand("SELECT * FROM vm_Jornada WHERE fecha >=@FIn AND fecha <=@FFn  AND idempleado=@idempleado Order BY fecha ASC", dbc)
         cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-        cmd.Parameters.AddWithValue("FIn", Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"))
-        cmd.Parameters.AddWithValue("FFn", Format(CDate(TxFechaFin.Text), "yyyy-dd-MM"))
+        cmd.Parameters.AddWithValue("FIn", Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"))
+        cmd.Parameters.AddWithValue("FFn", Format(CDate(TxFechaFin.Text), "yyyy-MM-dd"))
         Dim rdr As SqlDataReader = cmd.ExecuteReader
         While rdr.Read
+            puntualidad = 0
+            calc = 0
+            'Filtar Jornadas
+            idjornada = rdr("idjornada").ToString
             'Guardar si jornada es de cierre o no
             cerrador = rdr("cierre").ToString
+            detalle = ""
             'Calculos de Puntualidad, tolerancia y retardo
             HEntrada = Left(rdr("inicio").ToString, 2) - 1
             HoraEnt = Left(rdr("inicio").ToString, 2)
@@ -947,24 +864,34 @@ Partial Class CalculoHoras
 
             'Cálculos de salida CERRADOR
             SigDia = DateAdd(DateInterval.Day, 1, rdr("fecha"))
+
             FFnCierre = SigDia + " " + Left(rdr("fin").ToString, 8)
 
             IniDia = SigDia + " 05:59:00"
-
             sal = 0 : ent = 0
 
+            'If idjornada <> "21" And idjornada <> "22" And idjornada <> "24" And idjornada <> "36" And idjornada <> "9" Then
+
+            '********************** C E R R A D O R *************************************************************************
+
             If cerrador Then
+                entrada = 0
                 'REVISAR SI LLEGO PUNTUAL
-                cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
+                cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
                 cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd2.Parameters.AddWithValue("FHin", Format(CDate(FHEntrada), "yyyy-MM-dd HH:mm:ss"))
                 cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHPuntual), "yyyy-MM-dd HH:mm:ss"))
                 Dim rdr2 As SqlDataReader = cmd2.ExecuteReader
 
                 If rdr2.Read Then
-                    puntualidad = puntualidad + 1
+                    entrada = 1
+                    puntualidad = 1
+                    detalle = "PUNTUALIDAD"
                     'Obtener la hora del campo chec
-                    ChqEnt = rdr2("chec").ToString.Substring(11, 2)
+                    Checada = rdr2("chec").ToString
+                    ChqEnt = rdr2("chec").ToString.Substring(0, 2)
+                    'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                    'ChqEnt = CStr(Checada).Substring(11, 2)
                     'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
                     If ChqEnt.Contains(":") Then
                         'Eliminar ":" cuando son horas menores a 10
@@ -979,14 +906,20 @@ Partial Class CalculoHoras
                 Else
                     'REVISAR SI LLEGO EN TOLERANCIA
                     rdr2.Close()
-                    cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
+                    cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
                     cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                     cmd2.Parameters.AddWithValue("FHin", Format(CDate(IniTolerancia), "yyyy-MM-dd HH:mm:ss"))
                     cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FinTolerancia), "yyyy-MM-dd HH:mm:ss"))
                     rdr2 = cmd2.ExecuteReader
                     If rdr2.Read Then
+                        entrada = 1
+                        puntualidad = 0
+                        detalle = "ASISTENCIA"
                         'Obtener la hora del campo chec
-                        ChqEnt = rdr2("chec").ToString.Substring(11, 2)
+                        Checada = rdr2("chec").ToString
+                        ChqEnt = rdr2("chec").ToString.Substring(0, 2)
+                        'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                        'ChqEnt = CStr(Checada).Substring(11, 2)
                         'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
                         If ChqEnt.Contains(":") Then
                             'Eliminar ":" cuando son horas menores a 10
@@ -998,22 +931,39 @@ Partial Class CalculoHoras
                     Else
                         'TRAER LA PRIMER CHECADA SI LLEGO TARDE
                         rdr2.Close()
-                        cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec > @FHin AND idempleado=@idempleado ORDER by chec ASC", dbc2)
+                        puntualidad = 0
+                        'detalle = "ASISTENCIA"
+                        cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
                         cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                         cmd2.Parameters.AddWithValue("FHin", Format(CDate(FinTolerancia), "yyyy-MM-dd HH:mm:ss"))
+                        cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida), "yyyy-MM-dd HH:mm:ss"))
                         rdr2 = cmd2.ExecuteReader
                         If rdr2.Read Then
-                            'Obtener la hora del campo chec
-                            ChqEnt = rdr2("chec").ToString.Substring(11, 2)
+                            entrada = 1
+                            puntualidad = 0
+                            detalle = "ASISTENCIA"
+                            'Obtener la hora del campo chec3
+                            Checada = rdr2("chec").ToString
+                            ChqEnt = rdr2("chec").ToString.Substring(0, 2)
+
+                            'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                            'ChqEnt = CStr(Checada).Substring(11, 2)
                             'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
+                            'revisar = CStr(Checada)
                             If ChqEnt.Contains(":") Then
                                 'Eliminar ":" cuando son horas menores a 10
                                 ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
                             Else
                                 ent = CInt(ChqEnt)
                             End If
-                            hrstarde = ChqEnt - HoraEnt
-                            ent = ent - hrstarde
+
+                            'Descontarle las horas que llega tarde
+                            If CInt(HoraEnt) = ent Then
+                                ent = ent + 1
+                            Else
+                                hrstarde = CInt(ChqEnt) - CInt(HoraEnt)
+                                ent = ent + hrstarde
+                            End If
                             'Lmsg.Text = "Tarde"
                         End If
                     End If
@@ -1021,60 +971,76 @@ Partial Class CalculoHoras
                 rdr2.Close()
 
                 'REVISAR SALIDA.
-                cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
+                cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHIn AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
                 cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
                 cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FFnCierre), "yyyy-MM-dd HH:mm:ss"))
                 cmd2.Parameters.AddWithValue("FHFn", Format(CDate(IniDia), "yyyy-MM-dd HH:mm:ss"))
                 rdr2 = cmd2.ExecuteReader
                 If rdr2.Read Then
                     'Agregarle una hora a su hora de salida.
-                    ChqSal = rdr2("chec").ToString.Substring(11, 2)
+                    'ChqSal = rdr2("chec").ToString.Substring(11, 2)
+
+                    'Obtener la hora del campo chec3
+                    Checada = rdr2("chec").ToString
+                    ChqSal = rdr2("chec").ToString.Substring(0, 2)
+                    revisar = rdr2("chec").ToString
                     If ChqSal.Contains(":") Then
                         sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
                     Else
                         sal = CInt(ChqSal)
                     End If
-                    'sal = sal + 1
                 Else
                     rdr2.Close()
                     'REVISAR SALIDA. Traer última checada después de su hora de salida.
-                    'cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
-                    'cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                    'cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida2), "yyyy-MM-dd HH:mm:ss"))
-                    'cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida3), "yyyy-MM-dd HH:mm:ss"))
-                    'rdr2 = cmd2.ExecuteReader
-                    'If rdr2.Read Then
-                    '    ChqSal = rdr2("chec").ToString.Substring(11, 2)
-                    '    If ChqSal.Contains(":") Then
-                    '        sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-                    '    Else
-                    '        sal = CInt(ChqSal)
-                    '    End If
-                    'End If
+                    cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
+                    cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                    cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida2), "yyyy-MM-dd HH:mm:ss"))
+                    cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida3), "yyyy-MM-dd HH:mm:ss"))
+                    rdr2 = cmd2.ExecuteReader
+                    If rdr2.Read Then
+                        'ChqSal = rdr2("chec").ToString.Substring(11, 2)
+
+                        'Obtener la hora del campo chec3
+                        Checada = rdr2("chec").ToString
+                        ChqSal = rdr2("chec").ToString.Substring(0, 2)
+
+                        If ChqSal.Contains(":") Then
+                            sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
+                        Else
+                            sal = CInt(ChqSal)
+                        End If
+                    End If
                 End If
                 rdr2.Close()
 
                 If sal = 0 Or ent = 0 Then
                     calc = 0
                 Else
-                    calc = (24 - ent) + sal
+                    ' Si es cerrador se le agrega una hora
+                    calc = (24 - ent) + sal + 1
                 End If
 
-                acum = acum + calc
+                'acum = acum + calc
 
+                '********************** N O R M A L *************************************************************************
             Else
+                entrada = 0
                 'REVISAR SI LLEGO PUNTUAL
-                cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
+                cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
                 cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                'Cambio FF
-                cmd2.Parameters.AddWithValue("FHin", Format(CDate(FHEntrada), "yyyy-dd-MM HH:mm:ss"))
-                cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHPuntual), "yyyy-dd-MM HH:mm:ss"))
+                cmd2.Parameters.AddWithValue("FHin", Format(CDate(FHEntrada), "yyyy-MM-dd HH:mm:ss"))
+                cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHPuntual), "yyyy-MM-dd HH:mm:ss"))
                 Dim rdr2 As SqlDataReader = cmd2.ExecuteReader
 
-                If rdr2.Read Then
-                    puntualidad = puntualidad + 1
+                If rdr2.Read And entrada = 0 Then
+                    entrada = 1
+                    puntualidad = 1
+                    detalle = "PUNTUALIDAD"
                     'Obtener la hora del campo chec
-                    ChqEnt = rdr2("chec").ToString.Substring(11, 2)
+                    Checada = rdr2("chec").ToString
+                    ChqEnt = rdr2("chec").ToString.Substring(0, 2)
+                    'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                    'ChqEnt = CStr(Checada).Substring(11, 2)
                     'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
                     If ChqEnt.Contains(":") Then
                         'Eliminar ":" cuando son horas menores a 10
@@ -1086,18 +1052,24 @@ Partial Class CalculoHoras
                         ent = ent + 1
                     End If
                     'Lmsg.Text = "Puntual"
-                Else
+                ElseIf entrada = 0 Then
+
                     'REVISAR SI LLEGO EN TOLERANCIA
                     rdr2.Close()
-                    cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
+                    cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
                     cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                    'Cambio FF
-                    cmd2.Parameters.AddWithValue("FHin", Format(CDate(IniTolerancia), "yyyy-dd-MM HH:mm:ss"))
-                    cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FinTolerancia), "yyyy-dd-MM HH:mm:ss"))
+                    cmd2.Parameters.AddWithValue("FHin", Format(CDate(IniTolerancia), "yyyy-MM-dd HH:mm:ss"))
+                    cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FinTolerancia), "yyyy-MM-dd HH:mm:ss"))
                     rdr2 = cmd2.ExecuteReader
                     If rdr2.Read Then
+                        entrada = 1
+                        puntualidad = 0
+                        detalle = "ASISTENCIA"
                         'Obtener la hora del campo chec
-                        ChqEnt = rdr2("chec").ToString.Substring(11, 2)
+                        Checada = rdr2("chec").ToString
+                        ChqEnt = rdr2("chec").ToString.Substring(0, 2)
+                        'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                        'ChqEnt = CStr(Checada).Substring(11, 2)
                         'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
                         If ChqEnt.Contains(":") Then
                             'Eliminar ":" cuando son horas menores a 10
@@ -1106,31 +1078,42 @@ Partial Class CalculoHoras
                             ent = CInt(ChqEnt)
                         End If
                         'Lmsg.Text = ent
-                    Else
+                    ElseIf entrada = 0 Then
+
                         'SACAR LA PRIMER CHECADA SI LLEGO TARDE
                         rdr2.Close()
-                        cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec > @FHin AND idempleado=@idempleado ORDER by chec ASC", dbc2)
+                        cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
                         cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                        'Cambio FF
-                        cmd2.Parameters.AddWithValue("FHin", Format(CDate(FinTolerancia), "yyyy-dd-MM HH:mm:ss"))
+                        cmd2.Parameters.AddWithValue("FHin", Format(CDate(FinTolerancia), "yyyy-MM-dd HH:mm:ss"))
+                        cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida), "yyyy-MM-dd HH:mm:ss"))
                         rdr2 = cmd2.ExecuteReader
                         If rdr2.Read Then
-                            'Obtener la hora del campo chec
-                            ChqEnt = rdr2("chec").ToString.Substring(11, 2)
+                            entrada = 1
+                            puntualidad = 0
+                            detalle = "ASISTENCIA"
+                            'Obtener la hora del campo chec3
+                            Checada = rdr2("chec").ToString
+                            ChqEnt = rdr2("chec").ToString.Substring(0, 2)
+
+                            'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                            'ChqEnt = CStr(Checada).Substring(11, 2)
                             'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
+                            revisar = CStr(Checada)
                             If ChqEnt.Contains(":") Then
                                 'Eliminar ":" cuando son horas menores a 10
                                 ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
                             Else
                                 ent = CInt(ChqEnt)
                             End If
+
                             'Descontarle las horas que llega tarde
-                            If HoraEnt = ent Then
+                            If CInt(HoraEnt) = ent Then
                                 ent = ent + 1
                             Else
-                                hrstarde = ChqEnt - HoraEnt
+                                hrstarde = CInt(ChqEnt) - CInt(HoraEnt)
                                 ent = ent + hrstarde
                             End If
+
 
                             'Lmsg.Text = "Tarde"
                         End If
@@ -1139,15 +1122,17 @@ Partial Class CalculoHoras
                 rdr2.Close()
 
                 'REVISAR SALIDA. Traer checada de 15 min antes de su salida, hasta su hora de salida.
-                cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
+                cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
                 cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                'Cambio FF
-                cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida), "yyyy-dd-MM HH:mm:ss"))
-                cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida2), "yyyy-dd-MM HH:mm:ss"))
+                cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida), "yyyy-MM-dd HH:mm:ss"))
+                cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida2), "yyyy-MM-dd HH:mm:ss"))
                 rdr2 = cmd2.ExecuteReader
                 If rdr2.Read Then
                     'Agregarle una hora a su hora de salida.
-                    ChqSal = rdr2("chec").ToString.Substring(11, 2)
+                    Checada = rdr2("chec").ToString
+                    ChqSal = rdr2("chec").ToString.Substring(0, 2)
+                    'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                    'ChqEnt = CStr(Checada).Substring(11, 2)
                     If ChqSal.Contains(":") Then
                         sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
                     Else
@@ -1157,14 +1142,16 @@ Partial Class CalculoHoras
                 Else
                     rdr2.Close()
                     'REVISAR SALIDA. Traer última checada después de su hora de salida.
-                    cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
+                    cmd2 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
                     cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-                    'Cambio FF
-                    cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida2), "yyyy-dd-MM HH:mm:ss"))
-                    cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida3), "yyyy-dd-MM HH:mm:ss"))
+                    cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida2), "yyyy-MM-dd HH:mm:ss"))
+                    cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida3), "yyyy-MM-dd HH:mm:ss"))
                     rdr2 = cmd2.ExecuteReader
                     If rdr2.Read Then
-                        ChqSal = rdr2("chec").ToString.Substring(11, 2)
+                        Checada = rdr2("chec").ToString
+                        ChqSal = rdr2("chec").ToString.Substring(0, 2)
+                        'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
+                        'ChqEnt = CStr(Checada).Substring(11, 2)
                         If ChqSal.Contains(":") Then
                             sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
                         Else
@@ -1180,327 +1167,30 @@ Partial Class CalculoHoras
                     calc = sal - ent
                 End If
 
-                acum = acum + calc
-
-
             End If
 
 
-            cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad) VALUES(@fecha," & CStr(ent) & "," & CStr(sal) & "," & CStr(calc) & "," & CStr(puntualidad) & ")", dbc2)
+
+            acum = acum + calc
+
+            'Else
+            If detalle = "" Then
+                detalle = rdr("jornada").ToString
+            End If
+
+            'End If
+
+
+            cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad,detalle) VALUES(@fecha," & CStr(ent) & "," & CStr(sal) & "," & CStr(calc) & "," & CStr(puntualidad) & ",'" & detalle & "')", dbc2)
             cmd2.Parameters.AddWithValue("fecha", CStr(rdr("fecha").ToString))
             cmd2.ExecuteNonQuery()
             cmd2.Dispose()
 
-
         End While
+
+
         rdr.Close()
-        Lmsg.Text = acum
-        TxHtotales.Text = acum
-
+        Lmsg.Text = revisar
+        TxHorasTrabajadas.Text = acum
     End Sub
-    'Public Sub CalculoHrsTrab()
-    '    Dim FIn, FFn, Fech As Date
-    '    Dim HEntrada, HSalida, ChqEnt, ChqSal As String
-    '    Dim FHEntrada, FHPuntual, FinTolerancia, FHSalida, FHSalida2, FHSalida3, HoraEnt, Salida, IniTolerancia, IniDia, SigDia, FFnCierre As String
-    '    Dim calc, ent, sal, acum As Integer
-    '    Dim cerrador As Boolean
-    '    Dim puntualidad, hrstarde As Integer
-    '    Dim incidencia As String
-
-    '    FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
-    '    FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
-
-    '    'Igualar Fecha de inicio a la Variable Global
-    '    Fech = FIn
-
-    '    'Inicio del ciclo de comparacion
-    '    While (Fech <= FFn)
-
-
-    '        Dim dbc As New SqlConnection
-    '    dbc.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-    '    dbc.Open()
-    '    Dim dbc2 As New SqlConnection
-    '    dbc2.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-    '    dbc2.Open()
-    '    Dim cmd2 As New SqlCommand("", dbc2)
-    '    'Dim rdr2 As SqlDataReader
-
-    '    'LIMPIAR TABLA TEMPORAL
-    '    cmd2 = New SqlCommand("DELETE FROM Temp_Calculo", dbc2)
-    '    cmd2.ExecuteNonQuery()
-
-    '    Dim cmd As New SqlCommand("SELECT * FROM vm_Jornada WHERE fecha >=@FIn AND fecha <=@FFn  AND idempleado=@idempleado AND Jornada <> 'DESCANSO' Order BY fecha ASC", dbc)
-    '    cmd.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '    cmd.Parameters.AddWithValue("FIn", Format(CDate(TxFechaInicio.Text), "yyyy-dd-MM"))
-    '        cmd.Parameters.AddWithValue("FFn", DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-dd-MM"))
-
-    '        Dim rdr As SqlDataReader = cmd.ExecuteReader
-    '    While rdr.Read
-    '        'Guardar si jornada es de cierre o no
-    '        cerrador = rdr("cierre").ToString
-    '        'Calculos de Puntualidad, tolerancia y retardo
-    '        HEntrada = Left(rdr("inicio").ToString, 2) - 1
-    '        HoraEnt = Left(rdr("inicio").ToString, 2)
-    '        FHEntrada = Left(rdr("fecha").ToString, 11) + HEntrada + ":45:00"
-    '        FHPuntual = Left(rdr("fecha").ToString, 11) + HoraEnt + ":00:59"
-    '        IniTolerancia = Left(rdr("fecha").ToString, 11) + HoraEnt + ":01:00"
-    '        FinTolerancia = Left(rdr("fecha").ToString, 11) + HoraEnt + ":05:59"
-
-    '        'Cálculos de salida
-    '        Salida = Left(rdr("fin").ToString, 2) - 1
-    '        FHSalida = Left(rdr("fecha").ToString, 11) + Salida + ":45:00"
-    '        FHSalida2 = Left(rdr("fecha").ToString, 11) + Left(rdr("fin").ToString, 8)
-    '        FHSalida3 = Left(rdr("fecha").ToString, 11) + "23:59:59"
-
-    '        'Cálculos de salida CERRADOR
-    '        SigDia = DateAdd(DateInterval.Day, 1, rdr("fecha"))
-    '        FFnCierre = SigDia + " " + Left(rdr("fin").ToString, 8)
-
-    '        IniDia = SigDia + " 05:59:00"
-
-    '        sal = 0 : ent = 0
-
-    '        If cerrador Then
-    '            'REVISAR SI LLEGO PUNTUAL
-    '            cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
-    '            cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '            cmd2.Parameters.AddWithValue("FHin", Format(CDate(FHEntrada), "yyyy-MM-dd HH:mm:ss"))
-    '            cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHPuntual), "yyyy-MM-dd HH:mm:ss"))
-    '            Dim rdr2 As SqlDataReader = cmd2.ExecuteReader
-
-    '            If rdr2.Read Then
-    '                puntualidad = puntualidad + 1
-    '                'Obtener la hora del campo chec
-    '                ChqEnt = rdr2("chec").ToString.Substring(11, 2)
-    '                'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-    '                If ChqEnt.Contains(":") Then
-    '                    'Eliminar ":" cuando son horas menores a 10
-    '                    ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-    '                Else
-    '                    ent = CInt(ChqEnt)
-    '                End If
-    '                If ent = HEntrada Then
-    '                    ent = ent + 1
-    '                End If
-    '                'Lmsg.Text = "Puntual"
-    '            Else
-    '                'REVISAR SI LLEGO EN TOLERANCIA
-    '                rdr2.Close()
-    '                cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
-    '                cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '                cmd2.Parameters.AddWithValue("FHin", Format(CDate(IniTolerancia), "yyyy-MM-dd HH:mm:ss"))
-    '                cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FinTolerancia), "yyyy-MM-dd HH:mm:ss"))
-    '                rdr2 = cmd2.ExecuteReader
-    '                If rdr2.Read Then
-    '                    'Obtener la hora del campo chec
-    '                    ChqEnt = rdr2("chec").ToString.Substring(11, 2)
-    '                    'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-    '                    If ChqEnt.Contains(":") Then
-    '                        'Eliminar ":" cuando son horas menores a 10
-    '                        ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-    '                    Else
-    '                        ent = CInt(ChqEnt)
-    '                    End If
-    '                    'Lmsg.Text = ent
-    '                Else
-    '                    'TRAER LA PRIMER CHECADA SI LLEGO TARDE
-    '                    rdr2.Close()
-    '                    cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec > @FHin AND idempleado=@idempleado ORDER by chec ASC", dbc2)
-    '                    cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '                    cmd2.Parameters.AddWithValue("FHin", Format(CDate(FinTolerancia), "yyyy-MM-dd HH:mm:ss"))
-    '                    rdr2 = cmd2.ExecuteReader
-    '                    If rdr2.Read Then
-    '                        'Obtener la hora del campo chec
-    '                        ChqEnt = rdr2("chec").ToString.Substring(11, 2)
-    '                        'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-    '                        If ChqEnt.Contains(":") Then
-    '                            'Eliminar ":" cuando son horas menores a 10
-    '                            ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-    '                        Else
-    '                            ent = CInt(ChqEnt)
-    '                        End If
-    '                        hrstarde = ChqEnt - HoraEnt
-    '                        ent = ent - hrstarde
-    '                        'Lmsg.Text = "Tarde"
-    '                    End If
-    '                End If
-    '            End If
-    '            rdr2.Close()
-
-    '            'REVISAR SALIDA.
-    '            cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
-    '            cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '            cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FFnCierre), "yyyy-MM-dd HH:mm:ss"))
-    '            cmd2.Parameters.AddWithValue("FHFn", Format(CDate(IniDia), "yyyy-MM-dd HH:mm:ss"))
-    '            rdr2 = cmd2.ExecuteReader
-    '            If rdr2.Read Then
-    '                'Agregarle una hora a su hora de salida.
-    '                ChqSal = rdr2("chec").ToString.Substring(11, 2)
-    '                If ChqSal.Contains(":") Then
-    '                    sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-    '                Else
-    '                    sal = CInt(ChqSal)
-    '                End If
-    '                'sal = sal + 1
-    '            Else
-    '                rdr2.Close()
-    '                'REVISAR SALIDA. Traer última checada después de su hora de salida.
-    '                'cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
-    '                'cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '                'cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida2), "yyyy-MM-dd HH:mm:ss"))
-    '                'cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida3), "yyyy-MM-dd HH:mm:ss"))
-    '                'rdr2 = cmd2.ExecuteReader
-    '                'If rdr2.Read Then
-    '                '    ChqSal = rdr2("chec").ToString.Substring(11, 2)
-    '                '    If ChqSal.Contains(":") Then
-    '                '        sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-    '                '    Else
-    '                '        sal = CInt(ChqSal)
-    '                '    End If
-    '                'End If
-    '            End If
-    '            rdr2.Close()
-
-    '            If sal = 0 Or ent = 0 Then
-    '                calc = 0
-    '            Else
-    '                calc = (24 - ent) + sal
-    '            End If
-
-    '            acum = acum + calc
-
-    '        Else
-    '            'REVISAR SI LLEGO PUNTUAL
-    '            cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
-    '            cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '            cmd2.Parameters.AddWithValue("FHin", Format(CDate(FHEntrada), "yyyy-dd-MM HH:mm:ss"))
-    '            cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHPuntual), "yyyy-dd-MM HH:mm:ss"))
-    '            Dim rdr2 As SqlDataReader = cmd2.ExecuteReader
-
-    '            If rdr2.Read Then
-    '                puntualidad = puntualidad + 1
-    '                'Obtener la hora del campo chec
-    '                ChqEnt = rdr2("chec").ToString.Substring(11, 2)
-    '                'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-    '                If ChqEnt.Contains(":") Then
-    '                    'Eliminar ":" cuando son horas menores a 10
-    '                    ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-    '                Else
-    '                    ent = CInt(ChqEnt)
-    '                End If
-    '                If ent = HEntrada Then
-    '                    ent = ent + 1
-    '                End If
-    '                'Lmsg.Text = "Puntual"
-    '            Else
-    '                'REVISAR SI LLEGO EN TOLERANCIA
-    '                rdr2.Close()
-    '                cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec ASC", dbc2)
-    '                cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '                cmd2.Parameters.AddWithValue("FHin", Format(CDate(IniTolerancia), "yyyy-dd-MM HH:mm:ss"))
-    '                cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FinTolerancia), "yyyy-dd-MM HH:mm:ss"))
-    '                rdr2 = cmd2.ExecuteReader
-    '                If rdr2.Read Then
-    '                    'Obtener la hora del campo chec
-    '                    ChqEnt = rdr2("chec").ToString.Substring(11, 2)
-    '                    'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-    '                    If ChqEnt.Contains(":") Then
-    '                        'Eliminar ":" cuando son horas menores a 10
-    '                        ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-    '                    Else
-    '                        ent = CInt(ChqEnt)
-    '                    End If
-    '                    'Lmsg.Text = ent
-    '                Else
-    '                    'SACAR LA PRIMER CHECADA SI LLEGO TARDE
-    '                    rdr2.Close()
-    '                    cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec > @FHin AND idempleado=@idempleado ORDER by chec ASC", dbc2)
-    '                    cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '                    cmd2.Parameters.AddWithValue("FHin", Format(CDate(FinTolerancia), "yyyy-dd-MM HH:mm:ss"))
-    '                    rdr2 = cmd2.ExecuteReader
-    '                    If rdr2.Read Then
-    '                        'Obtener la hora del campo chec
-    '                        ChqEnt = rdr2("chec").ToString.Substring(11, 2)
-    '                        'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-    '                        If ChqEnt.Contains(":") Then
-    '                            'Eliminar ":" cuando son horas menores a 10
-    '                            ent = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-    '                        Else
-    '                            ent = CInt(ChqEnt)
-    '                        End If
-    '                        'Descontarle las horas que llega tarde
-    '                        If HoraEnt = ent Then
-    '                            ent = ent + 1
-    '                        Else
-    '                            hrstarde = ChqEnt - HoraEnt
-    '                            ent = ent + hrstarde
-    '                        End If
-
-    '                        'Lmsg.Text = "Tarde"
-    '                    End If
-    '                End If
-    '            End If
-    '            rdr2.Close()
-
-    '            'REVISAR SALIDA. Traer checada de 15 min antes de su salida, hasta su hora de salida.
-    '            cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
-    '            cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '            cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida), "yyyy-dd-MM HH:mm:ss"))
-    '            cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida2), "yyyy-dd-MM HH:mm:ss"))
-    '            rdr2 = cmd2.ExecuteReader
-    '            If rdr2.Read Then
-    '                'Agregarle una hora a su hora de salida.
-    '                ChqSal = rdr2("chec").ToString.Substring(11, 2)
-    '                If ChqSal.Contains(":") Then
-    '                    sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-    '                Else
-    '                    sal = CInt(ChqSal)
-    '                End If
-    '                sal = sal + 1
-    '            Else
-    '                rdr2.Close()
-    '                'REVISAR SALIDA. Traer última checada después de su hora de salida.
-    '                cmd2 = New SqlCommand("SELECT TOP(1) * FROM vm_ChequeoIncidencia WHERE chec BETWEEN @FHin AND @FHFn AND idempleado=@idempleado ORDER by chec DESC", dbc2)
-    '                cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
-    '                cmd2.Parameters.AddWithValue("FHIn", Format(CDate(FHSalida2), "yyyy-dd-MM HH:mm:ss"))
-    '                cmd2.Parameters.AddWithValue("FHFn", Format(CDate(FHSalida3), "yyyy-dd-MM HH:mm:ss"))
-    '                rdr2 = cmd2.ExecuteReader
-    '                If rdr2.Read Then
-    '                    ChqSal = rdr2("chec").ToString.Substring(11, 2)
-    '                    If ChqSal.Contains(":") Then
-    '                        sal = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-    '                    Else
-    '                        sal = CInt(ChqSal)
-    '                    End If
-    '                End If
-    '            End If
-    '            rdr2.Close()
-
-    '            If sal = 0 Or ent = 0 Then
-    '                calc = 0
-    '            Else
-    '                calc = sal - ent
-    '            End If
-
-    '            acum = acum + calc
-
-
-    '        End If
-
-
-    '        cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad) VALUES(@fecha," & CStr(ent) & "," & CStr(sal) & "," & CStr(calc) & "," & CStr(puntualidad) & ")", dbc2)
-    '        cmd2.Parameters.AddWithValue("fecha", CStr(rdr("fecha").ToString))
-    '        cmd2.ExecuteNonQuery()
-    '        cmd2.Dispose()
-
-
-    '        End While
-    '        rdr.Close()
-    '        'Acumulador de fecha
-    '        Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
-    '    End While
-    '    Lmsg.Text = acum
-
-    'End Sub
 End Class
