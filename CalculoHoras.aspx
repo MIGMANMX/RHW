@@ -110,7 +110,7 @@
                 <td>
                   <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="fecha" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="537px" Height="238px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" PageSize="7">
+            ForeColor="#333333" GridLines="None" Width="537px" Height="238px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" PageSize="16">
             <Columns>
                 <asp:BoundField DataField="fecha" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
                 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
