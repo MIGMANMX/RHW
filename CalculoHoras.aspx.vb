@@ -89,7 +89,7 @@ Partial Class CalculoHoras
                 HorasExtras()
                 DDescansados()
                 DFestivosTrabajados()
-                'DDescansadosTrabajados()
+                DDescansadosTrabajados()
                 CalculoHrsTrab()
 
                 '''''''''''
@@ -131,7 +131,7 @@ Partial Class CalculoHoras
         HorasExtras()
         DDescansados()
         DFestivosTrabajados()
-        'DDescansadosTrabajados()
+        DDescansadosTrabajados()
         CalculoHrsTrab()
     End Sub
     Public Sub HTotales()
@@ -532,12 +532,14 @@ Partial Class CalculoHoras
                     Dim FF As Date
                     FF = DateAdd(DateInterval.Day, 1, F).ToString("yyyy-MM-dd")
 
+                    Dim FechaF As Date
+                    FechaF = Format(CDate(FF), "yyyy-MM-dd")
                     'Saber si es DESCANSO
                     If dsP(0) = "DESCANSO" Then
 
                         'Consulta si trabajo segun la fecha
                         Dim acceso As New ctiCalculo
-                        Dim datos() As String = acceso.ConsultaAsistencia(wucEmpleados2.idEmpleado, F, FF)
+                        Dim datos() As String = acceso.ConsultaAsistencia(wucEmpleados2.idEmpleado, F.ToString("yyyy-MM-dd"), FechaF.ToString("yyyy-MM-dd"))
                         Dim dat As Integer = datos(0)
                         If datos(0) > 0 Then
                             'Acumular el dia
@@ -682,7 +684,45 @@ Partial Class CalculoHoras
                 dt2 = DateAdd(DateInterval.Day, 1, dtf)
                 dt2 = Format(CDate(dt2), "yyyy-MM-dd")
                 TxFechaFin2.Text = dt2
+                Dim Htotales As Integer = 0
+                Dim HTrabajadas As Integer = 0
+                Dim DDescansados As Integer = 0
+                Dim HExtras As Integer = 0
+                Dim DT As Integer = 0
+                Dim FT As Integer = 0
 
+                If TxHorasTrabajadas.Text <> "" Then
+                    HTrabajadas = TxHorasTrabajadas.Text
+                Else
+                    HTrabajadas = 0
+                End If
+
+                If TxHtotales.Text <> "" Then
+                    Htotales = TxHtotales.Text
+                Else
+                    Htotales = 0
+                End If
+                If TxDDescasados.Text <> "" Then
+                    DDescansados = TxDDescasados.Text
+                Else
+                    DDescansados = 0
+                End If
+                If TxHorasExtras.Text <> "" Then
+                    HExtras = TxHorasExtras.Text
+                Else
+                    HExtras = 0
+                End If
+
+                If TextBox2.Text <> "" Then
+                    DT = TextBox2.Text
+                Else
+                    DT = 0
+                End If
+                If TextBox3.Text <> "" Then
+                    FT = TextBox3.Text
+                Else
+                    FT = 0
+                End If
                 Dim p As New ReportParameter("Fecha1", dt1.ToString("yyyy-MM-dd"))
                 repo.LocalReport.SetParameters(p)
 
@@ -693,6 +733,24 @@ Partial Class CalculoHoras
                 repo.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("empleado", TxEmpleado.Text)
+                repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("HTotales", Htotales)
+                repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("HTrabajadas", HTrabajadas)
+                repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("DDescansados", DDescansados)
+                repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("HExtras", HExtras)
+                repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("DDTrabajados", DT)
+                repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("DFTrabajados", FT)
                 repo.LocalReport.SetParameters(p)
 
                 repo.ServerReport.Refresh()
@@ -1126,7 +1184,9 @@ Partial Class CalculoHoras
 
 
             cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad,detalle,clockin,clockout) VALUES(@fecha," & CStr(ent) & "," & CStr(sal) & "," & CStr(calc) & "," & CStr(puntualidad) & ",'" & detalle & "', '" & clockin & "','" & clockout & "')", dbc2)
-            cmd2.Parameters.AddWithValue("fecha", CStr(rdr("fecha").ToString))
+            Dim Fech As Date
+            Fech = rdr("fecha").ToString
+            cmd2.Parameters.AddWithValue("fecha", Fech.ToString("yyyy-MM-dd"))
             cmd2.ExecuteNonQuery()
             cmd2.Dispose()
 

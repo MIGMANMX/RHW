@@ -118,8 +118,8 @@
 
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />--%>
                 <asp:BoundField DataField="fecha" HeaderText="Fecha y Hora" SortExpression="fecha" />
-                <asp:BoundField DataField="entrada" HeaderText="Entrada" SortExpression="entrada" />
-                <asp:BoundField DataField="salida" HeaderText="Salida" SortExpression="salida" />
+                <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" />
+                <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />
                 <asp:BoundField DataField="detalle" HeaderText="Detalle" SortExpression="detalle" />
 
@@ -190,7 +190,7 @@
             </tr>
         </table>
     </div>
-        <rsweb:ReportViewer ID="repo" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1097px" Height="438px">
+        <rsweb:ReportViewer ID="repo" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="901px" Height="438px">
             <LocalReport ReportPath="ReportCalculoHoras.rdlc">
                 <DataSources>
                     <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
