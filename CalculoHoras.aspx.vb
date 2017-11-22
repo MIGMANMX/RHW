@@ -34,8 +34,6 @@ Partial Class CalculoHoras
         Lmsg.Text = "" : gvPos = 0
         Session("idz_e") = ""
 
-        reporte.ServerReport.Refresh()
-
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
 
@@ -671,10 +669,7 @@ Partial Class CalculoHoras
         Acum = 0
     End Sub
     Protected Sub btnReporte_Click(sender As Object, e As EventArgs) Handles btnReporte.Click
-        'Creación de un objeto CultureInfo con referencia cultural de México
         Dim c As CultureInfo = New CultureInfo("es-MX")
-
-        reporte.ServerReport.Refresh()
         If wucSucursales.idSucursal <> 0 Then
             If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
 
@@ -683,85 +678,24 @@ Partial Class CalculoHoras
                 Dim dtf As Date
                 dtf = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
 
-
                 Dim dt2 As Date
                 dt2 = DateAdd(DateInterval.Day, 1, dtf)
                 dt2 = Format(CDate(dt2), "yyyy-MM-dd")
                 TxFechaFin2.Text = dt2
-                Dim Htotales As Integer = 0
-                Dim HTrabajadas As Integer = 0
-                Dim DDescansados As Integer = 0
-                Dim HExtras As Integer = 0
-                Dim DT As Integer = 0
-                Dim FT As Integer = 0
 
-                If TxHorasTrabajadas.Text <> "" Then
-                    HTrabajadas = TxHorasTrabajadas.Text
-                Else
-                    HTrabajadas = 0
-                End If
+                Dim p As New ReportParameter("Fecha1", dt1.ToString("yyyy-MM-dd"))
+                repo.LocalReport.SetParameters(p)
 
-                If TxHtotales.Text <> "" Then
-                    Htotales = TxHtotales.Text
-                Else
-                    Htotales = 0
-                End If
-                If TxDDescasados.Text <> "" Then
-                    DDescansados = TxDDescasados.Text
-                Else
-                    DDescansados = 0
-                End If
-                If TxHorasExtras.Text <> "" Then
-                    HExtras = TxHorasExtras.Text
-                Else
-                    HExtras = 0
-                End If
-
-                If TextBox2.Text <> "" Then
-                    DT = TextBox2.Text
-                Else
-                    DT = 0
-                End If
-                If TextBox3.Text <> "" Then
-                    FT = TextBox3.Text
-                Else
-                    FT = 0
-                End If
-
-                Dim p As New ReportParameter("Fech1", dt1)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("Fech2", dtf)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("idempleado", idEmpleadoTX.Text)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("HTotales", Htotales)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("HTrabajadas", HTrabajadas)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("DDescansados", DDescansados)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("HExtras", HExtras)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("DDTrabajados", DT)
-                reporte.LocalReport.SetParameters(p)
-
-                p = New ReportParameter("DFTrabajados", FT)
-                reporte.LocalReport.SetParameters(p)
+                p = New ReportParameter("Fecha2", dtf.ToString("yyyy-MM-dd"))
+                repo.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("sucursal", wucSucursales.sucursal)
-                reporte.LocalReport.SetParameters(p)
+                repo.LocalReport.SetParameters(p)
 
                 p = New ReportParameter("empleado", TxEmpleado.Text)
-                reporte.LocalReport.SetParameters(p)
+                repo.LocalReport.SetParameters(p)
 
-                reporte.ServerReport.Refresh()
+                repo.ServerReport.Refresh()
             Else
                 Lmsg.Text = "Error: Debes capturar una fecha"
             End If
@@ -816,7 +750,7 @@ Partial Class CalculoHoras
         Dim cerrador As Boolean
         Dim puntualidad, hrstarde As Integer
         Dim incidencia, idjornada, detalle As String
-        Dim revisar As String
+        Dim revisar, clockin, clockout As String
 
         FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
         FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
@@ -889,6 +823,7 @@ Partial Class CalculoHoras
                     detalle = "PUNTUALIDAD"
                     'Obtener la hora del campo chec
                     Checada = rdr2("chec").ToString
+                    clockin = CStr(Checada)
                     ChqEnt = rdr2("chec").ToString.Substring(0, 2)
                     'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
                     'ChqEnt = CStr(Checada).Substring(11, 2)
@@ -917,6 +852,7 @@ Partial Class CalculoHoras
                         detalle = "ASISTENCIA"
                         'Obtener la hora del campo chec
                         Checada = rdr2("chec").ToString
+                        clockin = CStr(Checada)
                         ChqEnt = rdr2("chec").ToString.Substring(0, 2)
                         'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
                         'ChqEnt = CStr(Checada).Substring(11, 2)
@@ -944,6 +880,7 @@ Partial Class CalculoHoras
                             detalle = "ASISTENCIA"
                             'Obtener la hora del campo chec3
                             Checada = rdr2("chec").ToString
+                            clockin = CStr(Checada)
                             ChqEnt = rdr2("chec").ToString.Substring(0, 2)
 
                             'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
@@ -982,6 +919,7 @@ Partial Class CalculoHoras
 
                     'Obtener la hora del campo chec3
                     Checada = rdr2("chec").ToString
+                    clockout = CStr(Checada)
                     ChqSal = rdr2("chec").ToString.Substring(0, 2)
                     revisar = rdr2("chec").ToString
                     If ChqSal.Contains(":") Then
@@ -1002,6 +940,7 @@ Partial Class CalculoHoras
 
                         'Obtener la hora del campo chec3
                         Checada = rdr2("chec").ToString
+                        clockout = CStr(Checada)
                         ChqSal = rdr2("chec").ToString.Substring(0, 2)
 
                         If ChqSal.Contains(":") Then
@@ -1038,6 +977,7 @@ Partial Class CalculoHoras
                     detalle = "PUNTUALIDAD"
                     'Obtener la hora del campo chec
                     Checada = rdr2("chec").ToString
+                    clockin = CStr(Checada)
                     ChqEnt = rdr2("chec").ToString.Substring(0, 2)
                     'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
                     'ChqEnt = CStr(Checada).Substring(11, 2)
@@ -1067,6 +1007,7 @@ Partial Class CalculoHoras
                         detalle = "ASISTENCIA"
                         'Obtener la hora del campo chec
                         Checada = rdr2("chec").ToString
+                        clockin = CStr(Checada)
                         ChqEnt = rdr2("chec").ToString.Substring(0, 2)
                         'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
                         'ChqEnt = CStr(Checada).Substring(11, 2)
@@ -1093,6 +1034,7 @@ Partial Class CalculoHoras
                             detalle = "ASISTENCIA"
                             'Obtener la hora del campo chec3
                             Checada = rdr2("chec").ToString
+                            clockin = CStr(Checada)
                             ChqEnt = rdr2("chec").ToString.Substring(0, 2)
 
                             'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
@@ -1130,6 +1072,7 @@ Partial Class CalculoHoras
                 If rdr2.Read Then
                     'Agregarle una hora a su hora de salida.
                     Checada = rdr2("chec").ToString
+                    clockout = CStr(Checada)
                     ChqSal = rdr2("chec").ToString.Substring(0, 2)
                     'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
                     'ChqEnt = CStr(Checada).Substring(11, 2)
@@ -1149,6 +1092,7 @@ Partial Class CalculoHoras
                     rdr2 = cmd2.ExecuteReader
                     If rdr2.Read Then
                         Checada = rdr2("chec").ToString
+                        clockout = CStr(Checada)
                         ChqSal = rdr2("chec").ToString.Substring(0, 2)
                         'Checada = Format(CDate(rdr2("chec").ToString), "yyyy-MM-dd HH:mm:ss")
                         'ChqEnt = CStr(Checada).Substring(11, 2)
@@ -1181,7 +1125,7 @@ Partial Class CalculoHoras
             'End If
 
 
-            cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad,detalle) VALUES(@fecha," & CStr(ent) & "," & CStr(sal) & "," & CStr(calc) & "," & CStr(puntualidad) & ",'" & detalle & "')", dbc2)
+            cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad,detalle,clockin,clockout) VALUES(@fecha," & CStr(ent) & "," & CStr(sal) & "," & CStr(calc) & "," & CStr(puntualidad) & ",'" & detalle & "', '" & clockin & "','" & clockout & "')", dbc2)
             cmd2.Parameters.AddWithValue("fecha", CStr(rdr("fecha").ToString))
             cmd2.ExecuteNonQuery()
             cmd2.Dispose()
@@ -1193,4 +1137,5 @@ Partial Class CalculoHoras
         Lmsg.Text = revisar
         TxHorasTrabajadas.Text = acum
     End Sub
+
 End Class

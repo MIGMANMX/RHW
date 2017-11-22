@@ -24,7 +24,7 @@
             width: 463px;
         }
         .auto-style2 {
-            height: 1521px;
+            height: 1464px;
         }
       
         .auto-style5 {
@@ -190,21 +190,36 @@
             </tr>
         </table>
     </div>
-        
-    <rsweb:ReportViewer ID="reporte" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="554px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="890px">
+        <rsweb:ReportViewer ID="repo" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1097px" Height="438px">
+            <LocalReport ReportPath="ReportCalculoHoras.rdlc">
+                <DataSources>
+                    <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
+                </DataSources>
+            </LocalReport>
+        </rsweb:ReportViewer>
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.Temp_CalculoTableAdapter" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}">
+            <InsertParameters>
+                <asp:Parameter Name="fecha" Type="DateTime" />
+                <asp:Parameter Name="entrada" Type="String" />
+                <asp:Parameter Name="salida" Type="String" />
+                <asp:Parameter Name="hrstrab" Type="String" />
+                <asp:Parameter Name="puntualidad" Type="String" />
+                <asp:Parameter Name="detalle" Type="String" />
+            </InsertParameters>
+        </asp:ObjectDataSource>
+        <%-- <rsweb:ReportViewer ID="reporte" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="554px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="890px">
         <LocalReport ReportPath="Report1.rdlc">
             <DataSources>
                 <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
             </DataSources>
         </LocalReport>
-        </rsweb:ReportViewer>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDatahecIncidencia" TypeName="nomRHDataSetTableAdapters.vm_ChequeoIncidenciaTableAdapter">
+        </rsweb:ReportViewer>--%>        <%--<asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDatahecIncidencia" TypeName="nomRHDataSetTableAdapters.vm_ChequeoIncidenciaTableAdapter">
             <SelectParameters>
                 <asp:ControlParameter ControlID="idEmpleadoTX" Name="idempleado" PropertyName="Text" Type="Int32" />
                 <asp:ControlParameter ControlID="TxFechaInicio" Name="Fech1" PropertyName="Text" Type="DateTime" />
                 <asp:ControlParameter ControlID="TxFechaFin2" Name="Fech2" PropertyName="Text" Type="DateTime" />
             </SelectParameters>
-        </asp:ObjectDataSource>
+        </asp:ObjectDataSource>--%>
    </div>
       
 </asp:Content>
