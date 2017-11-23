@@ -96,7 +96,7 @@
         </table>
              <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="fecha" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="537px" Height="238px" AllowPaging="True" PageSize="250">
+            ForeColor="#333333" GridLines="None" Width="545px" Height="238px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1"  PageSize="28">
             <Columns>
                 <asp:BoundField DataField="fecha" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
                 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
@@ -121,13 +121,27 @@
                 
          </div>   
         <div id="derecho">
-            <%--<rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="544px">
-             <LocalReport ReportPath="RepoChequeo.rdlc">
+            <rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="489px" Height="531px">
+             <LocalReport ReportPath="ReportCalculoHSucursal.rdlc">
                  <DataSources>
                      <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
                  </DataSources>
              </LocalReport>
-         </rsweb:ReportViewer>--%>
+         </rsweb:ReportViewer>
+            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.Temp_CalculoSucursalTableAdapter">
+                <InsertParameters>
+                    <asp:Parameter Name="fecha" Type="DateTime" />
+                    <asp:Parameter Name="entrada" Type="String" />
+                    <asp:Parameter Name="salida" Type="String" />
+                    <asp:Parameter Name="hrstrab" Type="String" />
+                    <asp:Parameter Name="puntualidad" Type="String" />
+                    <asp:Parameter Name="clockin" Type="String" />
+                    <asp:Parameter Name="clockout" Type="String" />
+                    <asp:Parameter Name="idempleado" Type="Int32" />
+                    <asp:Parameter Name="empleado" Type="String" />
+                    <asp:Parameter Name="detalle" Type="String" />
+                </InsertParameters>
+            </asp:ObjectDataSource>
         </div>       
      </div>
 </asp:Content>

@@ -59,39 +59,50 @@ Partial Class CalculosHSucursal
         FFinal.Visible = False
     End Sub
     Protected Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
-        ''Creación de un objeto CultureInfo con referencia cultural de México
-        'Dim c As CultureInfo = New CultureInfo("es-MX")
+        'Creación de un objeto CultureInfo con referencia cultural de México
+        Dim c As CultureInfo = New CultureInfo("es-MX")
 
-        'Repo.ServerReport.Refresh()
-        'If wucSucursales.idSucursal <> 0 Then
-        '    If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
+        Repo.ServerReport.Refresh()
+        If wucSucursales.idSucursal <> 0 Then
+            If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
 
-        '        Dim dt1 As Date
-        '        dt1 = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
-        '        Dim dtf As Date
-        '        dtf = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+                Dim dt1 As Date
+                dt1 = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+                Dim dtf As Date
+                dtf = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
 
-        '        Dim dt2 As Date
-        '        dt2 = DateAdd(DateInterval.Day, 1, dtf)
-        '        dt2 = Format(CDate(dt2), "yyyy-MM-dd")
-        '        TxFechaFin2.Text = dt2
+                Dim dt2 As Date
+                dt2 = DateAdd(DateInterval.Day, 1, dtf)
+                dt2 = Format(CDate(dt2), "yyyy-MM-dd")
+                TxFechaFin2.Text = dt2
 
-        '        Dim p As New ReportParameter("Fech1", dt1)
-        '        Repo.LocalReport.SetParameters(p)
+                Dim p As New ReportParameter("Fecha1", dt1)
+                Repo.LocalReport.SetParameters(p)
 
-        '        p = New ReportParameter("Fech2", dtf)
-        '        Repo.LocalReport.SetParameters(p)
+                p = New ReportParameter("Fecha2", dtf)
+                Repo.LocalReport.SetParameters(p)
 
-        '        p = New ReportParameter("sucursal", wucSucursales.sucursal)
-        '        Repo.LocalReport.SetParameters(p)
+                p = New ReportParameter("sucursal", wucSucursales.sucursal)
+                Repo.LocalReport.SetParameters(p)
 
-        '        Repo.ServerReport.Refresh()
-        '    Else
-        '        Mens.Text = "Error: Debes capturar una fecha"
-        '    End If
-        'Else
-        '    Mens.Text = "Error: Debes seleccionar una sucursal"
-        'End If
+                Repo.ServerReport.Refresh()
+            Else
+                Mens.Text = "Error: Debes capturar una fecha"
+            End If
+        Else
+            Mens.Text = "Error: Debes seleccionar una sucursal"
+        End If
+    End Sub
+    Protected Sub GridView1_PageIndexChanging1(sender As Object, e As GridViewPageEventArgs)
+        GridView1.PageIndex = e.NewPageIndex
+        Dim ec As New ctiCalculo
+        'Dim FechaFinal As Date
+        'Dim FechaFinal2 As Date
+        'FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
+        'FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
+        GridView1.DataSource = ec.gvCalculoSucursal()
+        ec = Nothing
+        GridView1.DataBind()
     End Sub
     Public Sub CalculoHrsTrab()
         Dim FIn, FFn, Checada As Date
