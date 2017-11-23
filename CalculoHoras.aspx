@@ -117,7 +117,7 @@
                 </asp:BoundField>
 
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />--%>
-                <asp:BoundField DataField="fecha" HeaderText="Fecha y Hora" SortExpression="fecha" />
+                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
                 <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" />
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />

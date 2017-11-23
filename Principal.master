@@ -134,8 +134,8 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<%=ResolveUrl("CalculoHoras.aspx")%>"><i class="fa fa-calculator"></i> Cálculo de Horas</a></li>
-                <li id="che" runat="server"><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-hand-o-up"></i> Chequeos</a></li>
-                <li><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-credit-card"></i> Pagos</a></li>
+                <li id="che" runat="server"><a href="<%=ResolveUrl("CalculosHSucursal.aspx")%>"><i class="fa fa-hand-o-up"></i> Cálculo por sucursal</a></li>
+                <li><a href="<%=ResolveUrl("Prenomina.aspx")%>"><i class="fa fa-credit-card"></i> Prenomina</a></li>
                
               </ul>
             </li>
