@@ -14,11 +14,10 @@
         #izquierdo{
             float:left;
         }
-
          #derecho{
              float:right;
         }
-         </style>
+     </style>
      <div id="contenedor">
          <div id="izquierdo">
                <table class="auto-style3">
