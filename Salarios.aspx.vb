@@ -1,5 +1,4 @@
-﻿
-Imports RHLogica
+﻿Imports RHLogica
 
 Partial Class Default2
     Inherits System.Web.UI.Page
@@ -122,5 +121,4 @@ Partial Class Default2
         End If
         Lmsg.Text = j(0)
     End Sub
-
 End Class

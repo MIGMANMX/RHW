@@ -23,10 +23,10 @@
             <Columns>
                 <asp:BoundField DataField="idsalario" ItemStyle-Font-Size="1" ItemStyle-Width="1" />
                 <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />
-                <asp:BoundField DataField="idpuesto" HeaderText="Puesto"  />
-                <asp:BoundField DataField="hora" HeaderText="Hora"  />
-                <asp:BoundField DataField="extra" HeaderText="Horas Extras"  />
-                <asp:BoundField DataField="extratiple" HeaderText="Horas Extras Triples"  />
+                <asp:BoundField DataField="puesto" HeaderText="Puesto"  />
+                <asp:BoundField DataField="hora" HeaderText="$ Hora"  />
+                <asp:BoundField DataField="extra" HeaderText="$ Horas Extras"  />
+                <asp:BoundField DataField="extratiple" HeaderText="$ Horas Extras Triples"  />
                
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>
             </Columns>
