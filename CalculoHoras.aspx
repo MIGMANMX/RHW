@@ -122,7 +122,7 @@
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />
                 <asp:BoundField DataField="detalle" HeaderText="Detalle" SortExpression="detalle" />
-
+                <asp:BoundField DataField="horario" HeaderText="Horario" SortExpression="horario" />
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />
