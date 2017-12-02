@@ -3,6 +3,7 @@
 Partial Class Default2
     Inherits System.Web.UI.Page
     Public gvPos As Integer
+    Dim id As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         Session("menu") = "C"
@@ -54,10 +55,16 @@ Partial Class Default2
                 Lmsg.CssClass = "error"
                 Lmsg.Text = datos(0)
             Else
+                id = datos(0)
                 WucPuestos.idPuesto = datos(1)
                 txtHoras.Text = datos(2)
                 txtHorasExtras.Text = datos(3)
                 txtHorasExtrasTiples.Text = datos(4)
+
+                txtprima.Text = datos(8)
+                txtdia.Text = datos(6)
+                txtdiadescanso.Text = datos(7)
+                wucSucursales.idSucursal = datos(5)
 
 
                 grdSR.Text = e.CommandArgument.ToString
@@ -74,7 +81,8 @@ Partial Class Default2
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
 
 
-        Dim r As String = ap.actualizarSalario(idA, WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text)
+
+        Dim r As String = ap.actualizarSalario(id, WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text, wucSucursales.idSucursal, txtdia.Text, txtdiadescanso.Text, txtprima.Text)
 
         GridView1.DataSource = ap.gvSalario
         ap = Nothing
@@ -86,6 +94,11 @@ Partial Class Default2
             txtHoras.Text = ""
             txtHorasExtras.Text = ""
             txtHorasExtrasTiples.Text = ""
+            txtprima.Text = ""
+            txtdia.Text = ""
+            txtdiadescanso.Text = ""
+            wucSucursales.idSucursal = 0
+            WucPuestos.idPuesto = 0
         End If
         Dim gvp As New clsCTI
         grdSR.Text = gvp.seleccionarGridRow(GridView1, idA)
@@ -102,7 +115,7 @@ Partial Class Default2
         Dim gc As New ctiCatalogos
         Dim att As Integer
 
-        Dim j() As String = gc.agregarSalario(WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text)
+        Dim j() As String = gc.agregarSalario(WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text, wucSucursales.idSucursal, txtdia.Text, txtdiadescanso.Text, txtprima.Text)
         GridView1.DataSource = gc.gvSalario
         gc = Nothing
         GridView1.DataBind()
@@ -118,6 +131,11 @@ Partial Class Default2
             txtHoras.Text = ""
             txtHorasExtras.Text = ""
             txtHorasExtrasTiples.Text = ""
+            txtprima.Text = ""
+            txtdia.Text = ""
+            txtdiadescanso.Text = ""
+            wucSucursales.idSucursal = 0
+            WucPuestos.idPuesto = 0
         End If
         Lmsg.Text = j(0)
     End Sub

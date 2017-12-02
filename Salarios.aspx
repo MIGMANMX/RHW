@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="Salarios.aspx.vb" Inherits="Default2" %>
 <%@ Register src="cti/wucPuestos.ascx" tagname="wucPuestos" tagprefix="uc2" %>
+<%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -17,16 +18,20 @@
         End If%>
 
     <h3>Salarios</h3>
-    <div id="listaDatos" style="margin-left: 120px">
+      <div id="listaDatos" style="margin-left: 120px">
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
-            CellPadding="4" DataKeyNames ="idsalario" ForeColor="#333333" GridLines="None" Width="517px">
+            CellPadding="4" DataKeyNames ="idsalario" ForeColor="#333333" GridLines="None" Width="794px">
             <Columns>
                 <asp:BoundField DataField="idsalario" ItemStyle-Font-Size="1" ItemStyle-Width="1" />
                 <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />
-                <asp:BoundField DataField="puesto" HeaderText="Puesto"  />
+                <asp:BoundField DataField="puesto" HeaderText="Puesto"  />    
+                 <asp:BoundField DataField="sucursal" HeaderText="Sucursal"  />           
                 <asp:BoundField DataField="hora" HeaderText="$ Hora"  />
                 <asp:BoundField DataField="extra" HeaderText="$ Horas Extras"  />
                 <asp:BoundField DataField="extratiple" HeaderText="$ Horas Extras Triples"  />
+                <asp:BoundField DataField="diafestivo" HeaderText="$ Dia Festivo"  />
+                <asp:BoundField DataField="diadescanso" HeaderText="$ Dia Descanso"  />
+                <asp:BoundField DataField="primadominical" HeaderText="% Prima Dominical"  />
                
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>
             </Columns>
@@ -63,6 +68,9 @@
                 <td class="auto-style1" style="width: 169px">Puesto:<br />
                     <uc2:wucpuestos ID="WucPuestos" runat="server" />
                 </td>  
+                <td class="auto-style1" style="width: 169px">Sucursal:<br />
+                   <uc1:wucsucursales ID="wucSucursales" runat="server" />
+                </td>  
                  <td class="auto-style1" style="width: 169px">Hora Normal:<br />
                     <asp:TextBox ID="txtHoras" runat="server" MaxLength="40" Width="153px" CssClass="txtHora" />&nbsp;</td>      
             </tr>
@@ -72,6 +80,15 @@
                     <asp:TextBox ID="txtHorasExtras" runat="server" MaxLength="40" Width="153px" CssClass="txtHorasExtras" /></td>
                 <td class="auto-style1" style="margin-left: 40px">Horas Extras Triples:<br />
                     <asp:TextBox ID="txtHorasExtrasTiples" runat="server" MaxLength="40" Width="153px" CssClass="txtCaptura" /></td>
+                <td class="auto-style1" style="margin-left: 40px">Dia Festivo:<br />
+                    <asp:TextBox ID="txtdia" runat="server" MaxLength="40" Width="153px" CssClass="txtdia" /></td>
+            </tr> 
+            <tr>
+               
+                <td class="auto-style1" style="margin-left: 40px">Dia Descanso:<br />
+                    <asp:TextBox ID="txtdiadescanso" runat="server" MaxLength="40" Width="153px" CssClass="txtdiadescanso" /></td>
+                <td class="auto-style1" style="margin-left: 40px">Prima Dominical:<br />
+                    <asp:TextBox ID="txtprima" runat="server" MaxLength="40" Width="153px" CssClass="txtprima" /></td>
             </tr>  
             </table>
     </div> <!-- registroDatos -->

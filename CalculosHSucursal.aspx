@@ -95,7 +95,7 @@
         </table>
              <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="fecha" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="545px" Height="238px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1"  PageSize="28">
+            ForeColor="#333333" GridLines="None" Width="950px" Height="238px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1"  PageSize="28">
             <Columns>
                 <asp:BoundField DataField="fecha" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
                 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
@@ -108,7 +108,7 @@
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />
                 <asp:BoundField DataField="detalle" HeaderText="Detalle" SortExpression="detalle" />
-
+                <asp:BoundField DataField="horario" HeaderText="Horario" SortExpression="horario" />
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />
@@ -120,7 +120,7 @@
                 
          </div>   
         <div id="derecho">
-            <rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="489px" Height="531px">
+            <rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="946px" Height="531px">
              <LocalReport ReportPath="ReportCalculoHSucursal.rdlc">
                  <DataSources>
                      <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
