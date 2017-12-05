@@ -56,6 +56,7 @@ Partial Class Default2
                 Lmsg.Text = datos(0)
             Else
                 id = datos(0)
+                txtID.Text = datos(0)
                 WucPuestos.idPuesto = datos(1)
                 txtHoras.Text = datos(2)
                 txtHorasExtras.Text = datos(3)
@@ -82,7 +83,7 @@ Partial Class Default2
 
 
 
-        Dim r As String = ap.actualizarSalario(id, WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text, wucSucursales.idSucursal, txtdia.Text, txtdiadescanso.Text, txtprima.Text)
+        Dim r As String = ap.actualizarSalario(txtID.Text, WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text, wucSucursales.idSucursal, txtdia.Text, txtdiadescanso.Text, txtprima.Text)
 
         GridView1.DataSource = ap.gvSalario
         ap = Nothing
@@ -99,6 +100,7 @@ Partial Class Default2
             txtdiadescanso.Text = ""
             wucSucursales.idSucursal = 0
             WucPuestos.idPuesto = 0
+            txtID.Text = ""
         End If
         Dim gvp As New clsCTI
         grdSR.Text = gvp.seleccionarGridRow(GridView1, idA)
@@ -136,6 +138,7 @@ Partial Class Default2
             txtdiadescanso.Text = ""
             wucSucursales.idSucursal = 0
             WucPuestos.idPuesto = 0
+            txtID.Text = ""
         End If
         Lmsg.Text = j(0)
     End Sub

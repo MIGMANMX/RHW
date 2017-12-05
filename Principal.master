@@ -150,7 +150,8 @@
                 <li><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias por sucursal</a></li>
                 <li><a href="<%=ResolveUrl("RepChequeo.aspx")%>"><i class="fa fa-hand-pointer-o"></i>Chequeos reales por empleado</a></li>
               </ul>
-            </li>          
+            </li>
+                        
             <li class="treeview" id="acc" runat="server">
               <a href="#">
                 <i class="fa fa-folder"></i> <span>Acceso</span>
@@ -161,15 +162,21 @@
                 
               </ul>
             </li>
-             <li>
+            <%-- <li>
               <a href="#">
                 <i class="fa fa-star"></i> <span>Ayuda</span>
                 <small class="label pull-right bg-red">PDF</small>
               </a>
-            </li>
+            </li>--%>
+              <li>
+              <a href="<%=ResolveUrl("Configuracion.aspx")%>">
+                <i class="fa fa-cogs"></i> <span>Configuración</span>
+               <%-- <small class="label pull-right bg-red">PDF</small>--%>
+              </a>
+            </li> 
             <li>
               <a href="#">
-                <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
+                <i class="fa fa-star"></i> <span>Acerca De...</span>
                 <small class="label pull-right bg-yellow">Star</small>
               </a>
             </li>

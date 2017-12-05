@@ -51,7 +51,8 @@
             <tr>
                 <td colspan="2">
                     <h4>
-                        Editar registro</h4>
+                        Editar registro<asp:TextBox ID="txtID" runat="server" Visible="False"></asp:TextBox>
+                    </h4>
                 </td>
                 <td>
                     <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="106px" />               

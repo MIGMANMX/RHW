@@ -32,19 +32,25 @@
             width: 199px;
         }
               
+        .auto-style6 {
+            height: 51px;
+        }
+              
         </style>
     <div id="contenedor" class="auto-style2">
     <h3>Cálculo de Horas </h3>
     <div id="izquierdo">
         <table>
             <tr>
-                <td class="auto-style22">Sucursal:<br />
+                <td class="auto-style6">Sucursal:<br />
                     <uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
-              <td class="auto-style23">Empleado:<asp:TextBox ID="grdSR" runat="server" Visible="false" Width="176px"></asp:TextBox>
+              <td class="auto-style6">Empleado:<asp:TextBox ID="grdSR" runat="server" Visible="false" Width="176px"></asp:TextBox>
                   <asp:TextBox ID="idEmpleadoTX" runat="server" Visible="False" Width="46px"></asp:TextBox>
                   <br />
                   <uc2:wucempleados2 ID="wucEmpleados2" runat="server" />  
                   <asp:TextBox ID="TxEmpleado" runat="server" Visible="False" Width="46px"></asp:TextBox>
+                  </td>
+                <td><asp:Button ID="btnBuscar0" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Buscar"  ToolTip="Buscar Registros" Width="90px" /></td>
             </tr>
     
             <tr>
