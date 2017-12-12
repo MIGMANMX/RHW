@@ -50,7 +50,7 @@
                   <uc2:wucempleados2 ID="wucEmpleados2" runat="server" />  
                   <asp:TextBox ID="TxEmpleado" runat="server" Visible="False" Width="46px"></asp:TextBox>
                   </td>
-                <td><asp:Button ID="btnBuscar0" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Buscar"  ToolTip="Buscar Registros" Width="90px" /></td>
+                <td>&nbsp;</td>
             </tr>
     
             <tr>
@@ -123,7 +123,7 @@
                 </asp:BoundField>
 
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />--%>
-                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
+                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha"  HtmlEncode="False" DataFormatString = "{0:d}"/>
                 <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" />
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />

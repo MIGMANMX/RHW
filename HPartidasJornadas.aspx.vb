@@ -261,8 +261,8 @@ Partial Class _HPartidasJornadas
             End If
         Else
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
-                    If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                ' If DiaS.Text = "Tuesday" And hora < 14 Then
+                If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
                         Dim gp As New ctiCatalogos
                         If IsNumeric(grdSR.Text) Then
                             grdSR.Text = ""
@@ -289,12 +289,12 @@ Partial Class _HPartidasJornadas
                         Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
                     End If
                     h = False
-                Else
-                    Lmsg.Text = "Termino el tiempo de Captura"
-                    h = True
-                End If
+                'Else
+                '    Lmsg.Text = "Termino el tiempo de Captura"
+                '    h = True
+                'End If
                 If h = False Then
-                    Lmsg.Text = "No esta permitido capturar"
+                    '  Lmsg.Text = "No esta permitido capturar"
 
                 End If
 

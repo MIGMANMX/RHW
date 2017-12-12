@@ -103,7 +103,7 @@
 
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />--%>
                 <asp:BoundField DataField="empleado" HeaderText="Empleado" SortExpression="empleado" />
-                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
+                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" HtmlEncode="False" DataFormatString = "{0:d}"/>
                 <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" />
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />
@@ -127,19 +127,7 @@
                  </DataSources>
              </LocalReport>
          </rsweb:ReportViewer>
-            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.Temp_CalculoSucursalTableAdapter">
-                <InsertParameters>
-                    <asp:Parameter Name="fecha" Type="DateTime" />
-                    <asp:Parameter Name="entrada" Type="String" />
-                    <asp:Parameter Name="salida" Type="String" />
-                    <asp:Parameter Name="hrstrab" Type="String" />
-                    <asp:Parameter Name="puntualidad" Type="String" />
-                    <asp:Parameter Name="clockin" Type="String" />
-                    <asp:Parameter Name="clockout" Type="String" />
-                    <asp:Parameter Name="idempleado" Type="Int32" />
-                    <asp:Parameter Name="empleado" Type="String" />
-                    <asp:Parameter Name="detalle" Type="String" />
-                </InsertParameters>
+            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_CalculoSucursalTableAdapter">
             </asp:ObjectDataSource>
         </div>       
      </div>

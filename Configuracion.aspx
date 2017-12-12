@@ -47,7 +47,7 @@
                          <tr>
                              <td>Dia limite para capturar horario:&nbsp;
                                  <br />
-                                 <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" Width="121px" AutoPostBack="True">
+                                 <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" Width="121px">
                                      <asp:ListItem Value="Monday">Lunes</asp:ListItem>
                                      <asp:ListItem Value="Tuesday">Martes</asp:ListItem>
                                      <asp:ListItem Value="Wednesday">Miercoles</asp:ListItem>
@@ -56,6 +56,9 @@
                                      <asp:ListItem Value="Saturday">Sabado</asp:ListItem>
                                      <asp:ListItem Value="Sunday">Domingo</asp:ListItem>
                                  </asp:DropDownList>
+                                 <br />
+                                 <asp:TextBox ID="txtdia" runat="server"></asp:TextBox>
+                                 <br />
                              </td>
                              <td>
                                   
@@ -63,14 +66,16 @@
                                   
                              </td>
                              <td>Hora limite para captura de horario:<br />
-                                 <asp:DropDownList ID="DropH" runat="server" Height="30px" Width="74px">
+                             <%--    <asp:DropDownList ID="DropH" runat="server" Height="30px" Width="74px">
                                      <asp:ListItem Value="9">09</asp:ListItem>
                                      <asp:ListItem>10</asp:ListItem>
                                      <asp:ListItem>11</asp:ListItem>
                                      <asp:ListItem>12</asp:ListItem>
                                      <asp:ListItem>13</asp:ListItem>
-                                 </asp:DropDownList>
+                                 </asp:DropDownList>--%>
+                                 <asp:TextBox ID="txthora" runat="server"></asp:TextBox>
                              </td>
+
                              <td>
                                  
                              </td>

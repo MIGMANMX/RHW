@@ -17,13 +17,14 @@ Partial Class Configuracion
         Dim dsP As New ctiConfiguracion
         Dim datos() As String = dsP.datosHorario()
         dsP = Nothing
-        If datos(0).StartsWith("Error") Then
-            Lmsg.CssClass = "error"
-            Lmsg.Text = datos(0)
-        Else
-            DropDownList1.SelectedValue = datos(0)
-            DropH.SelectedValue = datos(1)
-        End If
+        'If datos(0).StartsWith("Error") Then
+        '    Lmsg.CssClass = "error"
+        '    Lmsg.Text = datos(0)
+        'Else
+        txtdia.Text = datos(0)
+        DropDownList1.SelectedValue = datos(0)
+        txthora.Text = datos(1)
+        'End If
     End Sub
     Protected Sub Horario_Click(sender As Object, e As EventArgs) Handles Horario.Click
         MultiView1.ActiveViewIndex = 0
@@ -37,7 +38,7 @@ Partial Class Configuracion
     Protected Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         Dim ap As New ctiConfiguracion
         'txt1.Text = DropH.SelectedValue
-        Dim r As String = ap.actualizarHorarios(DropDownList1.SelectedValue, DropH.SelectedValue)
+        Dim r As String = ap.actualizarHorarios(DropDownList1.SelectedValue, txthora.Text)
         If r.StartsWith("Error") Then
             Lmsg.CssClass = "error"
         Else
