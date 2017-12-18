@@ -76,8 +76,9 @@
                      <br />
                      <br />
                   <br />
-                     <asp:CheckBox ID="chk" runat="server" Font-Size="Medium" Text="Completar Checada" Font-Italic="False" />
+                     <asp:CheckBox ID="chk" runat="server" Font-Size="Medium" Text="Completar Entrada" Font-Italic="False" />
                      <br />
+                     <asp:CheckBox ID="chksalida" runat="server" Font-Size="Medium" Text="Completar Salida" Font-Italic="False" />
                      <br />
                      <br />
                 <br />
@@ -127,12 +128,8 @@
                 <asp:BoundField DataField="inicio" HeaderText="Inicio" SortExpression="inicio" />
                 <asp:BoundField DataField="fin" HeaderText="Fin" SortExpression="fin" />
                 <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" HtmlEncode="False" DataFormatString = "{0:d}"/>
-          <%-- <asp:templatefield HeaderText="Completar Checada">
-    <itemtemplate>
-        <asp:checkbox ID="completar" DataField="completar" SortExpression="completar" runat="server"></asp:checkbox>
-    </itemtemplate>
-</asp:templatefield>--%>
-                 <asp:CheckBoxField DataField="completar" HeaderText="Completar Checada" />
+                 <asp:CheckBoxField DataField="completar" HeaderText="Completar Entrada" />
+                 <asp:CheckBoxField DataField="completarfin" HeaderText="Completar Salida" />
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />
