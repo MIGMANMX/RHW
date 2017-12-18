@@ -6,19 +6,21 @@
 
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 
+<%@ Register src="cti/wucJornadas.ascx" tagname="wucjornadas" tagprefix="uc3" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
       <% If IsNumeric(Session("idz_e")) Then
-             Response.Write("<div id=confirmar style='position:fixed; left:200; top:300; background-color:White; border-style:solid; border-width:1px; border-color:Black;'>")
-             Response.Write("<table>")
-             Response.Write("<tr><td rowspan=7 width=5 /><td height=6 /><td rowspan=7 width=6 /></tr>")
-             Response.Write("<tr><td class=c_titulo>Confirmación</td></tr>")
-             Response.Write("<tr><td height=6 /></tr>")
-             Response.Write("<tr><td class=c_texto>¿Confirma la eliminación :    <b><i>" & Session("dz_e") & "</i></b> ?</td></tr>")
-             Response.Write("<tr><td height=6 /></tr>")
-             Response.Write("<tr><td align=center><input type=submit name=btnSi value='   Sí   ' class='boton' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-             Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
-             Response.Write("<tr><td height=6 /></tr></table></div>")
-         End If%>
+              Response.Write("<div id=confirmar style='position:fixed; left:200; top:300; background-color:White; border-style:solid; border-width:1px; border-color:Black;'>")
+              Response.Write("<table>")
+              Response.Write("<tr><td rowspan=7 width=5 /><td height=6 /><td rowspan=7 width=6 /></tr>")
+              Response.Write("<tr><td class=c_titulo>Confirmación</td></tr>")
+              Response.Write("<tr><td height=6 /></tr>")
+              Response.Write("<tr><td class=c_texto>¿Confirma la eliminación :    <b><i>" & Session("dz_e") & "</i></b> ?</td></tr>")
+              Response.Write("<tr><td height=6 /></tr>")
+              Response.Write("<tr><td align=center><input type=submit name=btnSi value='   Sí   ' class='boton' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+              Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
+              Response.Write("<tr><td height=6 /></tr></table></div>")
+          End If%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <% If IsNumeric(Session("idz_e")) Then
@@ -73,30 +75,37 @@
             <tr>
             <td class="auto-style13">Incidencia:<br />
                 <uc3:wucincidencias ID="wucIncidencias" runat="server" />
-            
-                                   
-            
-                 <br />
+       
                 <br />
-                Dia:<br />
-                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="113px" />
-            
-                                   
-            
+                 <br />                                
+            <div id="checada" runat="server">
+                 Hora Entrada:<br />
+                    <asp:TextBox ID="fecha0" runat="server" CssClass="txtCaptura" MaxLength="40" Width="113px" />
+
+                    <br />      
+                 Hora Salida:<br />
+                    <asp:TextBox ID="fecha1" runat="server" CssClass="txtCaptura" MaxLength="40" Width="113px" />          
                     <br />
+                                          
+            </div>
+                <div id="horario" runat="server">
+
+                    Jornada:<br />
+                <uc3:wucjornadas ID="wucJornadas" runat="server" />
             
                                    
             
-                 <br />
                 <br />
-          <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
             
-                                   
+                       </div>            
             
                  </td>
                  <td class="auto-style15">
             
-                     <br />
+                Dia:<br />
+                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="113px" />
+            
+                                   
             
           <asp:Calendar ID="FechaC" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="27px" Width="160px" TitleFormat="Month" >
                     <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
@@ -108,10 +117,15 @@
                     <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
+            
+          <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
+            
+                                   
+            
                  </td>     </tr>
             <tr>
             <td class="auto-style13"> Observaciones:<br />
-                    <asp:TextBox ID="TxObservaciones" runat="server" CssClass="txtCaptura" MaxLength="40" Width="239px" Height="74px" />
+                    <asp:TextBox ID="TxObservaciones" runat="server" CssClass="txtCaptura" MaxLength="40" Width="239px" Height="74px" TextMode="MultiLine" />
             
                                    
             

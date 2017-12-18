@@ -5,6 +5,8 @@ Partial Class _RegistroIncidencias
     Public gvPos As Integer
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        checada.Visible = False
+        horario.Visible = False
 
         btnActualizarr.Enabled = False
         btnGuardarNuevo.Enabled = True
@@ -185,6 +187,15 @@ Partial Class _RegistroIncidencias
             btnActualizarr.Enabled = True
             Lmsg.Text = ""
         End If
+    End Sub
+    Protected Sub wucIncidencias_incidenciaSeleccionada(sender As Object, e As System.EventArgs) Handles wucIncidencias.incidenciaSeleccionada
+        If wucIncidencias.idIncidencia = 7 Then
+            horario.Visible = True
+        End If
+        If wucIncidencias.idIncidencia = 8 Then
+            checada.Visible = True
+        End If
+        wucIncidencias.ddlAutoPostBack = True
     End Sub
 
 End Class

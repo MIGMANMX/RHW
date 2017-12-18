@@ -124,7 +124,7 @@
                 <li><a href="<%=ResolveUrl("ConsHorario.aspx")%>"><i class="fa fa-calendar-plus-o"></i> Horarios</a></li>              
                 <li id="rep" runat="server"><a href="<%=ResolveUrl("RepHorario.aspx")%>"><i class="fa fa-file-text-o"></i> Reporte Semanal</a></li>
                 <li id="Li1" runat="server"><a href="<%=ResolveUrl("Particulares.aspx")%>"><i class="fa fa-balance-scale"></i>Casos Particulares</a></li>
-               
+               <li><a href="<%=ResolveUrl("EPartidaJornada.aspx")%>"><i class="fa fa-flag"></i>Alterar Horarios</a></li>
               </ul>
             </li>
             <li class="treeview" id="nomina" runat="server">

@@ -40,7 +40,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>BOLETA DE ASISTENCIA</Value>
+                <Value>BOLETA DE ASISTENCIA POR SUCURSAL</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -50,10 +50,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>1.15252cm</Top>
+        <Top>1.11725cm</Top>
         <Left>7.72877cm</Left>
         <Height>0.6cm</Height>
-        <Width>5.33104cm</Width>
+        <Width>7.11113cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -69,9 +69,9 @@
         <Source>Embedded</Source>
         <Value>LogoSSLHorizontal1</Value>
         <Sizing>FitProportional</Sizing>
-        <Left>0.30426cm</Left>
-        <Height>3.42787cm</Height>
-        <Width>6.74439cm</Width>
+        <Left>0.26898cm</Left>
+        <Height>3.30531cm</Height>
+        <Width>6.63856cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -128,7 +128,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>2.86018cm</Top>
+        <Top>2.70531cm</Top>
         <Left>7.18976cm</Left>
         <Height>0.6cm</Height>
         <Width>1.12909cm</Width>
@@ -160,7 +160,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
-        <Top>2.86018cm</Top>
+        <Top>2.70531cm</Top>
         <Left>11.31274cm</Left>
         <Height>0.6cm</Height>
         <Width>0.99188cm</Width>
@@ -222,7 +222,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Fecha1</rd:DefaultName>
-        <Top>2.86018cm</Top>
+        <Top>2.70531cm</Top>
         <Left>8.31885cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -254,7 +254,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Fecha2</rd:DefaultName>
-        <Top>2.86018cm</Top>
+        <Top>2.70531cm</Top>
         <Left>12.3399cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -273,22 +273,25 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.80372cm</Width>
+              <Width>5.17614cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.6182cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.28622cm</Width>
+              <Width>1.4158cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.29565cm</Width>
+              <Width>1.35631cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.00987cm</Width>
+              <Width>0.98341cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.39393cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.12958cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -499,6 +502,40 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Horario</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>Maroon</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
             <TablixRow>
@@ -548,6 +585,7 @@
                               <Value>=Fields!fecha.Value</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <Format>dd/MM/yyyy</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -696,12 +734,45 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="horario">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!horario.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>horario</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
           </TablixRows>
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -721,15 +792,24 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>3.99203cm</Top>
-        <Left>0.30426cm</Left>
+        <SortExpressions>
+          <SortExpression>
+            <Value>=Fields!empleado.Value</Value>
+          </SortExpression>
+          <SortExpression>
+            <Value>=Fields!fecha.Value</Value>
+          </SortExpression>
+        </SortExpressions>
+        <Top>3.67453cm</Top>
+        <Left>0.26898cm</Left>
         <Height>1.2cm</Height>
-        <Width>15.40757cm</Width>
+        <Width>15.07338cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <FontSize>6pt</FontSize>
         </Style>
       </Tablix>
     </ReportItems>
@@ -740,7 +820,7 @@
       </Border>
     </Style>
   </Body>
-  <Width>6.60738in</Width>
+  <Width>6.21423in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
