@@ -118,7 +118,7 @@
             <div id="derecho" class="auto-style12">
         <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="idempleado" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="574px" Height="92px" AllowPaging="True" AllowSorting="True" PageSize="30">
+            ForeColor="White" GridLines="None" Width="574px" Height="92px" AllowPaging="True" AllowSorting="True" PageSize="30">
             <Columns>
                 <asp:BoundField DataField="idpartidas_jornada" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
@@ -135,7 +135,8 @@
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />
             <AlternatingRowStyle BackColor="#fbfbfb" />
             <SelectedRowStyle BackColor="#fffcbf" />
-            <FooterStyle BackColor="#FF9933" Font-Size="1" Height="1" />
+            <FooterStyle BackColor="White" Font-Size="1" Height="1" />
+            <PagerSettings FirstPageText="" Mode="NumericFirstLast" PageButtonCount="15" />
             <PagerStyle BackColor="#3088b0" ForeColor="#333333" HorizontalAlign="Center" />
         </asp:GridView>
                       
