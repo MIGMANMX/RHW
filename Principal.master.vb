@@ -33,6 +33,8 @@ Partial Class Principal
             incide.Visible = False
             regInidencia.Visible = True
             dia.Visible = False
+            EHJ.Visible = False
+            confi.Visible = False
         End If
 
         If datos(0) = 7 Then
@@ -49,6 +51,8 @@ Partial Class Principal
             incide.Visible = True
             regInidencia.Visible = True
             dia.Visible = True
+            EHJ.Visible = True
+            confi.Visible = True
         End If
     End Sub
 End Class
