@@ -24,11 +24,6 @@ Partial Class CalculosHSucursal
                 'CalculoHrsTrab()
                 ''''Generar grid
                 CalculoHoras()
-                Dim ec As New ctiCalculo
-                GridView1.DataSource = ec.gvCalculoSucursal()
-                ec = Nothing
-                GridView1.DataBind()
-
             Else
                 Mens.Text = "Error: Falta Capturar Fecha"
             End If
@@ -1375,5 +1370,11 @@ Partial Class CalculosHSucursal
         dbc.Close() : dbc.Dispose()
         'Lmsg.Text = IniTol
         'TxHorasTrabajadas.Text = acum
+    End Sub
+    Protected Sub btnTabla_Click(sender As Object, e As EventArgs) Handles btnTabla.Click
+        Dim ec As New ctiCalculo
+        GridView1.DataSource = ec.gvCalculoSucursal()
+        ec = Nothing
+        GridView1.DataBind()
     End Sub
 End Class

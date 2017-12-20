@@ -121,10 +121,9 @@
               <ul class="treeview-menu">
                 <li><a href="<%=ResolveUrl("HPartidasJornadas.aspx")%>"><i class="fa fa-calendar-times-o"></i> Asignar Horario</a></li>
                 <li id="regInidencia" runat="server"><a href="<%=ResolveUrl("RegistroIncidencias.aspx")%>"><i class="fa fa-bomb"></i> Registro de Incidencias</a></li>              
-                <li><a href="<%=ResolveUrl("ConsHorario.aspx")%>"><i class="fa fa-calendar-plus-o"></i> Horarios</a></li>              
-                <li id="rep" runat="server"><a href="<%=ResolveUrl("RepHorario.aspx")%>"><i class="fa fa-file-text-o"></i> Reporte Semanal</a></li>
+                <li><a href="<%=ResolveUrl("ConsHorario.aspx")%>"><i class="fa fa-calendar-plus-o"></i> Horarios</a></li>                            
                 <li id="part" runat="server"><a href="<%=ResolveUrl("Particulares.aspx")%>"><i class="fa fa-balance-scale"></i>Casos Particulares</a></li>
-               <li id="EHJ" runat="server">><a href="<%=ResolveUrl("EPartidaJornada.aspx")%>"><i class="fa fa-flag"></i>Alterar Horarios</a></li>
+               <li id="EHJ" runat="server"><a href="<%=ResolveUrl("EPartidaJornada.aspx")%>"><i class="fa fa-flag"></i>Alterar Horarios</a></li>
               </ul>
             </li>
             <li class="treeview" id="nomina" runat="server">
@@ -146,9 +145,10 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<%=ResolveUrl("RepEmpleadosSucursal.aspx")%>"><i class="fa fa-building"></i>Empleados por sucursal</a></li>
-                <li><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias por sucursal</a></li>
-                <li><a href="<%=ResolveUrl("RepChequeo.aspx")%>"><i class="fa fa-hand-pointer-o"></i>Chequeos reales por empleado</a></li>
+                <li id="rep" runat="server"><a href="<%=ResolveUrl("RepHorario.aspx")%>"><i class="fa fa-file-text-o"></i> Reporte Semanal</a></li>
+                <li id="rep1" runat="server"><a href="<%=ResolveUrl("RepEmpleadosSucursal.aspx")%>"><i class="fa fa-building"></i>Empleados por sucursal</a></li>
+                <li id="rep2" runat="server"><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias por sucursal</a></li>
+                <li id="rep3" runat="server"><a href="<%=ResolveUrl("RepChequeo.aspx")%>"><i class="fa fa-hand-pointer-o"></i>Chequeos reales por empleado</a></li>
               </ul>
             </li>
                         
@@ -162,16 +162,11 @@
                 
               </ul>
             </li>
-            <%-- <li>
-              <a href="#">
-                <i class="fa fa-star"></i> <span>Ayuda</span>
-                <small class="label pull-right bg-red">PDF</small>
-              </a>
-            </li>--%>
+            
               <li  id="confi" runat="server">
               <a href="<%=ResolveUrl("Configuracion.aspx")%>">
                 <i class="fa fa-cogs"></i> <span>Configuración</span>
-               <%-- <small class="label pull-right bg-red">PDF</small>--%>
+             
               </a>
             </li> 
             <li>

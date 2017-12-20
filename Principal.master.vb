@@ -29,7 +29,9 @@ Partial Class Principal
             jor.Visible = False
             rep.Visible = True
             che.Visible = False
-            repo.Visible = False
+            rep1.Visible = False
+            rep2.Visible = False
+            rep3.Visible = True
             incide.Visible = False
             regInidencia.Visible = True
             dia.Visible = False
@@ -47,7 +49,9 @@ Partial Class Principal
             jor.Visible = True
             rep.Visible = True
             che.Visible = True
-            repo.Visible = True
+            rep1.Visible = True
+            rep2.Visible = True
+            rep3.Visible = True
             incide.Visible = True
             regInidencia.Visible = True
             dia.Visible = True

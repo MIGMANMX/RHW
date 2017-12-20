@@ -87,6 +87,14 @@
                 
                      
                 
+                        <br />
+                
+                     
+                
+            <asp:Button ID="btnTabla" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Tabla" ToolTip="Tabla" Width="120px"  />
+                
+                     
+                
                         <asp:Label ID="Mens" runat="server" Width="259px"></asp:Label>
                         <br />
                         <asp:TextBox ID="grdSR" runat="server" Visible="false" Width="176px" Height="23px"></asp:TextBox>

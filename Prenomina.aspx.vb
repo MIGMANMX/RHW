@@ -75,8 +75,6 @@ Partial Class Prenomina
                     idempleado = rdr3("idempleado").ToString
                     empleado = rdr3("empleado").ToString
 
-
-
                 End While
 
             Else
