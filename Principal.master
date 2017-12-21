@@ -149,6 +149,7 @@
                 <li id="rep1" runat="server"><a href="<%=ResolveUrl("RepEmpleadosSucursal.aspx")%>"><i class="fa fa-building"></i>Empleados por sucursal</a></li>
                 <li id="rep2" runat="server"><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias por sucursal</a></li>
                 <li id="rep3" runat="server"><a href="<%=ResolveUrl("RepChequeo.aspx")%>"><i class="fa fa-hand-pointer-o"></i>Chequeos reales por empleado</a></li>
+                <li id="rep4" runat="server"><a href="<%=ResolveUrl("RepCasos.aspx")%>"><i class="fa fa-compass"></i>Casos Particulares</a></li>
               </ul>
             </li>
                         

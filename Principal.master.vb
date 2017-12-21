@@ -32,6 +32,7 @@ Partial Class Principal
             rep1.Visible = False
             rep2.Visible = False
             rep3.Visible = True
+            rep4.Visible = False
             incide.Visible = False
             regInidencia.Visible = True
             dia.Visible = False
@@ -52,6 +53,7 @@ Partial Class Principal
             rep1.Visible = True
             rep2.Visible = True
             rep3.Visible = True
+            rep4.Visible = True
             incide.Visible = True
             regInidencia.Visible = True
             dia.Visible = True
