@@ -45,19 +45,25 @@
                  <div id="izquierdo">
                      <table>
                          <tr>
-                             <td>Dia limite para capturar horario:&nbsp;
+                             <td>Dia actual capturado:<br />&nbsp;
+                                 <asp:TextBox ID="TextBox1" runat="server" Enabled="False"></asp:TextBox>
                                  <br />
-                                 <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" Width="121px">
-                                     <asp:ListItem Value="Monday">Lunes</asp:ListItem>
-                                     <asp:ListItem Value="Tuesday">Martes</asp:ListItem>
-                                     <asp:ListItem Value="Wednesday">Miercoles</asp:ListItem>
-                                     <asp:ListItem Value="Thursday">Jueves</asp:ListItem>
-                                     <asp:ListItem Value="Friday">Viernes</asp:ListItem>
-                                     <asp:ListItem Value="Saturday">Sabado</asp:ListItem>
-                                     <asp:ListItem Value="Sunday">Domingo</asp:ListItem>
-                                 </asp:DropDownList>
                                  <br />
-                                 <asp:TextBox ID="txtdia" runat="server"></asp:TextBox>
+                                 Dia limite para capturar horario:&nbsp;
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox1" runat="server" Text="Lunes" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox2" runat="server" Text="Martes" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox3" runat="server" Text="Miercoles" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox4" runat="server" Text="Jueves" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox5" runat="server" Text="Viernes" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox6" runat="server" Text="Sabado" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox7" runat="server" Text="Domingo" />
                                  <br />
                              </td>
                              <td>
@@ -65,7 +71,11 @@
                                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
                                   
                              </td>
-                             <td>Hora limite para captura de horario:<br />
+                             <td>Hora actual seleccionada:<br />
+                                 <asp:TextBox ID="TextBox2" runat="server" Enabled="False"></asp:TextBox>
+                                 <br />
+                                 <br />
+                                 Hora limite para captura de horario:<br />
                              <%--    <asp:DropDownList ID="DropH" runat="server" Height="30px" Width="74px">
                                      <asp:ListItem Value="9">09</asp:ListItem>
                                      <asp:ListItem>10</asp:ListItem>
@@ -73,7 +83,19 @@
                                      <asp:ListItem>12</asp:ListItem>
                                      <asp:ListItem>13</asp:ListItem>
                                  </asp:DropDownList>--%>
-                                 <asp:TextBox ID="txthora" runat="server"></asp:TextBox>
+                                 <asp:CheckBox ID="CheckBox8" runat="server" Text="08:00" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox9" runat="server" Text="09:00" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox10" runat="server" Text="10:00" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox11" runat="server" Text="11:00" />
+                                 <br />
+                                 <asp:CheckBox ID="CheckBox12" runat="server" Text="12:00" />
+                                 <br />
+                                 <br />
+                                 <br />
+                                 <br />
                              </td>
 
                              <td>
@@ -81,6 +103,7 @@
                              </td>
                          </tr>
                      </table>
+                     <asp:Label ID="Mens" runat="server" Width="259px"></asp:Label>
                      <br />
                      <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Guardar"  ToolTip="Guardar" Width="101px" />
                      <br />

@@ -11,7 +11,15 @@ Partial Class _HPartidasJornadas
     Public IDP As Integer
     Dim hora As Integer
     Dim h As Boolean = False
+    Dim dia As String
+    Dim ho As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Dim dsP As New ctiConfiguracion
+        Dim datos1() As String = dsP.datosHorario()
+        dsP = Nothing
+        dia = datos1(0)
+        ho = datos1(1)
+
         THORA.Text = DateTime.Now.ToString("hh")
         hora = Convert.ToInt32(THORA.Text)
         h = False
@@ -261,8 +269,8 @@ Partial Class _HPartidasJornadas
             End If
         Else
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                ' If DiaS.Text = "Tuesday" And hora < 14 Then
-                If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                If DiaS.Text = dia And hora < 14 Then
+                    If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
                         Dim gp As New ctiCatalogos
                         If IsNumeric(grdSR.Text) Then
                             grdSR.Text = ""
@@ -289,16 +297,16 @@ Partial Class _HPartidasJornadas
                         Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
                     End If
                     h = False
-                'Else
-                '    Lmsg.Text = "Termino el tiempo de Captura"
-                '    h = True
-                'End If
-                If h = False Then
-                    '  Lmsg.Text = "No esta permitido capturar"
+                    'Else
+                    '    Lmsg.Text = "Termino el tiempo de Captura"
+                    '    h = True
+                    'End If
+                    If h = False Then
+                        '  Lmsg.Text = "No esta permitido capturar"
 
-                End If
+                    End If
 
-            Else
+                Else
                     If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
                     Dim gp As New ctiCatalogos
                     If IsNumeric(grdSR.Text) Then
