@@ -1,5 +1,4 @@
-﻿
-Imports RHLogica
+﻿Imports RHLogica
 
 Partial Class Configuracion
     Inherits System.Web.UI.Page
@@ -109,5 +108,91 @@ Partial Class Configuracion
         If cont2 < 2 Then
             'Mens.Text = "Error: Solo debe seleccionar una hora"
         End If
+    End Sub
+    Protected Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        CheckBox2.Checked = False
+        CheckBox3.Checked = False
+        CheckBox4.Checked = False
+        CheckBox5.Checked = False
+        CheckBox6.Checked = False
+        CheckBox7.Checked = False
+    End Sub
+    Protected Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
+        CheckBox1.Checked = False
+        CheckBox3.Checked = False
+        CheckBox4.Checked = False
+        CheckBox5.Checked = False
+        CheckBox6.Checked = False
+        CheckBox7.Checked = False
+    End Sub
+    Protected Sub CheckBox3_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox3.CheckedChanged
+        CheckBox2.Checked = False
+        CheckBox1.Checked = False
+        CheckBox4.Checked = False
+        CheckBox5.Checked = False
+        CheckBox6.Checked = False
+        CheckBox7.Checked = False
+    End Sub
+    Protected Sub CheckBox4_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox4.CheckedChanged
+        CheckBox2.Checked = False
+        CheckBox3.Checked = False
+        CheckBox1.Checked = False
+        CheckBox5.Checked = False
+        CheckBox6.Checked = False
+        CheckBox7.Checked = False
+    End Sub
+    Protected Sub CheckBox5_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox5.CheckedChanged
+        CheckBox2.Checked = False
+        CheckBox3.Checked = False
+        CheckBox4.Checked = False
+        CheckBox1.Checked = False
+        CheckBox6.Checked = False
+        CheckBox7.Checked = False
+    End Sub
+    Protected Sub CheckBox6_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox6.CheckedChanged
+        CheckBox2.Checked = False
+        CheckBox3.Checked = False
+        CheckBox4.Checked = False
+        CheckBox5.Checked = False
+        CheckBox1.Checked = False
+        CheckBox7.Checked = False
+    End Sub
+    Protected Sub CheckBox7_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox7.CheckedChanged
+        CheckBox2.Checked = False
+        CheckBox3.Checked = False
+        CheckBox4.Checked = False
+        CheckBox5.Checked = False
+        CheckBox6.Checked = False
+        CheckBox1.Checked = False
+    End Sub
+    Protected Sub CheckBox8_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox8.CheckedChanged
+        CheckBox9.Checked = False
+        CheckBox10.Checked = False
+        CheckBox11.Checked = False
+        CheckBox12.Checked = False
+    End Sub
+    Protected Sub CheckBox9_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox9.CheckedChanged
+        CheckBox8.Checked = False
+        CheckBox10.Checked = False
+        CheckBox11.Checked = False
+        CheckBox12.Checked = False
+    End Sub
+    Protected Sub CheckBox10_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox10.CheckedChanged
+        CheckBox9.Checked = False
+        CheckBox8.Checked = False
+        CheckBox11.Checked = False
+        CheckBox12.Checked = False
+    End Sub
+    Protected Sub CheckBox11_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox11.CheckedChanged
+        CheckBox9.Checked = False
+        CheckBox10.Checked = False
+        CheckBox9.Checked = False
+        CheckBox12.Checked = False
+    End Sub
+    Protected Sub CheckBox12_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox12.CheckedChanged
+        CheckBox9.Checked = False
+        CheckBox10.Checked = False
+        CheckBox11.Checked = False
+        CheckBox8.Checked = False
     End Sub
 End Class
