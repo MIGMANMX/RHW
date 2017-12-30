@@ -1417,13 +1417,13 @@ Partial Class CalculoHoras
         FechaFinal = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
         Fecha = FechaInicial
         Dim IniDiaN, FinDiaC, FinDiaN, IniDiaSig, SigDia, IniHorario, FinHorario, Checada As Date
-        Dim ChqIni, ChqFin, ChqEnt, ChqSal, IniTol, FinTol, IniPuntual, FinPuntual, Detalle, Horario As String
+        Dim ChqIni, ChqFin, ChqEnt, ChqSal, IniTol, FinTol, IniPuntual, FinPuntual, Detalle, Horario, IniJ, FinJ As String
 
         Dim entrada, salida, calc, puntualidad, acum, hextCerrador As Integer
 
 
         While Fecha <= FechaFinal
-            ChqIni = "" : ChqFin = "" : calc = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0
+            ChqIni = "" : ChqFin = "" : calc = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0 : IniJ = "" : FinJ = ""
 
             IniDiaN = Left(Fecha, 10) + " 05:01:00"
             FinDiaN = Left(Fecha, 10) + " 23:59:59"
@@ -1569,6 +1569,29 @@ Partial Class CalculoHoras
                         hextCerrador = 1
                     End If
                 End If
+
+                'Revisar si se le respeta su hora de entrada aunque haya checado después
+                If rdr("completar") Then
+                    'Obtener la hora de inicio de jornada
+                    IniJ = rdr("inicio").ToString.Substring(0, 2)
+                    entrada = CInt(IniJ)
+                    Detalle = "PUNTUALIDAD"
+                End If
+
+                'Revisar si se le respeta su hora de salida aunque haya checado antes
+                If rdr("completarfin") Then
+                    'Obtener la hora de fin de jornada
+                    FinJ = rdr("fin").ToString.Substring(0, 2)
+                    salida = CInt(FinJ)
+                End If
+
+                'Completar su hora de salida
+                If rdr("completarhsal") Then
+                    'Obtener su checada de salida y sumarle 1 a la hora
+                    FinJ = ChqSal
+                    salida = CInt(FinJ + 1)
+                End If
+
             End If
 
             If entrada <> 0 Then

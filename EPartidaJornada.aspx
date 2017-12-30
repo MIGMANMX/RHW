@@ -18,27 +18,6 @@
                Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
                Response.Write("<tr><td height=6 /></tr></table></div>")
            End If%>
-    <style type="text/css">
-        .auto-style3 {
-            height: 16px;
-            width: 97px;
-        }
-        .auto-style5 {
-            width: 369px;
-        }
-        .auto-style6 {
-            height: 26px;
-            width: 97px;
-        }
-        .auto-style7 {
-            height: 16px;
-            width: 249px;
-        }
-        .auto-style10 {
-            height: 26px;
-            width: 249px;
-        }
-        </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <style type="text/css">
@@ -51,48 +30,77 @@
 
          #derecho{
              float:right;
-        }
-          .auto-style12 {
-            width: 647px;
-        }
-          .auto-style13 {
-             width: 249px;
+        }               
+          .auto-style1 {
+             width: 280px;
+         }
+         .auto-style2 {
+             width: 630px;
+         }
+         .auto-style3 {
+             width: 382px;
+         }
+          .auto-style4 {
+             width: 234px;
+             height: 45px;
+         }
+         .auto-style5 {
+             height: 45px;
          }
           </style>
       <div id="contenedor">
-          <div id="izquierdo">
-        <table class="auto-style5">
-            <tr>
-                <td class="auto-style7" id="suc" runat="server">Sucursal:<uc1:wucsucursales ID="wucSucursales" runat="server" />
+          <div id="izquierdo" class="auto-style2">
+              <table>
+             
+                  
+                  <tr>
+                      <td id="suc">
+                          Sucursal:<br />
+                    <uc1:wucsucursales ID="wucSucursales" runat="server" />
                     <asp:TextBox ID="idpartidas_jornadaT" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" Enabled="False" Visible="False" />            
-                     </td>
-                <td class="auto-style3">Empleado:<uc2:wucempleados2 ID="wucEmpleados2" runat="server" />
-                </td>  
+                   
+                      </td>
+                      <td>
+                           Empleado:<br />
+                  <uc2:wucempleados2 ID="wucEmpleados2" runat="server" />
+                      </td>
+                      <td>
+                          <br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      </td>
+                      <td>
+                          
+                           <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Buscar"  ToolTip="Buscar datos" Enabled="true" Width="108px" />
+               
+                      </td>                    
+                  </tr>
+                        <tr>
+                    <td class="auto-style4">
+                       
+                        Fecha Inicio:<br />
+                    <asp:TextBox ID="TxFechaInicio" runat="server" MaxLength="40" Width="100px" CssClass="txtCaptura" Enabled="False" /><asp:ImageButton ID="ImageButton1" runat="server" Height="18px" ImageUrl="~/img/favicon.ico" Width="19px" />
+
+                
+
+                    </td>
+                 <td class="auto-style5">
+                    
+                     Fecha Fin:<br />
+                    <asp:TextBox ID="TxFechaFin" runat="server" MaxLength="40" Width="100px" CssClass="txtCaptura" Height="24px" Enabled="False" />
+
+                    <asp:ImageButton ID="ImageButton2" runat="server" Height="18px" ImageUrl="~/img/favicon.ico" Width="19px" />
+
+                
+
+                    <asp:TextBox ID="TxFechaFin2" runat="server" MaxLength="40" Width="100px" CssClass="txtCaptura" Height="24px" Enabled="False" Visible="False" />
+
+                                    
+
+                    </td>
             </tr>
-            <tr>
-            <td class="auto-style10">
-                    Jornada:<br />
-                <uc3:wucjornadas ID="wucJornadas" runat="server" />
-                     <br />
-                     <br />
-                  <br />
-                     <asp:CheckBox ID="chk" runat="server" Font-Size="Medium" Text="Completar Entrada" Font-Italic="False" />
-                     <br />
-                     <asp:CheckBox ID="chksalida" runat="server" Font-Size="Medium" Text="Completar Salida" Font-Italic="False" />
-                     <br />
-                     <br />
-                <br />
-          <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
-          
-        <asp:TextBox ID="grdSR" runat="server" Visible="false"></asp:TextBox>         
-                 </td>
-                 <td class="auto-style6">
-            
-                     Dia:<br />
-                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="69px" Enabled="False" />            
-                     <br />            
-                     <br />
-          <asp:Calendar ID="FechaC" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="27px" Width="160px" TitleFormat="Month" >
+                     <tr>
+                <td>
+                    <asp:Calendar ID="FIngreso" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
                     <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
                     <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
                     <OtherMonthDayStyle ForeColor="#999999" />
@@ -102,23 +110,29 @@
                     <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
-                     <br />
-                 </td>     </tr>
-            <tr>
-                <td class="auto-style13">
-                    <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Actualizar datos" Enabled="true" Width="108px" />
                 </td>
                 <td>
-
-                    <asp:Button ID="btnActualizarr" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Actualizar" ToolTip="Actualizar" Width="108px" />
+                    <asp:Calendar ID="FFinal" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
+                    <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
+                    <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
+                    <OtherMonthDayStyle ForeColor="#999999" />
+                    <SelectedDayStyle BackColor="#999999" Font-Bold="True" ForeColor="#CCFF99" />
+                    <SelectorStyle BackColor="#FFCC66" ForeColor="#336666" />
+                    <TitleStyle BackColor="#FF9900" BorderColor="#FFCC66" BorderWidth="1px" Font-Bold="True" Font-Size="10pt" ForeColor="White" Height="25px" />
+                    <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
+                    <WeekendDayStyle BackColor="#CCCCFF" />
+                </asp:Calendar>               
 
                 </td>
-            </tr>
-            </table></div>
-            <div id="derecho" class="auto-style12">
+            </tr>         
+         
+              </table>
+        <table>    
+            <tr>
+                <td class="auto-style1">
         <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="idempleado" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="White" GridLines="None" Width="574px" Height="92px" AllowPaging="True" AllowSorting="True" PageSize="30">
+            ForeColor="White" GridLines="None" Width="632px" Height="92px" AllowPaging="True" AllowSorting="True" PageSize="30">
             <Columns>
                 <asp:BoundField DataField="idpartidas_jornada" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
@@ -128,8 +142,9 @@
                 <asp:BoundField DataField="inicio" HeaderText="Inicio" SortExpression="inicio" />
                 <asp:BoundField DataField="fin" HeaderText="Fin" SortExpression="fin" />
                 <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" HtmlEncode="False" DataFormatString = "{0:d}"/>
-                 <asp:CheckBoxField DataField="completar" HeaderText="Completar Entrada" />
-                 <asp:CheckBoxField DataField="completarfin" HeaderText="Completar Salida" />
+                 <asp:CheckBoxField DataField="completar" HeaderText="C Entrada" />
+                 <asp:CheckBoxField DataField="completarfin" HeaderText="C Salida" />
+                 <asp:CheckBoxField DataField="completarhsal" HeaderText="C Hora Salida" />
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />
@@ -140,6 +155,53 @@
             <PagerStyle BackColor="#3088b0" ForeColor="#333333" HorizontalAlign="Center" />
         </asp:GridView>
                       
+                </td>
+            </tr>           
+            </table>
+          </div>
+
+            <div id="derecho" class="auto-style3">
+                <table class="auto-style1">
+                       <tr>
+            <td class="auto-style4">
+                    Jornada:<br />
+                <uc3:wucjornadas ID="wucJornadas" runat="server" />
+                     
+                  <br />
+                     <asp:CheckBox ID="chk" runat="server" Font-Size="Medium" Text="Completar Entrada" Font-Italic="False" />
+                     <br />
+                     <asp:CheckBox ID="chksalida" runat="server" Font-Size="Medium" Text="Completar Salida" Font-Italic="False" />
+                     <br />
+                     <asp:CheckBox ID="chkhsal" runat="server" Font-Size="Medium" Text="Completar Hora Salida " Font-Italic="False" />
+                     <br />
+                <br />
+          <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
+          
+        <asp:TextBox ID="grdSR" runat="server" Visible="false"></asp:TextBox>         
+                 </td>
+                 <td class="auto-style6">
+            
+                     Dia:<br />
+                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="69px" Enabled="False" />                              
+                     <br />
+                     <br />
+                     <br />
+                     <br />
+                     <br />
+                     <br />
+                 </td>               
+            </tr> 
+                     <tr>
+                <td class="auto-style4">
+                    <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Actualizar datos" Enabled="true" Width="108px" />
+                </td>
+                <td>
+
+                    <asp:Button ID="btnActualizarr" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Actualizar" ToolTip="Actualizar" Width="108px" />
+
+                </td>
+            </tr>
+              </table>
             </div>
           <!-- listaDatos -->                     
               </div>  

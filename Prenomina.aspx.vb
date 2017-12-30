@@ -85,4 +85,7 @@ Partial Class Prenomina
         End If
     End Sub
 
+    Protected Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
+
+    End Sub
 End Class

@@ -6,15 +6,10 @@ Partial Class EPartidaJornada
     Public gvPos As Integer
     Dim idA As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'chk.Checked = False
-        'chksalida.Checked = False
-
         Lmsg.Text = ""
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         Dim gvds As New ctiWUC
-        FechaC.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
-
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
             Session("menu") = "C"
@@ -29,30 +24,39 @@ Partial Class EPartidaJornada
                 btnActualizarr.Enabled = True
             End If
         End If
-
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiWUC
         Dim acceso As New ctiCatalogos
         wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
         gvds = Nothing
+        fecha.Text = ""
+        wucJornadas.idJornada = 0
+        chk.Checked = False
+        chksalida.Checked = False
+        chkhsal.Checked = False
+        Lmsg.Text = ""
+        GridView1.Visible = False
         wucEmpleados2.ddlAutoPostBack = True
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
         End If
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
-        idpartidas_jornadaT.Text = ""
-        Dim gvds As New ctiCatalogos
-        GridView1.DataSource = gvds.gvPartida_Jornada2(wucEmpleados2.idEmpleado)
-        GridView1.Visible = True
-        gvds = Nothing
+        If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
+            idpartidas_jornadaT.Text = ""
+            Dim gvds As New ctiCatalogos
+            GridView1.DataSource = gvds.gvPartida_Jornada2(wucEmpleados2.idEmpleado, TxFechaInicio.Text, TxFechaFin.Text)
+            GridView1.Visible = True
+            gvds = Nothing
 
-        GridView1.DataBind()
-        If IsNumeric(grdSR.Text) Then
-            grdSR.Text = ""
+            GridView1.DataBind()
+            If IsNumeric(grdSR.Text) Then
+                grdSR.Text = ""
+            End If
+        Else
+            Lmsg.Text = "Error: Falta Capturar Fecha"
         End If
-
     End Sub
     Protected Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
         fecha.Text = ""
@@ -61,14 +65,15 @@ Partial Class EPartidaJornada
         wucEmpleados2.idEmpleado = 0
         chk.Checked = False
         chksalida.Checked = False
+        chkhsal.Checked = False
         Lmsg.Text = ""
         GridView1.Visible = False
     End Sub
     Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
         Dim ap As New ctiCatalogos
         'idA = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        Dim r As String = ap.actualizarPartidaJornada2(idpartidas_jornadaT.Text, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text, chk.Checked, chksalida.Checked)
-        GridView1.DataSource = ap.gvPartida_Jornada2(wucEmpleados2.idEmpleado)
+        Dim r As String = ap.actualizarPartidaJornada2(idpartidas_jornadaT.Text, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text, chk.Checked, chksalida.Checked, chkhsal.Checked)
+        GridView1.DataSource = ap.gvPartida_Jornada2(wucEmpleados2.idEmpleado, TxFechaInicio.Text, TxFechaFin.Text)
         ap = Nothing
             GridView1.DataBind()
             If r.StartsWith("Error") Then
@@ -106,6 +111,7 @@ Partial Class EPartidaJornada
                 fecha.Text = datos(3)
                 chk.Checked = datos(4)
                 chksalida.Checked = datos(5)
+                chkhsal.Checked = datos(6)
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI
@@ -124,14 +130,56 @@ Partial Class EPartidaJornada
             grdSR.Text = ""
         End If
     End Sub
-
     Protected Sub GridView1_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridView1.PageIndexChanging
         GridView1.PageIndex = e.NewPageIndex
 
         Dim ap As New ctiCatalogos
         'Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(2).Text)
-        GridView1.DataSource = ap.gvPartida_Jornada2(wucEmpleados2.idEmpleado)
+        GridView1.DataSource = ap.gvPartida_Jornada2(wucEmpleados2.idEmpleado, TxFechaInicio.Text, TxFechaFin.Text)
         ap = Nothing
         GridView1.DataBind()
+    End Sub
+    Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
+        If FIngreso.Visible = True Then
+            FIngreso.Visible = False
+        ElseIf FIngreso.Visible = False Then
+            FIngreso.Visible = True
+        End If
+    End Sub
+    Protected Sub ImageButton2_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton2.Click
+        If FFinal.Visible = True Then
+            FFinal.Visible = False
+        ElseIf FFinal.Visible = False Then
+            FFinal.Visible = True
+        End If
+    End Sub
+    Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
+        TxFechaInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
+        FIngreso.Visible = False
+        TxFechaFin.Text = DateAdd(DateInterval.Day, 13, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
+    End Sub
+    Protected Sub FFinal_SelectionChanged(sender As Object, e As EventArgs) Handles FFinal.SelectionChanged
+        TxFechaFin.Text = FFinal.SelectedDate.ToString("yyyy-MM-dd")
+        FFinal.Visible = False
+    End Sub
+    Protected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
+        If wucEmpleados2.idEmpleado <> 0 Then
+            If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then
+                idpartidas_jornadaT.Text = ""
+                Dim gvds As New ctiCatalogos
+                GridView1.DataSource = gvds.gvPartida_Jornada2(wucEmpleados2.idEmpleado, TxFechaInicio.Text, TxFechaFin.Text)
+                GridView1.Visible = True
+                gvds = Nothing
+
+                GridView1.DataBind()
+                If IsNumeric(grdSR.Text) Then
+                    grdSR.Text = ""
+                End If
+            Else
+                Lmsg.Text = "Error: Falta Capturar Fecha"
+            End If
+        Else
+            Lmsg.Text = "Error: Falta Capturar Empleado"
+        End If
     End Sub
 End Class
