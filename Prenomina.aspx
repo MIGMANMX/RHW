@@ -82,6 +82,10 @@
                 
                      
                 
+                    <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Buscar"  ToolTip="Buscar Registros" Width="120px" />
+                
+                     
+                
             <asp:Button ID="btnGenerar" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Reporte" ToolTip="Generar" Width="120px"  />
                 
                      

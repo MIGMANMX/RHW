@@ -715,7 +715,7 @@
           <TablixMembers>
             <TablixMember>
               <TablixHeader>
-                <Size>6.66192cm</Size>
+                <Size>5.54562cm</Size>
                 <CellContents>
                   <Textbox Name="Textbox4">
                     <CanGrow>true</CanGrow>
@@ -766,7 +766,7 @@
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
-                <Size>6.66192cm</Size>
+                <Size>5.54562cm</Size>
                 <CellContents>
                   <Textbox Name="empleado">
                     <CanGrow>true</CanGrow>
@@ -777,7 +777,7 @@
                           <TextRun>
                             <Value>=Fields!empleado.Value</Value>
                             <Style>
-                              <FontSize>8pt</FontSize>
+                              <FontSize>6pt</FontSize>
                             </Style>
                           </TextRun>
                         </TextRuns>
@@ -796,6 +796,7 @@
                       <PaddingBottom>2pt</PaddingBottom>
                     </Style>
                   </Textbox>
+                  <rd:Selected>true</rd:Selected>
                 </CellContents>
               </TablixHeader>
               <TablixMembers>
@@ -818,7 +819,7 @@
         <Top>3.67453cm</Top>
         <Left>0.26898cm</Left>
         <Height>1.2cm</Height>
-        <Width>16.55915cm</Width>
+        <Width>15.44285cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -835,7 +836,7 @@
       </Border>
     </Style>
   </Body>
-  <Width>7.02455in</Width>
+  <Width>6.31622in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
