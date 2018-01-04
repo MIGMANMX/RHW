@@ -776,7 +776,7 @@ Partial Class Prenomina
             horasN = datos(2)
             primaD = datos(8)
         End If
-        PrimaDominicalT = (horasN * ((d8 + d14) * (primaD / 100)))
+        PrimaDominicalT = (horasN * ((d(7) + d(13)) * (primaD / 100)))
     End Sub
     Public Sub DiaDescanso()
         DiaDescansoT = 0
