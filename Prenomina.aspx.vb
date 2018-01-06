@@ -1,4 +1,6 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Globalization
+Imports Microsoft.Reporting.WebForms
 Imports RHLogica
 
 Partial Class Prenomina
@@ -6,7 +8,8 @@ Partial Class Prenomina
     Public gvPos As Integer
     Dim idempleado As Integer = 0
     Dim empleado As String = ""
-
+    Dim idpuesto As Integer = 0
+    Dim m As Integer = 0
     ''''Salarios
     Dim horasN As Integer = 0
     Dim horasE As Integer = 0
@@ -49,6 +52,14 @@ Partial Class Prenomina
     Dim PrimaDominicalT As Integer = 0
     Dim DiaDescansoT As Integer = 0
     Dim ImporteTotalT As Integer = 0
+
+    '''''Variables de salario
+    Dim hora As Integer = 0
+    Dim extra As Integer = 0
+    Dim extratiple As Integer = 0
+    Dim diafes As Integer = 0
+    Dim diades As Integer = 0
+    Dim primadom As Integer = 0
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
@@ -57,6 +68,7 @@ Partial Class Prenomina
         End If
         Mens.Text = "" : gvPos = 0
         Session("idz_e") = ""
+        Repo.ServerReport.Refresh()
     End Sub
     Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
         If FIngreso.Visible = True Then
@@ -100,19 +112,20 @@ Partial Class Prenomina
                 dbc3.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbc3.Open()
                 'Consulta de empleados por sucursal
-                Dim cmd3 As New SqlCommand("SELECT idempleado,empleado FROM vm_EmpleadoSucursal  WHERE idsucursal =@idsucursal", dbc3)
+                Dim cmd3 As New SqlCommand("Select idempleado,empleado,idpuesto FROM vm_EmpleadoSucursal  WHERE idsucursal =@idsucursal", dbc3)
                 cmd3.Parameters.AddWithValue("idsucursal", wucSucursales.idSucursal)
                 Dim rdr3 As SqlDataReader = cmd3.ExecuteReader
                 'Inicio de ciclo
                 While rdr3.Read
+                    '''''''''Empleado
                     idempleado = rdr3("idempleado").ToString
-
-                    '''''''''Funciones
-                    ''Empleado
+                    idpuesto = rdr3("idpuesto").ToString
                     empleado = rdr3("empleado").ToString
+                    '''''''''Funciones
                     ''Dias 1 - 14
                     ''''''''''
                     'HTotales()
+                    Variables()
                     CalculoHoras()
                     HorasExtras()
                     HorasExtrasTriples()
@@ -173,15 +186,45 @@ Partial Class Prenomina
                     cmd2.ExecuteNonQuery()
                     cmd2.Dispose()
                 End While
-                ''''LLenar el Grid
-
-
+                ''''LLenar
+                Dim c As CultureInfo = New CultureInfo("es-MX")
+                Repo.ServerReport.Refresh()
+                Dim p As New ReportParameter("sucursal", wucSucursales.sucursal)
+                Repo.LocalReport.SetParameters(p)
             Else
                 Mens.Text = "Error: Falta Capturar Fecha"
             End If
         Else
             Mens.Text = "Error: Falta Capturar Sucursal"
         End If
+    End Sub
+    Private Sub Variables()
+        hora = 0
+        extra = 0
+        extratiple = 0
+        diafes = 0
+        diades = 0
+        primadom = 0
+        Using dbC As New SqlConnection
+            dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+            dbC.Open()
+            Dim cmd As New SqlCommand("SELECT hora,extra,extratiple,diafestivo,diadescanso,primadominical FROM Salarios WHERE idpuesto = @idpuesto AND idsucursal=@idsucursal", dbC)
+            cmd.Parameters.AddWithValue("idpuesto", idpuesto)
+            cmd.Parameters.AddWithValue("idsucursal", wucSucursales.idSucursal)
+            Dim rdr As SqlDataReader = cmd.ExecuteReader
+            Dim dsP As String()
+            If rdr.Read Then
+                hora = rdr("hora").ToString
+                extra = rdr("extra").ToString
+                extratiple = rdr("extratiple").ToString
+                diafes = rdr("diafestivo").ToString
+                diades = rdr("diadescanso").ToString
+                primadom = rdr("primadominical").ToString
+            Else
+                Mens.Text = "Error: no se encuentra los salarios."
+            End If
+            rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+        End Using
     End Sub
     Public Sub HTotales()
         HTotalesT = 0
@@ -290,7 +333,7 @@ Partial Class Prenomina
 
         Dim entrada, salida, calc, puntualidad, acum, hextCerrador As Integer
 
-
+        m = 0
         While Fecha <= FechaFinal
             ChqIni = "" : ChqFin = "" : calc = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0 : IniJ = "" : FinJ = ""
 
@@ -488,13 +531,13 @@ Partial Class Prenomina
             'cmd2.Parameters.AddWithValue("fecha", Fecha)
             'cmd2.ExecuteNonQuery()
             'cmd2.Dispose()
-            Dim m As Integer = 0
-            If m < 14 Then
-                d(m) = calc
-                m = m + 1
-            Else
-                Mens.Text = "Error: El contador sobrepaso el limite"
-            End If
+
+            'If m < 14 Then
+            d(m) = calc
+            m = m + 1
+            'Else
+            '    Mens.Text = "Error: El contador sobrepaso el limite"
+            'End If
 
 
             Fecha = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
@@ -705,57 +748,57 @@ Partial Class Prenomina
     Public Sub ImporteNormal()
         ImporteNormalT = 0
         Dim dsP As New ctiCatalogos
-        Dim datos() As String = dsP.datosSalarios2(idempleado, wucSucursales.idSucursal)
-        dsP = Nothing
-        If datos(0).StartsWith("Error") Then
-            Mens.CssClass = "error"
-            Mens.Text = datos(0)
-        Else
-            horasN = 0
-            horasN = datos(2)
-        End If
+        Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
+        'dsP = Nothing
+        'If datos(0).StartsWith("Error") Then
+        '    Mens.CssClass = "error"
+        '    Mens.Text = datos(0)
+        'Else
+        horasN = 0
+        horasN = hora
+        '  End If
         ImporteNormalT = TotalHorasT * horasN
     End Sub
     Public Sub TiempoExtra()
         TiempoExtraT = 0
-        Dim dsP As New ctiCatalogos
-        Dim datos() As String = dsP.datosSalarios2(idempleado, wucSucursales.idSucursal)
-        dsP = Nothing
-        If datos(0).StartsWith("Error") Then
-            Mens.CssClass = "error"
-            Mens.Text = datos(0)
-        Else
-            horasE = 0
-            horasE = datos(3)
-        End If
+        'Dim dsP As New ctiCatalogos
+        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
+        'dsP = Nothing
+        'If datos(0).StartsWith("Error") Then
+        '    Mens.CssClass = "error"
+        '    Mens.Text = datos(0)
+        'Else
+        horasE = 0
+        horasE = extra
+        'End If
         TiempoExtraT = HorasExtrasT * horasE
     End Sub
     Public Sub TiempoExtraTiple()
         TiempoExtraTipleT = 0
-        Dim dsP As New ctiCatalogos
-        Dim datos() As String = dsP.datosSalarios2(idempleado, wucSucursales.idSucursal)
-        dsP = Nothing
-        If datos(0).StartsWith("Error") Then
-            Mens.CssClass = "error"
-            Mens.Text = datos(0)
-        Else
-            horasET = 0
-            horasET = datos(4)
-        End If
+        'Dim dsP As New ctiCatalogos
+        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
+        'dsP = Nothing
+        'If datos(0).StartsWith("Error") Then
+        '    Mens.CssClass = "error"
+        '    Mens.Text = datos(0)
+        'Else
+        horasET = 0
+        horasET = extratiple
+        'End If
         TiempoExtraTipleT = HorasExtrasT * horasET
     End Sub
     Public Sub DiaFestivo()
         DiaFestivoT = 0
-        Dim dsP As New ctiCatalogos
-        Dim datos() As String = dsP.datosSalarios2(idempleado, wucSucursales.idSucursal)
-        dsP = Nothing
-        If datos(0).StartsWith("Error") Then
-            Mens.CssClass = "error"
-            Mens.Text = datos(0)
-        Else
-            diaF = 0
-            diaF = datos(6)
-        End If
+        'Dim dsP As New ctiCatalogos
+        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
+        'dsP = Nothing
+        'If datos(0).StartsWith("Error") Then
+        '    Mens.CssClass = "error"
+        '    Mens.Text = datos(0)
+        'Else
+        diaF = 0
+        diaF = diafes
+        'End If
         DiaFestivoT = DFestivosTrabajadosT * diaF
     End Sub
     Public Sub SeptimoDia()
@@ -764,32 +807,32 @@ Partial Class Prenomina
     End Sub
     Public Sub PrimaDominical()
         PrimaDominicalT = 0
-        Dim dsP As New ctiCatalogos
-        Dim datos() As String = dsP.datosSalarios2(idempleado, wucSucursales.idSucursal)
-        dsP = Nothing
-        If datos(0).StartsWith("Error") Then
-            Mens.CssClass = "error"
-            Mens.Text = datos(0)
-        Else
-            primaD = 0
-            horasN = 0
-            horasN = datos(2)
-            primaD = datos(8)
-        End If
-        PrimaDominicalT = (horasN * ((d(7) + d(13)) * (primaD / 100)))
+        'Dim dsP As New ctiCatalogos
+        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
+        'dsP = Nothing
+        'If datos(0).StartsWith("Error") Then
+        '    Mens.CssClass = "error"
+        '    Mens.Text = datos(0)
+        'Else
+        primaD = 0
+        horasN = 0
+        horasN = hora
+        primaD = primadom
+        'End If
+        PrimaDominicalT = (horasN * ((d(6) + d(13)) * (primaD / 100)))
     End Sub
     Public Sub DiaDescanso()
         DiaDescansoT = 0
-        Dim dsP As New ctiCatalogos
-        Dim datos() As String = dsP.datosSalarios2(idempleado, wucSucursales.idSucursal)
-        dsP = Nothing
-        If datos(0).StartsWith("Error") Then
-            Mens.CssClass = "error"
-            Mens.Text = datos(0)
-        Else
-            diaD = 0
-            diaD = datos(7)
-        End If
+        'Dim dsP As New ctiCatalogos
+        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
+        'dsP = Nothing
+        'If datos(0).StartsWith("Error") Then
+        '    Mens.CssClass = "error"
+        '    Mens.Text = datos(0)
+        'Else
+        diaD = 0
+        diaD = diades
+        'End If
         DiaDescansoT = DDescansadosTrabajadosT * diaD
     End Sub
     Public Sub ImporteTotal()

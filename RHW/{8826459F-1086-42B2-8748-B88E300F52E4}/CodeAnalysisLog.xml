@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio 14.0\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
 <FxCopReport Version="14.0">
  <Targets>
-  <Target Name="C:\Users\Sistemas3\AppData\Local\Temp\tmp9AF4.tmp.cadir\bin\App_Code.dll">
+  <Target Name="C:\Users\Sistemas3\AppData\Local\Temp\tmp43FC.tmp.cadir\bin\App_Code.dll">
    <Modules>
     <Module Name="app_code.dll">
      <Namespaces>
@@ -10,56 +10,63 @@
        <Types>
         <Type Name="nomRHDataSet" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="nomRHDataSet+RepSemaDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.RepSemaDataTable'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="nomRHDataSet+Temp_CalculoDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.Temp_CalculoDataTable'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="nomRHDataSet+vm_CalculoSucursalDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.vm_CalculoSucursalDataTable'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="nomRHDataSet+vm_ChequeoIncidenciaDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.vm_ChequeoIncidenciaDataTable'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="nomRHDataSet+vm_IncidenciasporsucursalDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.vm_IncidenciasporsucursalDataTable'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="nomRHDataSet+vm_ParticularesDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.vm_ParticularesDataTable'.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+        <Type Name="nomRHDataSet+vm_PrenominaDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
+           <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.vm_PrenominaDataTable'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="nomRHDataSet+vm_ReporteEmpleadoSucursalDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="NonBreaking">
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="NonBreaking">
            <Issue Certainty="60" Level="Error">Agregue una implementación de GetObjectData al tipo 'nomRHDataSet.vm_ReporteEmpleadoSucursalDataTable'.</Issue>
           </Message>
          </Messages>
@@ -70,9 +77,9 @@
     </Module>
    </Modules>
   </Target>
-  <Target Name="C:\Users\Sistemas3\AppData\Local\Temp\tmp9AF4.tmp.cadir\bin\App_Web_vue0ek5h.dll">
+  <Target Name="C:\Users\Sistemas3\AppData\Local\Temp\tmp43FC.tmp.cadir\bin\App_Web_i0k3jtuh.dll">
    <Modules>
-    <Module Name="app_web_vue0ek5h.dll">
+    <Module Name="app_web_i0k3jtuh.dll">
      <Namespaces>
       <Namespace Name="">
        <Types>
@@ -80,11 +87,11 @@
          <Members>
           <Member Name="#getSchedule()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="HPartidasJornadas.aspx.vb" Line="140">El objeto 'con' admite Dispose más de una vez en el método '_HPartidasJornadas.getSchedule()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 140</Issue>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="HPartidasJornadas.aspx.vb" Line="148">El objeto 'con' admite Dispose más de una vez en el método '_HPartidasJornadas.getSchedule()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 148</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
-             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="HPartidasJornadas.aspx.vb" Line="129">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en '_HPartidasJornadas.getSchedule()' podría contener las siguientes variables: 'Conversions.ToString(Me.wucEmpleados2.idEmpleado)'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="HPartidasJornadas.aspx.vb" Line="137">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en '_HPartidasJornadas.getSchedule()' podría contener las siguientes variables: 'Conversions.ToString(Me.wucEmpleados2.idEmpleado)'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -94,70 +101,70 @@
          <Members>
           <Member Name="#CalculoHoras()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="1602">El objeto 'dbc' admite Dispose más de una vez en el método 'CalculoHoras.CalculoHoras()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 1602</Issue>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="1625">El objeto 'dbc' admite Dispose más de una vez en el método 'CalculoHoras.CalculoHoras()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 1625</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
-             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="1595">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.CalculoHoras()' podría contener las siguientes variables: 'Conversions.ToString(entrada)', 'Conversions.ToString(salida)', 'Conversions.ToString(calc)', 'Conversions.ToString(puntualidad)', 'rdr("jornada")', 'rdr("chec")', 'rdr("chec")', 'rdr("chec")', 'rdr("jornada")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="1618">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.CalculoHoras()' podría contener las siguientes variables: 'Conversions.ToString(entrada)', 'Conversions.ToString(salida)', 'Conversions.ToString(calc)', 'Conversions.ToString(puntualidad)', 'rdr("jornada")', 'rdr("chec")', 'rdr("chec")', 'rdr("chec")', 'rdr("jornada")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DDescansados()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="482">El objeto 'dbC' admite Dispose más de una vez en el método 'CalculoHoras.DDescansados()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 482, 483</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="463">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.DDescansados()' podría contener las siguientes variables: 'Fech.ToString("yyyy-MM-dd")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DDescansadosTrabajados()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="553">El objeto 'dbC' admite Dispose más de una vez en el método 'CalculoHoras.DDescansadosTrabajados()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 553, 554</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="517">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.DDescansadosTrabajados()' podría contener las siguientes variables: 'Fech.ToString("yyyy-MM-dd")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DFestivosTrabajados()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="618">El objeto 'dbC' admite Dispose más de una vez en el método 'CalculoHoras.DFestivosTrabajados()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 618, 619</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="589">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.DFestivosTrabajados()' podría contener las siguientes variables: 'New String(5)(1)', 'New String(5)(3)'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#HorasExtras()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="665">El objeto 'dbC' admite Dispose más de una vez en el método 'CalculoHoras.HorasExtras()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 665, 666</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="649">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.HorasExtras()' podría contener las siguientes variables: 'Fech.ToString("yyyy-MM-dd")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#HTotales()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="211">El objeto 'dbC' admite Dispose más de una vez en el método 'CalculoHoras.HTotales()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 211, 212</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="173">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.HTotales()' podría contener las siguientes variables: 'New String(5)(1)', 'New String(5)(3)'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#HTrabajadasCont()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="334">El objeto 'dbC' admite Dispose más de una vez en el método 'CalculoHoras.HTrabajadasCont()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 334, 336</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="298">La cadena de consulta pasada a 'SqlCommand.CommandText.Set(String)' en 'CalculoHoras.HTrabajadasCont()' podría contener las siguientes variables: 'DateAndTime.DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculoHoras.aspx.vb" Line="261">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculoHoras.HTrabajadasCont()' podría contener las siguientes variables: 'DateAndTime.DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
@@ -171,9 +178,9 @@
     </Module>
    </Modules>
   </Target>
-  <Target Name="C:\Users\Sistemas3\AppData\Local\Temp\tmp9AF4.tmp.cadir\bin\App_Web_zladm133.dll">
+  <Target Name="C:\Users\Sistemas3\AppData\Local\Temp\tmp43FC.tmp.cadir\bin\App_Web_y2u1absv.dll">
    <Modules>
-    <Module Name="app_web_zladm133.dll">
+    <Module Name="app_web_y2u1absv.dll">
      <Namespaces>
       <Namespace Name="">
        <Types>
@@ -181,10 +188,10 @@
          <Members>
           <Member Name="#getSchedule()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="ConsHorario.aspx.vb" Line="88">El objeto 'con' admite Dispose más de una vez en el método '_ConsHorario.getSchedule()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 88</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="ConsHorario.aspx.vb" Line="71">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en '_ConsHorario.getSchedule()' podría contener las siguientes variables: 'Conversions.ToString(Me.wucEmpleados2.idEmpleado)'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
             </Message>
            </Messages>
@@ -195,11 +202,69 @@
          <Members>
           <Member Name="#CalculoHoras()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculosHSucursal.aspx.vb" Line="1370">El objeto 'dbc' admite Dispose más de una vez en el método 'CalculosHSucursal.CalculoHoras()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 1370</Issue>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculosHSucursal.aspx.vb" Line="1630">El objeto 'dbc' admite Dispose más de una vez en el método 'CalculosHSucursal.CalculoHoras()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 1630</Issue>
             </Message>
-            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-22 16:43:51Z" FixCategory="DependsOnFix">
-             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculosHSucursal.aspx.vb" Line="1357">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculosHSucursal.CalculoHoras()' podría contener las siguientes variables: 'Conversions.ToString(entrada)', 'Conversions.ToString(salida)', 'Conversions.ToString(calc)', 'Conversions.ToString(puntualidad)', 'rdr("jornada")', 'rdr("chec")', 'rdr("chec")', 'rdr("chec")', 'rdr("jornada")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="CalculosHSucursal.aspx.vb" Line="1620">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'CalculosHSucursal.CalculoHoras()' podría contener las siguientes variables: 'Conversions.ToString(entrada)', 'Conversions.ToString(salida)', 'Conversions.ToString(calc)', 'Conversions.ToString(puntualidad)', 'rdr("jornada")', 'rdr("chec")', 'rdr("chec")', 'rdr("chec")', 'rdr("jornada")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Prenomina" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#CalculoHoras()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="546">El objeto 'dbc' admite Dispose más de una vez en el método 'Prenomina.CalculoHoras()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 546</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#DDescansadosTrabajados()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="735">El objeto 'dbC' admite Dispose más de una vez en el método 'Prenomina.DDescansadosTrabajados()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 735, 736</Issue>
+            </Message>
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="699">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'Prenomina.DDescansadosTrabajados()' podría contener las siguientes variables: 'Fech.ToString("yyyy-MM-dd")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#DFestivosTrabajados()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="666">El objeto 'dbC' admite Dispose más de una vez en el método 'Prenomina.DFestivosTrabajados()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 666, 667</Issue>
+            </Message>
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="637">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'Prenomina.DFestivosTrabajados()' podría contener las siguientes variables: 'New String(5)(1)', 'New String(5)(3)'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#HorasExtras()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="592">El objeto 'dbC' admite Dispose más de una vez en el método 'Prenomina.HorasExtras()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 592, 593</Issue>
+            </Message>
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="576">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'Prenomina.HorasExtras()' podría contener las siguientes variables: 'Fech.ToString("yyyy-MM-dd")'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#HTotales()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="303">El objeto 'dbC' admite Dispose más de una vez en el método 'Prenomina.HTotales()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 303, 304</Issue>
+            </Message>
+            <Message TypeName="Revisar consultas SQL para comprobar si tienen vulnerabilidades de seguridad" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="265">La cadena de consulta pasada a 'SqlCommand.New(String, SqlConnection)' en 'Prenomina.HTotales()' podría contener las siguientes variables: 'New String(5)(1)', 'New String(5)(3)'. Si alguna de estas variables puede proceder de datos proporcionados por el usuario, considere el uso de un procedimiento almacenado o una consulta SQL parametrizada en lugar de compilar la consulta con concatenaciones de cadenas.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#Variables()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2018-01-04 23:17:44Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="C:\StarRH\RHW" File="Prenomina.aspx.vb" Line="226">El objeto 'dbC' admite Dispose más de una vez en el método 'Prenomina.Variables()'. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 226, 227</Issue>
             </Message>
            </Messages>
           </Member>
@@ -226,7 +291,7 @@
   <Rule TypeName="No usar Dispose varias veces en objetos" Category="Microsoft.Usage" CheckId="CA2202">
    <Name>No usar Dispose varias veces en objetos</Name>
    <Description>Un método Dispose correctamente implementado se puede llamar varias veces sin producir ninguna excepción. Sin embargo, esto no está garantizado y, para evitar generar una excepción System.ObjectDisposedException, no debe llamar al método Dispose más de una vez en un objeto.</Description>
-   <Resolution Name="Default">El objeto {0} admite Dispose más de una vez en el método {1}. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 88</Resolution>
+   <Resolution Name="Default">El objeto {0} admite Dispose más de una vez en el método {1}. Para evitar generar una excepción System.ObjectDisposedException, no debe llamar a Dispose más de una vez en un objeto.: Lines: 1630</Resolution>
    <Owner>RuleOwner</Owner>
    <Url>http://msdn.microsoft.com/library/ms182334.aspx</Url>
    <Email />

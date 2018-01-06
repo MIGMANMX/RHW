@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="Prenomina.aspx.vb" Inherits="Prenomina" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados2.ascx" tagname="wucEmpleados2" tagprefix="uc2" %>
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -15,6 +16,9 @@
          #derecho{
              float:right;
         }     
+          .auto-style1 {
+              margin-right: 237px;
+          }
         </style>
     <div id="contenedor" class="auto-style2">
         <h3>Prenomina</h3>
@@ -76,26 +80,34 @@
                 <td class="auto-style1" style="width: 234px; height: 68px">Sucursal:<br />
                     <uc1:wucsucursales ID="wucSucursales" runat="server" />
                     <br />
-                    <asp:TextBox ID="tSuc" runat="server" Visible="False"></asp:TextBox>
                 </td>
-                <td style="height: 68px">
-                
-                     
-                
-                    <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Buscar"  ToolTip="Buscar Registros" Width="120px" />
-                
-                     
-                
-            <asp:Button ID="btnGenerar" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Reporte" ToolTip="Generar" Width="120px"  />
-                
-                     
-                
+                <td style="height: 68px">  
+                    <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Buscar"  ToolTip="Buscar Registros" Width="120px" />          
+                </td>
+                   <td>
+                       
                         <asp:Label ID="Mens" runat="server" Width="259px"></asp:Label>
                         <br />
                         <asp:TextBox ID="grdSR" runat="server" Visible="false" Width="176px" Height="23px"></asp:TextBox>
-                </td>
+                    <asp:TextBox ID="tSuc" runat="server" Visible="False"></asp:TextBox>
+                   </td>
                 </tr>
         </table>
+                <table>
+                    <tr>
+                        <td>
+                            <rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="578px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1056px" CssClass="auto-style1">
+                                <LocalReport ReportPath="ReportPrenomina.rdlc">
+                                    <DataSources>
+                                        <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
+                                    </DataSources>
+                                </LocalReport>
+                            </rsweb:ReportViewer>
+                            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_PrenominaTableAdapter"></asp:ObjectDataSource>
+                        </td>
+                    </tr>
+                    
+                </table>
             </div>
             <div id="derecho">
             </div>
