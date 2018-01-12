@@ -202,7 +202,8 @@
                             <TextRun>
                               <Value>=Fields!chec.Value</Value>
                               <Style>
-                                <Format>H:mm</Format>
+                                <FontSize>8pt</FontSize>
+                                <Format>H:mm:ss</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -236,7 +237,9 @@
                               <Style />
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>tipo1</rd:DefaultName>
