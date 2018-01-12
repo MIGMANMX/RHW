@@ -191,6 +191,55 @@ Partial Class Prenomina
                 Repo.ServerReport.Refresh()
                 Dim p As New ReportParameter("sucursal", wucSucursales.sucursal)
                 Repo.LocalReport.SetParameters(p)
+
+                '''''''''''''''''Fechas del Rango'''''''''''''''''''''''''''''''''
+                Dim dt1 As Date
+                dt1 = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+
+                p = New ReportParameter("Fech1", dt1)
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech2", DateAdd(DateInterval.Day, 1, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech3", DateAdd(DateInterval.Day, 2, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech4", DateAdd(DateInterval.Day, 3, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech5", DateAdd(DateInterval.Day, 4, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech6", DateAdd(DateInterval.Day, 5, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech7", DateAdd(DateInterval.Day, 6, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech8", DateAdd(DateInterval.Day, 7, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech9", DateAdd(DateInterval.Day, 8, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech10", DateAdd(DateInterval.Day, 9, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech11", DateAdd(DateInterval.Day, 10, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech12", DateAdd(DateInterval.Day, 11, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech13", DateAdd(DateInterval.Day, 12, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                p = New ReportParameter("Fech14", DateAdd(DateInterval.Day, 13, dt1))
+                Repo.LocalReport.SetParameters(p)
+
+                Repo.ServerReport.Refresh()
+                ''''''''''''''''''''''''''''''''''''''''''''''''''
             Else
                 Mens.Text = "Error: Falta Capturar Fecha"
             End If
@@ -221,7 +270,7 @@ Partial Class Prenomina
                 diades = rdr("diadescanso").ToString
                 primadom = rdr("primadominical").ToString
             Else
-                Mens.Text = "Error: no se encuentra los salarios."
+                ' Mens.Text = "Error: no se encuentra los salarios."
             End If
             rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
         End Using
@@ -789,13 +838,6 @@ Partial Class Prenomina
     End Sub
     Public Sub DiaFestivo()
         DiaFestivoT = 0
-        'Dim dsP As New ctiCatalogos
-        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
-        'dsP = Nothing
-        'If datos(0).StartsWith("Error") Then
-        '    Mens.CssClass = "error"
-        '    Mens.Text = datos(0)
-        'Else
         diaF = 0
         diaF = diafes
         'End If

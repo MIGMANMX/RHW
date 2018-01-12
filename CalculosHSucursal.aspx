@@ -136,6 +136,10 @@
              </LocalReport>
          </rsweb:ReportViewer>
             <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_CalculoSucursalTableAdapter">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="TxFechaInicio" Name="FechaIn" PropertyName="Text" Type="DateTime" />
+                    <asp:ControlParameter ControlID="TxFechaFin" Name="FechaFn" PropertyName="Text" Type="DateTime" />
+                </SelectParameters>
             </asp:ObjectDataSource>
         </div>       
      </div>

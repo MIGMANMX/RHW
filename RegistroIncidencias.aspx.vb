@@ -5,8 +5,7 @@ Partial Class _RegistroIncidencias
     Public gvPos As Integer
 
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        checada.Visible = False
-        horario.Visible = False
+
 
         btnActualizarr.Enabled = False
         btnGuardarNuevo.Enabled = True
@@ -156,7 +155,7 @@ Partial Class _RegistroIncidencias
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
-            Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text
+            Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(2).Text
             Session("dz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(3).Text
         ElseIf e.CommandName = "Editar" Then
             If IsNumeric(grdSR.Text) Then
@@ -190,10 +189,10 @@ Partial Class _RegistroIncidencias
     End Sub
     Protected Sub wucIncidencias_incidenciaSeleccionada(sender As Object, e As System.EventArgs) Handles wucIncidencias.incidenciaSeleccionada
         If wucIncidencias.idIncidencia = 7 Then
-            horario.Visible = True
+
         End If
         If wucIncidencias.idIncidencia = 8 Then
-            checada.Visible = True
+
         End If
         wucIncidencias.ddlAutoPostBack = True
     End Sub

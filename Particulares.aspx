@@ -138,7 +138,7 @@
                 <td class="auto-style7">Observaciones:<br />
                     <asp:TextBox ID="observaciones" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" Height="57px" TextMode="MultiLine" /></td>
                 <td class="auto-style6">
-                    <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="108px" />
+                    <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="108px" Visible="False" />
                     <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Agregar" ToolTip="Agregar" Width="108px" />
                  </td>    
                 

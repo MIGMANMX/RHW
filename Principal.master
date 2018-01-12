@@ -101,7 +101,7 @@
               </a>
               <ul class="treeview-menu">
                 <li id="catalogo" runat="server"><a href="<%=ResolveUrl("Empleados.aspx")%>"><i class="fa fa-male"></i> Empleados</a></li>
-                <li id="catalogo1" runat="server"><a href="<%=ResolveUrl("Usuarios.aspx")%>"><i class="fa fa-users"></i> Usuarios</a></li>
+               
                 <li id="catalogo2" runat="server"><a href="<%=ResolveUrl("Puesto.aspx")%>"><i class="fa fa-plus-square-o"></i> Puestos</a></li>
                 <li id="catalogo3" runat="server"><a href="<%=ResolveUrl("Salarios.aspx")%>"><i class="fa fa-money"></i> Salarios</a></li>
                 <li id="direc" runat="server"><a href="<%=ResolveUrl("Directorio.aspx")%>"><i class="fa fa-plus-square-o"></i> Directorio</a></li>
@@ -145,11 +145,15 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
+                  <li id="rep5" runat="server"><a href="<%=ResolveUrl("RepCalculoHoras.aspx")%>"><i class="fa fa-calculator"></i>Calculo de Horas</a></li>               
                 <li id="rep" runat="server"><a href="<%=ResolveUrl("RepHorario.aspx")%>"><i class="fa fa-file-text-o"></i> Reporte Semanal</a></li>
                 <li id="rep1" runat="server"><a href="<%=ResolveUrl("RepEmpleadosSucursal.aspx")%>"><i class="fa fa-building"></i>Empleados por sucursal</a></li>
-                <li id="rep2" runat="server"><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias por sucursal</a></li>
+               <li id="rep6" runat="server"><a href="<%=ResolveUrl("RepIncidenciasT.aspx")%>"><i class="fa fa-circle"></i>Incidencias</a></li>
+              
+                   <li id="rep2" runat="server"><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias por sucursal</a></li>
                 <li id="rep3" runat="server"><a href="<%=ResolveUrl("RepChequeo.aspx")%>"><i class="fa fa-hand-pointer-o"></i>Chequeos reales por empleado</a></li>
                 <li id="rep4" runat="server"><a href="<%=ResolveUrl("RepCasos.aspx")%>"><i class="fa fa-compass"></i>Casos Particulares</a></li>
+              
               </ul>
             </li>
                         
@@ -159,8 +163,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<%=ResolveUrl("Personal.aspx")%>"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                
+                <li id="catalogo1" runat="server"><a href="<%=ResolveUrl("Usuarios.aspx")%>"><i class="fa fa-users"></i> Usuarios</a></li>             
               </ul>
             </li>
             

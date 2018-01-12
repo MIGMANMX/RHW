@@ -98,8 +98,8 @@ Partial Class Particulares
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ap As New ctiCalendario
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-
-        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, Fech.ToString("dd/MM/yyyy"), observaciones.Text, cantidad.Text, DateTime.Now())
+        ' DateTime.Now()
+        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, Convert.ToString(fecha_ingreso.Text), observaciones.Text, cantidad.Text)
         GridView1.DataSource = ap.gvParticulares(wucEmpleados2.idEmpleado)
         ap = Nothing
         GridView1.DataBind()
@@ -178,8 +178,11 @@ Partial Class Particulares
             Else
                 wucEmpleados2.idEmpleado = datos(1)
                 dropLTipo.SelectedValue = datos(2)
-                fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
-                Fech = Convert.ToDateTime(datos(3)).ToString("MM/dd/yyyy")
+                'fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
+                'Fech = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
+                Dim cadF As String
+                cadF = datos(3)
+                fecha_ingreso.Text = cadF
 
                 observaciones.Text = datos(4)
                 cantidad.Text = datos(5)

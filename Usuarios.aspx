@@ -2,6 +2,7 @@
 
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados.ascx" tagname="wucEmpleados" tagprefix="uc2" %>
+<%@ Register src="cti/wucSuc.ascx" tagname="wucSuc" tagprefix="uc3" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -107,7 +108,10 @@
             </tr>
             <tr>
                 <td>Sucursal:</td>
-                <td class="auto-style1"><uc1:wucSucursales ID="wucSucursal" runat="server" /></td>
+                <td class="auto-style1">
+                    <uc3:wucsuc ID="wucSuc" runat="server" />
+
+                </td>
             </tr>
         </table>
     </div> <!-- registroDatos -->

@@ -92,11 +92,10 @@ Partial Class CalculosHSucursal
     Protected Sub GridView1_PageIndexChanging1(sender As Object, e As GridViewPageEventArgs)
         GridView1.PageIndex = e.NewPageIndex
         Dim ec As New ctiCalculo
-        'Dim FechaFinal As Date
-        'Dim FechaFinal2 As Date
-        'FechaFinal = Convert.ToDateTime(TxFechaFin.Text)
-        'FechaFinal2 = DateAdd(DateInterval.Day, 1, FechaFinal).ToString("yyyy-MM-dd")
-        GridView1.DataSource = ec.gvCalculoSucursal()
+        Dim FechaInicial, FechaFinal, Fecha As Date
+        FechaInicial = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        FechaFinal = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+        GridView1.DataSource = ec.gvCalculoSucursal(TxFechaInicio.Text, TxFechaFin.Text)
 
         ' GridView1.DataSource = ec.gvCalculoSucursal(Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(TxFechaFin.Text), "yyyy-MM-dd"))
         ec = Nothing
@@ -1157,8 +1156,9 @@ Partial Class CalculosHSucursal
     '    'TxHorasTrabajadas.Text = acum
     'End Sub
     Protected Sub btnTabla_Click(sender As Object, e As EventArgs) Handles btnTabla.Click
+
         Dim ec As New ctiCalculo
-        GridView1.DataSource = ec.gvCalculoSucursal()
+        GridView1.DataSource = ec.gvCalculoSucursal(TxFechaInicio.Text, TxFechaFin.Text)
         ec = Nothing
         GridView1.DataBind()
     End Sub

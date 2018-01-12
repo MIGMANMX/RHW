@@ -110,36 +110,48 @@ Partial Class Default2
         Lmsg.Text = r
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        If IsNumeric(grdSR.Text) Then
-            grdSR.Text = ""
-            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
-        End If
-        Dim gc As New ctiCatalogos
-        Dim att As Integer
+        If wucSucursales.idSucursal <> 0 Then
+            If WucPuestos.idPuesto <> 0 Then
+                If txtdia.Text <> "" Or txtdiadescanso.Text <> "" Or txtHoras.Text <> "" Or txtHorasExtras.Text <> "" Or txtHorasExtrasTiples.Text <> "" Or txtprima.Text <> "" Then
+                    If IsNumeric(grdSR.Text) Then
+                        grdSR.Text = ""
+                        btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
+                    End If
+                    Dim gc As New ctiCatalogos
+                    Dim att As Integer
 
-        Dim j() As String = gc.agregarSalario(WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text, wucSucursales.idSucursal, txtdia.Text, txtdiadescanso.Text, txtprima.Text)
-        GridView1.DataSource = gc.gvSalario
-        gc = Nothing
-        GridView1.DataBind()
-        If j(0).StartsWith("Error") Then
-            Lmsg.CssClass = "error"
+                    Dim j() As String = gc.agregarSalario(WucPuestos.idPuesto, txtHoras.Text, txtHorasExtras.Text, txtHorasExtrasTiples.Text, wucSucursales.idSucursal, txtdia.Text, txtdiadescanso.Text, txtprima.Text)
+                    GridView1.DataSource = gc.gvSalario
+                    gc = Nothing
+                    GridView1.DataBind()
+                    If j(0).StartsWith("Error") Then
+                        Lmsg.CssClass = "error"
+                    Else
+                        Lmsg.CssClass = "correcto"
+                        Dim sgr As New clsCTI
+                        grdSR.Text = sgr.seleccionarGridRow(GridView1, CInt(j(1))).ToString
+                        gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+                        sgr = Nothing
+                        btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+                        txtHoras.Text = ""
+                        txtHorasExtras.Text = ""
+                        txtHorasExtrasTiples.Text = ""
+                        txtprima.Text = ""
+                        txtdia.Text = ""
+                        txtdiadescanso.Text = ""
+                        wucSucursales.idSucursal = 0
+                        WucPuestos.idPuesto = 0
+                        txtID.Text = ""
+                    End If
+                    Lmsg.Text = j(0)
+                Else
+                    Lmsg.Text = "Error: Falta capturar algun dato "
+                End If
+            Else
+                Lmsg.Text = "Error: Falta capturar Puesto "
+            End If
         Else
-            Lmsg.CssClass = "correcto"
-            Dim sgr As New clsCTI
-            grdSR.Text = sgr.seleccionarGridRow(GridView1, CInt(j(1))).ToString
-            gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
-            sgr = Nothing
-            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
-            txtHoras.Text = ""
-            txtHorasExtras.Text = ""
-            txtHorasExtrasTiples.Text = ""
-            txtprima.Text = ""
-            txtdia.Text = ""
-            txtdiadescanso.Text = ""
-            wucSucursales.idSucursal = 0
-            WucPuestos.idPuesto = 0
-            txtID.Text = ""
+            Lmsg.Text = "Error: Falta capturar sucursal "
         End If
-        Lmsg.Text = j(0)
     End Sub
 End Class

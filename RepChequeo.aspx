@@ -9,7 +9,7 @@
      <div id="listaDatos">
         <table class="auto-style3">
             <tr>
-                <td class="auto-style1" style="width: 234px; height: 68px">Sucursal:<br />
+                <td class="auto-style1" style="width: 234px; height: 68px" id="suc" runat="server">Sucursal:<br />
                     <uc1:wucsucursales ID="wucSucursales" runat="server" />
                     <br />
                     <asp:TextBox ID="tSuc" runat="server" Visible="False"></asp:TextBox>

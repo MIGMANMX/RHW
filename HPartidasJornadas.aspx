@@ -74,7 +74,7 @@
             </tr>
             <tr>
             <td class="auto-style10">Dia:<br />
-                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" />
+                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" Enabled="False" />
             
                                    
             

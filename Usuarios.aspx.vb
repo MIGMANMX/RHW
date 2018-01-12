@@ -52,7 +52,7 @@ Partial Class _Usuarios
                 usuario.Text = datos(1)
                 clave.Text = datos(2)
                 nivel.Text = datos(3)
-                wucSucursal.idSucursal = CInt(datos(4))
+                wucSuc.idSucursal = CInt(datos(4))
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI
@@ -71,7 +71,7 @@ Partial Class _Usuarios
         If nivel.Text = "" Then nivel.Text = "0"
         If Not IsNumeric(nivel.Text) Then nivel.Text = "0"
         Dim gp As New ctiCatalogos
-        Dim r() As String = gp.agregarUsuario(nombre.Text, usuario.Text, clave.Text, CInt(nivel.Text), wucSucursales.idSucursal)
+        Dim r() As String = gp.agregarUsuario(nombre.Text, usuario.Text, clave.Text, CInt(nivel.Text), wucSuc.idSucursal)
         GridView1.DataSource = gp.gvUsuarios(wucSucursales.idSucursal)
         gp = Nothing
         GridView1.DataBind()
@@ -94,7 +94,7 @@ Partial Class _Usuarios
         If Not IsNumeric(nivel.Text) Then nivel.Text = "0"
         Dim ap As New ctiCatalogos
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        Dim r As String = ap.actualizarUsuario(idA, nombre.Text, usuario.Text, clave.Text, CInt(nivel.Text), wucSucursal.idSucursal)
+        Dim r As String = ap.actualizarUsuario(idA, nombre.Text, usuario.Text, clave.Text, CInt(nivel.Text), wucSuc.idSucursal)
         GridView1.DataSource = ap.gvUsuarios(wucSucursales.idSucursal)
         ap = Nothing
         GridView1.DataBind()
@@ -110,7 +110,7 @@ Partial Class _Usuarios
             gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
         Else
             nombre.Text = "" : usuario.Text = "" : clave.Text = "" : nivel.Text = ""
-            wucSucursal.idSucursal = 0
+            wucSuc.idSucursal = 0
         End If
         gvp = Nothing
         Lmsg.Text = r
@@ -124,7 +124,7 @@ Partial Class _Usuarios
             grdSR.Text = ""
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
             nombre.Text = "" : usuario.Text = "" : clave.Text = "" : nivel.Text = ""
-            wucSucursal.idSucursal = 0
+            wucSucursales.idSucursal = 0
         End If
     End Sub
 End Class

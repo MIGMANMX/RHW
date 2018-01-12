@@ -1,7 +1,7 @@
 ﻿
 Imports Microsoft.Reporting.WebForms
 Imports System.Globalization
-
+Imports RHLogica
 
 Partial Class _RepHorario
     Inherits System.Web.UI.Page
@@ -23,6 +23,26 @@ Partial Class _RepHorario
         'FIngreso1.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
         Mens.Text = ""
         ReportViewer1.ServerReport.Refresh()
+        If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
+        If Not Page.IsPostBack Then
+            Session("menu") = "C"
+            wucSucursales.ddlAutoPostBack = True
+        End If
+        '''''''''''''Ocultar sucursales a Gerentes
+        Dim acceso As New ctiCatalogos
+        Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
+        Dim gvds As New ctiWUC
+
+        If datos(0) = 2 Then
+                wucSucursales.idSucursal = datos(1)
+                wucSucursales.Visible = False
+            Suc.Visible = False
+            'If IsNumeric(grdSR.Text) Then
+            '        grdSR.Text = ""
+            '    End If
+        End If
+
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''
     End Sub
     'Protected Sub FIngreso1_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso1.SelectionChanged
     '    TFFinal0.Text = FIngreso1.SelectedDate.ToString("dd/MM/yyyy")

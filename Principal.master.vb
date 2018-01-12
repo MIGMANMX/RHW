@@ -9,6 +9,7 @@ Partial Class Principal
         Response.Redirect("Default.aspx")
     End Sub
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         If IsNothing(Session("idusuario")) Then
             Response.Redirect("Default.aspx", True)
         End If
@@ -33,11 +34,13 @@ Partial Class Principal
             rep2.Visible = False
             rep3.Visible = True
             rep4.Visible = False
+            rep5.Visible = True
             incide.Visible = False
             regInidencia.Visible = True
             dia.Visible = False
             EHJ.Visible = False
             confi.Visible = False
+            rep6.Visible = False
         End If
 
         If datos(0) = 7 Then
@@ -54,6 +57,8 @@ Partial Class Principal
             rep2.Visible = True
             rep3.Visible = True
             rep4.Visible = True
+            rep5.Visible = False
+            rep6.Visible = True
             incide.Visible = True
             regInidencia.Visible = True
             dia.Visible = True

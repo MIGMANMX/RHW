@@ -47,6 +47,17 @@
          .auto-style5 {
              height: 45px;
          }
+          .auto-style6 {
+             width: 242px;
+             height: 45px;
+         }
+         .auto-style7 {
+             width: 351px;
+             height: 45px;
+         }
+         .auto-style8 {
+             width: 360px;
+         }
           </style>
       <div id="contenedor">
           <div id="izquierdo" class="auto-style2">
@@ -161,16 +172,16 @@
           </div>
 
             <div id="derecho" class="auto-style3">
-                <table class="auto-style1">
+                <table class="auto-style8">
                        <tr>
-            <td class="auto-style4">
+            <td class="auto-style7">
                     Jornada:<br />
                 <uc3:wucjornadas ID="wucJornadas" runat="server" />
                      
                   <br />
-                     <asp:CheckBox ID="chk" runat="server" Font-Size="Medium" Text="Completar Entrada" Font-Italic="False" />
+                     <asp:CheckBox ID="chk" runat="server" Font-Size="Medium" Text="Completar Entrada Jornada" Font-Italic="False" />
                      <br />
-                     <asp:CheckBox ID="chksalida" runat="server" Font-Size="Medium" Text="Completar Salida" Font-Italic="False" />
+                     <asp:CheckBox ID="chksalida" runat="server" Font-Size="Medium" Text="Completar Salida Jornada" Font-Italic="False" />
                      <br />
                      <asp:CheckBox ID="chkhsal" runat="server" Font-Size="Medium" Text="Completar Hora Salida " Font-Italic="False" />
                      <br />
@@ -192,7 +203,7 @@
                  </td>               
             </tr> 
                      <tr>
-                <td class="auto-style4">
+                <td class="auto-style7">
                     <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Actualizar datos" Enabled="true" Width="108px" />
                 </td>
                 <td>
