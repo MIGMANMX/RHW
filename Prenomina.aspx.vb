@@ -11,30 +11,15 @@ Partial Class Prenomina
     Dim idpuesto As Integer = 0
     Dim m As Integer = 0
     ''''Salarios
-    Dim horasN As Integer = 0
-    Dim horasE As Integer = 0
-    Dim horasET As Integer = 0
-    Dim diaF As Integer = 0
-    Dim primaD As Integer = 0
-    Dim diaD As Integer = 0
+    Dim horasN As Single = 0.0
+    Dim horasE As Single = 0.0
+    Dim horasET As Single = 0.0
+    Dim diaF As Single = 0.0
+    Dim primaD As Single = 0.0
+    Dim diaD As Single = 0.0
 
     ''''Salarios
     Dim d(13) As Integer
-
-    'Dim d1 As Integer = 0
-    'Dim d2 As Integer = 0
-    'Dim d3 As Integer = 0
-    'Dim d4 As Integer = 0
-    'Dim d5 As Integer = 0
-    'Dim d6 As Integer = 0
-    'Dim d7 As Integer = 0
-    'Dim d8 As Integer = 0
-    'Dim d9 As Integer = 0
-    'Dim d10 As Integer = 0
-    'Dim d11 As Integer = 0
-    'Dim d12 As Integer = 0
-    'Dim d13 As Integer = 0
-    'Dim d14 As Integer = 0
 
     ''''Funciones
     Dim HTotalesT As Integer = 0
@@ -44,22 +29,22 @@ Partial Class Prenomina
     Dim DFestivosTrabajadosT As Integer = 0
     Dim DDescansadosTrabajadosT As Integer = 0
     Dim TotalHorasT As Integer = 0
-    Dim ImporteNormalT As Integer = 0
-    Dim TiempoExtraT As Integer = 0
-    Dim TiempoExtraTipleT As Integer = 0
-    Dim DiaFestivoT As Integer = 0
-    Dim SeptimoDiaT As Integer = 0
-    Dim PrimaDominicalT As Integer = 0
-    Dim DiaDescansoT As Integer = 0
-    Dim ImporteTotalT As Integer = 0
+    Dim ImporteNormalT As Single = 0.0
+    Dim TiempoExtraT As Single = 0.0
+    Dim TiempoExtraTipleT As Single = 0.0
+    Dim DiaFestivoT As Single = 0.0
+    Dim SeptimoDiaT As Single = 0.0
+    Dim PrimaDominicalT As Single = 0.0
+    Dim DiaDescansoT As Single = 0.0
+    Dim ImporteTotalT As Single = 0.0
 
     '''''Variables de salario
-    Dim hora As Integer = 0
-    Dim extra As Integer = 0
-    Dim extratiple As Integer = 0
-    Dim diafes As Integer = 0
-    Dim diades As Integer = 0
-    Dim primadom As Integer = 0
+    Dim hora As Single = 0.0
+    Dim extra As Single = 0.0
+    Dim extratiple As Single = 0.0
+    Dim diafes As Single = 0.0
+    Dim diades As Single = 0.0
+    Dim primadom As Single = 0.0
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
@@ -126,6 +111,8 @@ Partial Class Prenomina
                     ''''''''''
                     'HTotales()
                     Variables()
+                    Temp_Horas()
+
                     CalculoHoras()
                     HorasExtras()
                     HorasExtrasTriples()
@@ -248,12 +235,12 @@ Partial Class Prenomina
         End If
     End Sub
     Private Sub Variables()
-        hora = 0
-        extra = 0
-        extratiple = 0
-        diafes = 0
-        diades = 0
-        primadom = 0
+        hora = 0.0
+        extra = 0.0
+        extratiple = 0.0
+        diafes = 0.0
+        diades = 0.0
+        primadom = 0.0
         Using dbC As New SqlConnection
             dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
             dbC.Open()
@@ -581,13 +568,8 @@ Partial Class Prenomina
             'cmd2.ExecuteNonQuery()
             'cmd2.Dispose()
 
-            'If m < 14 Then
             d(m) = calc
             m = m + 1
-            'Else
-            '    Mens.Text = "Error: El contador sobrepaso el limite"
-            'End If
-
 
             Fecha = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
 
@@ -595,6 +577,260 @@ Partial Class Prenomina
         dbc.Close() : dbc.Dispose()
         'Lmsg.Text = IniTol
         HTotalesT = acum
+    End Sub
+    Public Sub Temp_Horas()
+        Dim dbc As New SqlConnection
+        dbc.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+        dbc.Open()
+        Dim dbc2 As New SqlConnection
+        dbc2.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+        dbc2.Open()
+        Dim cmd2 As New SqlCommand("", dbc2)
+        '''''''''''''''''''''''''''''''''''''''''''
+        Dim idempleado As Integer = 0
+        Dim empleado As String = ""
+
+        '''''''''''''''''''''''''''''''''''''''''''
+        ''''''''''''''''''''''''''''''''''''
+        Dim dbc3 As New SqlConnection
+        dbc3.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+        dbc3.Open()
+        ''''''''''''''''''''''''''''''''''''''
+        'LIMPIAR TABLA TEMPORAL
+        cmd2 = New SqlCommand("DELETE FROM Temp_Horas", dbc2)
+        cmd2.ExecuteNonQuery()
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        'Iniciar un ciclo de comparacion por empleado de la sucursal
+        ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        'Consulta de empleados por sucursal
+        Dim cmd3 As New SqlCommand("SELECT idempleado,empleado FROM vm_EmpleadoSucursal  WHERE idsucursal =@idsucursal", dbc3)
+        cmd3.Parameters.AddWithValue("idsucursal", wucSucursales.idSucursal)
+        Dim rdr3 As SqlDataReader = cmd3.ExecuteReader
+        'Inicio de ciclo
+        While rdr3.Read
+
+
+
+            idempleado = rdr3("idempleado").ToString
+            empleado = rdr3("empleado").ToString
+
+
+            Dim FechaInicial, FechaFinal, Fecha As Date
+            FechaInicial = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+            FechaFinal = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+            Fecha = FechaInicial
+            Dim IniDiaN, FinDiaC, FinDiaN, IniDiaSig, SigDia, IniHorario, FinHorario, Checada As Date
+            Dim ChqIni, ChqFin, ChqEnt, ChqSal, IniTol, FinTol, IniPuntual, FinPuntual, Detalle, Horario, IniJ, FinJ As String
+
+            Dim entrada, salida, calc, puntualidad, acum, hextCerrador As Integer
+
+
+            While Fecha <= FechaFinal
+                ChqIni = "" : ChqFin = "" : calc = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0 : IniJ = "" : FinJ = ""
+
+                IniDiaN = Left(Fecha, 10) + " 05:01:00"
+                FinDiaN = Left(Fecha, 10) + " 23:59:59"
+                SigDia = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
+                IniDiaSig = Left(SigDia, 10) + " 00:00:01"
+                FinDiaC = Left(SigDia, 10) + " 05:00:00"
+
+                'BUSCAR PRIMERA CHECADA DEL DIA
+                Dim cmd As New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec ASC", dbc)
+                cmd.Parameters.AddWithValue("Ini", Format(CDate(IniDiaN), "yyyy-MM-dd HH:mm:ss"))
+                cmd.Parameters.AddWithValue("Fin", Format(CDate(FinDiaN), "yyyy-MM-dd HH:mm:ss"))
+                cmd.Parameters.AddWithValue("idempleado", idempleado)
+                Dim rdr As SqlDataReader = cmd.ExecuteReader
+                If rdr.Read Then
+                    'Obtener la hora del campo chec
+                    ChqIni = rdr("chec").ToString
+                    ChqEnt = rdr("chec").ToString.Substring(0, 2)
+                    'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
+                    If ChqEnt.Contains(":") Then
+                        'Eliminar ":" cuando son horas menores a 10
+                        entrada = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
+                    Else
+                        entrada = CInt(ChqEnt)
+                    End If
+                End If
+                rdr.Close()
+
+                'BUSCAR ULTIMA CHECADA DEL DIA SIGUIENTE
+                cmd = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec DESC", dbc)
+                cmd.Parameters.AddWithValue("Ini", Format(CDate(IniDiaSig), "yyyy-MM-dd HH:mm:ss"))
+                cmd.Parameters.AddWithValue("Fin", Format(CDate(FinDiaC), "yyyy-MM-dd HH:mm:ss"))
+                cmd.Parameters.AddWithValue("idempleado", idempleado)
+                rdr = cmd.ExecuteReader
+                If rdr.Read Then
+                    ChqFin = rdr("chec").ToString
+                    ChqSal = rdr("chec").ToString.Substring(0, 2)
+                    'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
+                    If ChqSal.Contains(":") Then
+                        'Eliminar ":" cuando son horas menores a 10
+                        salida = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
+                    Else
+                        salida = CInt(ChqSal)
+                    End If
+                Else
+                    rdr.Close()
+                    'BUSCAR ULTIMA CHECADA DEL DIA NORMAL
+                    cmd = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec DESC", dbc)
+                    cmd.Parameters.AddWithValue("Ini", Format(CDate(IniDiaN), "yyyy-MM-dd HH:mm:ss"))
+                    cmd.Parameters.AddWithValue("Fin", Format(CDate(FinDiaN), "yyyy-MM-dd HH:mm:ss"))
+                    cmd.Parameters.AddWithValue("idempleado", idempleado)
+                    rdr = cmd.ExecuteReader
+                    If rdr.Read Then
+                        ChqFin = rdr("chec").ToString
+                        ChqSal = rdr("chec").ToString.Substring(0, 2)
+                        'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
+                        If ChqSal.Contains(":") Then
+                            'Eliminar ":" cuando son horas menores a 10
+                            salida = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
+                        Else
+                            salida = CInt(ChqSal)
+                        End If
+                    End If
+                End If
+                rdr.Close()
+
+                'BUSCAR HORARIO DEL DIA
+                cmd = New SqlCommand("SELECT * FROM vm_Jornada WHERE fecha=@Fecha AND idempleado=@idempleado", dbc)
+                cmd.Parameters.AddWithValue("Fecha", Format(CDate(Fecha), "yyyy-MM-dd"))
+                cmd.Parameters.AddWithValue("idempleado", idempleado)
+                rdr = cmd.ExecuteReader
+                If rdr.Read Then
+                    Horario = rdr("jornada").ToString
+                    IniHorario = CDate(rdr("inicio").ToString)
+                    FinHorario = CDate(rdr("checkfin").ToString)
+                    IniPuntual = rdr("checkini").ToString
+                    FinPuntual = Left(rdr("inicio").ToString, 2)
+                    FinPuntual = FinPuntual + ":00:59"
+                    IniTol = Left(rdr("inicio").ToString, 2)
+                    IniTol = IniTol + ":01:00"
+                    FinTol = rdr("tolerancia").ToString
+
+                    If ChqIni <> "" Then
+                        'Revisa donde entra la checada comparando con su horario
+                        If (CDate(ChqIni) >= CDate(IniPuntual)) And (CDate(ChqIni) <= CDate(FinPuntual)) Then
+                            Detalle = "PUNTUALIDAD"
+                            Checada = CDate(ChqIni)
+                            If Checada.Minute <> 0 Then
+                                entrada = entrada + 1
+                            End If
+                            puntualidad = 1
+                        ElseIf (CDate(ChqIni) >= CDate(IniTol)) And (CDate(ChqIni) <= CDate(FinTol)) Then
+                            Detalle = "TOLERANCIA"
+                        ElseIf (CDate(ChqIni) > CDate(FinTol)) Then
+                            Detalle = "RETARDO"
+                            Checada = CDate(ChqIni)
+                            If Checada.Minute >= 6 Then
+                                entrada = entrada + 1
+                            End If
+                        ElseIf CDate(ChqIni) < CDate(IniPuntual) Then
+                            Detalle = "ASISTENCIA"
+                            Checada = CDate(ChqIni)
+                            If Checada.Minute >= 6 Then
+                                entrada = entrada + 1
+                            End If
+                        Else
+                            Detalle = "ASISTENCIA"
+                        End If
+                    End If
+
+                    If ChqIni <> "" Then
+                        If CDate(ChqIni) > CDate(IniPuntual) And CBool(rdr("ausente").ToString) Then
+                            Checada = CDate(ChqIni)
+                            If Checada.Minute >= 6 Then
+                                entrada = entrada + 1
+                            End If
+                        End If
+                    End If
+
+                    If ChqIni <> "" Then
+                        'Para la salida de cerrador, permite la salida desde 15 min antes. Esto viene en la variable FinHorario
+                        If (CDate(ChqFin) >= CDate(FinHorario)) And (CDate(ChqFin) <= CDate(rdr("fin").ToString)) Then
+                            salida = salida + 1
+                        End If
+                    End If
+
+                    If Detalle = "" Then
+                        'Si no tiene descanso en su horario y no tiene checada, pone Falta
+                        If Not CBool(rdr("ausente")) Then
+                            Detalle = "FALTA"
+                        Else
+                            Detalle = rdr("jornada").ToString
+                        End If
+                    End If
+
+                    'Si Tiene checadas y en su horario tiene descanso, pone Descanso laborado
+                    If ChqIni <> "" And CBool(rdr("ausente").ToString) And salida <> entrada Then
+                        Detalle = "DESCANSO LABORADO"
+                    End If
+
+                    'A los cerradores que entran después de las 6 pm y salen después de la 1 se les agrega una hora
+                    If ChqFin <> "" Then
+                        If IniHorario.Hour >= 18 And CDate(ChqFin).Hour < 2 Then
+                            hextCerrador = 1
+                        End If
+                    End If
+
+                    'Revisar si se le respeta su hora de entrada aunque haya checado después
+                    If rdr("completar") Then
+                        'Obtener la hora de inicio de jornada
+                        IniJ = rdr("inicio").ToString.Substring(0, 2)
+                        entrada = CInt(IniJ)
+                        Detalle = "PUNTUALIDAD"
+                    End If
+
+                    'Revisar si se le respeta su hora de salida aunque haya checado antes
+                    If rdr("completarfin") Then
+                        'Obtener la hora de fin de jornada
+                        FinJ = rdr("fin").ToString.Substring(0, 2)
+                        salida = CInt(FinJ)
+                    End If
+
+                    'Completar su hora de salida
+                    If rdr("completarhsal") Then
+                        'Obtener su checada de salida y sumarle 1 a la hora
+                        FinJ = ChqSal
+                        salida = CInt(FinJ + 1)
+                    End If
+
+                End If
+
+                If entrada <> 0 Then
+                    If salida < 6 Then
+                        'Cálculo para sumar horas de siguiente día
+                        calc = (24 - entrada) + salida
+                    Else
+                        calc = salida - entrada
+                    End If
+                    calc = calc + hextCerrador
+                End If
+
+                'Si su hora de entrada es igual a su hora de salida (solo checó una vez) poner Calc en 0
+                If ChqIni = ChqFin Then calc = 0
+
+                'Si su hora de entrada están en la misma hora, porner Calc en 0
+                If ChqIni <> "" Then
+                    If CDate(ChqIni).Hour = CDate(ChqFin).Hour Then calc = 0
+                End If
+                rdr.Close()
+
+                acum = acum + calc
+
+                cmd2 = New SqlCommand("INSERT INTO Temp_Horas(fecha,entrada,salida,hrstrab,puntualidad,detalle,clockin,clockout,idempleado,empleado,horario) VALUES(@fecha," & entrada & "," & salida & "," & calc & "," & puntualidad & ",'" & Detalle & "','" & ChqIni & "','" & ChqFin & "',@idempleado,@empleado,'" & Horario & "')", dbc2)
+                cmd2.Parameters.AddWithValue("fecha", Fecha)
+                cmd2.Parameters.AddWithValue("idempleado", idempleado)
+                cmd2.Parameters.AddWithValue("empleado", empleado)
+
+                cmd2.ExecuteNonQuery()
+                cmd2.Dispose()
+                Fecha = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
+            End While
+        End While
+        dbc.Close() : dbc.Dispose()
+        'Lmsg.Text = IniTol
+        'TxHorasTrabajadas.Text = acum
     End Sub
     Public Sub HorasExtras()
         HorasExtrasT = 0
@@ -709,250 +945,12 @@ Partial Class Prenomina
                     'Acumular el dia
                     Acum = Acum + 1
 
-                    ''''''''''Sacar la hora trabajada por dia
-
-                    HTotalesT = 0
-                    Dim dbc3 As New SqlConnection
-                    dbc3.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-                    dbc3.Open()
-                    'Dim dbc2 As New SqlConnection
-                    'dbc2.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-                    'dbc2.Open()
-                    'Dim cmd2 As New SqlCommand("", dbc2)
-
-                    ''LIMPIAR TABLA TEMPORAL
-                    'cmd2 = New SqlCommand("DELETE FROM Temp_Calculo", dbc2)
-                    'cmd2.ExecuteNonQuery()
-
-                    Dim FechaInicial, FechaFinal, Fecha As Date
-                    FechaInicial = Format(CDate(F), "yyyy-MM-dd")
-                    FechaFinal = Format(CDate(FF), "yyyy-MM-dd")
-                    Fecha = FechaInicial
-                    Dim IniDiaN, FinDiaC, FinDiaN, IniDiaSig, SigDia, IniHorario, FinHorario, Checada As Date
-                    Dim ChqIni, ChqFin, ChqEnt, ChqSal, IniTol, FinTol, IniPuntual, FinPuntual, Detalle, Horario, IniJ, FinJ As String
-
-                    Dim entrada, salida, calc, puntualidad, hextCerrador As Integer
-
-                    m = 0
-                    While Fecha <= FechaFinal
-                        ChqIni = "" : ChqFin = "" : calc = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0 : IniJ = "" : FinJ = ""
-
-                        IniDiaN = Left(Fecha, 10) + " 05:01:00"
-                        FinDiaN = Left(Fecha, 10) + " 23:59:59"
-                        SigDia = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
-                        IniDiaSig = Left(SigDia, 10) + " 00:00:01"
-                        FinDiaC = Left(SigDia, 10) + " 05:00:00"
-
-                        'BUSCAR PRIMERA CHECADA DEL DIA
-                        Dim cmd3 As New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec ASC", dbc3)
-                        cmd3.Parameters.AddWithValue("Ini", Format(CDate(IniDiaN), "yyyy-MM-dd HH:mm:ss"))
-                        cmd3.Parameters.AddWithValue("Fin", Format(CDate(FinDiaN), "yyyy-MM-dd HH:mm:ss"))
-                        cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                        Dim rdr3 As SqlDataReader = cmd3.ExecuteReader
-                        If rdr3.Read Then
-                            'Obtener la hora del campo chec
-                            ChqIni = rdr3("chec").ToString
-                            ChqEnt = rdr3("chec").ToString.Substring(0, 2)
-                            'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-                            If ChqEnt.Contains(":") Then
-                                'Eliminar ":" cuando son horas menores a 10
-                                entrada = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-                            Else
-                                entrada = CInt(ChqEnt)
-                            End If
-                        End If
-                        rdr3.Close()
-
-                        'BUSCAR ULTIMA CHECADA DEL DIA SIGUIENTE
-                        cmd3 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec DESC", dbc3)
-                        cmd3.Parameters.AddWithValue("Ini", Format(CDate(IniDiaSig), "yyyy-MM-dd HH:mm:ss"))
-                        cmd3.Parameters.AddWithValue("Fin", Format(CDate(FinDiaC), "yyyy-MM-dd HH:mm:ss"))
-                        cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                        rdr3 = cmd3.ExecuteReader
-                        If rdr3.Read Then
-                            ChqFin = rdr3("chec").ToString
-                            ChqSal = rdr3("chec").ToString.Substring(0, 2)
-                            'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-                            If ChqSal.Contains(":") Then
-                                'Eliminar ":" cuando son horas menores a 10
-                                salida = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-                            Else
-                                salida = CInt(ChqSal)
-                            End If
-                        Else
-                            rdr3.Close()
-                            'BUSCAR ULTIMA CHECADA DEL DIA NORMAL
-                            cmd3 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec DESC", dbc3)
-                            cmd3.Parameters.AddWithValue("Ini", Format(CDate(IniDiaN), "yyyy-MM-dd HH:mm:ss"))
-                            cmd3.Parameters.AddWithValue("Fin", Format(CDate(FinDiaN), "yyyy-MM-dd HH:mm:ss"))
-                            cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                            rdr3 = cmd3.ExecuteReader
-                            If rdr3.Read Then
-                                ChqFin = rdr3("chec").ToString
-                                ChqSal = rdr3("chec").ToString.Substring(0, 2)
-                                'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-                                If ChqSal.Contains(":") Then
-                                    'Eliminar ":" cuando son horas menores a 10
-                                    salida = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-                                Else
-                                    salida = CInt(ChqSal)
-                                End If
-                            End If
-                        End If
-                        rdr3.Close()
-
-                        'BUSCAR HORARIO DEL DIA
-                        cmd3 = New SqlCommand("SELECT * FROM vm_Jornada WHERE fecha=@Fecha AND idempleado=@idempleado", dbc3)
-                        cmd3.Parameters.AddWithValue("Fecha", Format(CDate(Fecha), "yyyy-MM-dd"))
-                        cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                        rdr3 = cmd3.ExecuteReader
-                        If rdr3.Read Then
-                            Horario = rdr3("jornada").ToString
-                            IniHorario = CDate(rdr3("inicio").ToString)
-                            FinHorario = CDate(rdr3("checkfin").ToString)
-                            IniPuntual = rdr3("checkini").ToString
-                            FinPuntual = Left(rdr3("inicio").ToString, 2)
-                            FinPuntual = FinPuntual + ":00:59"
-                            IniTol = Left(rdr3("inicio").ToString, 2)
-                            IniTol = IniTol + ":01:00"
-                            FinTol = rdr3("tolerancia").ToString
-
-                            If ChqIni <> "" Then
-                                'Revisa donde entra la checada comparando con su horario
-                                If (CDate(ChqIni) >= CDate(IniPuntual)) And (CDate(ChqIni) <= CDate(FinPuntual)) Then
-                                    Detalle = "PUNTUALIDAD"
-                                    Checada = CDate(ChqIni)
-                                    If Checada.Minute <> 0 Then
-                                        entrada = entrada + 1
-                                    End If
-                                    puntualidad = 1
-                                ElseIf (CDate(ChqIni) >= CDate(IniTol)) And (CDate(ChqIni) <= CDate(FinTol)) Then
-                                    Detalle = "TOLERANCIA"
-                                ElseIf (CDate(ChqIni) > CDate(FinTol)) Then
-                                    Detalle = "RETARDO"
-                                    Checada = CDate(ChqIni)
-                                    If Checada.Minute >= 6 Then
-                                        entrada = entrada + 1
-                                    End If
-                                ElseIf CDate(ChqIni) < CDate(IniPuntual) Then
-                                    Detalle = "ASISTENCIA"
-                                    Checada = CDate(ChqIni)
-                                    If Checada.Minute >= 6 Then
-                                        entrada = entrada + 1
-                                    End If
-                                Else
-                                    Detalle = "ASISTENCIA"
-                                End If
-                            End If
-
-                            If ChqIni <> "" Then
-                                If CDate(ChqIni) > CDate(IniPuntual) And CBool(rdr3("ausente").ToString) Then
-                                    Checada = CDate(ChqIni)
-                                    If Checada.Minute >= 6 Then
-                                        entrada = entrada + 1
-                                    End If
-                                End If
-                            End If
-
-                            If ChqIni <> "" Then
-                                'Para la salida de cerrador, permite la salida desde 15 min antes. Esto viene en la variable FinHorario
-                                If (CDate(ChqFin) >= CDate(FinHorario)) And (CDate(ChqFin) <= CDate(rdr3("fin").ToString)) Then
-                                    salida = salida + 1
-                                End If
-                            End If
-
-                            If Detalle = "" Then
-                                'Si no tiene descanso en su horario y no tiene checada, pone Falta
-                                If Not CBool(rdr3("ausente")) Then
-                                    Detalle = "FALTA"
-                                Else
-                                    Detalle = rdr3("jornada").ToString
-                                End If
-                            End If
-
-                            'Si Tiene checadas y en su horario tiene descanso, pone Descanso laborado
-                            If ChqIni <> "" And CBool(rdr3("ausente").ToString) And salida <> entrada Then
-                                Detalle = "DESCANSO LABORADO"
-                            End If
-
-                            'A los cerradores que entran después de las 6 pm y salen después de la 1 se les agrega una hora
-                            If ChqFin <> "" Then
-                                If IniHorario.Hour >= 18 And CDate(ChqFin).Hour < 2 Then
-                                    hextCerrador = 1
-                                End If
-                            End If
-
-                            'Revisar si se le respeta su hora de entrada aunque haya checado después
-                            If rdr3("completar") Then
-                                'Obtener la hora de inicio de jornada
-                                IniJ = rdr3("inicio").ToString.Substring(0, 2)
-                                entrada = CInt(IniJ)
-                                Detalle = "PUNTUALIDAD"
-                            End If
-
-                            'Revisar si se le respeta su hora de salida aunque haya checado antes
-                            If rdr3("completarfin") Then
-                                'Obtener la hora de fin de jornada
-                                FinJ = rdr3("fin").ToString.Substring(0, 2)
-                                salida = CInt(FinJ)
-                            End If
-
-                            'Completar su hora de salida
-                            If rdr3("completarhsal") Then
-                                'Obtener su checada de salida y sumarle 1 a la hora
-                                FinJ = ChqSal
-                                salida = CInt(FinJ + 1)
-                            End If
-
-                        End If
-
-                        If entrada <> 0 Then
-                            If salida < 6 Then
-                                'Cálculo para sumar horas de siguiente día
-                                calc = (24 - entrada) + salida
-                            Else
-                                calc = salida - entrada
-                            End If
-                            calc = calc + hextCerrador
-                        End If
-
-                        'Si su hora de entrada es igual a su hora de salida (solo checó una vez) poner Calc en 0
-                        If ChqIni = ChqFin Then calc = 0
-
-                        'Si su hora de entrada están en la misma hora, porner Calc en 0
-                        If ChqIni <> "" Then
-                            If CDate(ChqIni).Hour = CDate(ChqFin).Hour Then calc = 0
-                        End If
-                        rdr3.Close()
-
-                        acumH = acumH + calc
-
-                        'cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad,detalle,clockin,clockout,horario) VALUES(@fecha," & entrada & "," & salida & "," & calc & "," & puntualidad & ",'" & Detalle & "','" & ChqIni & "','" & ChqFin & "','" & Horario & "')", dbc2)
-                        'cmd2.Parameters.AddWithValue("fecha", Fecha)
-                        'cmd2.ExecuteNonQuery()
-                        'cmd2.Dispose()
-
-                        'If m < 14 Then
-                        'd(m) = calc
-                        'm = m + 1
-                        ''Else
-                        '    Mens.Text = "Error: El contador sobrepaso el limite"
-                        'End If
-
-
-                        'Fecha = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
-
-                    End While
-                    dbc3.Close() : dbc3.Dispose()
-                    'Lmsg.Text = IniTol
-                    'HTotalesT = acum
-
-
-
-
-
-                    ''''''''''''''''''''''''''''''''''''''''''
-
+                    'Consulta la hora del dia
+                    Dim acceso2 As New ctiCalculo
+                    Dim datos2() As String = acceso.ConsultaHrstrab(idempleado, Format(CDate(F), "yyyy/MM/dd"), Format(CDate(FF), "yyyy/MM/dd"))
+                    Dim dat2 As Integer = datos2(0)
+                    'Sumar horas
+                    acumH = acumH + dat2
                 Else
                     Acum = Acum
                 End If
@@ -1025,251 +1023,12 @@ Partial Class Prenomina
                         If datos(0) > 0 Then
                             'Acumular el dia
                             Acum = Acum + 1
+                            'Consulta la hora del dia
+                            Dim acceso2 As New ctiCalculo
+                            Dim datos2() As String = acceso.ConsultaHrstrab(idempleado, F.ToString("yyyy-MM-dd"), FechaF.ToString("yyyy-MM-dd"))
+                            Dim dat2 As Integer = datos2(0)
+                            acumH = acumH + dat2
 
-
-                            ''''''''''Sacar la hora trabajada por dia
-
-                            HTotalesT = 0
-                            Dim dbc3 As New SqlConnection
-                            dbc3.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-                            dbc3.Open()
-                            'Dim dbc2 As New SqlConnection
-                            'dbc2.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-                            'dbc2.Open()
-                            'Dim cmd2 As New SqlCommand("", dbc2)
-
-                            ''LIMPIAR TABLA TEMPORAL
-                            'cmd2 = New SqlCommand("DELETE FROM Temp_Calculo", dbc2)
-                            'cmd2.ExecuteNonQuery()
-
-                            Dim FechaInicial, FechaFinal, Fecha As Date
-                            FechaInicial = Format(CDate(F), "yyyy-MM-dd")
-                            FechaFinal = Format(CDate(FF), "yyyy-MM-dd")
-                            Fecha = FechaInicial
-                            Dim IniDiaN, FinDiaC, FinDiaN, IniDiaSig, SigDia, IniHorario, FinHorario, Checada As Date
-                            Dim ChqIni, ChqFin, ChqEnt, ChqSal, IniTol, FinTol, IniPuntual, FinPuntual, Detalle, Horario, IniJ, FinJ As String
-
-                            Dim entrada, salida, calc, puntualidad, hextCerrador As Integer
-
-                            m = 0
-                            While Fecha <= FechaFinal
-                                ChqIni = "" : ChqFin = "" : calc = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0 : IniJ = "" : FinJ = ""
-
-                                IniDiaN = Left(Fecha, 10) + " 05:01:00"
-                                FinDiaN = Left(Fecha, 10) + " 23:59:59"
-                                SigDia = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
-                                IniDiaSig = Left(SigDia, 10) + " 00:00:01"
-                                FinDiaC = Left(SigDia, 10) + " 05:00:00"
-
-                                'BUSCAR PRIMERA CHECADA DEL DIA
-                                Dim cmd3 As New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec ASC", dbc3)
-                                cmd3.Parameters.AddWithValue("Ini", Format(CDate(IniDiaN), "yyyy-MM-dd HH:mm:ss"))
-                                cmd3.Parameters.AddWithValue("Fin", Format(CDate(FinDiaN), "yyyy-MM-dd HH:mm:ss"))
-                                cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                                Dim rdr3 As SqlDataReader = cmd3.ExecuteReader
-                                If rdr3.Read Then
-                                    'Obtener la hora del campo chec
-                                    ChqIni = rdr3("chec").ToString
-                                    ChqEnt = rdr3("chec").ToString.Substring(0, 2)
-                                    'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-                                    If ChqEnt.Contains(":") Then
-                                        'Eliminar ":" cuando son horas menores a 10
-                                        entrada = CInt(Mid(ChqEnt, 1, Len(ChqEnt) - 1))
-                                    Else
-                                        entrada = CInt(ChqEnt)
-                                    End If
-                                End If
-                                rdr3.Close()
-
-                                'BUSCAR ULTIMA CHECADA DEL DIA SIGUIENTE
-                                cmd3 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec DESC", dbc3)
-                                cmd3.Parameters.AddWithValue("Ini", Format(CDate(IniDiaSig), "yyyy-MM-dd HH:mm:ss"))
-                                cmd3.Parameters.AddWithValue("Fin", Format(CDate(FinDiaC), "yyyy-MM-dd HH:mm:ss"))
-                                cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                                rdr3 = cmd3.ExecuteReader
-                                If rdr3.Read Then
-                                    ChqFin = rdr3("chec").ToString
-                                    ChqSal = rdr3("chec").ToString.Substring(0, 2)
-                                    'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-                                    If ChqSal.Contains(":") Then
-                                        'Eliminar ":" cuando son horas menores a 10
-                                        salida = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-                                    Else
-                                        salida = CInt(ChqSal)
-                                    End If
-                                Else
-                                    rdr3.Close()
-                                    'BUSCAR ULTIMA CHECADA DEL DIA NORMAL
-                                    cmd3 = New SqlCommand("SELECT TOP(1) CONVERT(VARCHAR(8), chec, 108) AS chec FROM vm_ChequeoIncidencia WHERE chec BETWEEN @Ini AND @Fin AND idempleado = @idempleado ORDER BY chec DESC", dbc3)
-                                    cmd3.Parameters.AddWithValue("Ini", Format(CDate(IniDiaN), "yyyy-MM-dd HH:mm:ss"))
-                                    cmd3.Parameters.AddWithValue("Fin", Format(CDate(FinDiaN), "yyyy-MM-dd HH:mm:ss"))
-                                    cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                                    rdr3 = cmd3.ExecuteReader
-                                    If rdr3.Read Then
-                                        ChqFin = rdr3("chec").ToString
-                                        ChqSal = rdr3("chec").ToString.Substring(0, 2)
-                                        'Cuando son horas menores a 10 no toma en cuenta el 0 antes del entero, por lo que se trae ":" 
-                                        If ChqSal.Contains(":") Then
-                                            'Eliminar ":" cuando son horas menores a 10
-                                            salida = CInt(Mid(ChqSal, 1, Len(ChqSal) - 1))
-                                        Else
-                                            salida = CInt(ChqSal)
-                                        End If
-                                    End If
-                                End If
-                                rdr3.Close()
-
-                                'BUSCAR HORARIO DEL DIA
-                                cmd3 = New SqlCommand("SELECT * FROM vm_Jornada WHERE fecha=@Fecha AND idempleado=@idempleado", dbc3)
-                                cmd3.Parameters.AddWithValue("Fecha", Format(CDate(Fecha), "yyyy-MM-dd"))
-                                cmd3.Parameters.AddWithValue("idempleado", idempleado)
-                                rdr3 = cmd3.ExecuteReader
-                                If rdr3.Read Then
-                                    Horario = rdr3("jornada").ToString
-                                    IniHorario = CDate(rdr3("inicio").ToString)
-                                    FinHorario = CDate(rdr3("checkfin").ToString)
-                                    IniPuntual = rdr3("checkini").ToString
-                                    FinPuntual = Left(rdr3("inicio").ToString, 2)
-                                    FinPuntual = FinPuntual + ":00:59"
-                                    IniTol = Left(rdr3("inicio").ToString, 2)
-                                    IniTol = IniTol + ":01:00"
-                                    FinTol = rdr3("tolerancia").ToString
-
-                                    If ChqIni <> "" Then
-                                        'Revisa donde entra la checada comparando con su horario
-                                        If (CDate(ChqIni) >= CDate(IniPuntual)) And (CDate(ChqIni) <= CDate(FinPuntual)) Then
-                                            Detalle = "PUNTUALIDAD"
-                                            Checada = CDate(ChqIni)
-                                            If Checada.Minute <> 0 Then
-                                                entrada = entrada + 1
-                                            End If
-                                            puntualidad = 1
-                                        ElseIf (CDate(ChqIni) >= CDate(IniTol)) And (CDate(ChqIni) <= CDate(FinTol)) Then
-                                            Detalle = "TOLERANCIA"
-                                        ElseIf (CDate(ChqIni) > CDate(FinTol)) Then
-                                            Detalle = "RETARDO"
-                                            Checada = CDate(ChqIni)
-                                            If Checada.Minute >= 6 Then
-                                                entrada = entrada + 1
-                                            End If
-                                        ElseIf CDate(ChqIni) < CDate(IniPuntual) Then
-                                            Detalle = "ASISTENCIA"
-                                            Checada = CDate(ChqIni)
-                                            If Checada.Minute >= 6 Then
-                                                entrada = entrada + 1
-                                            End If
-                                        Else
-                                            Detalle = "ASISTENCIA"
-                                        End If
-                                    End If
-
-                                    If ChqIni <> "" Then
-                                        If CDate(ChqIni) > CDate(IniPuntual) And CBool(rdr3("ausente").ToString) Then
-                                            Checada = CDate(ChqIni)
-                                            If Checada.Minute >= 6 Then
-                                                entrada = entrada + 1
-                                            End If
-                                        End If
-                                    End If
-
-                                    If ChqIni <> "" Then
-                                        'Para la salida de cerrador, permite la salida desde 15 min antes. Esto viene en la variable FinHorario
-                                        If (CDate(ChqFin) >= CDate(FinHorario)) And (CDate(ChqFin) <= CDate(rdr3("fin").ToString)) Then
-                                            salida = salida + 1
-                                        End If
-                                    End If
-
-                                    If Detalle = "" Then
-                                        'Si no tiene descanso en su horario y no tiene checada, pone Falta
-                                        If Not CBool(rdr3("ausente")) Then
-                                            Detalle = "FALTA"
-                                        Else
-                                            Detalle = rdr3("jornada").ToString
-                                        End If
-                                    End If
-
-                                    'Si Tiene checadas y en su horario tiene descanso, pone Descanso laborado
-                                    If ChqIni <> "" And CBool(rdr3("ausente").ToString) And salida <> entrada Then
-                                        Detalle = "DESCANSO LABORADO"
-                                    End If
-
-                                    'A los cerradores que entran después de las 6 pm y salen después de la 1 se les agrega una hora
-                                    If ChqFin <> "" Then
-                                        If IniHorario.Hour >= 18 And CDate(ChqFin).Hour < 2 Then
-                                            hextCerrador = 1
-                                        End If
-                                    End If
-
-                                    'Revisar si se le respeta su hora de entrada aunque haya checado después
-                                    If rdr3("completar") Then
-                                        'Obtener la hora de inicio de jornada
-                                        IniJ = rdr3("inicio").ToString.Substring(0, 2)
-                                        entrada = CInt(IniJ)
-                                        Detalle = "PUNTUALIDAD"
-                                    End If
-
-                                    'Revisar si se le respeta su hora de salida aunque haya checado antes
-                                    If rdr3("completarfin") Then
-                                        'Obtener la hora de fin de jornada
-                                        FinJ = rdr3("fin").ToString.Substring(0, 2)
-                                        salida = CInt(FinJ)
-                                    End If
-
-                                    'Completar su hora de salida
-                                    If rdr3("completarhsal") Then
-                                        'Obtener su checada de salida y sumarle 1 a la hora
-                                        FinJ = ChqSal
-                                        salida = CInt(FinJ + 1)
-                                    End If
-
-                                End If
-
-                                If entrada <> 0 Then
-                                    If salida < 6 Then
-                                        'Cálculo para sumar horas de siguiente día
-                                        calc = (24 - entrada) + salida
-                                    Else
-                                        calc = salida - entrada
-                                    End If
-                                    calc = calc + hextCerrador
-                                End If
-
-                                'Si su hora de entrada es igual a su hora de salida (solo checó una vez) poner Calc en 0
-                                If ChqIni = ChqFin Then calc = 0
-
-                                'Si su hora de entrada están en la misma hora, porner Calc en 0
-                                If ChqIni <> "" Then
-                                    If CDate(ChqIni).Hour = CDate(ChqFin).Hour Then calc = 0
-                                End If
-                                rdr3.Close()
-
-                                acumH = acumH + calc
-
-                                'cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad,detalle,clockin,clockout,horario) VALUES(@fecha," & entrada & "," & salida & "," & calc & "," & puntualidad & ",'" & Detalle & "','" & ChqIni & "','" & ChqFin & "','" & Horario & "')", dbc2)
-                                'cmd2.Parameters.AddWithValue("fecha", Fecha)
-                                'cmd2.ExecuteNonQuery()
-                                'cmd2.Dispose()
-
-                                'If m < 14 Then
-                                'd(m) = calc
-                                'm = m + 1
-                                ''Else
-                                '    Mens.Text = "Error: El contador sobrepaso el limite"
-                                'End If
-
-
-                                'Fecha = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
-
-                            End While
-                            dbc3.Close() : dbc3.Dispose()
-                            'Lmsg.Text = IniTol
-                            'HTotalesT = acum
-
-
-
-
-
-                            ''''''''''''''''''''''''''''''''''''''''''
                         Else
                             Acum = Acum
                         End If
@@ -1291,90 +1050,62 @@ Partial Class Prenomina
         TotalHorasT = HTotalesT + HorasExtrasT + HorasExtrasTriplesT + DFestivosTrabajadosT + DDescansadosTrabajadosT
     End Sub
     Public Sub ImporteNormal()
-        ImporteNormalT = 0
+        ImporteNormalT = 0.0
         Dim dsP As New ctiCatalogos
         Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
-        'dsP = Nothing
-        'If datos(0).StartsWith("Error") Then
-        '    Mens.CssClass = "error"
-        '    Mens.Text = datos(0)
-        'Else
-        horasN = 0
+
+        horasN = 0.0
         horasN = hora
-        '  End If
-        ImporteNormalT = TotalHorasT * horasN
+
+        ImporteNormalT = HTotalesT * horasN
     End Sub
     Public Sub TiempoExtra()
-        TiempoExtraT = 0
-        'Dim dsP As New ctiCatalogos
-        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
-        'dsP = Nothing
-        'If datos(0).StartsWith("Error") Then
-        '    Mens.CssClass = "error"
-        '    Mens.Text = datos(0)
-        'Else
-        horasE = 0
+        TiempoExtraT = 0.0
+
+        horasE = 0.0
         horasE = extra
-        'End If
+
         TiempoExtraT = HorasExtrasT * horasE
     End Sub
     Public Sub TiempoExtraTiple()
-        TiempoExtraTipleT = 0
-        'Dim dsP As New ctiCatalogos
-        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
-        'dsP = Nothing
-        'If datos(0).StartsWith("Error") Then
-        '    Mens.CssClass = "error"
-        '    Mens.Text = datos(0)
-        'Else
-        horasET = 0
+        TiempoExtraTipleT = 0.0
+
+        horasET = 0.0
         horasET = extratiple
-        'End If
+
         TiempoExtraTipleT = HorasExtrasT * horasET
     End Sub
     Public Sub DiaFestivo()
-        DiaFestivoT = 0
-        diaF = 0
+        DiaFestivoT = 0.0
+        diaF = 0.0
         diaF = diafes
-        'End If
+
         DiaFestivoT = DFestivosTrabajadosT * diaF
     End Sub
     Public Sub SeptimoDia()
-        SeptimoDiaT = 0
+        SeptimoDiaT = 0.0
         SeptimoDiaT = ImporteNormalT / 6
     End Sub
     Public Sub PrimaDominical()
-        PrimaDominicalT = 0
-        'Dim dsP As New ctiCatalogos
-        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
-        'dsP = Nothing
-        'If datos(0).StartsWith("Error") Then
-        '    Mens.CssClass = "error"
-        '    Mens.Text = datos(0)
-        'Else
-        primaD = 0
-        horasN = 0
+        PrimaDominicalT = 0.0
+
+        primaD = 0.0
+        horasN = 0.0
         horasN = hora
         primaD = primadom
-        'End If
+
         PrimaDominicalT = (horasN * ((d(6) + d(13)) * (primaD / 100)))
     End Sub
     Public Sub DiaDescanso()
-        DiaDescansoT = 0
-        'Dim dsP As New ctiCatalogos
-        'Dim datos() As String = dsP.datosSalarios2(idpuesto, wucSucursales.idSucursal)
-        'dsP = Nothing
-        'If datos(0).StartsWith("Error") Then
-        '    Mens.CssClass = "error"
-        '    Mens.Text = datos(0)
-        'Else
-        diaD = 0
+        DiaDescansoT = 0.0
+
+        diaD = 0.0
         diaD = diades
-        'End If
+
         DiaDescansoT = DDescansadosTrabajadosT * diaD
     End Sub
     Public Sub ImporteTotal()
-        ImporteTotalT = 0
+        ImporteTotalT = 0.0
         ImporteTotalT = ImporteNormalT + TiempoExtraT + TiempoExtraTipleT + DiaFestivoT + SeptimoDiaT + PrimaDominicalT + DiaDescansoT
     End Sub
 End Class

@@ -3,7 +3,6 @@
 Partial Class _RegistroIncidencias
     Inherits System.Web.UI.Page
     Public gvPos As Integer
-
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
 
@@ -65,6 +64,11 @@ Partial Class _RegistroIncidencias
         fecha.Text = FechaC.SelectedDate.ToString("dd/MM/yyyy")
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
+        wucIncidencias.idIncidencia = 0
+        fecha.Text = ""
+        Lmsg.Text = ""
+        TxObservaciones.Text = ""
+        GridView1.Visible = False
         Dim gvds As New ctiWUC
         Dim acceso As New ctiCatalogos
         wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
@@ -76,6 +80,11 @@ Partial Class _RegistroIncidencias
 
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
+        wucIncidencias.idIncidencia = 0
+        fecha.Text = ""
+        Lmsg.Text = ""
+        TxObservaciones.Text = ""
+        GridView1.Visible = False
         Dim gvds As New ctiCatalogos
         GridView1.DataSource = gvds.gvAsigIncidencias(wucEmpleados2.idEmpleado)
         GridView1.Visible = True

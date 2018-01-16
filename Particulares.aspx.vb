@@ -99,7 +99,12 @@ Partial Class Particulares
         Dim ap As New ctiCalendario
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
         ' DateTime.Now()
-        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, Convert.ToString(fecha_ingreso.Text), observaciones.Text, cantidad.Text)
+
+        Dim FF As Date
+        FF = fecha_ingreso.Text.ToString
+        Convert.ToDateTime(FF)
+
+        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, cantidad.Text)
         GridView1.DataSource = ap.gvParticulares(wucEmpleados2.idEmpleado)
         ap = Nothing
         GridView1.DataBind()
@@ -178,11 +183,11 @@ Partial Class Particulares
             Else
                 wucEmpleados2.idEmpleado = datos(1)
                 dropLTipo.SelectedValue = datos(2)
-                'fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
-                'Fech = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
-                Dim cadF As String
-                cadF = datos(3)
-                fecha_ingreso.Text = cadF
+                fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
+                Fech = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
+                'Dim cadF As String
+                'cadF = datos(3)
+                'fecha_ingreso.Text = cadF
 
                 observaciones.Text = datos(4)
                 cantidad.Text = datos(5)
