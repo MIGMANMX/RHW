@@ -98,7 +98,6 @@ Partial Class Particulares
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ap As New ctiCalendario
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        ' DateTime.Now()
 
         Dim FF As Date
         FF = fecha_ingreso.Text.ToString
@@ -183,15 +182,12 @@ Partial Class Particulares
             Else
                 wucEmpleados2.idEmpleado = datos(1)
                 dropLTipo.SelectedValue = datos(2)
-                fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
+                fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
                 Fech = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
-                'Dim cadF As String
-                'cadF = datos(3)
-                'fecha_ingreso.Text = cadF
 
                 observaciones.Text = datos(4)
                 cantidad.Text = datos(5)
-                LabFUE.Text = datos(6)
+                'LabFUE.Text = datos(6)
 
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected

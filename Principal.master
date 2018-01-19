@@ -162,7 +162,7 @@
                 <i class="fa fa-folder"></i> <span>Acceso</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-              <ul class="treeview-menu">
+              <ul class="treeview-menu" id="AC" runat="server">
                 <li id="catalogo1" runat="server"><a href="<%=ResolveUrl("Usuarios.aspx")%>"><i class="fa fa-users"></i> Usuarios</a></li>             
               </ul>
             </li>

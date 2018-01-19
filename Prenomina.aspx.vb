@@ -1060,20 +1060,29 @@ Partial Class Prenomina
         ImporteNormalT = HTotalesT * horasN
     End Sub
     Public Sub TiempoExtra()
-        TiempoExtraT = 0.0
+        If (HTotalesT >= 96) Then
+            TiempoExtraT = 0.0
 
-        horasE = 0.0
-        horasE = extra
+            horasE = 0.0
+            horasE = extra
 
-        TiempoExtraT = HorasExtrasT * horasE
+            TiempoExtraT = HorasExtrasT * horasE
+        Else
+            TiempoExtraT = 0.0
+        End If
+
     End Sub
     Public Sub TiempoExtraTiple()
-        TiempoExtraTipleT = 0.0
+        If (HTotalesT >= 96) Then
+            TiempoExtraTipleT = 0.0
 
-        horasET = 0.0
-        horasET = extratiple
+            horasET = 0.0
+            horasET = extratiple
 
-        TiempoExtraTipleT = HorasExtrasT * horasET
+            TiempoExtraTipleT = HorasExtrasT * horasET
+        Else
+            TiempoExtraTipleT = 0.0
+        End If
     End Sub
     Public Sub DiaFestivo()
         DiaFestivoT = 0.0

@@ -23,18 +23,7 @@
           End If%>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <% If IsNumeric(Session("idz_e")) Then
-             Response.Write("<div id=confirmar style='position:fixed; left:200; top:300; background-color:White; border-style:solid; border-width:1px; border-color:Black;'>")
-             Response.Write("<table>")
-             Response.Write("<tr><td rowspan=7 width=5 /><td height=6 /><td rowspan=7 width=6 /></tr>")
-             Response.Write("<tr><td class=c_titulo>Confirmación</td></tr>")
-             Response.Write("<tr><td height=6 /></tr>")
-             Response.Write("<tr><td class=c_texto>¿Confirma la eliminación :    <b><i>" & Session("dz_e") & "</i></b> ?</td></tr>")
-             Response.Write("<tr><td height=6 /></tr>")
-             Response.Write("<tr><td align=center><input type=submit name=btnSi value='   Sí   ' class='boton' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-             Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
-             Response.Write("<tr><td height=6 /></tr></table></div>")
-         End If%>
+     <%-- <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>
     <style type="text/css">
         #contenedor{
             overflow:hidden
@@ -91,7 +80,11 @@
                 <uc3:wucincidencias ID="wucIncidencias" runat="server" />
        
                  </td>
-                 <td class="auto-style17">
+                 <td class="auto-style17" id="VER" runat="server">
+            
+                                   
+            
+                     <asp:CheckBox ID="chkVer" runat="server" Text="Verificar" />
             
                                    
             
@@ -146,7 +139,7 @@
             <div id="derecho" class="auto-style12">
                   <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="iddetalle_incidencia" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="587px" Height="92px" AllowPaging="True" AllowSorting="True" PageSize="15" CssClass="auto-style14">
+            ForeColor="#333333" GridLines="None" Width="610px" Height="92px" AllowPaging="True" AllowSorting="True" PageSize="15" CssClass="auto-style14">
             <Columns>
                 <asp:BoundField DataField="iddetalle_incidencia" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
@@ -157,6 +150,7 @@
                 <asp:BoundField DataField="empleado" HeaderText="Empleado" SortExpression="empleado" />
                 <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
                 <asp:BoundField DataField="observaciones" HeaderText="Observaciones" SortExpression="observaciones" />
+                <asp:CheckBoxField DataField="verificado" HeaderText="Verificado" />
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>
                 
            </Columns>

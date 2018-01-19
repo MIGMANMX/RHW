@@ -13,7 +13,6 @@
         #izquierdo{
             float:left;
         }
-
          #derecho{
              float:right;
         }
@@ -145,9 +144,7 @@
             </tr>
                  <tr>
                       <td class="auto-style7">
-                          Ultima edicíon:
-                       <asp:Label ID="LabFUE" runat="server" Font-Size="XX-Small"></asp:Label>
-                 </td>    
+                          &nbsp;</td>    
                  </tr>        
         </table>
         

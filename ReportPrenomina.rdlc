@@ -3237,7 +3237,7 @@
                               <Value>=Fields!ImporteNormal.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3254,6 +3254,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -3270,7 +3271,7 @@
                               <Value>=Fields!TiempoExtra.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3287,6 +3288,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -3303,7 +3305,7 @@
                               <Value>=Fields!TiempoTriple.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3320,6 +3322,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -3336,7 +3339,7 @@
                               <Value>=Fields!DiaFestivo.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3353,6 +3356,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -3369,7 +3373,7 @@
                               <Value>=Fields!SeptimoDia.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3386,6 +3390,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -3402,7 +3407,7 @@
                               <Value>=Fields!PrimaDominical.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3419,6 +3424,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -3435,7 +3441,7 @@
                               <Value>=Fields!DiaDescanso.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>#,0.00;(#,0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3452,6 +3458,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -3468,7 +3475,7 @@
                               <Value>=Fields!ImporteTotal.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'0.00;('$'0.00)</Format>
+                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3488,6 +3495,7 @@
                         <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>

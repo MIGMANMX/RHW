@@ -30,7 +30,7 @@ Partial Class Principal
             jor.Visible = False
             rep.Visible = True
             che.Visible = False
-            rep1.Visible = False
+            rep1.Visible = True
             rep2.Visible = False
             rep3.Visible = True
             rep4.Visible = False
@@ -44,6 +44,31 @@ Partial Class Principal
         End If
 
         If datos(0) = 7 Then
+            direc.Visible = True
+            catalogo.Visible = True
+            catalogo2.Visible = True
+            catalogo1.Visible = True
+            nomina.Visible = True
+            acc.Visible = True
+            jor.Visible = True
+            rep.Visible = True
+            che.Visible = True
+            rep1.Visible = True
+            rep2.Visible = True
+            rep3.Visible = True
+            rep4.Visible = True
+            rep5.Visible = False
+            rep6.Visible = True
+            incide.Visible = True
+            regInidencia.Visible = True
+            dia.Visible = True
+            EHJ.Visible = True
+            confi.Visible = True
+            acc.Visible = False
+        End If
+        If datos(0) = 8 Then
+            acc.Visible = False
+            AC.Visible = False
             direc.Visible = True
             catalogo.Visible = True
             catalogo2.Visible = True

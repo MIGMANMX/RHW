@@ -44,12 +44,22 @@ Partial Class _RegistroIncidencias
         End If
         If wucEmpleados2.idEmpleado = 0 Then
             If datos(0) = 2 Then
+                chkVer.Checked = False
+                VER.Visible = False
                 wucSucursales.idSucursal = datos(1)
                 wucSucursales.Visible = False
                 suc.Visible = False
                 wucEmpleados2.ddlDataSource(datos(1))
 
                 gvds = Nothing
+                wucEmpleados2.ddlAutoPostBack = True
+                If IsNumeric(grdSR.Text) Then
+                    grdSR.Text = ""
+                End If
+            End If
+            If datos(0) = 8 Then
+                chkVer.Checked = False
+                VER.Visible = False
                 wucEmpleados2.ddlAutoPostBack = True
                 If IsNumeric(grdSR.Text) Then
                     grdSR.Text = ""
@@ -113,7 +123,7 @@ Partial Class _RegistroIncidencias
 
             End If
             Dim gc As New ctiCatalogos
-            Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, FechaC.SelectedDate.ToString, TxObservaciones.Text)
+            Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, FechaC.SelectedDate.ToString, TxObservaciones.Text, chkVer.Checked)
             GridView1.DataSource = gc.gvAsigIncidencias(wucEmpleados2.idEmpleado)
             gc = Nothing
             GridView1.DataBind()
@@ -138,7 +148,7 @@ Partial Class _RegistroIncidencias
 
         Dim idA As Integer = CInt(idDetalle.Text)
 
-        Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text)
+        Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked)
         GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
         ap = Nothing
             GridView1.DataBind()
@@ -184,6 +194,7 @@ Partial Class _RegistroIncidencias
                 wucEmpleados2.idEmpleado = CInt(datos(2))
                 fecha.Text = datos(3).ToString
                 TxObservaciones.Text = datos(4).ToString
+                chkVer.Checked = datos(5)
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI
