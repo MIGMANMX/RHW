@@ -148,7 +148,7 @@
                 <asp:BoundField DataField="iddetalle_incidencia" HeaderText="ID" SortExpression="iddetalle_incidencia" />
                 <asp:BoundField DataField="incidencia" HeaderText="Incidencia" SortExpression="incidencia" />
                 <asp:BoundField DataField="empleado" HeaderText="Empleado" SortExpression="empleado" />
-                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
+                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha"  HtmlEncode="False" DataFormatString = "{0:d}" />
                 <asp:BoundField DataField="observaciones" HeaderText="Observaciones" SortExpression="observaciones" />
                 <asp:CheckBoxField DataField="verificado" HeaderText="Verificado" />
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>

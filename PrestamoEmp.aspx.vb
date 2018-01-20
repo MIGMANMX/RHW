@@ -1,7 +1,8 @@
 ﻿
 Imports RHLogica
 
-Partial Class Particulares
+Partial Class PrestamoEmp
+
     Inherits System.Web.UI.Page
     Dim Fech As Date
     Public gvPos As Integer
@@ -45,8 +46,8 @@ Partial Class Particulares
 
         If Request("btnSi") <> "" Then
             Dim ec As New ctiCalendario
-            Dim err As String = ec.eliminarParticulares(CInt(Session("idz_e")))
-            GridView1.DataSource = ec.gvParticulares(wucEmpleados2.idEmpleado)
+            Dim err As String = ec.eliminarPrestamo(CInt(Session("idz_e")))
+            GridView1.DataSource = ec.gvPrestamo(wucEmpleados2.idEmpleado)
             ec = Nothing
             GridView1.DataBind()
             If err.StartsWith("Error") Then
@@ -58,11 +59,11 @@ Partial Class Particulares
                 grdSR.Text = ""
                 btnActualizar.Enabled = False
                 'puesto.Text = ""
-                wucEmpleados2.idEmpleado = 0
-                dropLTipo.SelectedValue = 0
-                fecha_ingreso.Text = ""
-                observaciones.Text = ""
-                cantidad.Text = ""
+                'wucEmpleados2.idEmpleado = 0
+                'dropLTipo.SelectedValue = 0
+                'fecha_ingreso.Text = ""
+                'observaciones.Text = ""
+                'cantidad.Text = ""
             End If
             Lmsg.Text = err
         End If
@@ -73,17 +74,21 @@ Partial Class Particulares
 
         Dim gvds As New ctiWUC
         wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
-
+        GridView1.Visible = False
         gvds = Nothing
         wucEmpleados2.ddlAutoPostBack = True
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
         End If
-
+        wucJornadas.idJornada = 0
+        wucSuc.idSucursal = 0
+        TxFechaInicio.Text = ""
+        TextBox2.Text = ""
+        chkVer.Checked = False
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
         Dim gvds As New ctiCalendario
-        GridView1.DataSource = gvds.gvParticulares(wucEmpleados2.idEmpleado)
+        GridView1.DataSource = gvds.gvPrestamo(wucEmpleados2.idEmpleado)
         GridView1.Visible = True
         gvds = Nothing
 
@@ -91,8 +96,11 @@ Partial Class Particulares
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
         End If
-        'btnActualizar.Enabled = True
-        dropLTipo.Enabled = True
+        wucJornadas.idJornada = 0
+        wucSuc.idSucursal = 0
+        TxFechaInicio.Text = ""
+        TextBox2.Text = ""
+        chkVer.Checked = False
     End Sub
     Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
         If FIngreso.Visible = True Then
@@ -102,7 +110,7 @@ Partial Class Particulares
         End If
     End Sub
     Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
-        fecha_ingreso.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
+        TxFechaInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
         FIngreso.Visible = False
     End Sub
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
@@ -110,11 +118,11 @@ Partial Class Particulares
         Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
 
         Dim FF As Date
-        FF = fecha_ingreso.Text.ToString
+        FF = TxFechaInicio.Text.ToString
         Convert.ToDateTime(FF)
 
-        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, cantidad.Text, chkVer.Checked)
-        GridView1.DataSource = ap.gvParticulares(wucEmpleados2.idEmpleado)
+        Dim r As String = ap.actualizarPrestamo((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, wucSuc.idSucursal, wucJornadas.idJornada, FF.ToString("MM/dd/yyyy"), TextBox2.Text, chkVer.Checked)
+        GridView1.DataSource = ap.gvPrestamo(wucEmpleados2.idEmpleado)
         ap = Nothing
         GridView1.DataBind()
         If r.StartsWith("Error") Then
@@ -122,11 +130,13 @@ Partial Class Particulares
         Else
             Lmsg.CssClass = "correcto"
             'Limpiar
-            wucEmpleados2.idEmpleado = 0
-            dropLTipo.SelectedValue = 0
-            fecha_ingreso.Text = ""
-            observaciones.Text = ""
-            cantidad.Text = ""
+            ' wucEmpleados2.idEmpleado = 0
+            wucJornadas.idJornada = 0
+            wucSuc.idSucursal = 0
+            TxFechaInicio.Text = ""
+            TextBox2.Text = ""
+            chkVer.Checked = False
+            btnGuardarNuevo.Enabled = True
         End If
         Dim gvp As New clsCTI
         grdSR.Text = gvp.seleccionarGridRow(GridView1, (CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)))
@@ -136,23 +146,18 @@ Partial Class Particulares
         Lmsg.Text = r
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        Dim canti As String
+
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
         End If
-        If cantidad.Text = "" Then
-            canti = "0"
-        Else
-            canti = cantidad.Text
-        End If
 
         Dim gc As New ctiCalendario
         Dim FF As Date
-        FF = fecha_ingreso.Text.ToString
+        FF = TxFechaInicio.Text.ToString
         Convert.ToDateTime(FF)
-        Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, canti, chkVer.Checked)
-        GridView1.DataSource = gc.gvParticulares(wucEmpleados2.idEmpleado)
+        Dim r() As String = gc.agregarPrestamo(wucEmpleados2.idEmpleado, wucSuc.idSucursal, wucJornadas.idJornada, FF.ToString("MM/dd/yyyy"), TextBox2.Text, chkVer.Checked)
+        GridView1.DataSource = gc.gvPrestamo(wucEmpleados2.idEmpleado)
         gc = Nothing
         GridView1.DataBind()
         If r(0).StartsWith("Error") Then
@@ -165,11 +170,12 @@ Partial Class Particulares
             sgr = Nothing
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
 
-            wucEmpleados2.idEmpleado = 0
-            dropLTipo.SelectedValue = 0
-            fecha_ingreso.Text = ""
-            observaciones.Text = ""
-            cantidad.Text = ""
+            ' wucEmpleados2.idEmpleado = 0
+            wucJornadas.idJornada = 0
+            wucSuc.idSucursal = 0
+            TxFechaInicio.Text = ""
+            TextBox2.Text = ""
+            chkVer.Checked = False
 
         End If
         Lmsg.Text = r(0)
@@ -184,20 +190,19 @@ Partial Class Particulares
                 grdSR.Text = ""
             End If
             Dim dsP As New ctiCalendario
-            Dim datos() As String = dsP.datosParticulares(CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text))
+            Dim datos() As String = dsP.datosPrestamo(CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text))
             dsP = Nothing
             If datos(0).StartsWith("Error") Then
                 Lmsg.CssClass = "error"
                 Lmsg.Text = datos(0)
             Else
-                wucEmpleados2.idEmpleado = datos(1)
-                dropLTipo.SelectedValue = datos(2)
-                fecha_ingreso.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
+                wucEmpleados2.idEmpleado = datos(0)
+                wucSuc.idSucursal = datos(1)
+                wucJornadas.idJornada = datos(2)
+                TxFechaInicio.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
                 Fech = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
-
-                observaciones.Text = datos(4)
-                cantidad.Text = datos(5)
-                chkVer.Checked = datos(6)
+                TextBox2.Text = datos(4)
+                chkVer.Checked = datos(5)
 
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
@@ -205,7 +210,9 @@ Partial Class Particulares
                 gvPos = gvp.gridViewScrollPos(CInt(e.CommandArgument))
                 gvp = Nothing
                 btnActualizar.Enabled = True
+                btnGuardarNuevo.Enabled = False
             End If
         End If
     End Sub
 End Class
+

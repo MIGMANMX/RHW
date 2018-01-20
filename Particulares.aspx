@@ -62,14 +62,15 @@
         </table>
         <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="idparticulares" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="491px">
+            ForeColor="#333333" GridLines="None" Width="511px">
             <Columns>
                 <asp:BoundField DataField="idparticulares" ItemStyle-Width="1" ItemStyle-Font-Size="1" />
                 <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png"></asp:ButtonField>
                 <asp:BoundField DataField="tipo" HeaderText="Tipo" SortExpression="tipo" />
-                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha" />
+                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha"  HtmlEncode="False" DataFormatString = "{0:d}"/>
                <asp:BoundField DataField="observaciones" HeaderText="Observaciones" SortExpression="observaciones" />
                 <asp:BoundField DataField="cantidad" HeaderText="Cantidad" SortExpression="cantidad" />
+                <asp:CheckBoxField DataField="verificado" HeaderText="Verificado" />
                 <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png"></asp:ButtonField> 
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
@@ -88,7 +89,7 @@
                     <h4 class="auto-style5">
                         Registro</h4>  </td>
                     <td class="auto-style6">
-                        &nbsp;</td>
+                        <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label></td>
                
             </tr>
             <tr>
@@ -100,8 +101,16 @@
                        <asp:ListItem Value="Injustificadas">Faltas Injustificadas</asp:ListItem>
                    </asp:DropDownList>
                </td>
-                <td class="auto-style6"><asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label></td>
-
+               
+                <td class="auto-style6" id="VER" runat="server">
+            <div id="veri" runat="server">
+                                   
+            
+                     <asp:CheckBox ID="chkVer" runat="server" Text="Verificar" />
+            
+                      </div>             
+            
+                 </td>
             </tr>
             <tr>
                 <td class="auto-style7">Fecha:<br />
