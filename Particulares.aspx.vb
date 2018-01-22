@@ -58,7 +58,7 @@ Partial Class Particulares
                 grdSR.Text = ""
                 btnActualizar.Enabled = False
                 'puesto.Text = ""
-                wucEmpleados2.idEmpleado = 0
+                'wucEmpleados2.idEmpleado = 0
                 dropLTipo.SelectedValue = 0
                 fecha_ingreso.Text = ""
                 observaciones.Text = ""
@@ -122,7 +122,7 @@ Partial Class Particulares
         Else
             Lmsg.CssClass = "correcto"
             'Limpiar
-            wucEmpleados2.idEmpleado = 0
+            'wucEmpleados2.idEmpleado = 0
             dropLTipo.SelectedValue = 0
             fecha_ingreso.Text = ""
             observaciones.Text = ""
@@ -165,7 +165,7 @@ Partial Class Particulares
             sgr = Nothing
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
 
-            wucEmpleados2.idEmpleado = 0
+            ' wucEmpleados2.idEmpleado = 0
             dropLTipo.SelectedValue = 0
             fecha_ingreso.Text = ""
             observaciones.Text = ""

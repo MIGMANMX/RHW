@@ -33,6 +33,8 @@ Partial Class RepPrestamoEmp
         '    wucEmpleados2.ddlAutoPostBack = True
         'End If
         '''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        tSuc.Text = wucSucursales.sucursal
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiWUC
@@ -43,6 +45,7 @@ Partial Class RepPrestamoEmp
         'If IsNumeric(grdSR.Text) Then
         '    grdSR.Text = ""
         'End If
+        tSuc.Text = wucSucursales.sucursal
     End Sub
     Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
         If FIngreso.Visible = True Then
@@ -78,7 +81,7 @@ Partial Class RepPrestamoEmp
     Protected Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
         'Creación de un objeto CultureInfo con referencia cultural de México
         Dim c As CultureInfo = New CultureInfo("es-MX")
-
+        tSuc.Text = wucSucursales.sucursal
         Repo.ServerReport.Refresh()
         If wucSucursales.idSucursal <> 0 Then
             If TxFechaInicio.Text <> "" And TxFechaFin.Text <> "" Then

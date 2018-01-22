@@ -19,6 +19,8 @@
 
                    </td><td class="auto-style2" style="height: 59px">
                 
+                     <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Limpiar" Width="100px" />
+                
                 </td>
                 </tr>
             <tr>
@@ -43,11 +45,15 @@
 
                                     
 
-                    <td>&nbsp;</td>               
+                    <td>
+
+                     <asp:Button ID="btnGenerar" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Generar" ToolTip="Generar" Width="100px" style="margin-left: 0" />
+                
+                    </td>               
                     </td>
             </tr>  
             <tr>
-                <td class="auto-style25" style="height: 155px" ><asp:Calendar ID="FIngreso" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
+                <td class="auto-style25" style="height: 153px" ><asp:Calendar ID="FIngreso" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
                     <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
                     <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
                     <OtherMonthDayStyle ForeColor="#999999" />
@@ -59,7 +65,7 @@
                 </asp:Calendar>               
 
                 </td>
-               <td class="auto-style25" style="height: 155px" ><asp:Calendar ID="FFinal" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
+               <td class="auto-style25" style="height: 153px" ><asp:Calendar ID="FFinal" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
                     <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
                     <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
                     <OtherMonthDayStyle ForeColor="#999999" />
@@ -76,29 +82,23 @@
                
                  
             </tr>
-     <tr>
-         <td>
-
-                     <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Limpiar" Width="100px" />
-                
-         </td>
-         <td>
-
-                     <asp:Button ID="btnGenerar" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Generar" ToolTip="Generar" Width="100px" style="margin-left: 0" />
-                
-         </td>
-     </tr>
               </table>
     
       
-        <rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="461px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="900px">
+        <rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="461px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1005px">
             <LocalReport ReportPath="ReportPrestamoEmp.rdlc">
                 <DataSources>
                     <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
                 </DataSources>
             </LocalReport>
         </rsweb:ReportViewer>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_Prestamo_empleadoTableAdapter"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_Prestamo_empleadoTableAdapter" OldValuesParameterFormatString="original_{0}">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="tSuc" Name="sucursal" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="TxFechaInicio" Name="Fech1" PropertyName="Text" Type="DateTime" />
+                <asp:ControlParameter ControlID="TxFechaFin" Name="Fech2" PropertyName="Text" Type="DateTime" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
     
       
         <br />

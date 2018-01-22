@@ -31,6 +31,7 @@ Partial Class RepCasos
         Dim acceso As New ctiCatalogos
         'wucEmpleados2.ddlDataSource(wucSucursales.idSucursal)
         gvds = Nothing
+        tSuc.Text = wucSucursales.sucursal
         'wucEmpleados2.ddlAutoPostBack = True
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""

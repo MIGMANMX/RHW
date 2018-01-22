@@ -189,10 +189,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>sucursal</rd:DefaultName>
-        <Top>2.17882cm</Top>
+        <Top>2.14354cm</Top>
         <Left>11.30938cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.45159cm</Width>
+        <Width>5.53061cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -272,16 +272,19 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.89146cm</Width>
+              <Width>1.65334cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.1823cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.72409cm</Width>
+              <Width>1.5877cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>7.19686cm</Width>
+              <Width>5.59625cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.15604cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -420,6 +423,39 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Autorizado</Value>
+                              <Style>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>Maroon</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
             <TablixRow>
@@ -436,7 +472,7 @@
                             <TextRun>
                               <Value>=Fields!fecha.Value</Value>
                               <Style>
-                                <Format>dd/MM/yyyy</Format>
+                                <Format>dd/MM/yy</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -547,6 +583,36 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="verificado">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!verificado.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>verificado</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
           </TablixRows>
@@ -557,13 +623,14 @@
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
           <TablixMembers>
             <TablixMember>
               <TablixHeader>
-                <Size>5.25167cm</Size>
+                <Size>3.66437cm</Size>
                 <CellContents>
                   <Textbox Name="Textbox22">
                     <CanGrow>true</CanGrow>
@@ -613,7 +680,7 @@
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
-                <Size>5.25167cm</Size>
+                <Size>3.66437cm</Size>
                 <CellContents>
                   <Textbox Name="empleado2">
                     <CanGrow>true</CanGrow>
@@ -623,7 +690,9 @@
                         <TextRuns>
                           <TextRun>
                             <Value>=Fields!empleado.Value</Value>
-                            <Style />
+                            <Style>
+                              <FontSize>8pt</FontSize>
+                            </Style>
                           </TextRun>
                         </TextRuns>
                         <Style />
@@ -652,10 +721,9 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>5.10328cm</Top>
-        <Left>0.19689cm</Left>
+        <Top>4.78578cm</Top>
         <Height>1.2cm</Height>
-        <Width>18.56408cm</Width>
+        <Width>16.83999cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -667,7 +735,7 @@
     <Height>2.80208in</Height>
     <Style />
   </Body>
-  <Width>7.48504in</Width>
+  <Width>6.75595in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
@@ -726,6 +794,10 @@
         <Field Name="cantidad">
           <DataField>cantidad</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="verificado">
+          <DataField>verificado</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
