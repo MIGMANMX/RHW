@@ -87,15 +87,14 @@
     
       
         <rsweb:ReportViewer ID="Repo" runat="server" Font-Names="Verdana" Font-Size="8pt" Height="461px" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="1005px">
-            <LocalReport ReportPath="ReportPrestamoEmp.rdlc">
+            <LocalReport ReportPath="ReportPrestamoEmpSuc.rdlc">
                 <DataSources>
                     <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
                 </DataSources>
             </LocalReport>
         </rsweb:ReportViewer>
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_Prestamo_empleadoTableAdapter" OldValuesParameterFormatString="original_{0}">
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_Prestamo_empleadoTTableAdapter" OldValuesParameterFormatString="original_{0}">
             <SelectParameters>
-                <asp:ControlParameter ControlID="tSuc" Name="sucursal" PropertyName="Text" Type="String" />
                 <asp:ControlParameter ControlID="TxFechaInicio" Name="Fech1" PropertyName="Text" Type="DateTime" />
                 <asp:ControlParameter ControlID="TxFechaFin" Name="Fech2" PropertyName="Text" Type="DateTime" />
             </SelectParameters>

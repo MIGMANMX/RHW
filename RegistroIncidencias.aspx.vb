@@ -21,23 +21,7 @@ Partial Class _RegistroIncidencias
             wucEmpleados2.ddlAutoPostBack = True
 
             If Request("btnSi") <> "" Then
-                Dim ec As New ctiCatalogos
-                Dim err As String = ec.eliminarAsigIncidencias(CInt(Session("idz_e")))
-                GridView1.DataSource = ec.gvAsigIncidencias(wucEmpleados2.idEmpleado)
-                ec = Nothing
-                GridView1.DataBind()
-                If err.StartsWith("Error") Then
-                    Lmsg.CssClass = "error"
-                    grdSR.Text = ""
 
-                Else
-                    Lmsg.CssClass = "correcto"
-                    grdSR.Text = ""
-
-
-
-                End If
-                Lmsg.Text = err
             End If
             Session("idz_e") = ""
 
@@ -113,6 +97,7 @@ Partial Class _RegistroIncidencias
         Lmsg.Text = ""
         TxObservaciones.Text = ""
         GridView1.Visible = False
+        FechaC.SelectedDates.Clear()
         'btnActualizarr.Visible = False
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
@@ -170,6 +155,7 @@ Partial Class _RegistroIncidencias
                 btnActualizarr.Enabled = False
                 btnGuardarNuevo.Enabled = True
                 fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
+                FechaC.SelectedDates.Clear()
             End If
             gvp = Nothing
             Lmsg.Text = r
@@ -179,8 +165,9 @@ Partial Class _RegistroIncidencias
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
-            Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(2).Text
+            Session("idz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(1).Text
             Session("dz_e") = GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(3).Text
+
         ElseIf e.CommandName = "Editar" Then
             If IsNumeric(grdSR.Text) Then
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal
@@ -197,7 +184,7 @@ Partial Class _RegistroIncidencias
                 idDetalle.Text = datos(0)
                 wucIncidencias.idIncidencia = CInt(datos(1))
                 wucEmpleados2.idEmpleado = CInt(datos(2))
-                fecha.Text = datos(3).ToString
+                fecha.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
                 TxObservaciones.Text = datos(4).ToString
                 chkVer.Checked = datos(5)
                 grdSR.Text = e.CommandArgument.ToString
@@ -222,4 +209,31 @@ Partial Class _RegistroIncidencias
         wucIncidencias.ddlAutoPostBack = True
     End Sub
 
+    Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+        If idDetalle.Text <> "" Then
+            Dim ec As New ctiCatalogos
+            Dim err As String = ec.eliminarAsigIncidencias(idDetalle.Text)
+            GridView1.DataSource = ec.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+            ec = Nothing
+            GridView1.DataBind()
+            If err.StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+                grdSR.Text = ""
+
+            Else
+                Lmsg.CssClass = "correcto"
+                grdSR.Text = ""
+
+                wucIncidencias.idIncidencia = 0
+                fecha.Text = ""
+                Lmsg.Text = ""
+                TxObservaciones.Text = ""
+
+                FechaC.SelectedDates.Clear()
+            End If
+            Lmsg.Text = err
+        Else
+            Lmsg.Text = "Error: Seleccione una incidencia"
+        End If
+    End Sub
 End Class

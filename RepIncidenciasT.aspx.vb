@@ -42,7 +42,7 @@ Partial Class RepIncidenciasT
         TFInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
 
 
-        Ffin.Text = DateAdd(DateInterval.Day, 6, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
+        Ffin.Text = DateAdd(DateInterval.Day, 13, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
 
     End Sub
 End Class

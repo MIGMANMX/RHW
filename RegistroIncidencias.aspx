@@ -9,7 +9,7 @@
 <%@ Register src="cti/wucJornadas.ascx" tagname="wucjornadas" tagprefix="uc3" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-     <%-- <% If IsNumeric(Session("idz_e")) Then
+      <% If IsNumeric(Session("idz_e")) Then
               Response.Write("<div id=confirmar style='position:fixed; left:200; top:300; background-color:White; border-style:solid; border-width:1px; border-color:Black;'>")
               Response.Write("<table>")
               Response.Write("<tr><td rowspan=7 width=5 /><td height=6 /><td rowspan=7 width=6 /></tr>")
@@ -20,10 +20,10 @@
               Response.Write("<tr><td align=center><input type=submit name=btnSi value='   Sí   ' class='boton' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
               Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
               Response.Write("<tr><td height=6 /></tr></table></div>")
-          End If%>--%>
+          End If%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <%-- <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>
+  
     <style type="text/css">
         #contenedor{
             overflow:hidden
@@ -68,7 +68,8 @@
         <table class="auto-style20">
             <tr>
                 <td class="auto-style19" id="suc" runat="server">Sucursal:<br />
-                    <uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
+                    <uc1:wucsucursales ID="wucSucursales" runat="server" />
+                </td>
                 <td class="auto-style15">Empleado:<uc2:wucempleados2 ID="wucEmpleados2" runat="server" />
                     <asp:TextBox ID="idDetalle" runat="server" Visible="False" Width="37px"></asp:TextBox>
                     <asp:TextBox ID="TIDPJ" runat="server" Visible="False" Width="37px"></asp:TextBox>
@@ -124,14 +125,20 @@
             <tr>
             <td class="auto-style19"> 
                     <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Actualizar datos" Enabled="true" Width="108px" /> 
-                   
-                     <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Agregar" ToolTip="Agregar" Width="108px" />                
-                   
-                      </td>
+
+            </td>
                  <td class="auto-style15">
             
-           <asp:Button ID="btnActualizarr" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Actualizar" ToolTip="Actualizar" Width="108px" />
+           <asp:Button ID="btnActualizarr" runat="server" CssClass="btn btn-warning btn-block btn-flat" Text="Actualizar" ToolTip="Actualizar" Width="108px" />
                    </td>     </tr>
+            <tr>
+                <td>
+                      <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Agregar" ToolTip="Agregar" Width="108px" />                                
+                </td>
+                <td>
+                     <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Eliminar" ToolTip="Eliminar" Width="108px" />                                              
+                </td>
+            </tr>
         </table></div>
 
 
@@ -151,8 +158,8 @@
                 <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha"  HtmlEncode="False" DataFormatString = "{0:d}" />
                 <asp:BoundField DataField="observaciones" HeaderText="Observaciones" SortExpression="observaciones" />
                 <asp:CheckBoxField DataField="verificado" HeaderText="Verificado" />
-               <%-- <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />--%>
-                
+            <%--    <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png" />
+          --%>      
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />

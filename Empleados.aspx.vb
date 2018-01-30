@@ -215,9 +215,11 @@ Partial Class _Empleados
                     clave = _clave + 1
                     claveTX.Text = clave
                 End If
-                empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
+                empleado.Text = "" : WucPuestos.idPuesto = 3 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
                 nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
-
+                FIngreso.SelectedDates.Clear()
+                CFBaja.SelectedDates.Clear()
+                CFNacimiento.SelectedDates.Clear()
             End If
             Lmsg.Text = r(0)
         End If
@@ -333,12 +335,13 @@ Partial Class _Empleados
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
                 gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
             Else
-                empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
+                empleado.Text = "" : WucPuestos.idPuesto = 3 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
                 nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
                 btnGuardarNuevo.Enabled = True
 
-
-
+                FIngreso.SelectedDates.Clear()
+                CFBaja.SelectedDates.Clear()
+                CFNacimiento.SelectedDates.Clear()
             End If
 
             Dim dsP As New ctiCatalogos
@@ -367,8 +370,9 @@ Partial Class _Empleados
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
             btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
-            empleado.Text = "" : WucPuestos.idPuesto = 0 : wucSuc.idSucursal = 0
+            empleado.Text = "" : WucPuestos.idPuesto = 3 : wucSuc.idSucursal = 0
         End If
+        wucSuc.idSucursal = wucSucursales.idSucursal
     End Sub
     Protected Sub chkActivo_CheckedChanged(sender As Object, e As EventArgs) Handles chkActivo.CheckedChanged
         Dim gvds As New ctiCatalogos
