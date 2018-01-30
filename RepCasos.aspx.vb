@@ -16,6 +16,27 @@ Partial Class RepCasos
         tSuc.Text = wucSucursales.sucursal
         Mens.Text = ""
         ' Repo.ServerReport.Refresh()
+        '''''''''''''Ocultar sucursales a Gerentes
+        Dim acceso As New ctiCatalogos
+        Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
+        Dim gvds As New ctiWUC
+        'If wucEmpleados2.idEmpleado = 0 Then
+        If datos(0) = 2 Then
+            wucSucursales.idSucursal = datos(1)
+            wucSucursales.Visible = False
+            suc.Visible = False
+            'wucEmpleados2.ddlDataSource(datos(1))
+            'wucEmpleados2.ddlAutoPostBack = True
+            'If IsNumeric(grdSR.Text) Then
+            '    grdSR.Text = ""
+        End If
+        'End If
+        'Else
+        '    wucEmpleados2.ddlAutoPostBack = True
+        'End If
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
     End Sub
     Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
         TxFechaInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")

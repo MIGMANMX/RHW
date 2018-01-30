@@ -31,9 +31,9 @@ Partial Class Principal
             rep.Visible = True
             che.Visible = False
             rep1.Visible = True
-            rep2.Visible = False
+            rep2.Visible = True
             rep3.Visible = True
-            rep4.Visible = False
+            rep4.Visible = True
             rep5.Visible = True
             incide.Visible = False
             regInidencia.Visible = True
@@ -41,6 +41,10 @@ Partial Class Principal
             EHJ.Visible = False
             confi.Visible = False
             rep6.Visible = False
+            Aut.Visible = False
+            rep9.Visible = False
+            rep8.Visible = False
+            rep7.Visible = True
         End If
 
         If datos(0) = 7 Then
@@ -54,9 +58,9 @@ Partial Class Principal
             rep.Visible = True
             che.Visible = True
             rep1.Visible = True
-            rep2.Visible = True
+            rep2.Visible = False
             rep3.Visible = True
-            rep4.Visible = True
+            rep4.Visible = False
             rep5.Visible = False
             rep6.Visible = True
             incide.Visible = True
@@ -65,6 +69,9 @@ Partial Class Principal
             EHJ.Visible = True
             confi.Visible = True
             acc.Visible = False
+            rep9.Visible = True
+            rep8.Visible = True
+            rep7.Visible = False
         End If
         If datos(0) = 8 Then
             acc.Visible = False
@@ -79,9 +86,9 @@ Partial Class Principal
             rep.Visible = True
             che.Visible = True
             rep1.Visible = True
-            rep2.Visible = True
+            rep2.Visible = False
             rep3.Visible = True
-            rep4.Visible = True
+            rep4.Visible = False
             rep5.Visible = False
             rep6.Visible = True
             incide.Visible = True
@@ -89,6 +96,10 @@ Partial Class Principal
             dia.Visible = True
             EHJ.Visible = True
             confi.Visible = True
+            Aut.Visible = False
+            rep9.Visible = True
+            rep8.Visible = True
+            rep7.Visible = False
         End If
     End Sub
 End Class

@@ -106,73 +106,84 @@ Partial Class Particulares
         FIngreso.Visible = False
     End Sub
     Protected Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
-        Dim ap As New ctiCalendario
-        Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
+        If fecha_ingreso.Text <> "" And cantidad.Text <> "" And observaciones.Text <> "" Then
 
-        Dim FF As Date
-        FF = fecha_ingreso.Text.ToString
-        Convert.ToDateTime(FF)
+            Dim ap As New ctiCalendario
+            Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
 
-        Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, cantidad.Text, chkVer.Checked)
-        GridView1.DataSource = ap.gvParticulares(wucEmpleados2.idEmpleado)
-        ap = Nothing
-        GridView1.DataBind()
-        If r.StartsWith("Error") Then
-            Lmsg.CssClass = "error"
+            Dim FF As Date
+            FF = fecha_ingreso.Text.ToString
+            Convert.ToDateTime(FF)
+
+            Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, cantidad.Text, chkVer.Checked)
+            GridView1.DataSource = ap.gvParticulares(wucEmpleados2.idEmpleado)
+            ap = Nothing
+            GridView1.DataBind()
+            If r.StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+            Else
+                Lmsg.CssClass = "correcto"
+                'Limpiar
+                'wucEmpleados2.idEmpleado = 0
+                dropLTipo.SelectedValue = 0
+                fecha_ingreso.Text = ""
+                observaciones.Text = ""
+                cantidad.Text = ""
+            End If
+            Dim gvp As New clsCTI
+            grdSR.Text = gvp.seleccionarGridRow(GridView1, (CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)))
+            GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+            gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+            gvp = Nothing
+            Lmsg.Text = r
         Else
-            Lmsg.CssClass = "correcto"
-            'Limpiar
-            'wucEmpleados2.idEmpleado = 0
-            dropLTipo.SelectedValue = 0
-            fecha_ingreso.Text = ""
-            observaciones.Text = ""
-            cantidad.Text = ""
+            Lmsg.Text = "Falta capturar un dato"
         End If
-        Dim gvp As New clsCTI
-        grdSR.Text = gvp.seleccionarGridRow(GridView1, (CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)))
-        GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
-        gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
-        gvp = Nothing
-        Lmsg.Text = r
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        Dim canti As String
-        If IsNumeric(grdSR.Text) Then
-            grdSR.Text = ""
-            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
-        End If
-        If cantidad.Text = "" Then
-            canti = "0"
+        If fecha_ingreso.Text <> "" And cantidad.Text <> "" And observaciones.Text <> "" Then
+
+
+            Dim canti As String
+            If IsNumeric(grdSR.Text) Then
+                grdSR.Text = ""
+                btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
+            End If
+            If cantidad.Text = "" Then
+                canti = "0"
+            Else
+                canti = cantidad.Text
+            End If
+
+            Dim gc As New ctiCalendario
+            Dim FF As Date
+            FF = fecha_ingreso.Text.ToString
+            Convert.ToDateTime(FF)
+            Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, canti, chkVer.Checked)
+            GridView1.DataSource = gc.gvParticulares(wucEmpleados2.idEmpleado)
+            gc = Nothing
+            GridView1.DataBind()
+            If r(0).StartsWith("Error") Then
+                Lmsg.CssClass = "error"
+            Else
+                Lmsg.CssClass = "correcto"
+                Dim sgr As New clsCTI
+                grdSR.Text = sgr.seleccionarGridRow(GridView1, CInt(r(1))).ToString
+                gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+                sgr = Nothing
+                btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
+
+                ' wucEmpleados2.idEmpleado = 0
+                dropLTipo.SelectedValue = 0
+                fecha_ingreso.Text = ""
+                observaciones.Text = ""
+                cantidad.Text = ""
+
+            End If
+            Lmsg.Text = r(0)
         Else
-            canti = cantidad.Text
+            Lmsg.Text = "Falta capturar un dato"
         End If
-
-        Dim gc As New ctiCalendario
-        Dim FF As Date
-        FF = fecha_ingreso.Text.ToString
-        Convert.ToDateTime(FF)
-        Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, canti, chkVer.Checked)
-        GridView1.DataSource = gc.gvParticulares(wucEmpleados2.idEmpleado)
-        gc = Nothing
-        GridView1.DataBind()
-        If r(0).StartsWith("Error") Then
-            Lmsg.CssClass = "error"
-        Else
-            Lmsg.CssClass = "correcto"
-            Dim sgr As New clsCTI
-            grdSR.Text = sgr.seleccionarGridRow(GridView1, CInt(r(1))).ToString
-            gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
-            sgr = Nothing
-            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
-
-            ' wucEmpleados2.idEmpleado = 0
-            dropLTipo.SelectedValue = 0
-            fecha_ingreso.Text = ""
-            observaciones.Text = ""
-            cantidad.Text = ""
-
-        End If
-        Lmsg.Text = r(0)
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then

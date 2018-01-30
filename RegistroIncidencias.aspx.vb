@@ -116,7 +116,7 @@ Partial Class _RegistroIncidencias
         'btnActualizarr.Visible = False
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 Then
+        If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
             Dim gp As New ctiCatalogos
             If IsNumeric(grdSR.Text) Then
                 grdSR.Text = ""
@@ -144,13 +144,15 @@ Partial Class _RegistroIncidencias
         End If
     End Sub
     Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
-        Dim ap As New ctiCatalogos
+        If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
 
-        Dim idA As Integer = CInt(idDetalle.Text)
+            Dim ap As New ctiCatalogos
 
-        Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked)
-        GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
-        ap = Nothing
+            Dim idA As Integer = CInt(idDetalle.Text)
+
+            Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked)
+            GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+            ap = Nothing
             GridView1.DataBind()
             If r.StartsWith("Error") Then
                 Lmsg.CssClass = "error"
@@ -165,12 +167,15 @@ Partial Class _RegistroIncidencias
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
                 gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
             Else
-            btnActualizarr.Enabled = False
-            btnGuardarNuevo.Enabled = True
-            fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
-        End If
+                btnActualizarr.Enabled = False
+                btnGuardarNuevo.Enabled = True
+                fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
+            End If
             gvp = Nothing
-        Lmsg.Text = r
+            Lmsg.Text = r
+        Else
+            Lmsg.Text = "Error: Es necesario capturar los datos."
+        End If
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then

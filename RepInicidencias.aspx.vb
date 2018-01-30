@@ -1,6 +1,8 @@
 ﻿
 Imports Microsoft.Reporting.WebForms
 Imports System.Globalization
+Imports RHLogica
+
 Partial Class RepInicidencias
     Inherits System.Web.UI.Page
 
@@ -16,6 +18,27 @@ Partial Class RepInicidencias
         FIngreso.FirstDayOfWeek = WebControls.FirstDayOfWeek.Monday
         Mens.Text = ""
         ReportViewer1.ServerReport.Refresh()
+        '''''''''''''Ocultar sucursales a Gerentes
+        Dim acceso As New ctiCatalogos
+        Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
+        Dim gvds As New ctiWUC
+        'If wucEmpleados2.idEmpleado = 0 Then
+        If datos(0) = 2 Then
+            wucSucursales.idSucursal = datos(1)
+            wucSucursales.Visible = False
+            Suc.Visible = False
+            'wucEmpleados2.ddlDataSource(datos(1))
+            'wucEmpleados2.ddlAutoPostBack = True
+            'If IsNumeric(grdSR.Text) Then
+            '    grdSR.Text = ""
+        End If
+        'End If
+        'Else
+        '    wucEmpleados2.ddlAutoPostBack = True
+        'End If
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        tSuc.Text = wucSucursales.sucursal
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         tSuc.Text = wucSucursales.sucursal

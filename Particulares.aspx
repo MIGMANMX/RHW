@@ -106,7 +106,7 @@
             <div id="veri" runat="server">
                                    
             
-                     <asp:CheckBox ID="chkVer" runat="server" Text="Verificar" />
+                     <asp:CheckBox ID="chkVer" runat="server" Text="Autorizado" />
             
                       </div>             
             

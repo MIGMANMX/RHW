@@ -10,7 +10,7 @@
    <div id="left">
         <table class="auto-style3">
             <tr>
-                <td class="auto-style1">Sucursal:<asp:TextBox ID="tSuc" runat="server" Visible="False"></asp:TextBox>
+                <td class="auto-style1" id="Suc" runat="server">Sucursal:<asp:TextBox ID="tSuc" runat="server" Visible="False"></asp:TextBox>
                     <br />
                     <uc1:wucsucursales ID="wucSucursales" runat="server" />&nbsp; </td>
                 <td class="auto-style3">

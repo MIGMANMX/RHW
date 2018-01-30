@@ -264,13 +264,15 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!verificado.Value</Value>
+                              <Value>=IIF((Fields!verificado.Value =False),IIF((Fields!verificado.Value =True),"SI","NO"),"SI")</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>verificado</rd:DefaultName>
@@ -279,12 +281,14 @@
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -398,7 +402,7 @@
         <Top>0.15557cm</Top>
         <Left>0.2714cm</Left>
         <Height>1.2cm</Height>
-        <Width>13.42535cm</Width>
+        <Width>13.42536cm</Width>
         <Style>
           <Border>
             <Style>None</Style>

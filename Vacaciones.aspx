@@ -1,10 +1,9 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="PrestamoEmp.aspx.vb" Inherits="PrestamoEmp" %>
-
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="Vacaciones.aspx.vb" Inherits="Vacaciones" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados2.ascx" tagname="wucEmpleados2" tagprefix="uc2" %>
 <%@ Register src="cti/wucJornadas.ascx" tagname="wucjornadas" tagprefix="uc3" %>
 <%@ Register src="cti/wucSuc.ascx" tagname="wucSuc" tagprefix="uc4" %>
-
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -19,8 +18,8 @@
              float:right;
         }
         .auto-style2 {
-            height: 434px;
-            width: 1062px;
+            height: 914px;
+            width: 1034px;
         }
         .auto-style6 {
             width: 153px;
@@ -43,7 +42,7 @@
             Response.Write("<tr><td height=6 /></tr></table></div>")
         End If%>
 
-    <h3>Prestamo de Personal</h3>
+    <h3>Registro de vacaciones</h3>
     <div id="izquierdo">
         <table>
             <tr>
@@ -105,10 +104,8 @@
                 
 
                  </td>
-                <td class="auto-style1">Observaciones:<br />
-                    <asp:TextBox ID="TextBox2" runat="server" Height="84px" TextMode="MultiLine"></asp:TextBox>
-                    <br />
-                    
+                <td class="auto-style1"><br />
+                                        
                 
 
                     <td class="auto-style1">
@@ -134,5 +131,7 @@
                
             </tr></table>
         </div>
+     <rsweb:ReportViewer ID="Repo" runat="server" Height="537px" Width="992px"></rsweb:ReportViewer>
+
 </div>
 </asp:Content>

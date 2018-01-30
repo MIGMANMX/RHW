@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepCasos.aspx.vb" Inherits="RepCasos" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="RepCasosSuc.aspx.vb" Inherits="RepCasosSuc" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucEmpleados2.ascx" tagname="wucEmpleados2" tagprefix="uc2" %>
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
@@ -8,11 +8,7 @@
      <div id="listaDatos"> 
       <table class="auto-style3">
             <tr>
-                <td class="auto-style1" style="width: 234px; height: 68px" id="Suc" runat="server">Sucursal:<br />
-                    <uc1:wucsucursales ID="wucSucursales" runat="server" />
-                    <br />
-                    <asp:TextBox ID="tSuc" runat="server" Visible="False"></asp:TextBox>
-                </td>
+                <td class="auto-style1" style="width: 234px; height: 68px">&nbsp;</td>
                 <td style="height: 68px">
                 
                      
@@ -92,18 +88,16 @@
          </div>
      <br />
      <rsweb:ReportViewer ID="Repo" runat="server" Width="958px" Font-Names="Verdana" Font-Size="8pt" WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-         <LocalReport ReportPath="ReportCasos.rdlc">
+         <LocalReport ReportPath="ReportCasosSuc.rdlc">
              <DataSources>
                  <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1" />
              </DataSources>
          </LocalReport>
      </rsweb:ReportViewer>
-<asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_ParticularesTableAdapter">
+<asp:ObjectDataSource ID="ObjectDataSource1" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="nomRHDataSetTableAdapters.vm_ParticularesTTableAdapter">
     <SelectParameters>
-        <asp:ControlParameter ControlID="tSuc" Name="sucursal" PropertyName="Text" Type="String" />
         <asp:ControlParameter ControlID="TxFechaInicio" Name="Fech1" PropertyName="Text" Type="String" />
         <asp:ControlParameter ControlID="TxFechaFin" Name="Fech2" PropertyName="Text" Type="String" />
     </SelectParameters>
 </asp:ObjectDataSource>
 </asp:Content>
-
