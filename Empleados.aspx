@@ -3,6 +3,7 @@
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <%@ Register src="cti/wucPuestos.ascx" tagname="wucPuestos" tagprefix="uc2" %>
 <%@ Register src="cti/wucSuc.ascx" tagname="wucSuc" tagprefix="uc3" %>
+<%@ Register src="cti/wucTipoJornada.ascx" tagname="wucTipoJornada" tagprefix="uc4" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -176,6 +177,14 @@
             </tr>
             <tr>
                 <td class="auto-style5">Correo:<asp:TextBox ID="correo" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" /></td>
+                
+              <td>Tipo de jornada:<br />
+                  <uc4:wucTipoJornada ID="wucTipoJornada" runat="server" /></td>
+                 </tr>
+            <tr>
+                <td>
+
+                </td>
                 <td class="auto-style2" id="baj" runat="server">Fecha de Baja:<br />
                     <asp:TextBox ID="fecha_baja" runat="server" CssClass="txtCaptura" MaxLength="40" Width="152px" />
 

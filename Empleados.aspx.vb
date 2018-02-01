@@ -94,6 +94,7 @@ Partial Class _Empleados
                 claveTX.Text = ""
                 claveTX.Text = datos(16)
                 Catt = datos(16)
+                wucTipoJornada.idTipoJornada = datos(17)
                 claveTX.Enabled = True
 
                 grdSR.Text = e.CommandArgument.ToString
@@ -188,7 +189,7 @@ Partial Class _Empleados
             End If
             Dim gp As New ctiCatalogos
 
-            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, WucPuestos.idPuesto, claveTX.Text)
+            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, WucPuestos.idPuesto, claveTX.Text, wucTipoJornada.idTipoJornada)
             GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
             gp = Nothing
             GridView1.DataBind()
@@ -319,7 +320,7 @@ Partial Class _Empleados
 
             Dim ap As New ctiCatalogos
             Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja)
+            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja, wucTipoJornada.idTipoJornada)
             GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
             ap = Nothing
             GridView1.DataBind()
