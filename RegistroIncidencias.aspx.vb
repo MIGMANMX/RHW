@@ -34,7 +34,7 @@ Partial Class _RegistroIncidencias
                 wucSucursales.Visible = False
                 suc.Visible = False
                 wucEmpleados2.ddlDataSource(datos(1))
-
+                elim.Visible = False
                 gvds = Nothing
                 wucEmpleados2.ddlAutoPostBack = True
                 If IsNumeric(grdSR.Text) Then

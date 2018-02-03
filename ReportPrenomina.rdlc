@@ -3237,7 +3237,7 @@
                               <Value>=Fields!ImporteNormal.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'0.000;('$'0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3262,7 +3262,6 @@
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="TiempoExtra">
-                      <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -3271,7 +3270,7 @@
                               <Value>=Fields!TiempoExtra.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'#,0.000;('$'#,0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3305,7 +3304,7 @@
                               <Value>=Fields!TiempoTriple.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'#,0.000;('$'#,0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3339,7 +3338,7 @@
                               <Value>=Fields!DiaFestivo.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'#,0.000;('$'#,0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3373,7 +3372,7 @@
                               <Value>=Fields!SeptimoDia.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'#,0.000;('$'#,0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3407,7 +3406,7 @@
                               <Value>=Fields!PrimaDominical.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'#,0.000;('$'#,0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3441,7 +3440,7 @@
                               <Value>=Fields!DiaDescanso.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'#,0.000;('$'#,0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3466,16 +3465,15 @@
                 <TablixCell>
                   <CellContents>
                     <Textbox Name="ImporteTotal">
-                      <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!ImporteTotal.Value</Value>
+                              <Value>=CDbl(Fields!ImporteTotal.Value)</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0,.00;('$'#,0,.00)</Format>
+                                <Format>'$'#,0.000;('$'#,0.000)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>

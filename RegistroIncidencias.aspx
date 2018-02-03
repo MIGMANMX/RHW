@@ -135,7 +135,7 @@
                 <td>
                       <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Agregar" ToolTip="Agregar" Width="108px" />                                
                 </td>
-                <td>
+                <td id="elim" runat="server">
                      <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Eliminar" ToolTip="Eliminar" Width="108px" />                                              
                 </td>
             </tr>
