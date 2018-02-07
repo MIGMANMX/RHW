@@ -141,7 +141,7 @@ Partial Class Particulares
         End If
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        If fecha_ingreso.Text <> "" And cantidad.Text <> "" And observaciones.Text <> "" Then
+        If fecha_ingreso.Text <> "" And observaciones.Text <> "" Then
 
 
             Dim canti As String
@@ -159,6 +159,8 @@ Partial Class Particulares
             Dim FF As Date
             FF = fecha_ingreso.Text.ToString
             Convert.ToDateTime(FF)
+
+
             Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, canti, chkVer.Checked)
             GridView1.DataSource = gc.gvParticulares(wucEmpleados2.idEmpleado)
             gc = Nothing

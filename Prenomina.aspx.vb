@@ -885,8 +885,12 @@ Partial Class Prenomina
     End Sub
     Public Sub HorasExtrasTriples()
         HorasExtrasTriplesT = 0
-        If HTotalesT > 10 Then
-            HorasExtrasTriplesT = HorasExtrasT * 3
+        If HTotalesT >= 96 Then
+            If HorasExtrasT > 10 Then
+                HorasExtrasTriplesT = HorasExtrasT * 3
+            Else
+                HorasExtrasTriplesT = 0
+            End If
         Else
             HorasExtrasTriplesT = 0
         End If
