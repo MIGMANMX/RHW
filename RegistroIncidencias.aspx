@@ -119,9 +119,19 @@
             
           <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
             
-                                   
+                                  
             
                  </td>     </tr>
+            <tr>
+                <td>
+
+                    Nota:<br />
+                    <asp:TextBox ID="Txnota" runat="server" CssClass="txtCaptura" MaxLength="40" Width="188px" Height="90px" TextMode="MultiLine" />
+            
+                                   
+            
+                </td> 
+            </tr>
             <tr>
             <td class="auto-style19"> 
                     <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Actualizar datos" Enabled="true" Width="108px" /> 

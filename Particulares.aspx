@@ -17,7 +17,7 @@
              float:right;
         }
         .auto-style2 {
-            height: 434px;
+            height: 549px;
             width: 929px;
         }
         .auto-style3 {
@@ -153,7 +153,12 @@
             </tr>
                  <tr>
                       <td class="auto-style7">
-                          &nbsp;</td>    
+                          Nota:<br />
+                    <asp:TextBox ID="Txnota" runat="server" CssClass="txtCaptura" MaxLength="40" Width="188px" Height="90px" TextMode="MultiLine" />
+            
+                                   
+            
+                      </td>    
                  </tr>        
         </table>
         

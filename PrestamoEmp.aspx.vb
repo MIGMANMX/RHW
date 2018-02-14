@@ -23,6 +23,7 @@ Partial Class PrestamoEmp
             If datos(0) = 8 Then
                 chkVer.Checked = False
                 veri.Visible = False
+                Txnota.Enabled = False
                 wucEmpleados2.ddlAutoPostBack = True
                 If IsNumeric(grdSR.Text) Then
                     grdSR.Text = ""
@@ -31,6 +32,7 @@ Partial Class PrestamoEmp
             If datos(0) = 2 Then
                 chkVer.Checked = False
                 veri.Visible = False
+                Txnota.Enabled = False
                 wucSucursales.idSucursal = datos(1)
                 wucSucursales.Visible = False
                 wucEmpleados2.ddlDataSource(datos(1))
@@ -122,7 +124,7 @@ Partial Class PrestamoEmp
             FF = TxFechaInicio.Text.ToString
             Convert.ToDateTime(FF)
 
-            Dim r As String = ap.actualizarPrestamo((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, wucSuc.idSucursal, wucJornadas.idJornada, FF.ToString("MM/dd/yyyy"), TextBox2.Text, chkVer.Checked)
+            Dim r As String = ap.actualizarPrestamo((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, wucSuc.idSucursal, wucJornadas.idJornada, FF.ToString("MM/dd/yyyy"), TextBox2.Text, chkVer.Checked, Txnota.Text)
             GridView1.DataSource = ap.gvPrestamo(wucEmpleados2.idEmpleado)
             ap = Nothing
             GridView1.DataBind()
@@ -155,12 +157,15 @@ Partial Class PrestamoEmp
                 grdSR.Text = ""
                 btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
             End If
-
+            Dim nota As String
+            If Txnota.Text = "" Then
+                nota = "Sin Verificar"
+            End If
             Dim gc As New ctiCalendario
             Dim FF As Date
             FF = TxFechaInicio.Text.ToString
             Convert.ToDateTime(FF)
-            Dim r() As String = gc.agregarPrestamo(wucEmpleados2.idEmpleado, wucSuc.idSucursal, wucJornadas.idJornada, FF.ToString("MM/dd/yyyy"), TextBox2.Text, chkVer.Checked)
+            Dim r() As String = gc.agregarPrestamo(wucEmpleados2.idEmpleado, wucSuc.idSucursal, wucJornadas.idJornada, FF.ToString("MM/dd/yyyy"), TextBox2.Text, chkVer.Checked, nota)
             GridView1.DataSource = gc.gvPrestamo(wucEmpleados2.idEmpleado)
             gc = Nothing
             GridView1.DataBind()
@@ -210,7 +215,7 @@ Partial Class PrestamoEmp
                 Fech = Convert.ToDateTime(datos(3)).ToString("yyyy-MM-dd")
                 TextBox2.Text = datos(4)
                 chkVer.Checked = datos(5)
-
+                Txnota.Text = datos(6)
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI

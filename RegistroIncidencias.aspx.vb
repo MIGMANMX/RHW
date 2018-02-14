@@ -40,8 +40,10 @@ Partial Class _RegistroIncidencias
                 If IsNumeric(grdSR.Text) Then
                     grdSR.Text = ""
                 End If
+                Txnota.Enabled = False
             End If
             If datos(0) = 8 Then
+                Txnota.Enabled = False
                 chkVer.Checked = False
                 VER.Visible = False
                 wucEmpleados2.ddlAutoPostBack = True
@@ -98,6 +100,7 @@ Partial Class _RegistroIncidencias
         TxObservaciones.Text = ""
         GridView1.Visible = False
         FechaC.SelectedDates.Clear()
+        Txnota.Text = ""
         'btnActualizarr.Visible = False
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
@@ -107,8 +110,12 @@ Partial Class _RegistroIncidencias
                 grdSR.Text = ""
 
             End If
+            Dim nota As String
+            If Txnota.Text = "" Then
+                nota = "Sin Verificar"
+            End If
             Dim gc As New ctiCatalogos
-            Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, FechaC.SelectedDate.ToString, TxObservaciones.Text, chkVer.Checked)
+            Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, FechaC.SelectedDate.ToString, TxObservaciones.Text, chkVer.Checked, nota)
             GridView1.DataSource = gc.gvAsigIncidencias(wucEmpleados2.idEmpleado)
             gc = Nothing
             GridView1.DataBind()
@@ -135,7 +142,7 @@ Partial Class _RegistroIncidencias
 
             Dim idA As Integer = CInt(idDetalle.Text)
 
-            Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked)
+            Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, Txnota.Text)
             GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
             ap = Nothing
             GridView1.DataBind()
@@ -187,6 +194,7 @@ Partial Class _RegistroIncidencias
                 fecha.Text = Convert.ToDateTime(datos(3)).ToString("dd/MM/yyyy")
                 TxObservaciones.Text = datos(4).ToString
                 chkVer.Checked = datos(5)
+                Txnota.Text = datos(6)
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI
@@ -208,7 +216,6 @@ Partial Class _RegistroIncidencias
         End If
         wucIncidencias.ddlAutoPostBack = True
     End Sub
-
     Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         If idDetalle.Text <> "" Then
             Dim ec As New ctiCatalogos

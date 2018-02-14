@@ -3470,10 +3470,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=CDbl(Fields!ImporteTotal.Value)</Value>
+                              <Value>=Fields!ImporteTotal.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0.000;('$'#,0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3735,7 +3735,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.46875in</Height>
+    <Height>2.86458in</Height>
     <Style>
       <Border>
         <Style>None</Style>

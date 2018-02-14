@@ -22,6 +22,7 @@ Partial Class Particulares
             If datos(0) = 8 Then
                 chkVer.Checked = False
                 veri.Visible = False
+                Txnota.Enabled = False
                 wucEmpleados2.ddlAutoPostBack = True
                 If IsNumeric(grdSR.Text) Then
                     grdSR.Text = ""
@@ -30,6 +31,7 @@ Partial Class Particulares
             If datos(0) = 2 Then
                 chkVer.Checked = False
                 veri.Visible = False
+                Txnota.Enabled = False
                 wucSucursales.idSucursal = datos(1)
                 wucSucursales.Visible = False
                 wucEmpleados2.ddlDataSource(datos(1))
@@ -115,7 +117,7 @@ Partial Class Particulares
             FF = fecha_ingreso.Text.ToString
             Convert.ToDateTime(FF)
 
-            Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, cantidad.Text, chkVer.Checked)
+            Dim r As String = ap.actualizarParticulares((CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)), wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, cantidad.Text, chkVer.Checked, Txnota.Text)
             GridView1.DataSource = ap.gvParticulares(wucEmpleados2.idEmpleado)
             ap = Nothing
             GridView1.DataBind()
@@ -143,7 +145,10 @@ Partial Class Particulares
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         If fecha_ingreso.Text <> "" And observaciones.Text <> "" Then
 
-
+            Dim nota As String
+            If Txnota.Text = "" Then
+                nota = "Sin Verificar"
+            End If
             Dim canti As String
             If IsNumeric(grdSR.Text) Then
                 grdSR.Text = ""
@@ -161,7 +166,7 @@ Partial Class Particulares
             Convert.ToDateTime(FF)
 
 
-            Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, canti, chkVer.Checked)
+            Dim r() As String = gc.agregarParticulares(wucEmpleados2.idEmpleado, dropLTipo.SelectedValue, FF.ToString("MM/dd/yyyy"), observaciones.Text, canti, chkVer.Checked, nota)
             GridView1.DataSource = gc.gvParticulares(wucEmpleados2.idEmpleado)
             gc = Nothing
             GridView1.DataBind()
@@ -211,7 +216,7 @@ Partial Class Particulares
                 observaciones.Text = datos(4)
                 cantidad.Text = datos(5)
                 chkVer.Checked = datos(6)
-
+                Txnota.Text = datos(7)
                 grdSR.Text = e.CommandArgument.ToString
                 GridView1.Rows(Convert.ToInt32(e.CommandArgument)).RowState = DataControlRowState.Selected
                 Dim gvp As New clsCTI

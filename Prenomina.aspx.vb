@@ -1083,7 +1083,7 @@ Partial Class Prenomina
             horasET = 0.0
             horasET = extratiple
 
-            TiempoExtraTipleT = HorasExtrasT * horasET
+            TiempoExtraTipleT = HorasExtrasTriplesT * horasET
         Else
             TiempoExtraTipleT = 0.0
         End If

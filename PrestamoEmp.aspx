@@ -19,7 +19,7 @@
              float:right;
         }
         .auto-style2 {
-            height: 434px;
+            height: 705px;
             width: 1062px;
         }
         .auto-style6 {
@@ -132,7 +132,18 @@
                 </td>
                <td class="auto-style25" >&nbsp;</td>
                
-            </tr></table>
+            </tr>
+                <tr>
+                    <td>
+
+                        Nota:<br />
+                    <asp:TextBox ID="Txnota" runat="server" CssClass="txtCaptura" MaxLength="40" Width="188px" Height="90px" TextMode="MultiLine" />
+            
+                                   
+            
+                    </td>
+                </tr>
+            </table>
         </div>
 </div>
 </asp:Content>
