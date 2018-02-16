@@ -36,30 +36,39 @@
       .auto-style5 {
           width: 265px;
       }
+      .auto-style6 {
+          height: 24px;
+      }
+      .auto-style7 {
+          width: 109px;
+      }
   </style>
     <div id="contenedor">
     <% If IsNumeric(Session("idz_e")) Then
-         Response.Write("<div id=confirmar style='position:fixed; left:200; top:300; background-color:White; border-style:solid; border-width:1px; border-color:Black;'>")
-         Response.Write("<table>")
-         Response.Write("<tr><td rowspan=7 width=5 /><td height=6 /><td rowspan=7 width=6 /></tr>")
-         Response.Write("<tr><td class=c_titulo>Confirmación</td></tr>")
-         Response.Write("<tr><td height=6 /></tr>")
-         Response.Write("<tr><td class=c_texto>¿Confirma la eliminación del empleado <b><i>" & Session("dz_e") & "</i></b> ?</td></tr>")
-         Response.Write("<tr><td height=6 /></tr>")
-         Response.Write("<tr><td align=center><input type=submit name=btnSi value='   Sí   ' class='boton' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
-         Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
-         Response.Write("<tr><td height=6 /></tr></table></div>")
-     End If%>
+            Response.Write("<div id=confirmar style='position:fixed; left:200; top:300; background-color:White; border-style:solid; border-width:1px; border-color:Black;'>")
+            Response.Write("<table>")
+            Response.Write("<tr><td rowspan=7 width=5 /><td height=6 /><td rowspan=7 width=6 /></tr>")
+            Response.Write("<tr><td class=c_titulo>Confirmación</td></tr>")
+            Response.Write("<tr><td height=6 /></tr>")
+            Response.Write("<tr><td class=c_texto>¿Confirma la eliminación del empleado <b><i>" & Session("dz_e") & "</i></b> ?</td></tr>")
+            Response.Write("<tr><td height=6 /></tr>")
+            Response.Write("<tr><td align=center><input type=submit name=btnSi value='   Sí   ' class='boton' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+            Response.Write("<input type=submit name=btnNo value='   No   ' class='boton' /></td></tr>")
+            Response.Write("<tr><td height=6 /></tr></table></div>")
+        End If%>
 
     <h3>Empleados</h3>
     <div id="izquierdo">
         <table>
             <tr>
-                <td>Sucursal:</td>
-                <td><uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
-                <td class="separa10"></td>
-                <td>Activos:</td>
-                <td><asp:CheckBox ID="chkActivo" runat="server" Checked="true" AutoPostBack="true" /></td>
+                <td class="auto-style6">Sucursal:<br />
+                    <uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
+                <td class="auto-style6">&nbsp;</td>
+                <td class="auto-style6">&nbsp;&nbsp;</td>
+                <td class="auto-style6">Activos:<asp:CheckBox ID="chkActivo" runat="server" Checked="true" AutoPostBack="true" /></td>
+                <td>&nbsp;&nbsp;</td>
+                <td class="auto-style7">Baja:<asp:CheckBox ID="chkBaja" runat="server" AutoPostBack="true" />
+                    </td>
             </tr>
         </table>
         <asp:GridView ID="GridView1" runat="server" 
@@ -72,6 +81,7 @@
                 <asp:BoundField DataField="puesto" HeaderText="Puesto" SortExpression="puesto" />
                 <asp:CheckBoxField DataField="activo" HeaderText="Activo" />
                 <asp:BoundField DataField="clave_att" HeaderText="Clave" SortExpression="clave_att" />
+                 <asp:CheckBoxField DataField="baja" HeaderText="Baja" />
                 <asp:ButtonField ButtonType="Image" CommandName="Eliminar" ImageUrl="~/Imagenes/eliminar.png"></asp:ButtonField> 
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
@@ -89,7 +99,7 @@
                 <td colspan="2">
                     <h4>
                         Editar registro del empleado
-                      </h4>  </td>
+                                </h4>  </td>
                     <td>
                     <asp:Button ID="btnActualizar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Actualizar"  ToolTip="Actualizar datos" Enabled="false" Width="90px" />
                 </td>
@@ -107,8 +117,8 @@
                     <uc2:wucpuestos ID="WucPuestos" runat="server" /></td>        
             </tr>
             <tr>
-                <td class="auto-style5">Activo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clave:<br />
-                    <asp:checkbox ID="activo" runat="server" Checked="True" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                <td class="auto-style5">Activo:&nbsp;<asp:checkbox ID="activo" runat="server" Checked="True" />&nbsp; Clave:<br />
+                    Baja:&nbsp;<asp:checkbox ID="baja" runat="server" Checked="True" />
                     <asp:TextBox ID="claveTX" runat="server" CssClass="txtCaptura" MaxLength="40" Width="99px" style="margin-left: 0" Enabled="False" /></td>
                 <td class="auto-style2">Sucursal:<br />
                     <uc3:wucsuc ID="wucSuc" runat="server" /></td>

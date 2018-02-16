@@ -14,7 +14,7 @@ Partial Class _Empleados
         If Request.Form("btnSi") <> "" Then
             Dim ep As New ctiCatalogos
             Dim err As String = ep.eliminarEmpleado(CInt(Session("idz_e").ToString))
-            GridView1.DataSource = ep.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
+            GridView1.DataSource = ep.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
             ep = Nothing
             GridView1.DataBind()
             If err.StartsWith("Error") Then
@@ -95,6 +95,7 @@ Partial Class _Empleados
                 claveTX.Text = datos(16)
                 Catt = datos(16)
                 wucTipoJornada.idTipoJornada = datos(17)
+                baja.Checked = datos(18)
                 claveTX.Enabled = True
 
                 grdSR.Text = e.CommandArgument.ToString
@@ -189,8 +190,8 @@ Partial Class _Empleados
             End If
             Dim gp As New ctiCatalogos
 
-            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, WucPuestos.idPuesto, claveTX.Text, wucTipoJornada.idTipoJornada)
-            GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
+            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, WucPuestos.idPuesto, claveTX.Text, wucTipoJornada.idTipoJornada, baja.Checked)
+            GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
             gp = Nothing
             GridView1.DataBind()
             If r(0).StartsWith("Error") Then
@@ -218,6 +219,7 @@ Partial Class _Empleados
                 End If
                 empleado.Text = "" : WucPuestos.idPuesto = 3 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
                 nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
+
                 FIngreso.SelectedDates.Clear()
                 CFBaja.SelectedDates.Clear()
                 CFNacimiento.SelectedDates.Clear()
@@ -285,19 +287,6 @@ Partial Class _Empleados
                 _correo = " "
             End If
 
-
-
-            'Dim _claveAtt As String
-            'If Catt <> claveTX.Text Then
-            '    _claveAtt = Convert.ToString(claveTX.Text)
-            'Else
-            '    _claveAtt = Catt
-            'End If
-
-
-
-
-
             Dim _fecha_ingreso As String
             If fecha_ingreso.Text <> "" Then
                 _fecha_ingreso = Format(CDate(fecha_ingreso.Text), "yyyy-MM-dd")
@@ -320,8 +309,8 @@ Partial Class _Empleados
 
             Dim ap As New ctiCatalogos
             Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja, wucTipoJornada.idTipoJornada)
-            GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
+            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja, wucTipoJornada.idTipoJornada, baja.Checked)
+            GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
             ap = Nothing
             GridView1.DataBind()
             If r.StartsWith("Error") Then
@@ -365,7 +354,7 @@ Partial Class _Empleados
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
         Dim gvds As New ctiCatalogos
-        GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
+        GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
         gvds = Nothing
         GridView1.DataBind()
         If IsNumeric(grdSR.Text) Then
@@ -377,12 +366,23 @@ Partial Class _Empleados
     End Sub
     Protected Sub chkActivo_CheckedChanged(sender As Object, e As EventArgs) Handles chkActivo.CheckedChanged
         Dim gvds As New ctiCatalogos
-        GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked)
-        gvds = Nothing
-        GridView1.DataBind()
-        If IsNumeric(grdSR.Text) Then
-            grdSR.Text = ""
-            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
+        'If chkBaja.Checked = True Then
+        '    chkBaja.Checked = False
+        '    GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
+        '    gvds = Nothing
+        '    GridView1.DataBind()
+        '    If IsNumeric(grdSR.Text) Then
+        '        grdSR.Text = ""
+        '        btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
+        '    End If
+        'Else
+        GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
+            gvds = Nothing
+            GridView1.DataBind()
+            If IsNumeric(grdSR.Text) Then
+                grdSR.Text = ""
+                btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
+            'End If
         End If
     End Sub
     Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
@@ -417,5 +417,15 @@ Partial Class _Empleados
     Protected Sub CFBaja_SelectionChanged(sender As Object, e As EventArgs) Handles CFBaja.SelectionChanged
         fecha_baja.Text = CFBaja.SelectedDate.ToString("dd/MM/yyyy")
         CFBaja.Visible = False
+    End Sub
+    Protected Sub chkBaja_CheckedChanged(sender As Object, e As EventArgs) Handles chkBaja.CheckedChanged
+        Dim gvds As New ctiCatalogos
+        GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
+            gvds = Nothing
+            GridView1.DataBind()
+        If IsNumeric(grdSR.Text) Then
+            grdSR.Text = ""
+            btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
+        End If
     End Sub
 End Class

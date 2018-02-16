@@ -137,7 +137,7 @@
                     <td>
 
                         Nota:<br />
-                    <asp:TextBox ID="Txnota" runat="server" CssClass="txtCaptura" MaxLength="40" Width="188px" Height="90px" TextMode="MultiLine" />
+                    <asp:TextBox ID="Txnota" runat="server" CssClass="txtCaptura" MaxLength="40" Width="161px" Height="90px" TextMode="MultiLine" />
             
                                    
             
