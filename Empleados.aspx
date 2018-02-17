@@ -118,7 +118,7 @@
             </tr>
             <tr>
                 <td class="auto-style5">Activo:&nbsp;<asp:checkbox ID="activo" runat="server" Checked="True" />&nbsp; Clave:<br />
-                    Baja:&nbsp;<asp:checkbox ID="baja" runat="server" Checked="True" />
+                    Baja:&nbsp;<asp:checkbox ID="baja" runat="server" />
                     <asp:TextBox ID="claveTX" runat="server" CssClass="txtCaptura" MaxLength="40" Width="99px" style="margin-left: 0" Enabled="False" /></td>
                 <td class="auto-style2">Sucursal:<br />
                     <uc3:wucsuc ID="wucSuc" runat="server" /></td>

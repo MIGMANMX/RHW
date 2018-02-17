@@ -366,16 +366,7 @@ Partial Class _Empleados
     End Sub
     Protected Sub chkActivo_CheckedChanged(sender As Object, e As EventArgs) Handles chkActivo.CheckedChanged
         Dim gvds As New ctiCatalogos
-        'If chkBaja.Checked = True Then
-        '    chkBaja.Checked = False
-        '    GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
-        '    gvds = Nothing
-        '    GridView1.DataBind()
-        '    If IsNumeric(grdSR.Text) Then
-        '        grdSR.Text = ""
-        '        btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
-        '    End If
-        'Else
+
         GridView1.DataSource = gvds.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
             gvds = Nothing
             GridView1.DataBind()
