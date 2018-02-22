@@ -115,7 +115,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>4.66424cm</Width>
+              <Width>4.28092cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.27817cm</Width>
@@ -197,6 +197,12 @@
             </TablixColumn>
             <TablixColumn>
               <Width>1.25646cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.20354cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.28292cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.41521cm</Width>
@@ -1279,6 +1285,84 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox99</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>None</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>Solid</Style>
+                        </LeftBorder>
+                        <BackgroundColor>Maroon</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox15">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Cantidad </Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox15</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>None</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>Solid</Style>
+                        </LeftBorder>
+                        <BackgroundColor>Maroon</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox23">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Total </Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox23</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -2505,6 +2589,84 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox17">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Vales</Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox17</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>None</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>Solid</Style>
+                        </LeftBorder>
+                        <BackgroundColor>Maroon</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox27">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Vales</Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox27</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>None</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>Solid</Style>
+                        </LeftBorder>
+                        <BackgroundColor>Maroon</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox124">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -3237,7 +3399,7 @@
                               <Value>=Fields!ImporteNormal.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'0.000;('$'0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3257,6 +3419,7 @@
                         <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -3270,7 +3433,7 @@
                               <Value>=Fields!TiempoExtra.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0.000;('$'#,0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3304,7 +3467,7 @@
                               <Value>=Fields!TiempoTriple.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0.000;('$'#,0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3338,7 +3501,7 @@
                               <Value>=Fields!DiaFestivo.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0.000;('$'#,0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3372,7 +3535,7 @@
                               <Value>=Fields!SeptimoDia.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0.000;('$'#,0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3406,7 +3569,7 @@
                               <Value>=Fields!PrimaDominical.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0.000;('$'#,0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3440,7 +3603,7 @@
                               <Value>=Fields!DiaDescanso.Value</Value>
                               <Style>
                                 <FontSize>7pt</FontSize>
-                                <Format>'$'#,0.000;('$'#,0.000)</Format>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3448,6 +3611,73 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>DiaDescanso</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="CantidadVales">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!CantidadVales.Value</Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                                <Format>0;(0)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>CantidadVales</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="TotalVales">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!TotalVales.Value</Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                                <Format>'$'#,0.00;('$'#,0.00)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>TotalVales</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -3493,7 +3723,6 @@
                         <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -3502,6 +3731,8 @@
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -3555,7 +3786,7 @@
         <Top>4.28307cm</Top>
         <Left>0.20995cm</Left>
         <Height>1.72063cm</Height>
-        <Width>32.92764cm</Width>
+        <Width>35.03078cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -3735,14 +3966,14 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>2.86458in</Height>
+    <Height>2.62744in</Height>
     <Style>
       <Border>
         <Style>None</Style>
       </Border>
     </Style>
   </Body>
-  <Width>13.1457in</Width>
+  <Width>13.9523in</Width>
   <Page>
     <PageHeight>21cm</PageHeight>
     <PageWidth>29.7cm</PageWidth>
@@ -3760,7 +3991,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>e07ff26f-b676-4970-902a-156266a99d44</rd:DataSourceID>
+      <rd:DataSourceID>6ad935b6-eaa5-4a3a-9a42-38c7bfdb5b4b</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -3856,35 +4087,35 @@
         </Field>
         <Field Name="ImporteNormal">
           <DataField>ImporteNormal</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="TiempoExtra">
           <DataField>TiempoExtra</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="TiempoTriple">
           <DataField>TiempoTriple</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="DiaFestivo">
           <DataField>DiaFestivo</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="SeptimoDia">
           <DataField>SeptimoDia</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="PrimaDominical">
           <DataField>PrimaDominical</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="DiaDescanso">
           <DataField>DiaDescanso</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="ImporteTotal">
           <DataField>ImporteTotal</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="FechaIncio">
           <DataField>FechaIncio</DataField>
@@ -3894,10 +4125,22 @@
           <DataField>FechaFin</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="idpuesto">
+          <DataField>idpuesto</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CantidadVales">
+          <DataField>CantidadVales</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TotalVales">
+          <DataField>TotalVales</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>nomRHDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\StarRH\RHW\App_Code\nomRHDataSet2.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\StarRH\RHW\App_Code\nomRHDataSet1.xsd</rd:SchemaPath>
         <rd:TableName>vm_Prenomina</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

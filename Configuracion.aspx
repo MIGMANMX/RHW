@@ -37,6 +37,9 @@
          #derecho3{
              float:right;
         }
+         .auto-style1 {
+             width: 224px;
+         }
      </style>
     <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
         <asp:View ID="View1" runat="server">
@@ -45,11 +48,7 @@
                  <div id="izquierdo">
                      <table>
                          <tr>
-                             <td>Dia actual capturado:<br />&nbsp;
-                                 <asp:TextBox ID="TextBox1" runat="server" Enabled="False"></asp:TextBox>
-                                 <br />
-                                 <br />
-                                 Dia limite para capturar horario:&nbsp;
+                             <td class="auto-style1">Dias permitidos para capturar horario:&nbsp;
                                  <br />
                                  <asp:CheckBox ID="CheckBox1" runat="server" Text="Lunes" />
                                  <br />
@@ -68,14 +67,9 @@
                              </td>
                              <td>
                                   
-                                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
-                                  
+                           
                              </td>
-                             <td>Hora actual seleccionada:<br />
-                                 <asp:TextBox ID="TextBox2" runat="server" Enabled="False"></asp:TextBox>
-                                 <br />
-                                 <br />
-                                 Hora limite para captura de horario:<br />
+                             <td>Hora limite para captura de horario:<br />
                              <%--    <asp:DropDownList ID="DropH" runat="server" Height="30px" Width="74px">
                                      <asp:ListItem Value="9">09</asp:ListItem>
                                      <asp:ListItem>10</asp:ListItem>
@@ -93,8 +87,8 @@
                                  <br />
                                  <asp:CheckBox ID="CheckBox12" runat="server" Text="12:00" />
                                  <br />
-                                 <br />
-                                 <br />
+                                 Hora actual seleccionada:<br />
+                                 <asp:TextBox ID="TextBox2" runat="server" Enabled="False"></asp:TextBox>
                                  <br />
                              </td>
 

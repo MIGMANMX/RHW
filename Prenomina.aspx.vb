@@ -29,6 +29,7 @@ Partial Class Prenomina
     Dim DFestivosTrabajadosT As Integer = 0
     Dim DDescansadosTrabajadosT As Integer = 0
     Dim TotalHorasT As Integer = 0
+
     Dim ImporteNormalT As Single = 0.0
     Dim TiempoExtraT As Single = 0.0
     Dim TiempoExtraTipleT As Single = 0.0
@@ -38,6 +39,10 @@ Partial Class Prenomina
     Dim DiaDescansoT As Single = 0.0
     Dim ImporteTotalT As Single = 0.0
 
+    '''''''''Vales
+    Dim CantidadVales As Integer = 0
+    Dim TotalVales As Single = 0.0
+
     '''''Variables de salario
     Dim hora As Single = 0.0
     Dim extra As Single = 0.0
@@ -45,6 +50,7 @@ Partial Class Prenomina
     Dim diafes As Single = 0.0
     Dim diades As Single = 0.0
     Dim primadom As Single = 0.0
+
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
         If IsNothing(Session("usuario")) Then Response.Redirect("Default.aspx", True)
         If Not Page.IsPostBack Then
@@ -126,14 +132,20 @@ Partial Class Prenomina
                     SeptimoDia()
                     PrimaDominical()
                     DiaDescanso()
+
+                    '''''''''''Vales
+                    FCantidadVales()
+                    FTotalVales()
+
+                    ''''''''''''Total
                     ImporteTotal()
-                    '''''''''''
+
 
                     '''''''Insertar datos
                     cmd2 = New SqlCommand("INSERT INTO Prenomina(idempleado, dia1, dia2, dia3, dia4, dia5, dia6, dia7, dia8, dia9, dia10, dia11, dia12, dia13, dia14, HorasNormales, HorasExtras, HorasTriples, DiasFestivosTrabajados, " _
-                   & "DiasDescansadosTrabajados, TotalHoras, ImporteNormal, TiempoExtra, TiempoTriple, DiaFestivo, SeptimoDia, PrimaDominical, DiaDescanso, ImporteTotal, FechaIncio, FechaFin)" _
+                   & "DiasDescansadosTrabajados, TotalHoras, ImporteNormal, TiempoExtra, TiempoTriple, DiaFestivo, SeptimoDia, PrimaDominical, DiaDescanso, ImporteTotal, FechaIncio, FechaFin, CantidadVales, TotalVales)" _
                    & "VALUES(@idempleado, @dia1, @dia2, @dia3, @dia4, @dia5, @dia6, @dia7, @dia8, @dia9, @dia10, @dia11, @dia12 , @dia13 , @dia14, @HorasNormales, @HorasExtras, @HorasTriples, @DiasFestivosTrabajados, " _
-                   & "@DiasDescansadosTrabajados, @TotalHoras, @ImporteNormal, @TiempoExtra, @TiempoTriple, @DiaFestivo, @SeptimoDia, @PrimaDominical, @DiaDescanso, @ImporteTotal, @FechaIncio, @FechaFin)", dbc2)
+                   & "@DiasDescansadosTrabajados, @TotalHoras, @ImporteNormal, @TiempoExtra, @TiempoTriple, @DiaFestivo, @SeptimoDia, @PrimaDominical, @DiaDescanso, @ImporteTotal, @FechaIncio, @FechaFin, @CantidadVales, @TotalVales)", dbc2)
 
 
                     cmd2.Parameters.AddWithValue("idempleado", idempleado)
@@ -169,6 +181,10 @@ Partial Class Prenomina
                     cmd2.Parameters.AddWithValue("ImporteTotal", ImporteTotalT)
                     cmd2.Parameters.AddWithValue("FechaIncio", Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"))
                     cmd2.Parameters.AddWithValue("FechaFin", Format(CDate(TxFechaFin.Text), "yyyy-MM-dd"))
+
+                    ''''''''''''''''''''''''
+                    cmd2.Parameters.AddWithValue("CantidadVales", CantidadVales)
+                    cmd2.Parameters.AddWithValue("TotalVales", TotalVales)
 
                     cmd2.ExecuteNonQuery()
                     cmd2.Dispose()
@@ -1117,8 +1133,14 @@ Partial Class Prenomina
 
         DiaDescansoT = DDescansadosTrabajadosT * diaD
     End Sub
+    Public Sub FCantidadVales()
+
+    End Sub
+    Public Sub FTotalVales()
+
+    End Sub
     Public Sub ImporteTotal()
         ImporteTotalT = 0.0
-        ImporteTotalT = ImporteNormalT + TiempoExtraT + TiempoExtraTipleT + DiaFestivoT + SeptimoDiaT + PrimaDominicalT + DiaDescansoT
+        ImporteTotalT = ImporteNormalT + TiempoExtraT + TiempoExtraTipleT + DiaFestivoT + SeptimoDiaT + PrimaDominicalT + DiaDescansoT - TotalVales
     End Sub
 End Class
