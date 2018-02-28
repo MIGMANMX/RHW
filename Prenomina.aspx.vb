@@ -1134,7 +1134,63 @@ Partial Class Prenomina
         DiaDescansoT = DDescansadosTrabajadosT * diaD
     End Sub
     Public Sub FCantidadVales()
+        CantidadVales = 0
+        TotalVales = 0.0
+        'Datos de los campos de texto
+        Dim FIn As Date
+        Dim FFn As Date
 
+        'Variable global
+        Dim Fech As Date
+
+        Dim cont As Integer = 0
+
+        'Variables para operaciones
+        Dim Acum As Single = 0.0
+        Dim acumH As Single = 0.0
+        'Asignar los datos de los campos de texto a Variables
+        FIn = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
+        FFn = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
+
+        'Igualar Fecha de inicio a la Variable Global
+        Fech = FIn
+
+        'Inicio del ciclo de comparacion
+        While (Fech <= FFn)
+
+            'Conexion y busqueda de registros
+            Using dbC As New SqlConnection
+                dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+                dbC.Open()
+                Dim cmd As New SqlCommand("Select idvales2,fechaA,montorh From vm_Vales_RH where fechaA = '" & Fech.ToString("yyyy-MM-dd") & "' AND empleado = '" & empleado & "' Order BY fechaA ", dbC)
+
+                cmd.Parameters.AddWithValue("fechaA", Fech)
+                Dim rdr As SqlDataReader = cmd.ExecuteReader
+                Dim dsP As String()
+                'Lectura de registros
+                While rdr.Read
+
+
+                    cont = cont + 1
+                    ReDim dsP(2)
+
+                    'Obtener valores
+                    dsP(0) = rdr("idvales2").ToString
+                    dsP(1) = rdr("fechaA").ToString
+                    dsP(2) = rdr("montorh").ToString
+
+                    Acum = dsP(2) + Acum
+                End While
+                rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
+            End Using
+            'Acumulador de fecha
+            Fech = DateAdd(DateInterval.Day, 1, Fech).ToString("yyyy-MM-dd")
+
+        End While
+        TotalVales = Acum
+        CantidadVales = cont
+        cont = 0
+        Acum = 0.0
     End Sub
     Public Sub FTotalVales()
 

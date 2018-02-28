@@ -162,6 +162,7 @@ Partial Class _HPartidasJornadas
 
     End Sub
     Protected Sub wucEmpleados_empleadoSeleccionada(sender As Object, e As System.EventArgs) Handles wucEmpleados2.empleadoSeleccionado
+        FechaC.SelectedDates.Clear()
         fecha.Text = ""
         wucJornadas.idJornada = 0
         _schuleData = getSchedule()
@@ -201,6 +202,7 @@ Partial Class _HPartidasJornadas
         _schuleData = loadSchedule()
         Lmsg.Text = ""
         GridView1.Visible = False
+        FechaC.SelectedDates.Clear()
     End Sub
     Protected Sub FechaC_SelectionChanged(sender As Object, e As EventArgs) Handles FechaC.SelectionChanged
         'wucJornadas.idJornada = 0
@@ -259,8 +261,8 @@ Partial Class _HPartidasJornadas
                     Lmsg.CssClass = "correcto"
                     Dim sgr As New clsCTI
                     sgr = Nothing
-
-                End If
+                FechaC.SelectedDates.Clear()
+            End If
                 Lmsg.Text = r(0)
                 _schuleData = getSchedule()
             Else
@@ -374,8 +376,9 @@ Partial Class _HPartidasJornadas
                         Lmsg.CssClass = "error"
                     Else
                         Lmsg.CssClass = "correcto"
+                    FechaC.SelectedDates.Clear()
 
-                    End If
+                End If
 
                     Dim gvp As New clsCTI
                     gvp = Nothing
@@ -394,8 +397,8 @@ Partial Class _HPartidasJornadas
                         Lmsg.CssClass = "error"
                     Else
                         Lmsg.CssClass = "correcto"
-
-                    End If
+                    FechaC.SelectedDates.Clear()
+                End If
 
                     Dim gvp As New clsCTI
 
@@ -534,6 +537,7 @@ Partial Class _HPartidasJornadas
                 Lmsg.CssClass = "error"
                 Lmsg.Text = datos(0)
             Else
+                FechaC.SelectedDates.Clear()
                 idpartidas_jornadaT.Text = datos(0)
                 wucEmpleados2.idEmpleado = CInt(datos(1))
                 wucJornadas.idJornada = datos(2)
@@ -560,10 +564,11 @@ Partial Class _HPartidasJornadas
         GridView1.DataBind()
     End Sub
     Protected Sub wucJornadas_jornadaSeleccionado(sender As Object, e As System.EventArgs) Handles wucJornadas.jornadaSeleccionado
-        wucJornadas.ddlAutoPostBack = True
+        'wucJornadas.ddlAutoPostBack = True
         If IsNumeric(grdSR.Text) Then
             grdSR.Text = ""
         End If
+        FechaC.SelectedDates.Clear()
     End Sub
     Protected Sub btnFechaSemana_Click(sender As Object, e As EventArgs) Handles btnFechaSemana.Click
         Dim fech As Date
@@ -593,6 +598,7 @@ Partial Class _HPartidasJornadas
                         Dim sgr As New clsCTI
                         sgr = Nothing
                         cont = cont + 1
+                        FechaC.SelectedDates.Clear()
                     End If
                     Lmsg.Text = r(0)
                     _schuleData = getSchedule()
@@ -620,6 +626,7 @@ Partial Class _HPartidasJornadas
                         Lmsg.CssClass = "correcto"
                         Dim sgr As New clsCTI
                         sgr = Nothing
+                        FechaC.SelectedDates.Clear()
 
                     End If
                     Lmsg.Text = r(0)
@@ -658,8 +665,10 @@ Partial Class _HPartidasJornadas
                                 Lmsg.CssClass = "correcto"
                                 Dim sgr As New clsCTI
                                 sgr = Nothing
-                                cont = cont + 1
-                            End If
+                        cont = cont + 1
+                        FechaC.SelectedDates.Clear()
+
+                    End If
                             Lmsg.Text = r(0)
                             _schuleData = getSchedule()
 
@@ -686,8 +695,9 @@ Partial Class _HPartidasJornadas
                                 Lmsg.CssClass = "correcto"
                                 Dim sgr As New clsCTI
                                 sgr = Nothing
+                        FechaC.SelectedDates.Clear()
 
-                            End If
+                    End If
                             Lmsg.Text = r(0)
                             _schuleData = getSchedule()
                             cont = cont + 1

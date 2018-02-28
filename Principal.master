@@ -172,6 +172,7 @@
               
                <li id="rep7" runat="server"><a href="<%=ResolveUrl("RepPrestamoEmp.aspx")%>"><i class="fa fa-arrows-h"></i>Prestamos de empleados </a></li>
                 <li id="rep9" runat="server"><a href="<%=ResolveUrl("RepPrestamoEmpSuc.aspx")%>"><i class="fa fa-external-link"></i>Prestamos de empleados Suc</a></li>
+             <li id="rep10" runat="server"><a href="<%=ResolveUrl("RepValesRH.aspx")%>"><i class="fa fa-briefcase"></i>Vales RH</a></li>
              
               </ul>
             </li>
