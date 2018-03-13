@@ -270,7 +270,7 @@ Partial Class _HPartidasJornadas
             End If
         Else
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
+                If DiaS.Text = "Monday" And hora < 12 Then
                     'If DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
                     '    If DiaS.Text = "Wednesday" And hora < 10 Then
                     If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
@@ -408,7 +408,7 @@ Partial Class _HPartidasJornadas
             'If DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
             '    If DiaS.Text = "Wednesday" And hora < 10 Then
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
+                If DiaS.Text = "Monday" And hora < 12 Then
                     Dim ap As New ctiCatalogos
                     If bandera = True Then
 
@@ -632,7 +632,7 @@ Partial Class _HPartidasJornadas
             'If DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
             '    If DiaS.Text = "Wednesday" And hora < 10 Then
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
+                If DiaS.Text = "Monday" And hora < 12 Then
                     Dim cont As Integer
                     cont = 0
 

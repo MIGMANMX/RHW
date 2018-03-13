@@ -26,11 +26,66 @@
       <div id="contenedor">
           <div id="izquierdo" >
               <table>
-                  <tr>
+                <tr>
                       <td>
 
                           Sucursal:<br />
                     <uc1:wucsucursales ID="wucSucursales" runat="server" />
+
+                      </td>
+                      <td>
+
+                          Fecha Inicio:<br />
+                    <asp:TextBox ID="TxFechaInicio" runat="server" MaxLength="40" Width="100px" CssClass="txtCaptura" Enabled="False" /><asp:ImageButton ID="ImageButton1" runat="server" Height="18px" ImageUrl="~/img/favicon.ico" Width="19px" />
+
+                
+
+                      </td>
+                      <td>
+
+                          Fecha Fin:<br />
+                    <asp:TextBox ID="TxFechaFin" runat="server" MaxLength="40" Width="100px" CssClass="txtCaptura" Height="24px" Enabled="False" />
+
+                    <asp:ImageButton ID="ImageButton2" runat="server" Height="18px" ImageUrl="~/img/favicon.ico" Width="19px" />
+
+                
+
+                      </td>
+                      <td>
+                           <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-warning btn-block btn-flat" Text="Buscar"  ToolTip="Buscar datos" Enabled="true" Width="108px" /> 
+                    
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>
+
+                      </td>
+                      <td>
+
+                          <asp:Calendar ID="FIngreso" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
+                    <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
+                    <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
+                    <OtherMonthDayStyle ForeColor="#999999" />
+                    <SelectedDayStyle BackColor="#999999" Font-Bold="True" ForeColor="#CCFF99" />
+                    <SelectorStyle BackColor="#FFCC66" ForeColor="#336666" />
+                    <TitleStyle BackColor="#FF9900" BorderColor="#FFCC66" BorderWidth="1px" Font-Bold="True" Font-Size="10pt" ForeColor="White" Height="25px" />
+                    <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
+                    <WeekendDayStyle BackColor="#CCCCFF" />
+                </asp:Calendar>               
+
+                      </td>
+                      <td>
+
+                          <asp:Calendar ID="FFinal" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="76px" Width="152px" TitleFormat="Month" Visible="False" >
+                    <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
+                    <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
+                    <OtherMonthDayStyle ForeColor="#999999" />
+                    <SelectedDayStyle BackColor="#999999" Font-Bold="True" ForeColor="#CCFF99" />
+                    <SelectorStyle BackColor="#FFCC66" ForeColor="#336666" />
+                    <TitleStyle BackColor="#FF9900" BorderColor="#FFCC66" BorderWidth="1px" Font-Bold="True" Font-Size="10pt" ForeColor="White" Height="25px" />
+                    <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
+                    <WeekendDayStyle BackColor="#CCCCFF" />
+                </asp:Calendar>               
 
                       </td>
                   </tr>
@@ -38,16 +93,15 @@
                       <td>  
                           <asp:Button ID="btnLimpiar" runat="server" CssClass="btn btn-info btn-block btn-flat" Text="Limpiar"  ToolTip="Actualizar datos" Enabled="true" Width="108px" /> 
                       </td>
-                      <td></td>
-                      <td class="auto-style15">
+                      <td>
                        
                           <asp:TextBox ID="TextBox1" runat="server" Visible="False"></asp:TextBox>
                        
                          <asp:Button ID="btnGuardarNuevo" runat="server" CssClass="btn btn-success btn-block btn-flat" Text="Autorizado" ToolTip="Autorizado" Width="108px" />                
                    
                       </td>
-                      <td>&nbsp;&nbsp;</td>
-                      <td>
+                      <td class="auto-style15">
+                       
                            <asp:Button ID="btnQuitar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="No Autorizado" ToolTip="No Autorizado" Width="122px" />                
                    
                       </td>

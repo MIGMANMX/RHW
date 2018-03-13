@@ -24,16 +24,8 @@ Partial Class AuParticulares
         End If
     End Sub
     Protected Sub wucSucursales_sucursalSeleccionada(sender As Object, e As System.EventArgs) Handles wucSucursales.sucursalSeleccionada
-
         GridView1.Visible = False
-        Dim gvds As New ctiCalendario
-        GridView1.DataSource = gvds.gvParticularesCHK(wucSucursales.idSucursal)
-        GridView1.Visible = True
-        gvds = Nothing
-        GridView1.DataBind()
-        If IsNumeric(grdSR.Text) Then
-            grdSR.Text = ""
-        End If
+
 
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
@@ -47,7 +39,7 @@ Partial Class AuParticulares
 
                     Dim ap As New ctiCalendario
                     Dim r As String = ap.actualizarParticularesCHK(row.Cells(2).Text, True)
-                    GridView1.DataSource = ap.gvParticularesCHK(wucSucursales.idSucursal)
+                    GridView1.DataSource = ap.gvParticularesCHK(wucSucursales.idSucursal, TxFechaInicio.Text, TxFechaFin.Text)
                     ap = Nothing
                     GridView1.DataBind()
                     If r.StartsWith("Error") Then
@@ -85,7 +77,7 @@ Partial Class AuParticulares
 
                     Dim ap As New ctiCalendario
                     Dim r As String = ap.actualizarParticularesCHK(row.Cells(2).Text, False)
-                    GridView1.DataSource = ap.gvParticularesCHK(wucSucursales.idSucursal)
+                    GridView1.DataSource = ap.gvParticularesCHK(wucSucursales.idSucursal, TxFechaInicio.Text, TxFechaFin.Text)
                     ap = Nothing
                     GridView1.DataBind()
                     If r.StartsWith("Error") Then
@@ -111,5 +103,39 @@ Partial Class AuParticulares
             End If
 
         Next
+    End Sub
+    Protected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
+        GridView1.Visible = False
+        Dim gvds As New ctiCalendario
+        GridView1.DataSource = gvds.gvParticularesCHK(wucSucursales.idSucursal, TxFechaInicio.Text, TxFechaFin.Text)
+        GridView1.Visible = True
+        gvds = Nothing
+        GridView1.DataBind()
+        If IsNumeric(grdSR.Text) Then
+            grdSR.Text = ""
+        End If
+    End Sub
+    Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
+        If FIngreso.Visible = True Then
+            FIngreso.Visible = False
+        ElseIf FIngreso.Visible = False Then
+            FIngreso.Visible = True
+        End If
+    End Sub
+    Protected Sub FIngreso_SelectionChanged(sender As Object, e As EventArgs) Handles FIngreso.SelectionChanged
+        TxFechaInicio.Text = FIngreso.SelectedDate.ToString("yyyy-MM-dd")
+        FIngreso.Visible = False
+        TxFechaFin.Text = DateAdd(DateInterval.Day, 13, FIngreso.SelectedDate).ToString("yyyy-MM-dd")
+    End Sub
+    Protected Sub ImageButton2_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton2.Click
+        If FFinal.Visible = True Then
+            FFinal.Visible = False
+        ElseIf FFinal.Visible = False Then
+            FFinal.Visible = True
+        End If
+    End Sub
+    Protected Sub FFinal_SelectionChanged(sender As Object, e As EventArgs) Handles FFinal.SelectionChanged
+        TxFechaFin.Text = FFinal.SelectedDate.ToString("yyyy-MM-dd")
+        FFinal.Visible = False
     End Sub
 End Class

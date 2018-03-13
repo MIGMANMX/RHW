@@ -52,10 +52,8 @@ Partial Class Configuracion
         MultiView1.ActiveViewIndex = 2
     End Sub
     Protected Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-        'validarchecSem()
-        validarchecHora()
         Dim ap As New ctiConfiguracion
-        Dim r As String = ap.actualizarHorarios(TextBox2.Text, CheckBox1.Checked, CheckBox2.Checked, CheckBox3.Checked, CheckBox4.Checked, CheckBox5.Checked, CheckBox6.Checked, CheckBox7.Checked)
+        Dim r As String = ap.actualizarDiaCaptura(TextBox2.Text, CheckBox1.Checked, CheckBox2.Checked, CheckBox3.Checked, CheckBox4.Checked, CheckBox5.Checked, CheckBox6.Checked, CheckBox7.Checked)
         If r.StartsWith("Error") Then
             Lmsg.CssClass = "error"
         Else
@@ -130,7 +128,6 @@ Partial Class Configuracion
             'Mens.Text = "Error: Solo debe seleccionar una hora"
         End If
     End Sub
-
     Protected Sub CheckBox8_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox8.CheckedChanged
         CheckBox9.Checked = False
         CheckBox10.Checked = False
