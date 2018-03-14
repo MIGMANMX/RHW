@@ -874,7 +874,7 @@ Partial Class Prenomina
             Using dbC As New SqlConnection
                 dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
                 dbC.Open()
-                Dim cmd As New SqlCommand("Select cantidad From Particulares where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-MM-dd") & "' AND tipo ='HExtras'Order BY fecha", dbC)
+                Dim cmd As New SqlCommand("Select cantidad From Particulares where idempleado=@idempleado AND fecha = '" & Fech.ToString("yyyy-MM-dd") & "' AND tipo ='HExtras' AND verificado='True' Order BY fecha", dbC)
 
                 cmd.Parameters.AddWithValue("idempleado", idempleado)
                 cmd.Parameters.AddWithValue("fecha", Fech)
