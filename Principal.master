@@ -188,7 +188,7 @@
             </li>
             
               <li  id="confi" runat="server">
-              <a href="<%=ResolveUrl("Configuracion.aspx")%>">
+              <a href="<%=ResolveUrl("ConFHor.aspx")%>">
                 <i class="fa fa-cogs"></i> <span>Configuración</span>
              
               </a>
@@ -257,7 +257,7 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2017 <a href=""></a>.</strong> All rights reserved -  Star San Luis
+        <strong>Copyright &copy; 2018 <a href=""></a>.</strong> All rights reserved -  Star San Luis
       </footer>
 
       
