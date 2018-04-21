@@ -216,7 +216,7 @@ Partial Class CalculoHoras
             Acum = tsDiferencia + Acum
             tsDiferencia = 0
         End While
-        TxHtotales.Text = Acum
+        'TxHtotales.Text = Acum
     End Sub
     Public Sub HTrabajadasCont()
         'Datos de los campos de texto
@@ -1411,6 +1411,7 @@ Partial Class CalculoHoras
         'LIMPIAR TABLA TEMPORAL
         cmd2 = New SqlCommand("DELETE FROM Temp_Calculo", dbc2)
         cmd2.ExecuteNonQuery()
+        Dim rdr2 As SqlDataReader
 
         Dim FechaInicial, FechaFinal, Fecha As Date
         FechaInicial = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
@@ -1419,11 +1420,11 @@ Partial Class CalculoHoras
         Dim IniDiaN, FinDiaC, FinDiaN, IniDiaSig, SigDia, IniHorario, FinHorario, Checada As Date
         Dim ChqIni, ChqFin, ChqEnt, ChqSal, IniTol, FinTol, IniPuntual, FinPuntual, Detalle, Horario, IniJ, FinJ As String
 
-        Dim entrada, salida, calc, puntualidad, acum, hextCerrador As Integer
+        Dim entrada, salida, entradanom, salidanom, calc, calcnom, puntualidad, acum, acumnom, hextCerrador, ininom, finnom, hrsextras As Integer
 
 
         While Fecha <= FechaFinal
-            ChqIni = "" : ChqFin = "" : calc = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0 : IniJ = "" : FinJ = ""
+            ChqIni = "" : ChqFin = "" : calc = 0 : calcnom = 0 : entrada = 0 : salida = 0 : Detalle = "" : Horario = "" : puntualidad = 0 : hextCerrador = 0 : IniJ = "" : FinJ = "" : hrsextras = 0 : entradanom = 0 : salidanom = 0
 
             IniDiaN = Left(Fecha, 10) + " 05:01:00"
             FinDiaN = Left(Fecha, 10) + " 23:59:59"
@@ -1504,6 +1505,7 @@ Partial Class CalculoHoras
                 IniTol = Left(rdr("inicio").ToString, 2)
                 IniTol = IniTol + ":01:00"
                 FinTol = rdr("tolerancia").ToString
+
 
                 If ChqIni <> "" Then
                     'Revisa donde entra la checada comparando con su horario
@@ -1592,6 +1594,39 @@ Partial Class CalculoHoras
                     salida = CInt(FinJ + 1)
                 End If
 
+                'Revisar si tiene horas extras autorizadas
+                IniJ = rdr("inicio").ToString.Substring(0, 2)
+                ininom = CInt(IniJ)
+                FinJ = rdr("fin").ToString.Substring(0, 2)
+                finnom = CInt(FinJ)
+                cmd2 = New SqlCommand("SELECT * FROM vm_Particulares WHERE fecha=@Fecha AND idempleado=@idempleado AND verificado = 1", dbc2)
+                cmd2.Parameters.AddWithValue("Fecha", Format(CDate(Fecha), "yyyy-MM-dd"))
+                cmd2.Parameters.AddWithValue("idempleado", wucEmpleados2.idEmpleado)
+                rdr2 = cmd2.ExecuteReader
+                If rdr2.Read Then
+                    entradanom = entrada
+                    hrsextras = CInt(rdr2("cantidad"))
+                    salidanom = FinJ + hrsextras
+                Else
+                    entradanom = entrada
+                    If (salida - entrada) > 8 Then
+                        salidanom = FinJ
+                    Else
+                        salidanom = salida
+                    End If
+                    'If entrada <> salida Then
+
+                    '    If entrada >= IniJ Then entradanom = IniJ Else entradanom = entrada
+                    '    If CBool(rdr("ausente")) Then
+                    '        salidanom = salida
+                    '    Else
+                    '        If salida >= FinJ Then salidanom = FinJ Else salidanom = salida
+                    '    End If
+                    'Else
+                    '    entradanom = 0 : salidanom = 0
+                    'End If
+                End If
+                    rdr2.Close()
             End If
 
             If entrada <> 0 Then
@@ -1604,18 +1639,36 @@ Partial Class CalculoHoras
                 calc = calc + hextCerrador
             End If
 
+            If entradanom <> 0 Then
+                If salidanom < 6 Then
+                    'Cálculo para sumar horas de siguiente día
+                    calcnom = (24 - entradanom) + salidanom
+                Else
+                    calcnom = salidanom
+                    calcnom = salidanom - entradanom
+                End If
+                calcnom = calcnom + hextCerrador
+
+            End If
+            'calcnom = salidanom
             'Si su hora de entrada es igual a su hora de salida (solo checó una vez) poner Calc en 0
             If ChqIni = ChqFin Then calc = 0
 
             'Si su hora de entrada están en la misma hora, porner Calc en 0
             If ChqIni <> "" Then
-                If CDate(ChqIni).Hour = CDate(ChqFin).Hour Then calc = 0
+                If CDate(ChqIni).Hour = CDate(ChqFin).Hour Then calc = 0 : calcnom = 0
             End If
             rdr.Close()
 
-            acum = acum + calc
+            'Cuando no está bien su horario, el cálculo de nómina sale en 0
+            'If calcnom = 0 And calc > 0 Then
+            '    calcnom = calc
+            'End If
 
-            cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,puntualidad,detalle,clockin,clockout,horario) VALUES(@fecha," & entrada & "," & salida & "," & calc & "," & puntualidad & ",'" & Detalle & "','" & ChqIni & "','" & ChqFin & "','" & Horario & "')", dbc2)
+            acum = acum + calc
+            acumnom = acumnom + calcnom
+
+            cmd2 = New SqlCommand("INSERT INTO Temp_Calculo(fecha,entrada,salida,hrstrab,hrstrabnom,puntualidad,detalle,clockin,clockout,horario) VALUES(@fecha," & entrada & "," & salida & "," & calc & ", " & calcnom & " , " & puntualidad & ",'" & Detalle & "','" & ChqIni & "','" & ChqFin & "','" & Horario & "')", dbc2)
             cmd2.Parameters.AddWithValue("fecha", Fecha)
             cmd2.ExecuteNonQuery()
             cmd2.Dispose()
@@ -1625,5 +1678,6 @@ Partial Class CalculoHoras
         dbc.Close() : dbc.Dispose()
         'Lmsg.Text = IniTol
         TxHorasTrabajadas.Text = acum
+        TxHtotales.Text = acumnom
     End Sub
 End Class

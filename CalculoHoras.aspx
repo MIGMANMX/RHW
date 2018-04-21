@@ -126,7 +126,8 @@
                 <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha"  HtmlEncode="False" DataFormatString = "{0:d}"/>
                 <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" />
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
-                <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />
+                <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" ItemStyle-HorizontalAlign ="Center"/>
+                <asp:BoundField DataField="hrstrabnom" HeaderText="Nómina" SortExpression="hrstrabnom"  ItemStyle-HorizontalAlign ="Center"/>
                 <asp:BoundField DataField="detalle" HeaderText="Detalle" SortExpression="detalle" />
                 <asp:BoundField DataField="horario" HeaderText="Horario" SortExpression="horario" />
            </Columns>
@@ -153,10 +154,10 @@
         <table>                 
             <tr>
                
-                <td class="auto-style19">Horas Totales:<br />
-                    <asp:TextBox ID="TxHtotales" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /></td>
-                <td class="auto-style18">Horas Trabajadas:<br />
+                <td class="auto-style19">Horas Trabajadas:<br />
                     <asp:TextBox ID="TxHorasTrabajadas" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /></td>
+                <td class="auto-style18">Horas Nómina:<asp:TextBox ID="TxHtotales" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /><br />
+                    </td>
                  <td class="auto-style5">
                      
                      &nbsp;</td>
