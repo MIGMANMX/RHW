@@ -115,6 +115,7 @@
                 <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" />
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" />
+                <asp:BoundField DataField="hrstrabnom" HeaderText="Nómina" SortExpression="hrstrabnom"  ItemStyle-HorizontalAlign ="Center"/>
                 <asp:BoundField DataField="detalle" HeaderText="Detalle" SortExpression="detalle" />
                 <asp:BoundField DataField="horario" HeaderText="Horario" SortExpression="horario" />
            </Columns>

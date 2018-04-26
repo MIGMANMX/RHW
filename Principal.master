@@ -125,6 +125,7 @@
                 <li id="regInidencia" runat="server"><a href="<%=ResolveUrl("RegistroIncidencias.aspx")%>"><i class="fa fa-bomb"></i> Registro de Incidencias</a></li>                                                      
                 <li id="part" runat="server"><a href="<%=ResolveUrl("Particulares.aspx")%>"><i class="fa fa-balance-scale"></i>Casos Particulares</a></li>
                <li id="EHJ" runat="server"><a href="<%=ResolveUrl("EPartidaJornada.aspx")%>"><i class="fa fa-flag"></i>Alterar Horarios</a></li>
+                   <li id="MHJ" runat="server"><a href="<%=ResolveUrl("EMasivaPJ.aspx")%>"><i class="fa fa-clock-o"></i>Alterar Horarios Suc</a></li>
               </ul>
             </li>
             <li class="treeview" id="nomina" runat="server">
