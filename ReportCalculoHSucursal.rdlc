@@ -20,7 +20,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox12</rd:DefaultName>
         <Top>1.55278cm</Top>
-        <Left>6.44197cm</Left>
+        <Left>6.24608cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
         <Style>
@@ -51,7 +51,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
         <Top>0.74111cm</Top>
-        <Left>6.44197cm</Left>
+        <Left>6.24608cm</Left>
         <Height>0.6cm</Height>
         <Width>7.66676cm</Width>
         <ZIndex>1</ZIndex>
@@ -97,7 +97,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox14</rd:DefaultName>
         <Top>0.07055cm</Top>
-        <Left>6.44197cm</Left>
+        <Left>6.24608cm</Left>
         <Height>0.6cm</Height>
         <Width>7.66676cm</Width>
         <ZIndex>3</ZIndex>
@@ -191,7 +191,7 @@
         </Paragraphs>
         <rd:DefaultName>sucursal</rd:DefaultName>
         <Top>2.32917cm</Top>
-        <Left>6.44197cm</Left>
+        <Left>6.24608cm</Left>
         <Height>0.6cm</Height>
         <Width>4.56703cm</Width>
         <ZIndex>6</ZIndex>
@@ -315,9 +315,6 @@
             <TablixColumn>
               <Width>1.16205cm</Width>
             </TablixColumn>
-            <TablixColumn>
-              <Width>1.36229cm</Width>
-            </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
@@ -340,36 +337,6 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>hrstrab</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="horario">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!horario.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>horario</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -421,40 +388,6 @@
                       </Paragraph>
                     </Paragraphs>
                     <rd:DefaultName>fecha</rd:DefaultName>
-                    <Style>
-                      <Border>
-                        <Color>LightGrey</Color>
-                        <Style>Solid</Style>
-                      </Border>
-                      <BackgroundColor>Gold</BackgroundColor>
-                      <PaddingLeft>2pt</PaddingLeft>
-                      <PaddingRight>2pt</PaddingRight>
-                      <PaddingTop>2pt</PaddingTop>
-                      <PaddingBottom>2pt</PaddingBottom>
-                    </Style>
-                  </Textbox>
-                </CellContents>
-              </TablixHeader>
-            </TablixMember>
-            <TablixMember>
-              <TablixHeader>
-                <Size>0.6cm</Size>
-                <CellContents>
-                  <Textbox Name="Textbox39">
-                    <CanGrow>true</CanGrow>
-                    <KeepTogether>true</KeepTogether>
-                    <Paragraphs>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value>horario</Value>
-                            <Style />
-                          </TextRun>
-                        </TextRuns>
-                        <Style />
-                      </Paragraph>
-                    </Paragraphs>
-                    <rd:DefaultName>Textbox39</rd:DefaultName>
                     <Style>
                       <Border>
                         <Color>LightGrey</Color>
@@ -533,7 +466,7 @@
         <Top>4.25809cm</Top>
         <Left>0.26898cm</Left>
         <Height>1.2cm</Height>
-        <Width>6.26777cm</Width>
+        <Width>4.90548cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -549,7 +482,7 @@
       </Border>
     </Style>
   </Body>
-  <Width>6.0558in</Width>
+  <Width>6.35776in</Width>
   <Page>
     <PageHeight>21cm</PageHeight>
     <PageWidth>29.7cm</PageWidth>
@@ -567,7 +500,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>129e2d7f-56de-4957-9e40-ed834a9cf7a5</rd:DataSourceID>
+      <rd:DataSourceID>c77fc403-719d-4ae8-a8d3-96b18bf3b6b1</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -605,10 +538,14 @@
           <DataField>horario</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="hrstrabnom">
+          <DataField>hrstrabnom</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>nomRHDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\StarRH\RHW\App_Code\nomRHDataSet1.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\StarRH\RHW\App_Code\nomRHDataSet.xsd</rd:SchemaPath>
         <rd:TableName>vm_CalculoSucursal</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

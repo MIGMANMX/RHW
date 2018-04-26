@@ -1679,6 +1679,8 @@ Partial Class CalculosHSucursal
                 cmd2.Dispose()
                 Fecha = DateAdd(DateInterval.Day, 1, Fecha).ToString("yyyy-MM-dd")
             End While
+            'acum = 0
+            'acumnom = 0
         End While
         dbc.Close() : dbc.Dispose()
         'Lmsg.Text = IniTol
