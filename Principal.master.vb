@@ -39,6 +39,7 @@ Partial Class Principal
             regInidencia.Visible = True
             dia.Visible = False
             EHJ.Visible = False
+            MHJ.Visible = False
             confi.Visible = False
             rep6.Visible = False
             Aut.Visible = False
@@ -72,6 +73,7 @@ Partial Class Principal
             rep9.Visible = True
             rep8.Visible = True
             rep7.Visible = False
+            MHJ.Visible = True
         End If
         If datos(0) = 8 Then
             acc.Visible = False
@@ -100,6 +102,7 @@ Partial Class Principal
             rep9.Visible = True
             rep8.Visible = True
             rep7.Visible = False
+            MHJ.Visible = True
         End If
     End Sub
 End Class

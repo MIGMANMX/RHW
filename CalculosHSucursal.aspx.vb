@@ -95,7 +95,7 @@ Partial Class CalculosHSucursal
         Dim FechaInicial, FechaFinal, Fecha As Date
         FechaInicial = Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd")
         FechaFinal = Format(CDate(TxFechaFin.Text), "yyyy-MM-dd")
-        GridView1.DataSource = ec.gvCalculoSucursal(TxFechaInicio.Text, TxFechaFin.Text)
+        GridView1.DataSource = ec.gvCalculoSucursal()
 
         ' GridView1.DataSource = ec.gvCalculoSucursal(Format(CDate(TxFechaInicio.Text), "yyyy-MM-dd"), Format(CDate(TxFechaFin.Text), "yyyy-MM-dd"))
         ec = Nothing
@@ -1158,7 +1158,7 @@ Partial Class CalculosHSucursal
     Protected Sub btnTabla_Click(sender As Object, e As EventArgs) Handles btnTabla.Click
 
         Dim ec As New ctiCalculo
-        GridView1.DataSource = ec.gvCalculoSucursal(TxFechaInicio.Text, TxFechaFin.Text)
+        GridView1.DataSource = ec.gvCalculoSucursal()
         ec = Nothing
         GridView1.DataBind()
     End Sub

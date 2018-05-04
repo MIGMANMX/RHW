@@ -47,7 +47,7 @@
             Response.Write("<tr><td height=6 /></tr></table></div>")
         End If%>
 
-    <h3>Casos Particulares</h3>
+    <h3>Horas extras</h3>
     <div id="izquierdo">
         <table>
             <tr>

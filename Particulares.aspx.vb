@@ -6,6 +6,7 @@ Partial Class Particulares
     Dim Fech As Date
     Public gvPos As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         Dim gvds As New ctiWUC
@@ -95,6 +96,7 @@ Partial Class Particulares
         End If
         'btnActualizar.Enabled = True
         dropLTipo.Enabled = True
+        'dropLTipo.SelectedValue = 1
     End Sub
     Protected Sub ImageButton1_Click(sender As Object, e As ImageClickEventArgs) Handles ImageButton1.Click
         If FIngreso.Visible = True Then

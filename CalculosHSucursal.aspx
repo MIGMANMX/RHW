@@ -118,6 +118,7 @@
                 <asp:BoundField DataField="hrstrabnom" HeaderText="Nómina" SortExpression="hrstrabnom"  ItemStyle-HorizontalAlign ="Center"/>
                 <asp:BoundField DataField="detalle" HeaderText="Detalle" SortExpression="detalle" />
                 <asp:BoundField DataField="horario" HeaderText="Horario" SortExpression="horario" />
+                <asp:BoundField DataField="althorario" HeaderText="Completar" SortExpression="horario" HtmlEncode="True" />
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />

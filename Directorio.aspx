@@ -25,6 +25,9 @@
       .auto-style5 {
           width: 265px;
       }
+        .auto-style6 {
+            width: 249px;
+        }
   </style>
     <div id="contenedor">
     <div id="izquierdo">
@@ -79,6 +82,15 @@
             </tr>
            
         </table>
+         <table>Datos de Emergencia:
+            <tr>
+               <td class="auto-style6">Nombre:<br />
+                    <asp:TextBox ID="nombreTxt" runat="server" CssClass="txtCaptura" MaxLength="40" Width="189px" /></td>
+                <td class="auto-style14">Telefono:<br />
+                    <asp:TextBox ID="telefonoTxt" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" /></td>
+             
+                 </tr>
+             </table>
 
     </div>
          <asp:TextBox ID="grdSR" runat="server" Visible="false"></asp:TextBox>

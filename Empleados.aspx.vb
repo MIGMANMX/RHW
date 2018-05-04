@@ -37,10 +37,10 @@ Partial Class _Empleados
             CFBaja.Visible = False
 
         End If
-        baj.Visible = False
-        fecha_baja.Visible = False
-        ImageButton3.Visible = False
-        CFBaja.Visible = False
+        'baj.Visible = False
+        'fecha_baja.Visible = False
+        'ImageButton3.Visible = False
+        'CFBaja.Visible = False
 
         Dim dsP As New ctiCatalogos
         Dim datos() As String = dsP.clave_att
@@ -65,10 +65,11 @@ Partial Class _Empleados
                 GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Normal
                 grdSR.Text = ""
             End If
-            baj.Visible = True
-            fecha_baja.Visible = True
-            ImageButton3.Visible = True
-            CFBaja.Visible = True
+            'baj.Visible = True
+            'fecha_baja.Visible = True
+            'ImageButton3.Visible = True
+            'CFBaja.Visible = True
+
             Dim dsP As New ctiCatalogos
             Dim datos() As String = dsP.datosEmpleado(CInt(GridView1.Rows(Convert.ToInt32(e.CommandArgument)).Cells(0).Text))
             dsP = Nothing
@@ -81,21 +82,29 @@ Partial Class _Empleados
                 WucPuestos.idPuesto = datos(2)
                 activo.Checked = datos(3)
                 nss.Text = datos(4)
-                fecha_ingreso.Text = datos(5)
+                fecha_ingreso.Text = Convert.ToDateTime(datos(5)).ToString("dd/MM/yyyy")
+
                 rfc.Text = datos(6)
-                fecha_nacimiento.Text = datos(7)
+                fecha_nacimiento.Text = Convert.ToDateTime(datos(7)).ToString("dd/MM/yyyy")
                 calle.Text = datos(8)
                 numero.Text = datos(9)
                 colonia.Text = datos(10)
                 cp.Text = datos(11)
                 telefono.Text = datos(12)
                 correo.Text = datos(13)
-                fecha_baja.Text = datos(14)
+                fecha_baja.Text = Convert.ToDateTime(datos(14)).ToString("dd/MM/yyyy")
                 claveTX.Text = ""
                 claveTX.Text = datos(16)
                 Catt = datos(16)
                 wucTipoJornada.idTipoJornada = datos(17)
                 baja.Checked = datos(18)
+
+                curp.Text = datos(19)
+                nombreTxt.Text = datos(20)
+                telefonoTxt.Text = datos(21)
+                nombreTxt.Text = datos(22)
+
+
                 claveTX.Enabled = True
 
                 grdSR.Text = e.CommandArgument.ToString
@@ -184,13 +193,48 @@ Partial Class _Empleados
                 _fecha_nacimiento = "2017-01-01"
             End If
 
+            Dim _fecha_baja As String
+            If fecha_baja.Text <> "" Then
+                _fecha_baja = Format(CDate(fecha_baja.Text), "yyyy-MM-dd")
+            Else
+                _fecha_baja = "2017-01-01"
+            End If
+
+            Dim _curp As String
+            If curp.Text <> "" Then
+                _curp = Convert.ToString(curp.Text)
+            Else
+                _curp = " "
+            End If
+
+            Dim _cnombre As String
+            If nombreTxt.Text <> "" Then
+                _cnombre = Convert.ToString(nombreTxt.Text)
+            Else
+                _cnombre = " "
+            End If
+
+            Dim _ctelefono As String
+            If telefonoTxt.Text <> "" Then
+                _ctelefono = Convert.ToString(telefonoTxt.Text)
+            Else
+                _ctelefono = " "
+            End If
+
+            Dim _bnota As String
+            If nombreTxt.Text <> "" Then
+                _bnota = Convert.ToString(nombreTxt.Text)
+            Else
+                _bnota = " "
+            End If
+
             If IsNumeric(grdSR.Text) Then
                 grdSR.Text = ""
                 btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
             End If
             Dim gp As New ctiCatalogos
 
-            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, WucPuestos.idPuesto, claveTX.Text, wucTipoJornada.idTipoJornada, baja.Checked)
+            Dim r() As String = gp.agregarEmpleado(empleado.Text, wucSuc.idSucursal, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, WucPuestos.idPuesto, claveTX.Text, wucTipoJornada.idTipoJornada, baja.Checked, _curp, _cnombre, _ctelefono, _bnota, _fecha_baja)
             GridView1.DataSource = gp.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
             gp = Nothing
             GridView1.DataBind()
@@ -219,7 +263,7 @@ Partial Class _Empleados
                 End If
                 empleado.Text = "" : WucPuestos.idPuesto = 3 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
                 nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
-
+                curp.Text = "" : nombreTxt.Text = "" : telefonoTxt.Text = "" : notaTxt.Text = ""
                 FIngreso.SelectedDates.Clear()
                 CFBaja.SelectedDates.Clear()
                 CFNacimiento.SelectedDates.Clear()
@@ -307,9 +351,37 @@ Partial Class _Empleados
                 _fecha_baja = "2017-01-01"
             End If
 
+            Dim _curp As String
+            If curp.Text <> "" Then
+                _curp = Convert.ToString(curp.Text)
+            Else
+                _curp = " "
+            End If
+
+            Dim _cnombre As String
+            If nombreTxt.Text <> "" Then
+                _cnombre = Convert.ToString(nombreTxt.Text)
+            Else
+                _cnombre = " "
+            End If
+
+            Dim _ctelefono As String
+            If telefonoTxt.Text <> "" Then
+                _ctelefono = Convert.ToString(telefonoTxt.Text)
+            Else
+                _ctelefono = " "
+            End If
+
+            Dim _bnota As String
+            If nombreTxt.Text <> "" Then
+                _bnota = Convert.ToString(nombreTxt.Text)
+            Else
+                _bnota = " "
+            End If
+
             Dim ap As New ctiCatalogos
             Dim idA As Integer = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja, wucTipoJornada.idTipoJornada, baja.Checked)
+            Dim r As String = ap.actualizarEmpleado(idA, empleado.Text, wucSuc.idSucursal, WucPuestos.idPuesto, activo.Checked, _nss, _fecha_ingreso, _rfc, _fecha_nacimiento, _calle, _numero, _colonia, _cp, _telefono, _correo, _fecha_baja, wucTipoJornada.idTipoJornada, baja.Checked, _curp, _cnombre, _ctelefono, _bnota)
             GridView1.DataSource = ap.gvEmpleados(wucSucursales.idSucursal, chkActivo.Checked, chkBaja.Checked)
             ap = Nothing
             GridView1.DataBind()
@@ -327,6 +399,7 @@ Partial Class _Empleados
             Else
                 empleado.Text = "" : WucPuestos.idPuesto = 3 : wucSuc.idSucursal = 0 : fecha_baja.Text = "" : fecha_ingreso.Text = "" : fecha_nacimiento.Text = ""
                 nss.Text = "" : rfc.Text = "" : calle.Text = "" : colonia.Text = "" : numero.Text = "" : cp.Text = "" : telefono.Text = "" : correo.Text = ""
+                curp.Text = "" : nombreTxt.Text = "" : telefonoTxt.Text = "" : notaTxt.Text = ""
                 btnGuardarNuevo.Enabled = True
 
                 FIngreso.SelectedDates.Clear()

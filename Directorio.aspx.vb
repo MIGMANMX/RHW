@@ -39,7 +39,7 @@ Partial Class _Directorio
         If idempleado.Text <> "" And empleado.Text <> "" And idsucursal.Text <> "" And calle.Text <> "" And numero.Text <> "" And colonia.Text <> "" And cp.Text <> "" And telefono.Text <> "" And correo.Text <> "" And claveTX.Text <> "" Then
             Dim ap As New ctiCatalogos
 
-            Dim r As String = ap.actualizarDirectorio(Convert.ToInt32(idempleado.Text), empleado.Text, idsucursal.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, claveTX.Text)
+            Dim r As String = ap.actualizarDirectorio(Convert.ToInt32(idempleado.Text), empleado.Text, idsucursal.Text, calle.Text, numero.Text, colonia.Text, cp.Text, telefono.Text, correo.Text, claveTX.Text, nombreTxt.Text, telefonoTxt.Text)
 
             ap = Nothing
 
@@ -84,6 +84,10 @@ Partial Class _Directorio
             correo.Text = datos(13)
             idempleado.Text = datos(15)
             claveTX.Text = datos(16)
+
+            nombreTxt.Text = datos(20)
+            telefonoTxt.Text = datos(21)
+            nombreTxt.Text = datos(22)
         End If
     End Sub
 

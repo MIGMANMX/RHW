@@ -21,28 +21,29 @@
         }
       
         .auto-style1 {
-            width: 463px;
+            width: 231px;
         }
         .auto-style2 {
             height: 1464px;
+            width: 1072px;
+            margin-right: 29px;
         }
       
-        .auto-style5 {
-            height: 70px;
-            width: 199px;
-        }
-              
         .auto-style6 {
             height: 51px;
+        }
+              
+        .auto-style7 {
+            width: 831px;
         }
               
         </style>
     <div id="contenedor" class="auto-style2">
     <h3>Cálculo de Horas </h3>
-    <div id="izquierdo">
+    <div id="izquierdo" class="auto-style7">
         <table>
             <tr>
-                <td class="auto-style6">Sucursal:<br />
+                <td class="auto-style6" id="suc" runat="server">Sucursal:<br />
                     <uc1:wucsucursales ID="wucSucursales" runat="server" /></td>
               <td class="auto-style6">Empleado:<asp:TextBox ID="grdSR" runat="server" Visible="false" Width="176px"></asp:TextBox>
                   <asp:TextBox ID="idEmpleadoTX" runat="server" Visible="False" Width="46px"></asp:TextBox>
@@ -116,20 +117,22 @@
                 <td>
                   <asp:GridView ID="GridView1" runat="server" 
             DataKeyNames ="fecha" AutoGenerateColumns="False" CellPadding="4" 
-            ForeColor="#333333" GridLines="None" Width="537px" Height="238px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" PageSize="16">
+            ForeColor="#333333" GridLines="None" Width="811px" Height="238px" AllowPaging="True" OnPageIndexChanging="GridView1_PageIndexChanging1" PageSize="16">
             <Columns>
                 <asp:BoundField DataField="fecha" ItemStyle-Width="1" ItemStyle-Font-Size="1" > 
                 <ItemStyle Font-Size="1pt" Width="1px"></ItemStyle>
                 </asp:BoundField>
 
                <%-- <asp:ButtonField ButtonType="Image" CommandName="Editar" ImageUrl="~/Imagenes/editar.png" />--%>
-                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha"  HtmlEncode="False" DataFormatString = "{0:d}"/>
-                <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" />
+                <asp:BoundField DataField="fecha" HeaderText="Fecha" SortExpression="fecha"  HtmlEncode="True" DataFormatString = "{0:d}"/>
+                <asp:BoundField DataField="clockin" HeaderText="Entrada" SortExpression="clockin" HtmlEncode="True"/>
                 <asp:BoundField DataField="clockout" HeaderText="Salida" SortExpression="clockout" />
                 <asp:BoundField DataField="hrstrab" HeaderText="Horas" SortExpression="hrstrab" ItemStyle-HorizontalAlign ="Center"/>
                 <asp:BoundField DataField="hrstrabnom" HeaderText="Nómina" SortExpression="hrstrabnom"  ItemStyle-HorizontalAlign ="Center"/>
                 <asp:BoundField DataField="detalle" HeaderText="Detalle" SortExpression="detalle" />
-                <asp:BoundField DataField="horario" HeaderText="Horario" SortExpression="horario" />
+                <asp:BoundField DataField="horario" HeaderText="Horario" SortExpression="horario" HtmlEncode="True" />
+                <asp:BoundField DataField="althorario" HeaderText="Completar" SortExpression="Completar" HtmlEncode="True" />
+                <asp:BoundField DataField="hrsextras" HeaderText="HrsExtras" SortExpression="hrsextras" HtmlEncode="True" />
            </Columns>
             <HeaderStyle BackColor="#f39c12" ForeColor="#f8f8f8" />
             <RowStyle BackColor="#f3f3f3" ForeColor="#333333" />
@@ -158,9 +161,6 @@
                     <asp:TextBox ID="TxHorasTrabajadas" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /></td>
                 <td class="auto-style18">Horas Nómina:<asp:TextBox ID="TxHtotales" runat="server" CssClass="txtCaptura" MaxLength="40" Width="110px" /><br />
                     </td>
-                 <td class="auto-style5">
-                     
-                     &nbsp;</td>
             </tr>
             <tr>
                 <td>Dias Descansados:<br />
