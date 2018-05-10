@@ -1,6 +1,10 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Data.SqlClient
 Imports System.Globalization
 Imports Microsoft.Reporting.WebForms
+Imports Microsoft.ReportingServices.DataProcessing
+
+
 Imports RHLogica
 
 Partial Class Prenomina
@@ -135,7 +139,7 @@ Partial Class Prenomina
 
                     '''''''''''Vales
                     FCantidadVales()
-                    FTotalVales()
+                    'FTotalVales()
 
                     ''''''''''''Total
                     ImporteTotal()
@@ -257,12 +261,19 @@ Partial Class Prenomina
         diafes = 0.0
         diades = 0.0
         primadom = 0.0
-        Using dbC As New SqlConnection
-            dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
-            dbC.Open()
-            Dim cmd As New SqlCommand("SELECT hora,extra,extratiple,diafestivo,diadescanso,primadominical FROM Salarios WHERE idpuesto = @idpuesto AND idsucursal=@idsucursal", dbC)
-            cmd.Parameters.AddWithValue("idpuesto", idpuesto)
-            cmd.Parameters.AddWithValue("idsucursal", wucSucursales.idSucursal)
+
+        Dim cn As New SqlConnection
+        cn.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrRH").ToString
+        Dim cmd As New SqlCommand
+        cmd.CommandType = Data.CommandType.StoredProcedure
+        cmd.CommandText = "VariablesSP"
+        cmd.Parameters.Add("@idpuesto", SqlDbType.VarChar).Value = idpuesto
+        cmd.Parameters.Add("@idsucursal", SqlDbType.VarChar).Value = wucSucursales.idSucursal
+
+        cmd.Connection = cn
+        Try
+            cn.Open()
+            cmd.ExecuteNonQuery()
             Dim rdr As SqlDataReader = cmd.ExecuteReader
             Dim dsP As String()
             If rdr.Read Then
@@ -273,10 +284,14 @@ Partial Class Prenomina
                 diades = rdr("diadescanso").ToString
                 primadom = rdr("primadominical").ToString
             Else
-                ' Mens.Text = "Error: no se encuentra los salarios."
+                '  Mens.Text = "Error: no se encuentra los salarios."
             End If
-            rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
-        End Using
+        Catch ex As Exception
+            Throw ex
+        Finally
+            cn.Close()
+            cn.Dispose()
+        End Try
     End Sub
     Public Sub HTotales()
         HTotalesT = 0
@@ -1191,9 +1206,6 @@ Partial Class Prenomina
         CantidadVales = cont
         cont = 0
         Acum = 0.0
-    End Sub
-    Public Sub FTotalVales()
-
     End Sub
     Public Sub ImporteTotal()
         ImporteTotalT = 0.0

@@ -70,11 +70,14 @@ Partial Class EPartidaJornada
         GridView1.Visible = False
     End Sub
     Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
-        Dim ap As New ctiCatalogos
-        'idA = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
-        Dim r As String = ap.actualizarPartidaJornada2(idpartidas_jornadaT.Text, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text, chk.Checked, chksalida.Checked, chkhsal.Checked)
-        GridView1.DataSource = ap.gvPartida_Jornada2(wucEmpleados2.idEmpleado, TxFechaInicio.Text, TxFechaFin.Text)
-        ap = Nothing
+        If fecha.Text <> "" Then
+
+
+            Dim ap As New ctiCatalogos
+            'idA = CInt(GridView1.Rows(Convert.ToInt32(grdSR.Text)).Cells(0).Text)
+            Dim r As String = ap.actualizarPartidaJornada2(idpartidas_jornadaT.Text, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text, chk.Checked, chksalida.Checked, chkhsal.Checked)
+            GridView1.DataSource = ap.gvPartida_Jornada2(wucEmpleados2.idEmpleado, TxFechaInicio.Text, TxFechaFin.Text)
+            ap = Nothing
             GridView1.DataBind()
             If r.StartsWith("Error") Then
                 Lmsg.CssClass = "error"
@@ -85,7 +88,10 @@ Partial Class EPartidaJornada
             Dim gvp As New clsCTI
             gvp = Nothing
             Lmsg.Text = r
-        btnActualizarr.Enabled = True
+            btnActualizarr.Enabled = True
+        Else
+            Lmsg.Text = "Falta seleccionar"
+        End If
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Editar" Then

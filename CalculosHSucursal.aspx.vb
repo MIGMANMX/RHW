@@ -1397,13 +1397,13 @@ Partial Class CalculosHSucursal
         dbc3.Open()
         ''''''''''''''''''''''''''''''''''''''
         'LIMPIAR TABLA TEMPORAL
-        cmd2 = New SqlCommand("DELETE FROM Temp_Calculo", dbc2)
+        cmd2 = New SqlCommand("DELETE FROM Temp_CalculoSucursal", dbc2)
         cmd2.ExecuteNonQuery()
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'Iniciar un ciclo de comparacion por empleado de la sucursal
         ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         'Consulta de empleados por sucursal
-        Dim cmd3 As New SqlCommand("SELECT idempleado,empleado FROM vm_EmpleadoSucursal  WHERE idsucursal =@idsucursal", dbc3)
+        Dim cmd3 As New SqlCommand("SELECT idempleado,empleado FROM vm_EmpleadoSucursal  WHERE idsucursal ='" & wucSucursales.idSucursal & "' ", dbc3)
         cmd3.Parameters.AddWithValue("idsucursal", wucSucursales.idSucursal)
         Dim rdr3 As SqlDataReader = cmd3.ExecuteReader
         'Inicio de ciclo

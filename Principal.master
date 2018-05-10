@@ -149,7 +149,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="<%=ResolveUrl("AuIncidencias.aspx")%>"><i class="fa fa-bomb"></i>Incidencias</a></li>
-                   <li><a href="<%=ResolveUrl("AuParticulares.aspx")%>"><i class="fa fa-balance-scale"></i>Casos Particulares</a></li>
+                   <li><a href="<%=ResolveUrl("AuParticulares.aspx")%>"><i class="fa fa-balance-scale"></i>Horas Extras</a></li>
                    <li><a href="<%=ResolveUrl("AuPrestamos.aspx")%>"><i class="fa fa-arrows-h"></i>Prestamo de Empleados</a></li>
               </ul>
             </li>
@@ -168,8 +168,8 @@
                <li id="rep2" runat="server"><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias</a></li>
                 
                
-               <li id="rep4" runat="server"><a href="<%=ResolveUrl("RepCasos.aspx")%>"><i class="fa fa-compass"></i>Casos Particulares</a></li>
-               <li id="rep8" runat="server"><a href="<%=ResolveUrl("RepCasosSuc.aspx")%>"><i class="fa fa-balance-scale"></i>Casos Particulares Sucursales</a></li>
+               <li id="rep4" runat="server"><a href="<%=ResolveUrl("RepCasos.aspx")%>"><i class="fa fa-compass"></i>Horas Extras</a></li>
+               <li id="rep8" runat="server"><a href="<%=ResolveUrl("RepCasosSuc.aspx")%>"><i class="fa fa-balance-scale"></i>Horas Extrass Sucursales</a></li>
               
                <li id="rep7" runat="server"><a href="<%=ResolveUrl("RepPrestamoEmp.aspx")%>"><i class="fa fa-arrows-h"></i>Prestamos de empleados </a></li>
                 <li id="rep9" runat="server"><a href="<%=ResolveUrl("RepPrestamoEmpSuc.aspx")%>"><i class="fa fa-external-link"></i>Prestamos de empleados Suc</a></li>
