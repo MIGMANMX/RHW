@@ -55,6 +55,9 @@ Partial Class _Empleados
             clave = _clave + 1
             claveTX.Text = clave
         End If
+
+        wucTipoJornada.idTipoJornada = 1
+        WucPuestos.idPuesto = 3
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then
@@ -119,7 +122,7 @@ Partial Class _Empleados
         End If
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        If empleado.Text = "" Then
+        If empleado.Text = "" And fecha_ingreso.Text = "" And WucPuestos.idPuesto = 0 And wucTipoJornada.idTipoJornada = 0 Then
             Lmsg.Text = "Error : Falta capturar un dato"
         Else
 

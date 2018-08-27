@@ -117,6 +117,10 @@
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
             
+                     <asp:TextBox ID="DiaS" runat="server" Visible="False"></asp:TextBox>
+            
+                     <asp:TextBox ID="THORA" runat="server" Visible="False"></asp:TextBox>
+            
           <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
             
                                   
@@ -130,7 +134,14 @@
             
                                    
             
-                </td> 
+                </td> <td>
+
+                      Ultima Edición:<br />
+                    <asp:TextBox ID="verif" runat="server" CssClass="txtCaptura" MaxLength="40" Width="168px" Enabled="False" />
+            
+                                   
+            
+                      </td>
             </tr>
             <tr>
             <td class="auto-style19"> 

@@ -4,10 +4,7 @@ Imports RHLogica
 Partial Class Principal
     Inherits System.Web.UI.MasterPage
 
-    Protected Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-        Session.Clear()
-        Response.Redirect("Default.aspx")
-    End Sub
+
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         If IsNothing(Session("idusuario")) Then
@@ -104,5 +101,9 @@ Partial Class Principal
             rep7.Visible = False
             MHJ.Visible = True
         End If
+    End Sub
+    Protected Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+        Session.Clear()
+        Response.Redirect("Default.aspx")
     End Sub
 End Class

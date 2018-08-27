@@ -356,6 +356,8 @@ Partial Class _HPartidasJornadas
         DiaS.Text = fech.DayOfWeek.ToString()
 
         If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
+
+
             Dim ap As New ctiCatalogos
             If bandera = True Then
 
@@ -402,7 +404,61 @@ Partial Class _HPartidasJornadas
             btnActualizarr.Enabled = True
         Else
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-            If DiaS.Text = "Monday" And hora < 10 Then
+                If DiaS.Text = "Monday" And hora < 10 Then
+                    Dim ap As New ctiCatalogos
+                    If bandera = True Then
+
+                        Dim idA As Integer = CInt(idpartidas_jornadaT.Text)
+
+                        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        ap = Nothing
+                        GridView1.DataBind()
+                        If r.StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+                            FechaC.SelectedDates.Clear()
+                        End If
+
+                        Dim gvp As New clsCTI
+
+                        gvp = Nothing
+                        Lmsg.Text = r
+                        _schuleData = getSchedule()
+
+                    ElseIf bandera = False Then
+
+                        Dim idA As Integer = CInt(TIDPJ.Text)
+
+                        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        ap = Nothing
+                        GridView1.DataBind()
+                        If r.StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+
+                        End If
+
+                        Dim gvp As New clsCTI
+                        gvp = Nothing
+                        Lmsg.Text = r
+                        _schuleData = getSchedule()
+                        bandera = True
+                    End If
+                    btnActualizarr.Enabled = True
+                    h = False
+                Else
+                    Lmsg.Text = "Termino el tiempo de Captura"
+                    h = True
+                End If
+                If h = False Then
+                    Lmsg.Text = "No esta permitido capturar"
+                End If
+
+            Else
                 Dim ap As New ctiCatalogos
                 If bandera = True Then
 
@@ -420,7 +476,6 @@ Partial Class _HPartidasJornadas
                     End If
 
                     Dim gvp As New clsCTI
-
                     gvp = Nothing
                     Lmsg.Text = r
                     _schuleData = getSchedule()
@@ -437,7 +492,7 @@ Partial Class _HPartidasJornadas
                         Lmsg.CssClass = "error"
                     Else
                         Lmsg.CssClass = "correcto"
-
+                        FechaC.SelectedDates.Clear()
                     End If
 
                     Dim gvp As New clsCTI
@@ -447,60 +502,7 @@ Partial Class _HPartidasJornadas
                     bandera = True
                 End If
                 btnActualizarr.Enabled = True
-                h = False
-            Else
-                Lmsg.Text = "Termino el tiempo de Captura"
-                h = True
             End If
-            If h = False Then
-                Lmsg.Text = "No esta permitido capturar"
-            End If
-
-        Else
-            Dim ap As New ctiCatalogos
-            If bandera = True Then
-
-                Dim idA As Integer = CInt(idpartidas_jornadaT.Text)
-
-                Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-                GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                ap = Nothing
-                GridView1.DataBind()
-                If r.StartsWith("Error") Then
-                    Lmsg.CssClass = "error"
-                Else
-                    Lmsg.CssClass = "correcto"
-                    FechaC.SelectedDates.Clear()
-                End If
-
-                Dim gvp As New clsCTI
-                gvp = Nothing
-                Lmsg.Text = r
-                _schuleData = getSchedule()
-
-            ElseIf bandera = False Then
-
-                Dim idA As Integer = CInt(TIDPJ.Text)
-
-                Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-                GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                ap = Nothing
-                GridView1.DataBind()
-                If r.StartsWith("Error") Then
-                    Lmsg.CssClass = "error"
-                Else
-                    Lmsg.CssClass = "correcto"
-                    FechaC.SelectedDates.Clear()
-                End If
-
-                Dim gvp As New clsCTI
-                gvp = Nothing
-                Lmsg.Text = r
-                _schuleData = getSchedule()
-                bandera = True
-            End If
-            btnActualizarr.Enabled = True
-        End If
         End If
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand

@@ -1,8 +1,8 @@
-﻿﻿<%@ Master Language="VB" CodeFile="Principal.master.vb" Inherits="Principal" %>
+﻿<%@ Master Language="VB" CodeFile="Principal.master.vb" Inherits="Principal" %>
 
 <!DOCTYPE html>
 <html>
-  <head runat="server">
+<head runat="server">
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,10 +20,10 @@
     <link rel="stylesheet" href="css/_all-skins.min.css">
     <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
     <link rel="shortcut icon" href="img/favicon.ico">
-       <asp:ContentPlaceHolder id="head" runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-  </head>
-  <body class="hold-transition skin-yellow sidebar-mini">
+</head>
+  <body class="hold-transition skin-yellow-light sidebar-mini">
 
       <form id="form1" runat="server">
           <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -86,7 +86,7 @@
       <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
+         <section class="sidebar">
           <!-- Sidebar user panel -->
                     
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -172,9 +172,12 @@
                <li id="rep8" runat="server"><a href="<%=ResolveUrl("RepCasosSuc.aspx")%>"><i class="fa fa-balance-scale"></i>Horas Extrass Sucursales</a></li>
               
                <li id="rep7" runat="server"><a href="<%=ResolveUrl("RepPrestamoEmp.aspx")%>"><i class="fa fa-arrows-h"></i>Prestamos de empleados </a></li>
-                <li id="rep9" runat="server"><a href="<%=ResolveUrl("RepPrestamoEmpSuc.aspx")%>"><i class="fa fa-external-link"></i>Prestamos de empleados Suc</a></li>
-             <li id="rep10" runat="server"><a href="<%=ResolveUrl("RepValesRH.aspx")%>"><i class="fa fa-briefcase"></i>Vales RH</a></li>
-             
+               <li id="rep9" runat="server"><a href="<%=ResolveUrl("RepPrestamoEmpSuc.aspx")%>"><i class="fa fa-external-link"></i>Prestamos de empleados Suc</a></li>
+               <li id="rep10" runat="server"><a href="<%=ResolveUrl("RepValesRH.aspx")%>"><i class="fa fa-briefcase"></i>Vales RH</a></li>
+               <li id="rep11" runat="server"><a href="<%=ResolveUrl("RepIAusentismo.aspx")%>"><i class="fa fa-file-pdf-o"></i>Indice ausentismo</a></li>
+               <li id="Rep13" runat="server"><a href="<%=ResolveUrl("RepIAusentismoSuc.aspx")%>"><i class="fa fa-file-pdf-o"></i>Indice ausentismo sucursales</a></li>
+               <li id="rep12" runat="server"><a href="<%=ResolveUrl("RepIRotacion.aspx")%>"><i class="fa fa-file-pdf-o"></i>Indice rotación</a></li>
+            
               </ul>
             </li>
                         
