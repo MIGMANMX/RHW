@@ -10,7 +10,9 @@ Partial Class _RegistroIncidencias
     Dim dia As String
     Dim ho As String
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        Dim fech As Date
+        fech = Now
+        DiaS.Text = fech.DayOfWeek.ToString()
 
         btnActualizarr.Enabled = False
         btnGuardarNuevo.Enabled = True
@@ -110,9 +112,9 @@ Partial Class _RegistroIncidencias
         'btnActualizarr.Visible = False
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        Dim fech As Date
-        fech = Now
-        DiaS.Text = fech.DayOfWeek.ToString()
+        'Dim fech As Date
+        'fech = Now
+        'DiaS.Text = fech.DayOfWeek.ToString()
 
         If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
 
@@ -150,7 +152,7 @@ Partial Class _RegistroIncidencias
 
         Else
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
+                If DiaS.Text = "Wednesday" Then
                     If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
                         Dim gp As New ctiCatalogos
                         If IsNumeric(grdSR.Text) Then
@@ -182,7 +184,11 @@ Partial Class _RegistroIncidencias
                         Lmsg.Text = "Error: Es necesario capturar los datos."
                     End If
                 Else
-                    If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
+                    Lmsg.Text = "Termino el tiempo de Captura"
+
+                End If
+            Else
+                If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
                         Dim gp As New ctiCatalogos
                         If IsNumeric(grdSR.Text) Then
                             grdSR.Text = ""
@@ -214,7 +220,7 @@ Partial Class _RegistroIncidencias
                     End If
                 End If
             End If
-        End If
+
     End Sub
     Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
 
@@ -264,7 +270,7 @@ Partial Class _RegistroIncidencias
 
         Else
             If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
+                If DiaS.Text = "Wednesday" Then
                     If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
 
                         Dim ap As New ctiCatalogos

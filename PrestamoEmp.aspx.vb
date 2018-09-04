@@ -152,7 +152,7 @@ Partial Class PrestamoEmp
         End If
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
-        If TxFechaInicio.Text <> "" And TextBox2.Text <> "" Then
+        If TxFechaInicio.Text <> "" And TextBox2.Text <> "" And wucJornadas.idJornada <> 0 Then
             If IsNumeric(grdSR.Text) Then
                 grdSR.Text = ""
                 btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = False
@@ -185,7 +185,7 @@ Partial Class PrestamoEmp
                 TxFechaInicio.Text = ""
                 TextBox2.Text = ""
                 chkVer.Checked = False
-
+                FIngreso.SelectedDates.Clear()
             End If
             Lmsg.Text = r(0)
         Else

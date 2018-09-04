@@ -60,6 +60,23 @@
           .auto-style12 {
             width: 415px;
         }
+          .auto-style13 {
+             width: 407px;
+         }
+          .auto-style15 {
+             width: 97px;
+         }
+         .auto-style16 {
+             height: 45px;
+             width: 237px;
+         }
+         .auto-style17 {
+             height: 45px;
+             width: 97px;
+         }
+         .auto-style18 {
+             width: 237px;
+         }
           </style>
       <div id="contenedor">
           <div id="izquierdo">
@@ -73,21 +90,17 @@
          
             </tr>
             <tr>
-            <td class="auto-style10">Dia:<br />
-                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" Enabled="False" />
-            
-                                   
-            
-                    <br />
-            
-                                   
-            
-                    Jornada:<br />
+            <td class="auto-style10">Jornada:<br />
                 <uc3:wucjornadas ID="wucJornadas" runat="server" />
             
                                    
             
                  <br />
+            
+                     <asp:TextBox ID="DiaS" runat="server" Visible="False"></asp:TextBox>
+            
+                     <asp:TextBox ID="THORA" runat="server" Visible="False"></asp:TextBox>
+            
                 <br />
           <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
             
@@ -96,9 +109,10 @@
                  </td>
                  <td class="auto-style6">
             
-                     <asp:TextBox ID="DiaS" runat="server" Visible="False"></asp:TextBox>
+                     Dia:<br />
+                    <asp:TextBox ID="fecha" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" Enabled="False" />
             
-                     <asp:TextBox ID="THORA" runat="server" Visible="False"></asp:TextBox>
+                                   
             
                      <br />
             
@@ -114,19 +128,40 @@
                 </asp:Calendar>
                      <br />
                  </td>     </tr>
-            <tr>
-            <td class="auto-style10"> <asp:Label ID="Label1" runat="server" Text="Selecciona una fecha para añadir a toda la semana"></asp:Label>
-            
-                                   
-            
-                 </td>
-                 <td class="auto-style6">
+           </table>
+              <hr/>
+              <table class="auto-style13"><tr>
+                              <td class="auto-style16"> <asp:Label ID="Label1" runat="server" Text="Selecciona una fecha para añadir a toda la semana"></asp:Label>
+ </td>
+                 <td class="auto-style17">
             
                     <asp:Button ID="btnFechaSemana" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Toda la semana"  ToolTip="Agregar toda la semana" Enabled="true" Width="130px" /> 
                    
                      <br />
             
                  </td>     </tr>
+            <tr>
+                <td class="auto-style18">
+
+                    Selecciona dia de descanso</td>
+                <td class="auto-style15">
+                    Descanso:<br />
+                    <asp:TextBox ID="DescansoF" runat="server" CssClass="txtCaptura" MaxLength="40" Width="149px" Enabled="False" />
+            
+                                   
+            
+          <asp:Calendar ID="FechaD" runat="server" BackColor="White" BorderColor="#3366CC" BorderWidth="1px" CellPadding="1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="#003399" Height="27px" Width="160px" TitleFormat="Month" >
+                    <DayHeaderStyle BackColor="White" ForeColor="#336666" Height="1px" />
+                    <NextPrevStyle Font-Size="8pt" ForeColor="#CCCCFF" />
+                    <OtherMonthDayStyle ForeColor="#999999" />
+                    <SelectedDayStyle BackColor="#999999" Font-Bold="True" ForeColor="#CCFF99" />
+                    <SelectorStyle BackColor="#FFCC66" ForeColor="#336666" />
+                    <TitleStyle BackColor="#FF9900" BorderColor="#FFCC66" BorderWidth="1px" Font-Bold="True" Font-Size="10pt" ForeColor="White" Height="25px" />
+                    <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
+                    <WeekendDayStyle BackColor="#CCCCFF" />
+                </asp:Calendar>
+                </td>
+            </tr>
         </table></div>
             <div id="derecho" class="auto-style12">
                 <asp:Calendar ID="Calendar1" runat="server" Width="396px" CssClass="auto-style11" Height="176px">
@@ -139,8 +174,6 @@
                    
           <br />
             
-                    <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Eliminar"  ToolTip="Elminar registro" Enabled="true" Width="130px" /> 
-                   
     </div>
           <br />
           <table>
@@ -163,6 +196,11 @@
                      <asp:Button ID="btnEditar" runat="server" CssClass="btn btn-warning btn-block btn-flat" Text="Listado" ToolTip="Editar" Width="108px" />                
                    <br />
                     </td>
+                  <td>
+
+                    <asp:Button ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-block btn-flat" Text="Eliminar"  ToolTip="Elminar registro" Enabled="true" Width="101px" /> 
+                                      <br />
+                  </td>
               </tr>
           </table>
           <table>

@@ -138,6 +138,7 @@
                 <li><a href="<%=ResolveUrl("CalculoHoras.aspx")%>"><i class="fa fa-calculator"></i> Cálculo de Horas</a></li>
                 <li id="che" runat="server"><a href="<%=ResolveUrl("CalculosHSucursal.aspx")%>"><i class="fa fa-hand-o-up"></i> Cálculo por sucursal</a></li>
                 <li><a href="<%=ResolveUrl("Prenomina.aspx")%>"><i class="fa fa-credit-card"></i> Prenomina</a></li>
+               <li><a href="<%=ResolveUrl("EncuestaSalida.aspx")%>"><i class="fa fa-sign-out"></i> Encuesta Salida</a></li>
                
               </ul>
             </li>
