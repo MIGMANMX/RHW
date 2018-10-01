@@ -6,6 +6,7 @@ Partial Class Particulares
     Dim Fech As Date
     Public gvPos As Integer
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'dropLTipo.SelectedValue = 1
 
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
@@ -62,7 +63,7 @@ Partial Class Particulares
                 btnActualizar.Enabled = False
                 'puesto.Text = ""
                 'wucEmpleados2.idEmpleado = 0
-                dropLTipo.SelectedValue = 0
+                'dropLTipo.SelectedValue = 0
                 fecha_ingreso.Text = ""
                 observaciones.Text = ""
                 cantidad.Text = ""
@@ -129,7 +130,7 @@ Partial Class Particulares
                 Lmsg.CssClass = "correcto"
                 'Limpiar
                 'wucEmpleados2.idEmpleado = 0
-                dropLTipo.SelectedValue = 0
+                'dropLTipo.SelectedValue = 0
                 fecha_ingreso.Text = ""
                 observaciones.Text = ""
                 cantidad.Text = ""
@@ -146,7 +147,6 @@ Partial Class Particulares
     End Sub
     Protected Sub btnGuardarNuevo_Click(sender As Object, e As EventArgs) Handles btnGuardarNuevo.Click
         If fecha_ingreso.Text <> "" And observaciones.Text <> "" Then
-
             Dim nota As String
             If Txnota.Text = "" Then
                 nota = "Sin Verificar"
@@ -183,7 +183,7 @@ Partial Class Particulares
                 btnActualizar.CssClass = "btn btn-info btn-block btn-flat" : btnActualizar.Enabled = True
 
                 ' wucEmpleados2.idEmpleado = 0
-                dropLTipo.SelectedValue = 0
+                'dropLTipo.SelectedValue = 0
                 fecha_ingreso.Text = ""
                 observaciones.Text = ""
                 cantidad.Text = ""

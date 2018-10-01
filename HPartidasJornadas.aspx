@@ -102,7 +102,7 @@
                      <asp:TextBox ID="THORA" runat="server" Visible="False"></asp:TextBox>
             
                 <br />
-          <asp:label ID="Lmsg" runat="server" CssClass="error"></asp:label>
+          <asp:label ID="Lmsg" runat="server" CssClass="error" ForeColor="#0033CC"></asp:label>
             
                                    
             
@@ -130,17 +130,8 @@
                  </td>     </tr>
            </table>
               <hr/>
-              <table class="auto-style13"><tr>
-                              <td class="auto-style16"> <asp:Label ID="Label1" runat="server" Text="Selecciona una fecha para añadir a toda la semana"></asp:Label>
- </td>
-                 <td class="auto-style17">
-            
-                    <asp:Button ID="btnFechaSemana" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Toda la semana"  ToolTip="Agregar toda la semana" Enabled="true" Width="130px" /> 
-                   
-                     <br />
-            
-                 </td>     </tr>
-            <tr>
+              <table class="auto-style13">
+                  <tr>
                 <td class="auto-style18">
 
                     Selecciona dia de descanso</td>
@@ -160,8 +151,20 @@
                     <TodayDayStyle BackColor="#99CCCC" ForeColor="White" />
                     <WeekendDayStyle BackColor="#CCCCFF" />
                 </asp:Calendar>
+                    <br />
                 </td>
             </tr>
+                  <tr>
+                              <td class="auto-style16"> <asp:Label ID="Label1" runat="server" Text="Selecciona una fecha para añadir a toda la semana"></asp:Label>
+ </td>
+                 <td class="auto-style17">
+            
+                    <asp:Button ID="btnFechaSemana" runat="server" CssClass="btn btn-primary btn-block btn-flat" Text="Toda la semana"  ToolTip="Agregar toda la semana" Enabled="true" Width="130px" /> 
+                   
+                     <br />
+            
+                 </td>     </tr>
+            
         </table></div>
             <div id="derecho" class="auto-style12">
                 <asp:Calendar ID="Calendar1" runat="server" Width="396px" CssClass="auto-style11" Height="176px">

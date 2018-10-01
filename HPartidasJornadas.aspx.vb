@@ -13,14 +13,24 @@ Partial Class _HPartidasJornadas
     Dim h As Boolean = False
     Dim dia As String
     Dim ho As String
+    '''Datos Panel
+    Dim Todos As Boolean = False
+    Dim Normal As Boolean = False
+    Dim Sucursal As Boolean = False
+    Dim idsucursal As Integer = 0
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Dim dsP As New ctiConfiguracion
-        Dim datos1() As String = dsP.datosHorario()
+        '''''''Leer Datos de Panel de configuracion''''''''''''''
+        Dim dsP As New ctiPanel
+        Dim datosP() As String = dsP.datos()
         dsP = Nothing
-        dia = datos1(0)
-        ho = datos1(1)
 
-        THORA.Text = DateTime.Now.ToString("hh")
+        Todos = datosP(1)
+        Normal = datosP(2)
+        Sucursal = datosP(3)
+        idsucursal = datosP(4)
+        ''''''''''''''''''''''''''''''''
+
+        THORA.Text = DateTime.Now.ToString("HH")
         hora = Convert.ToInt32(THORA.Text)
         h = False
         btnEliminar.Visible = False
@@ -250,8 +260,8 @@ Partial Class _HPartidasJornadas
         Dim fech As Date
         fech = Now
         DiaS.Text = fech.DayOfWeek.ToString()
-
-        If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
+        '''Abierto
+        If Todos = True And Normal = False And Sucursal = False Then
             If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
                 Dim gp As New ctiCatalogos
                 If IsNumeric(grdSR.Text) Then
@@ -278,43 +288,10 @@ Partial Class _HPartidasJornadas
             Else
                 Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
             End If
-        Else
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
-                    If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
-                        Dim gp As New ctiCatalogos
-                        If IsNumeric(grdSR.Text) Then
-                            grdSR.Text = ""
-
-                        End If
-                        Dim gc As New ctiCatalogos
-                        Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                        gc = Nothing
-                        GridView1.DataBind()
-                        If r(0).StartsWith("Error") Then
-                            Lmsg.CssClass = "error"
-                        Else
-                            Lmsg.CssClass = "correcto"
-                            Dim sgr As New clsCTI
-                            sgr = Nothing
-
-                        End If
-                        Lmsg.Text = r(0)
-                        _schuleData = getSchedule()
-                    Else
-                        Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
-                    End If
-                    h = False
-                Else
-                    Lmsg.Text = "Termino el tiempo de Captura"
-                    h = True
-                End If
-                If h = False Then
-                    '  Lmsg.Text = "No esta permitido capturar"
-
-                End If
-            Else
+        End If
+        ''''Normal
+        If Normal = True And Todos = False And Sucursal = False Then
+            If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
                 If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
                     Dim gp As New ctiCatalogos
                     If IsNumeric(grdSR.Text) Then
@@ -331,8 +308,9 @@ Partial Class _HPartidasJornadas
                     Else
                         Lmsg.CssClass = "correcto"
                         Dim sgr As New clsCTI
-
                         sgr = Nothing
+                        FechaC.SelectedDates.Clear()
+                        FechaD.SelectedDates.Clear()
 
                     End If
                     Lmsg.Text = r(0)
@@ -340,6 +318,98 @@ Partial Class _HPartidasJornadas
                 Else
                     Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
                 End If
+            Else
+                If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
+                    If DiaS.Text = "Monday" And hora < 10 Then
+                        If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                            Dim gp As New ctiCatalogos
+                            If IsNumeric(grdSR.Text) Then
+                                grdSR.Text = ""
+
+                            End If
+                            Dim gc As New ctiCatalogos
+                            Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                            GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                            gc = Nothing
+                            GridView1.DataBind()
+                            If r(0).StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+                                Dim sgr As New clsCTI
+                                sgr = Nothing
+
+                            End If
+                            Lmsg.Text = r(0)
+                            _schuleData = getSchedule()
+                        Else
+                            Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
+                        End If
+                        h = False
+                    Else
+                        Lmsg.Text = "Termino el tiempo de Captura"
+                        h = True
+                    End If
+                    If h = False Then
+                        '  Lmsg.Text = "No esta permitido capturar"
+
+                    End If
+                Else
+                    If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                        Dim gp As New ctiCatalogos
+                        If IsNumeric(grdSR.Text) Then
+                            grdSR.Text = ""
+
+                        End If
+                        Dim gc As New ctiCatalogos
+                        Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        gc = Nothing
+                        GridView1.DataBind()
+                        If r(0).StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+                            Dim sgr As New clsCTI
+
+                            sgr = Nothing
+
+                        End If
+                        Lmsg.Text = r(0)
+                        _schuleData = getSchedule()
+                    Else
+                        Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
+                    End If
+                End If
+            End If
+        End If
+        ''Sucursales
+        If Sucursal = True And idsucursal = wucSucursales.idSucursal And Todos = False And Normal = False Then
+            If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                Dim gp As New ctiCatalogos
+                If IsNumeric(grdSR.Text) Then
+                    grdSR.Text = ""
+
+                End If
+                Dim gc As New ctiCatalogos
+                Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                gc = Nothing
+                GridView1.DataBind()
+                If r(0).StartsWith("Error") Then
+                    Lmsg.CssClass = "error"
+                Else
+                    Lmsg.CssClass = "correcto"
+                    Dim sgr As New clsCTI
+                    sgr = Nothing
+                    FechaC.SelectedDates.Clear()
+                    FechaD.SelectedDates.Clear()
+
+                End If
+                Lmsg.Text = r(0)
+                _schuleData = getSchedule()
+            Else
+                Lmsg.Text = "Error: Seleccione una fecha o una Jornada"
             End If
         End If
     End Sub
@@ -364,9 +434,8 @@ Partial Class _HPartidasJornadas
         Dim fech As Date
         fech = Now
         DiaS.Text = fech.DayOfWeek.ToString()
-
-        If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
-
+        '''Todos
+        If Todos = True And Normal = False And Sucursal = False Then
 
             Dim ap As New ctiCatalogos
             If bandera = True Then
@@ -416,65 +485,11 @@ Partial Class _HPartidasJornadas
                 bandera = True
             End If
             btnActualizarr.Enabled = True
-        Else
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
-                    Dim ap As New ctiCatalogos
-                    If bandera = True Then
+        End If
+        '''Normal
+        If Normal = True And Todos = False And Sucursal = False Then
+            If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
 
-                        Dim idA As Integer = CInt(idpartidas_jornadaT.Text)
-
-                        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-                        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                        ap = Nothing
-                        GridView1.DataBind()
-                        If r.StartsWith("Error") Then
-                            Lmsg.CssClass = "error"
-                        Else
-                            Lmsg.CssClass = "correcto"
-                            FechaC.SelectedDates.Clear()
-                            FechaD.SelectedDates.Clear()
-
-                        End If
-
-                        Dim gvp As New clsCTI
-
-                        gvp = Nothing
-                        Lmsg.Text = r
-                        _schuleData = getSchedule()
-
-                    ElseIf bandera = False Then
-
-                        Dim idA As Integer = CInt(TIDPJ.Text)
-
-                        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-                        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                        ap = Nothing
-                        GridView1.DataBind()
-                        If r.StartsWith("Error") Then
-                            Lmsg.CssClass = "error"
-                        Else
-                            Lmsg.CssClass = "correcto"
-
-                        End If
-
-                        Dim gvp As New clsCTI
-                        gvp = Nothing
-                        Lmsg.Text = r
-                        _schuleData = getSchedule()
-                        bandera = True
-                    End If
-                    btnActualizarr.Enabled = True
-                    h = False
-                Else
-                    Lmsg.Text = "Termino el tiempo de Captura"
-                    h = True
-                End If
-                If h = False Then
-                    Lmsg.Text = "No esta permitido capturar"
-                End If
-
-            Else
                 Dim ap As New ctiCatalogos
                 If bandera = True Then
 
@@ -488,8 +503,6 @@ Partial Class _HPartidasJornadas
                         Lmsg.CssClass = "error"
                     Else
                         Lmsg.CssClass = "correcto"
-                        FechaC.SelectedDates.Clear()
-                        FechaD.SelectedDates.Clear()
 
                     End If
 
@@ -497,6 +510,8 @@ Partial Class _HPartidasJornadas
                     gvp = Nothing
                     Lmsg.Text = r
                     _schuleData = getSchedule()
+                    FechaC.SelectedDates.Clear()
+                    FechaD.SelectedDates.Clear()
 
                 ElseIf bandera = False Then
 
@@ -516,13 +531,173 @@ Partial Class _HPartidasJornadas
                     End If
 
                     Dim gvp As New clsCTI
+
                     gvp = Nothing
                     Lmsg.Text = r
                     _schuleData = getSchedule()
                     bandera = True
                 End If
                 btnActualizarr.Enabled = True
+            Else
+                If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
+                    If DiaS.Text = "Monday" And hora < 10 Then
+                        Dim ap As New ctiCatalogos
+                        If bandera = True Then
+
+                            Dim idA As Integer = CInt(idpartidas_jornadaT.Text)
+
+                            Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                            GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                            ap = Nothing
+                            GridView1.DataBind()
+                            If r.StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+                                FechaC.SelectedDates.Clear()
+                                FechaD.SelectedDates.Clear()
+
+                            End If
+
+                            Dim gvp As New clsCTI
+
+                            gvp = Nothing
+                            Lmsg.Text = r
+                            _schuleData = getSchedule()
+
+                        ElseIf bandera = False Then
+
+                            Dim idA As Integer = CInt(TIDPJ.Text)
+
+                            Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                            GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                            ap = Nothing
+                            GridView1.DataBind()
+                            If r.StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+
+                            End If
+
+                            Dim gvp As New clsCTI
+                            gvp = Nothing
+                            Lmsg.Text = r
+                            _schuleData = getSchedule()
+                            bandera = True
+                        End If
+                        btnActualizarr.Enabled = True
+                        h = False
+                    Else
+                        Lmsg.Text = "Termino el tiempo de Captura"
+                        h = True
+                    End If
+                    If h = False Then
+                        Lmsg.Text = "No esta permitido capturar"
+                    End If
+
+                Else
+                    Dim ap As New ctiCatalogos
+                    If bandera = True Then
+
+                        Dim idA As Integer = CInt(idpartidas_jornadaT.Text)
+
+                        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        ap = Nothing
+                        GridView1.DataBind()
+                        If r.StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+                            FechaC.SelectedDates.Clear()
+                            FechaD.SelectedDates.Clear()
+
+                        End If
+
+                        Dim gvp As New clsCTI
+                        gvp = Nothing
+                        Lmsg.Text = r
+                        _schuleData = getSchedule()
+
+                    ElseIf bandera = False Then
+
+                        Dim idA As Integer = CInt(TIDPJ.Text)
+
+                        Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                        GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        ap = Nothing
+                        GridView1.DataBind()
+                        If r.StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+                            FechaC.SelectedDates.Clear()
+                            FechaD.SelectedDates.Clear()
+
+                        End If
+
+                        Dim gvp As New clsCTI
+                        gvp = Nothing
+                        Lmsg.Text = r
+                        _schuleData = getSchedule()
+                        bandera = True
+                    End If
+                    btnActualizarr.Enabled = True
+                End If
             End If
+        End If
+        ''''Sucursales
+        If Sucursal = True And idsucursal = wucSucursales.idSucursal And Todos = False And Normal = False Then
+
+            Dim ap As New ctiCatalogos
+            If bandera = True Then
+
+                Dim idA As Integer = CInt(idpartidas_jornadaT.Text)
+
+                Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                ap = Nothing
+                GridView1.DataBind()
+                If r.StartsWith("Error") Then
+                    Lmsg.CssClass = "error"
+                Else
+                    Lmsg.CssClass = "correcto"
+
+                End If
+
+                Dim gvp As New clsCTI
+                gvp = Nothing
+                Lmsg.Text = r
+                _schuleData = getSchedule()
+                FechaC.SelectedDates.Clear()
+                FechaD.SelectedDates.Clear()
+
+            ElseIf bandera = False Then
+
+                Dim idA As Integer = CInt(TIDPJ.Text)
+
+                Dim r As String = ap.actualizarPartidaJornada(idA, wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                GridView1.DataSource = ap.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                ap = Nothing
+                GridView1.DataBind()
+                If r.StartsWith("Error") Then
+                    Lmsg.CssClass = "error"
+                Else
+                    Lmsg.CssClass = "correcto"
+                    FechaC.SelectedDates.Clear()
+                    FechaD.SelectedDates.Clear()
+
+                End If
+
+                Dim gvp As New clsCTI
+
+                gvp = Nothing
+                Lmsg.Text = r
+                _schuleData = getSchedule()
+                bandera = True
+            End If
+            btnActualizarr.Enabled = True
         End If
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
@@ -579,7 +754,8 @@ Partial Class _HPartidasJornadas
         fech = Now
         DiaS.Text = fech.DayOfWeek.ToString()
 
-        If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
+        '''Todos
+        If Todos = True And Normal = False And Sucursal = False Then
             Dim cont As Integer
             cont = 0
 
@@ -591,67 +767,72 @@ Partial Class _HPartidasJornadas
                         grdSR.Text = ""
 
                     End If
+                    If DescansoF.Text <> "" Then
 
-                    Dim fe As New Date
-                    fe = Convert.ToDateTime(fecha.Text)
+                        Dim fe As New Date
+                        fe = Convert.ToDateTime(fecha.Text)
 
-                    Dim FechaF As New Date
-                    FechaF = DateAdd(DateInterval.Day, cont, fe)
+                        Dim FechaF As New Date
+                        FechaF = DateAdd(DateInterval.Day, cont, fe)
 
-                    Dim FechaDES As New Date
-                    FechaDES = Convert.ToDateTime(DescansoF.Text)
+                        Dim FechaDES As New Date
+                        FechaDES = Convert.ToDateTime(DescansoF.Text)
+                        '''
+                        If FechaDES = Convert.ToDateTime(fecha.Text) Then
+                            If IsNumeric(grdSR.Text) Then
+                                grdSR.Text = ""
 
-                    If FechaDES = Convert.ToDateTime(fecha.Text) Then
-                        If IsNumeric(grdSR.Text) Then
-                            grdSR.Text = ""
+                            End If
+                            Dim gp As New ctiCatalogos
+                            Dim gc As New ctiCatalogos
+                            Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
+                            GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                            gc = Nothing
+                            GridView1.DataBind()
+                            If r(0).StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+                                Dim sgr As New clsCTI
+                                sgr = Nothing
+                                FechaC.SelectedDates.Clear()
+                                FechaD.SelectedDates.Clear()
 
-                        End If
-                        Dim gp As New ctiCatalogos
-                        Dim gc As New ctiCatalogos
-                        Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
-                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                        gc = Nothing
-                        GridView1.DataBind()
-                        If r(0).StartsWith("Error") Then
-                            Lmsg.CssClass = "error"
-                        Else
-                            Lmsg.CssClass = "correcto"
-                            Dim sgr As New clsCTI
-                            sgr = Nothing
-                            FechaC.SelectedDates.Clear()
-                            FechaD.SelectedDates.Clear()
-
-                        End If
-                        Lmsg.Text = r(0)
-                        _schuleData = getSchedule()
-                        cont = cont + 1
-                    Else
-                        'Dim gp As New ctiCatalogos
-                        If IsNumeric(grdSR.Text) Then
-                            grdSR.Text = ""
-
-                        End If
-                        Dim gp As New ctiCatalogos
-                        Dim gc As New ctiCatalogos
-                        ' Dim gc As New ctiCatalogos
-                        Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                        gc = Nothing
-                        GridView1.DataBind()
-                        If r(0).StartsWith("Error") Then
-                            Lmsg.CssClass = "error"
-                        Else
-                            Lmsg.CssClass = "correcto"
-                            Dim sgr As New clsCTI
-                            sgr = Nothing
+                            End If
+                            Lmsg.Text = r(0)
+                            _schuleData = getSchedule()
                             cont = cont + 1
-                            FechaC.SelectedDates.Clear()
-                            FechaD.SelectedDates.Clear()
+                        Else
+                            'Dim gp As New ctiCatalogos
+                            If IsNumeric(grdSR.Text) Then
+                                grdSR.Text = ""
 
+                            End If
+                            Dim gp As New ctiCatalogos
+                            Dim gc As New ctiCatalogos
+                            ' Dim gc As New ctiCatalogos
+                            Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                            GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                            gc = Nothing
+                            GridView1.DataBind()
+                            If r(0).StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+                                Dim sgr As New clsCTI
+                                sgr = Nothing
+                                cont = cont + 1
+                                FechaC.SelectedDates.Clear()
+                                FechaD.SelectedDates.Clear()
+
+                            End If
+                            Lmsg.Text = r(0)
+                            _schuleData = getSchedule()
                         End If
-                        Lmsg.Text = r(0)
-                        _schuleData = getSchedule()
+                    Else
+                        Lmsg.Text = "Error: Seleccione una Fecha para el descanso"
                     End If
+
                     ''''
 
 
@@ -678,8 +859,8 @@ Partial Class _HPartidasJornadas
                         Dim gp As New ctiCatalogos
                         Dim gc As New ctiCatalogos
                         Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
-                        GridView1.DataSource = GC.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                        GC = Nothing
+                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        gc = Nothing
                         GridView1.DataBind()
                         If r(0).StartsWith("Error") Then
                             Lmsg.CssClass = "error"
@@ -721,11 +902,262 @@ Partial Class _HPartidasJornadas
                 Lmsg.Text = "Error: Seleccione una Fecha o una Jornada"
 
             End If
+        End If
+        '''''Normal
+        If Normal = True And Todos = False And Sucursal = False Then
+            If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
+                Dim cont As Integer
+                cont = 0
 
-        Else
+                If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                    If cont = 0 Then
+                        'Verificar fecha
 
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
-                If DiaS.Text = "Monday" And hora < 10 Then
+                        If IsNumeric(grdSR.Text) Then
+                            grdSR.Text = ""
+
+                        End If
+                        If DescansoF.Text <> "" Then
+
+                            Dim fe As New Date
+                            fe = Convert.ToDateTime(fecha.Text)
+
+                            Dim FechaF As New Date
+                            FechaF = DateAdd(DateInterval.Day, cont, fe)
+
+                            Dim FechaDES As New Date
+                            FechaDES = Convert.ToDateTime(DescansoF.Text)
+                            '''
+                            If FechaDES = Convert.ToDateTime(fecha.Text) Then
+                                If IsNumeric(grdSR.Text) Then
+                                    grdSR.Text = ""
+
+                                End If
+                                Dim gp As New ctiCatalogos
+                                Dim gc As New ctiCatalogos
+                                Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
+                                GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                                gc = Nothing
+                                GridView1.DataBind()
+                                If r(0).StartsWith("Error") Then
+                                    Lmsg.CssClass = "error"
+                                Else
+                                    Lmsg.CssClass = "correcto"
+                                    Dim sgr As New clsCTI
+                                    sgr = Nothing
+                                    FechaC.SelectedDates.Clear()
+                                    FechaD.SelectedDates.Clear()
+
+                                End If
+                                Lmsg.Text = r(0)
+                                _schuleData = getSchedule()
+                                cont = cont + 1
+                            Else
+                                'Dim gp As New ctiCatalogos
+                                If IsNumeric(grdSR.Text) Then
+                                    grdSR.Text = ""
+
+                                End If
+                                Dim gp As New ctiCatalogos
+                                Dim gc As New ctiCatalogos
+                                ' Dim gc As New ctiCatalogos
+                                Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                                GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                                gc = Nothing
+                                GridView1.DataBind()
+                                If r(0).StartsWith("Error") Then
+                                    Lmsg.CssClass = "error"
+                                Else
+                                    Lmsg.CssClass = "correcto"
+                                    Dim sgr As New clsCTI
+                                    sgr = Nothing
+                                    cont = cont + 1
+                                    FechaC.SelectedDates.Clear()
+                                    FechaD.SelectedDates.Clear()
+
+                                End If
+                                Lmsg.Text = r(0)
+                                _schuleData = getSchedule()
+                            End If
+                        Else
+                            Lmsg.Text = "Error: Seleccione una Fecha para el descanso"
+                        End If
+
+                        ''''
+
+
+                    End If
+
+                    While cont > 0 And cont < 7
+
+                        'Dim gp As New ctiCatalogos
+                        If IsNumeric(grdSR.Text) Then
+                            grdSR.Text = ""
+
+                        End If
+                        'Dim gc As New ctiCatalogos
+                        Dim fe As New Date
+                        fe = Convert.ToDateTime(fecha.Text)
+
+                        Dim FechaF As New Date
+                        FechaF = DateAdd(DateInterval.Day, cont, fe)
+
+                        Dim FechaDES As New Date
+                        FechaDES = Convert.ToDateTime(DescansoF.Text)
+
+                        If FechaDES = DateAdd(DateInterval.Day, cont, fe) Then
+                            Dim gp As New ctiCatalogos
+                            Dim gc As New ctiCatalogos
+                            Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
+                            GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                            gc = Nothing
+                            GridView1.DataBind()
+                            If r(0).StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+                                Dim sgr As New clsCTI
+                                sgr = Nothing
+                                FechaC.SelectedDates.Clear()
+                                FechaD.SelectedDates.Clear()
+
+                            End If
+                            Lmsg.Text = r(0)
+                            _schuleData = getSchedule()
+                            cont = cont + 1
+                        Else
+                            Dim gp As New ctiCatalogos
+                            Dim gc As New ctiCatalogos
+                            Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, DateAdd(DateInterval.Day, cont, fe))
+                            GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                            gc = Nothing
+                            GridView1.DataBind()
+                            If r(0).StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+                                Dim sgr As New clsCTI
+                                sgr = Nothing
+                                FechaC.SelectedDates.Clear()
+                                FechaD.SelectedDates.Clear()
+
+                            End If
+                            Lmsg.Text = r(0)
+                            _schuleData = getSchedule()
+                            cont = cont + 1
+                        End If
+                    End While
+
+                Else
+                    Lmsg.Text = "Error: Seleccione una Fecha o una Jornada"
+
+                End If
+
+            Else
+
+                If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Or DiaS.Text = "Thursday" Or DiaS.Text = "Friday" Then
+                    If DiaS.Text = "Monday" And hora < 10 Then
+                        Dim cont As Integer
+                        cont = 0
+
+                        If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                            If cont = 0 Then
+                                Dim gp As New ctiCatalogos
+                                If IsNumeric(grdSR.Text) Then
+                                    grdSR.Text = ""
+
+                                End If
+                                Dim gc As New ctiCatalogos
+                                Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
+                                GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                                gc = Nothing
+                                GridView1.DataBind()
+                                If r(0).StartsWith("Error") Then
+                                    Lmsg.CssClass = "error"
+                                Else
+                                    Lmsg.CssClass = "correcto"
+                                    Dim sgr As New clsCTI
+                                    sgr = Nothing
+                                    cont = cont + 1
+                                    FechaC.SelectedDates.Clear()
+                                    FechaD.SelectedDates.Clear()
+
+                                End If
+                                Lmsg.Text = r(0)
+                                _schuleData = getSchedule()
+
+                            End If
+
+                            While cont > 0 And cont < 7
+
+                                Dim gp As New ctiCatalogos
+                                If IsNumeric(grdSR.Text) Then
+                                    grdSR.Text = ""
+
+                                End If
+                                Dim gc As New ctiCatalogos
+                                Dim fe As New Date
+                                fe = Convert.ToDateTime(fecha.Text)
+
+                                Dim FechaF As New Date
+                                FechaF = DateAdd(DateInterval.Day, cont, fe)
+
+                                Dim FechaDES As New Date
+                                FechaDES = Convert.ToDateTime(DescansoF.Text)
+
+                                If FechaDES = DateAdd(DateInterval.Day, cont, fe) Then
+                                    Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
+                                    GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                                    gc = Nothing
+                                    GridView1.DataBind()
+                                    If r(0).StartsWith("Error") Then
+                                        Lmsg.CssClass = "error"
+                                    Else
+                                        Lmsg.CssClass = "correcto"
+                                        Dim sgr As New clsCTI
+                                        sgr = Nothing
+                                        FechaC.SelectedDates.Clear()
+                                        FechaD.SelectedDates.Clear()
+
+                                    End If
+                                    Lmsg.Text = r(0)
+                                    _schuleData = getSchedule()
+                                    cont = cont + 1
+                                Else
+                                    Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, DateAdd(DateInterval.Day, cont, fe))
+                                    GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                                    gc = Nothing
+                                    GridView1.DataBind()
+                                    If r(0).StartsWith("Error") Then
+                                        Lmsg.CssClass = "error"
+                                    Else
+                                        Lmsg.CssClass = "correcto"
+                                        Dim sgr As New clsCTI
+                                        sgr = Nothing
+                                        FechaC.SelectedDates.Clear()
+                                        FechaD.SelectedDates.Clear()
+
+                                    End If
+                                    Lmsg.Text = r(0)
+                                    _schuleData = getSchedule()
+                                    cont = cont + 1
+                                End If
+                            End While
+
+                        Else
+                            Lmsg.Text = "Error: Seleccione una Fecha o una Jornada"
+
+                        End If
+                        h = False
+                    Else
+                        Lmsg.Text = "Termino el tiempo de Captura"
+                        h = True
+                    End If
+                    If h = False Then
+                        Lmsg.Text = "No esta permitido capturar"
+
+                    End If
+                Else
                     Dim cont As Integer
                     cont = 0
 
@@ -805,7 +1237,6 @@ Partial Class _HPartidasJornadas
                                     sgr = Nothing
                                     FechaC.SelectedDates.Clear()
                                     FechaD.SelectedDates.Clear()
-
                                 End If
                                 Lmsg.Text = r(0)
                                 _schuleData = getSchedule()
@@ -817,55 +1248,25 @@ Partial Class _HPartidasJornadas
                         Lmsg.Text = "Error: Seleccione una Fecha o una Jornada"
 
                     End If
-                    h = False
-                Else
-                    Lmsg.Text = "Termino el tiempo de Captura"
-                    h = True
-                End If
-                If h = False Then
-                    Lmsg.Text = "No esta permitido capturar"
 
                 End If
-            Else
-                Dim cont As Integer
-                cont = 0
+            End If
+        End If
+        '''''Sucursales
+        If Sucursal = True And idsucursal = wucSucursales.idSucursal And Todos = False And Normal = False Then
+            Dim cont As Integer
+            cont = 0
 
-                If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
-                    If cont = 0 Then
-                        Dim gp As New ctiCatalogos
-                        If IsNumeric(grdSR.Text) Then
-                            grdSR.Text = ""
+            If fecha.Text <> "" And wucJornadas.idJornada <> 0 Then
+                If cont = 0 Then
+                    'Verificar fecha
 
-                        End If
-                        Dim gc As New ctiCatalogos
-                        Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
-                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
-                        gc = Nothing
-                        GridView1.DataBind()
-                        If r(0).StartsWith("Error") Then
-                            Lmsg.CssClass = "error"
-                        Else
-                            Lmsg.CssClass = "correcto"
-                            Dim sgr As New clsCTI
-                            sgr = Nothing
-                            cont = cont + 1
-                            FechaC.SelectedDates.Clear()
-                            FechaD.SelectedDates.Clear()
-
-                        End If
-                        Lmsg.Text = r(0)
-                        _schuleData = getSchedule()
+                    If IsNumeric(grdSR.Text) Then
+                        grdSR.Text = ""
 
                     End If
+                    If DescansoF.Text <> "" Then
 
-                    While cont > 0 And cont < 7
-
-                        Dim gp As New ctiCatalogos
-                        If IsNumeric(grdSR.Text) Then
-                            grdSR.Text = ""
-
-                        End If
-                        Dim gc As New ctiCatalogos
                         Dim fe As New Date
                         fe = Convert.ToDateTime(fecha.Text)
 
@@ -874,8 +1275,14 @@ Partial Class _HPartidasJornadas
 
                         Dim FechaDES As New Date
                         FechaDES = Convert.ToDateTime(DescansoF.Text)
+                        '''
+                        If FechaDES = Convert.ToDateTime(fecha.Text) Then
+                            If IsNumeric(grdSR.Text) Then
+                                grdSR.Text = ""
 
-                        If FechaDES = DateAdd(DateInterval.Day, cont, fe) Then
+                            End If
+                            Dim gp As New ctiCatalogos
+                            Dim gc As New ctiCatalogos
                             Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
                             GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
                             gc = Nothing
@@ -894,7 +1301,15 @@ Partial Class _HPartidasJornadas
                             _schuleData = getSchedule()
                             cont = cont + 1
                         Else
-                            Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, DateAdd(DateInterval.Day, cont, fe))
+                            'Dim gp As New ctiCatalogos
+                            If IsNumeric(grdSR.Text) Then
+                                grdSR.Text = ""
+
+                            End If
+                            Dim gp As New ctiCatalogos
+                            Dim gc As New ctiCatalogos
+                            ' Dim gc As New ctiCatalogos
+                            Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, fecha.Text)
                             GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
                             gc = Nothing
                             GridView1.DataBind()
@@ -904,24 +1319,88 @@ Partial Class _HPartidasJornadas
                                 Lmsg.CssClass = "correcto"
                                 Dim sgr As New clsCTI
                                 sgr = Nothing
+                                cont = cont + 1
                                 FechaC.SelectedDates.Clear()
                                 FechaD.SelectedDates.Clear()
+
                             End If
                             Lmsg.Text = r(0)
                             _schuleData = getSchedule()
-                            cont = cont + 1
                         End If
-                    End While
+                    Else
+                        Lmsg.Text = "Error: Seleccione una Fecha para el descanso"
+                    End If
 
-                Else
-                    Lmsg.Text = "Error: Seleccione una Fecha o una Jornada"
+                    ''''
+
 
                 End If
 
+                While cont > 0 And cont < 7
+
+                    'Dim gp As New ctiCatalogos
+                    If IsNumeric(grdSR.Text) Then
+                        grdSR.Text = ""
+
+                    End If
+                    'Dim gc As New ctiCatalogos
+                    Dim fe As New Date
+                    fe = Convert.ToDateTime(fecha.Text)
+
+                    Dim FechaF As New Date
+                    FechaF = DateAdd(DateInterval.Day, cont, fe)
+
+                    Dim FechaDES As New Date
+                    FechaDES = Convert.ToDateTime(DescansoF.Text)
+
+                    If FechaDES = DateAdd(DateInterval.Day, cont, fe) Then
+                        Dim gp As New ctiCatalogos
+                        Dim gc As New ctiCatalogos
+                        Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, 9, DateAdd(DateInterval.Day, cont, fe))
+                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        gc = Nothing
+                        GridView1.DataBind()
+                        If r(0).StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+                            Dim sgr As New clsCTI
+                            sgr = Nothing
+                            FechaC.SelectedDates.Clear()
+                            FechaD.SelectedDates.Clear()
+
+                        End If
+                        Lmsg.Text = r(0)
+                        _schuleData = getSchedule()
+                        cont = cont + 1
+                    Else
+                        Dim gp As New ctiCatalogos
+                        Dim gc As New ctiCatalogos
+                        Dim r() As String = gp.agregarPartidaJornada(wucEmpleados2.idEmpleado, wucJornadas.idJornada, DateAdd(DateInterval.Day, cont, fe))
+                        GridView1.DataSource = gc.gvPartida_Jornada(wucEmpleados2.idEmpleado)
+                        gc = Nothing
+                        GridView1.DataBind()
+                        If r(0).StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+                            Dim sgr As New clsCTI
+                            sgr = Nothing
+                            FechaC.SelectedDates.Clear()
+                            FechaD.SelectedDates.Clear()
+
+                        End If
+                        Lmsg.Text = r(0)
+                        _schuleData = getSchedule()
+                        cont = cont + 1
+                    End If
+                End While
+
+            Else
+                Lmsg.Text = "Error: Seleccione una Fecha o una Jornada"
+
             End If
         End If
-
-
     End Sub
     Protected Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         If idpartidas_jornadaT.Text = "" Or idpartidas_jornadaT.Text = " " Then

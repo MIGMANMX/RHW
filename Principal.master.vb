@@ -46,7 +46,7 @@ Partial Class Principal
             rep11.Visible = False
             rep12.Visible = False
             Rep13.Visible = False
-
+            rep14.Visible = False
         End If
 
         If datos(0) = 7 Then

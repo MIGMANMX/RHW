@@ -122,7 +122,9 @@
                 <li><a href="<%=ResolveUrl("HPartidasJornadas.aspx")%>"><i class="fa fa-calendar-times-o"></i> Asignar Horario</a></li>
                    <li><a href="<%=ResolveUrl("ConsHorario.aspx")%>"><i class="fa fa-calendar-plus-o"></i> Horarios</a></li> 
                    <li><a href="<%=ResolveUrl("PrestamoEmp.aspx")%>"><i class="fa fa-arrows-h"></i> Prestamo de empleados</a></li> 
-                <li id="regInidencia" runat="server"><a href="<%=ResolveUrl("RegistroIncidencias.aspx")%>"><i class="fa fa-bomb"></i> Registro de Incidencias</a></li>                                                      
+                <li id="regInidencia" runat="server"><a href="<%=ResolveUrl("RegistroIncidencias.aspx")%>"><i class="fa fa-bomb"></i> Registro de Incidencias</a></li>   
+                                  <li id="Li1" runat="server"><a href="<%=ResolveUrl("RegistroIncidenciasAvisos.aspx")%>"><i class="fa fa-bullseye"></i> Avisos Generales</a></li>                                                      
+                                                   
                 <li id="part" runat="server"><a href="<%=ResolveUrl("Particulares.aspx")%>"><i class="fa fa-balance-scale"></i>Horas Extras</a></li>
                <li id="EHJ" runat="server"><a href="<%=ResolveUrl("EPartidaJornada.aspx")%>"><i class="fa fa-flag"></i>Alterar Horarios</a></li>
                    <li id="MHJ" runat="server"><a href="<%=ResolveUrl("EMasivaPJ.aspx")%>"><i class="fa fa-clock-o"></i>Alterar Horarios Suc</a></li>
@@ -167,7 +169,8 @@
                
                <li id="rep6" runat="server"><a href="<%=ResolveUrl("RepIncidenciasT.aspx")%>"><i class="fa fa-circle"></i>Incidencias por Sucursales</a></li>
                <li id="rep2" runat="server"><a href="<%=ResolveUrl("RepInicidencias.aspx")%>"><i class="fa fa-bullhorn"></i>Incidencias</a></li>
-                
+                <li id="rep14" runat="server"><a href="<%=ResolveUrl("RepAvisosGenerales.aspx")%>"><i class="fa fa-bullseye"></i>Avisos Generales</a></li>
+               
                
                <li id="rep4" runat="server"><a href="<%=ResolveUrl("RepCasos.aspx")%>"><i class="fa fa-compass"></i>Horas Extras</a></li>
                <li id="rep8" runat="server"><a href="<%=ResolveUrl("RepCasosSuc.aspx")%>"><i class="fa fa-balance-scale"></i>Horas Extrass Sucursales</a></li>
@@ -193,7 +196,7 @@
             </li>
             
               <li  id="confi" runat="server">
-              <a href="<%=ResolveUrl("ConFHor.aspx")%>">
+              <a href="<%=ResolveUrl("Panel.aspx")%>">
                 <i class="fa fa-cogs"></i> <span>Configuración</span>
              
               </a>

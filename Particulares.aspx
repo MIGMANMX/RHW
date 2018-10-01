@@ -95,10 +95,7 @@
             <tr>
                 <td class="auto-style7">Tipo:<br />
                    <asp:DropDownList ID="dropLTipo" runat="server" AutoPostBack="True" Height="24px" Width="175px" Enabled="False">
-                       <asp:ListItem Value="0">Seleccionar....</asp:ListItem>
                        <asp:ListItem Value="HExtras">Horas Extras</asp:ListItem>
-                       <asp:ListItem Value="Justificadas">Faltas Justificadas</asp:ListItem>
-                       <asp:ListItem Value="Injustificadas">Faltas Injustificadas</asp:ListItem>
                    </asp:DropDownList>
                </td>
                
