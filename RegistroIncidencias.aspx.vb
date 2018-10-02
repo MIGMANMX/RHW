@@ -9,7 +9,23 @@ Partial Class _RegistroIncidencias
     Dim h As Boolean = False
     Dim dia As String
     Dim ho As String
+    '''Datos Panel
+    Dim Todos As Boolean = False
+    Dim Normal As Boolean = False
+    Dim Sucursal As Boolean = False
+    Dim idsucursal As Integer = 0
     Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        '''''''Leer Datos de Panel de configuracion''''''''''''''
+        Dim dsP As New ctiPanel
+        Dim datosP() As String = dsP.datosIncidencias()
+        dsP = Nothing
+
+        Todos = datosP(1)
+        Normal = datosP(2)
+        Sucursal = datosP(3)
+        idsucursal = datosP(4)
+        ''''''''''''''''''''''''''''''''
+
         Dim fech As Date
         fech = Now
         DiaS.Text = fech.DayOfWeek.ToString()
@@ -116,9 +132,8 @@ Partial Class _RegistroIncidencias
         fech = Now
         DiaS.Text = fech.DayOfWeek.ToString()
 
-        If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
-
-
+        '''Abierto
+        If Todos = True And Normal = False And Sucursal = False Then
             If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
                 Dim gp As New ctiCatalogos
                 If IsNumeric(grdSR.Text) Then
@@ -149,45 +164,13 @@ Partial Class _RegistroIncidencias
             Else
                 Lmsg.Text = "Error: Es necesario capturar los datos."
             End If
+        End If
+        ''''Normal
+        If Normal = True And Todos = False And Sucursal = False Then
 
-        Else
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Then
-                If DiaS.Text = "Wednesday" Then
-                    If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
-                        Dim gp As New ctiCatalogos
-                        If IsNumeric(grdSR.Text) Then
-                            grdSR.Text = ""
 
-                        End If
-                        Dim nota As String = ""
-                        If Txnota.Text = "" Then
-                            nota = "Sin Verificar"
-                        End If
-                        Dim gc As New ctiCatalogos
-                        Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, nota)
-                        GridView1.DataSource = gc.gvAsigIncidencias(wucEmpleados2.idEmpleado)
-                        gc = Nothing
-                        GridView1.DataBind()
-                        If r(0).StartsWith("Error") Then
-                            Lmsg.CssClass = "error"
-                        Else
-                            Lmsg.CssClass = "correcto"
-                            Dim sgr As New clsCTI
-                            grdSR.Text = sgr.seleccionarGridRow2(GridView1, CInt(r(1))).ToString
-                            gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
-                            sgr = Nothing
-                            'btnActualizarr.Enabled = True
-                        End If
-                        Lmsg.Text = r(0)
+            If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
 
-                    Else
-                        Lmsg.Text = "Error: Es necesario capturar los datos."
-                    End If
-                Else
-                    Lmsg.Text = "Termino el tiempo de Captura"
-
-                End If
-            Else
                 If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
                     Dim gp As New ctiCatalogos
                     If IsNumeric(grdSR.Text) Then
@@ -218,28 +201,123 @@ Partial Class _RegistroIncidencias
                 Else
                     Lmsg.Text = "Error: Es necesario capturar los datos."
                 End If
+
+            Else
+                If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Then
+                    If DiaS.Text = "Wednesday" Then
+                        If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
+                            Dim gp As New ctiCatalogos
+                            If IsNumeric(grdSR.Text) Then
+                                grdSR.Text = ""
+
+                            End If
+                            Dim nota As String = ""
+                            If Txnota.Text = "" Then
+                                nota = "Sin Verificar"
+                            End If
+                            Dim gc As New ctiCatalogos
+                            Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, nota)
+                            GridView1.DataSource = gc.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+                            gc = Nothing
+                            GridView1.DataBind()
+                            If r(0).StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+                                Dim sgr As New clsCTI
+                                grdSR.Text = sgr.seleccionarGridRow2(GridView1, CInt(r(1))).ToString
+                                gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+                                sgr = Nothing
+                                'btnActualizarr.Enabled = True
+                            End If
+                            Lmsg.Text = r(0)
+
+                        Else
+                            Lmsg.Text = "Error: Es necesario capturar los datos."
+                        End If
+                    Else
+                        Lmsg.Text = "Termino el tiempo de Captura"
+
+                    End If
+                Else
+                    If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
+                        Dim gp As New ctiCatalogos
+                        If IsNumeric(grdSR.Text) Then
+                            grdSR.Text = ""
+
+                        End If
+                        Dim nota As String = ""
+                        If Txnota.Text = "" Then
+                            nota = "Sin Verificar"
+                        End If
+                        Dim gc As New ctiCatalogos
+                        Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, nota)
+                        GridView1.DataSource = gc.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+                        gc = Nothing
+                        GridView1.DataBind()
+                        If r(0).StartsWith("Error") Then
+                            Lmsg.CssClass = "error"
+                        Else
+                            Lmsg.CssClass = "correcto"
+                            Dim sgr As New clsCTI
+                            grdSR.Text = sgr.seleccionarGridRow2(GridView1, CInt(r(1))).ToString
+                            gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+                            sgr = Nothing
+                            'btnActualizarr.Enabled = True
+                        End If
+                        Lmsg.Text = r(0)
+
+                    Else
+                        Lmsg.Text = "Error: Es necesario capturar los datos."
+                    End If
+                End If
             End If
         End If
+        ''Sucursales
+        If Sucursal = True And idsucursal = wucSucursales.idSucursal And Todos = False And Normal = False Then
+            If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
+                Dim gp As New ctiCatalogos
+                If IsNumeric(grdSR.Text) Then
+                    grdSR.Text = ""
 
+                End If
+                Dim nota As String = ""
+                If Txnota.Text = "" Then
+                    nota = "Sin Verificar"
+                End If
+                Dim gc As New ctiCatalogos
+                Dim r() As String = gp.agregarAsigIncidencias(wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, nota)
+                GridView1.DataSource = gc.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+                gc = Nothing
+                GridView1.DataBind()
+                If r(0).StartsWith("Error") Then
+                    Lmsg.CssClass = "error"
+                Else
+                    Lmsg.CssClass = "correcto"
+                    Dim sgr As New clsCTI
+                    grdSR.Text = sgr.seleccionarGridRow2(GridView1, CInt(r(1))).ToString
+                    gvPos = sgr.gridViewScrollPos(CInt(grdSR.Text))
+                    sgr = Nothing
+                    'btnActualizarr.Enabled = True
+                End If
+                Lmsg.Text = r(0)
+
+            Else
+                Lmsg.Text = "Error: Es necesario capturar los datos."
+            End If
+        End If
     End Sub
     Protected Sub btnActualizarr_Click(sender As Object, e As EventArgs) Handles btnActualizarr.Click
 
         Dim fech As Date
         fech = Now
         DiaS.Text = fech.DayOfWeek.ToString()
-
-        If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
-
-
+        '''Abierto
+        If Todos = True And Normal = False And Sucursal = False Then
             If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
-
                 Dim ap As New ctiCatalogos
 
                 Dim idA As Integer = CInt(idDetalle.Text)
-
-
-
-
                 Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, Txnota.Text)
                 GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
                 ap = Nothing
@@ -267,10 +345,92 @@ Partial Class _RegistroIncidencias
             Else
                 Lmsg.Text = "Error: Es necesario capturar los datos."
             End If
+        End If
 
-        Else
-            If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Then
-                If DiaS.Text = "Wednesday" Then
+        ''''Normal
+        If Normal = True And Todos = False And Sucursal = False Then
+            If (Session("nivel")) = 1 Or (Session("nivel")) = 7 Or (Session("nivel")) = 8 Then
+
+
+                If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
+
+                    Dim ap As New ctiCatalogos
+
+                    Dim idA As Integer = CInt(idDetalle.Text)
+
+
+
+
+                    Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, Txnota.Text)
+                    GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+                    ap = Nothing
+                    GridView1.DataBind()
+                    If r.StartsWith("Error") Then
+                        Lmsg.CssClass = "error"
+                    Else
+                        Lmsg.CssClass = "correcto"
+
+                    End If
+
+                    Dim gvp As New clsCTI
+                    grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+                    If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+                        GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+                        gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+                    Else
+                        btnActualizarr.Enabled = False
+                        btnGuardarNuevo.Enabled = True
+                        fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
+                        FechaC.SelectedDates.Clear()
+                    End If
+                    gvp = Nothing
+                    Lmsg.Text = r
+                Else
+                    Lmsg.Text = "Error: Es necesario capturar los datos."
+                End If
+
+            Else
+                If DiaS.Text = "Monday" Or DiaS.Text = "Tuesday" Or DiaS.Text = "Wednesday" Then
+                    If DiaS.Text = "Wednesday" Then
+                        If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
+
+                            Dim ap As New ctiCatalogos
+
+                            Dim idA As Integer = CInt(idDetalle.Text)
+
+                            Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, Txnota.Text)
+                            GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+                            ap = Nothing
+                            GridView1.DataBind()
+                            If r.StartsWith("Error") Then
+                                Lmsg.CssClass = "error"
+                            Else
+                                Lmsg.CssClass = "correcto"
+
+                            End If
+
+                            Dim gvp As New clsCTI
+                            grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+                            If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+                                GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+                                gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+                            Else
+                                btnActualizarr.Enabled = False
+                                btnGuardarNuevo.Enabled = True
+                                fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
+                                FechaC.SelectedDates.Clear()
+                            End If
+                            gvp = Nothing
+                            Lmsg.Text = r
+                        Else
+                            Lmsg.Text = "Error: Es necesario capturar los datos."
+                        End If
+
+                    Else
+                        Lmsg.Text = "Termino el tiempo de Captura"
+                        h = True
+                    End If
+                Else
                     If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
 
                         Dim ap As New ctiCatalogos
@@ -304,48 +464,43 @@ Partial Class _RegistroIncidencias
                     Else
                         Lmsg.Text = "Error: Es necesario capturar los datos."
                     End If
-
-                Else
-                    Lmsg.Text = "Termino el tiempo de Captura"
-                    h = True
-                End If
-            Else
-                If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
-
-                    Dim ap As New ctiCatalogos
-
-                    Dim idA As Integer = CInt(idDetalle.Text)
-
-                    Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, Txnota.Text)
-                    GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
-                    ap = Nothing
-                    GridView1.DataBind()
-                    If r.StartsWith("Error") Then
-                        Lmsg.CssClass = "error"
-                    Else
-                        Lmsg.CssClass = "correcto"
-
-                    End If
-
-                    Dim gvp As New clsCTI
-                    grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
-                    If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
-                        GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
-                        gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
-                    Else
-                        btnActualizarr.Enabled = False
-                        btnGuardarNuevo.Enabled = True
-                        fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
-                        FechaC.SelectedDates.Clear()
-                    End If
-                    gvp = Nothing
-                    Lmsg.Text = r
-                Else
-                    Lmsg.Text = "Error: Es necesario capturar los datos."
                 End If
             End If
         End If
+        ''Sucursales
+        If Sucursal = True And idsucursal = wucSucursales.idSucursal And Todos = False And Normal = False Then
+            If fecha.Text <> "" And wucIncidencias.idIncidencia <> 0 And wucEmpleados2.idEmpleado <> 0 And wucSucursales.idSucursal <> 0 And TxObservaciones.Text <> "" Then
+                Dim ap As New ctiCatalogos
 
+                Dim idA As Integer = CInt(idDetalle.Text)
+                Dim r As String = ap.actualizarAsigIncidencias(idA, wucIncidencias.idIncidencia, wucEmpleados2.idEmpleado, fecha.Text, TxObservaciones.Text, chkVer.Checked, Txnota.Text)
+                GridView1.DataSource = ap.gvAsigIncidencias(wucEmpleados2.idEmpleado)
+                ap = Nothing
+                GridView1.DataBind()
+                If r.StartsWith("Error") Then
+                    Lmsg.CssClass = "error"
+                Else
+                    Lmsg.CssClass = "correcto"
+
+                End If
+
+                Dim gvp As New clsCTI
+                grdSR.Text = gvp.seleccionarGridRow2(GridView1, idA)
+                If IsNumeric(grdSR.Text) AndAlso CInt(grdSR.Text) > 0 Then
+                    GridView1.Rows(Convert.ToInt32(grdSR.Text)).RowState = DataControlRowState.Selected
+                    gvPos = gvp.gridViewScrollPos(CInt(grdSR.Text))
+                Else
+                    btnActualizarr.Enabled = False
+                    btnGuardarNuevo.Enabled = True
+                    fecha.Text = "" : wucEmpleados2.idEmpleado = 0 : wucSucursales.idSucursal = 0 : wucIncidencias.idIncidencia = 0 : TxObservaciones.Text = ""
+                    FechaC.SelectedDates.Clear()
+                End If
+                gvp = Nothing
+                Lmsg.Text = r
+            Else
+                Lmsg.Text = "Error: Es necesario capturar los datos."
+            End If
+        End If
     End Sub
     Protected Sub GridView1_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridView1.RowCommand
         If e.CommandName = "Eliminar" Then

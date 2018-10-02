@@ -195,12 +195,18 @@
               </ul>
             </li>
             
-              <li  id="confi" runat="server">
-              <a href="<%=ResolveUrl("Panel.aspx")%>">
+                <li class="treeview" id="confi" runat="server">
+              <a href="#">
                 <i class="fa fa-cogs"></i> <span>Configuración</span>
-             
+                <i class="fa fa-angle-left pull-right"></i>
               </a>
-            </li> 
+              <ul class="treeview-menu" id="Ul1" runat="server">
+                <li id="Li3" runat="server"><a href="<%=ResolveUrl("Panel.aspx")%>"><i class="fa fa-cog"></i> Partidas Jornadas</a></li>             
+                <li id="Li4" runat="server"><a href="<%=ResolveUrl("PanelIncidencia.aspx")%>"><i class="fa fa-cog"></i> Incidencias</a></li>             
+
+              </ul>
+            </li>
+
             <li>
               <a href="#">
                 <i class="fa fa-star"></i> <span>Acerca De...</span>

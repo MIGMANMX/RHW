@@ -1,63 +1,31 @@
-﻿
-Imports System.Data.SqlClient
+﻿Imports RHLogica
 
 Partial Class _Default
     Inherits System.Web.UI.Page
-    Public Sucursales As Integer = 0
-    Public Empleados As Integer = 0
-    Public Empresas As Integer = 0
-    Public Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
 
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Session("idusuario") = "" : Session("usuario") = "" : Session("nivel") = ""
+        Session("idsucursal") = "" : Session("sucursal") = ""
+        Session("menu") = ""
+    End Sub
 
-
-        'Conexion y busqueda de registros
-        Using dbC As New SqlConnection
-            dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrDbo").ToString
-            dbC.Open()
-            Dim cmd As New SqlCommand("SELECT count(sucursal) as num FROM Sucursales ", dbC)
-            Dim rdr As SqlDataReader = cmd.ExecuteReader
-            Dim dsP As String()
-            If rdr.Read Then
-                'Lectura de registros
-                ReDim dsP(1)
-                dsP(0) = rdr("num").ToString
-                Sucursales = dsP(0)
+    Protected Sub btnEntrar_Click(sender As Object, e As EventArgs) Handles btnEntrar.Click
+        If Request.Form("usuario") <> "" And Request.Form("clave") <> "" Then
+            Dim acceso As New ctiAdmin
+            Dim ingreso As String = ""
+            ingreso = acceso.ingresar(Request.Form("usuario"), Request.Form("clave"))
+            If CInt(ingreso.Split(",")(0)) > 0 Then
+                Session("idusuario") = ingreso.Split(",")(0)
+                Session("usuario") = ingreso.Split(",")(1)
+                Session("nivel") = ingreso.Split(",")(2)
+                Session("idsucursal") = ingreso.Split(",")(3)
+                Session("sucursal") = ingreso.Split(",")(4)
+                Response.Redirect("Personal.aspx")
+            Else
+                eValidar.Text = "No existe este usuario o la clave es incorrecta."
             End If
-            rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
-        End Using
-
-
-        'Conexion y busqueda de registros
-        Using dbC As New SqlConnection
-            dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrDbo").ToString
-            dbC.Open()
-            Dim cmd As New SqlCommand("SELECT count(empresa) as num FROM Empresas", dbC)
-            Dim rdr As SqlDataReader = cmd.ExecuteReader
-            Dim dsP As String()
-            If rdr.Read Then
-                'Lectura de registros
-                ReDim dsP(1)
-                dsP(0) = rdr("num").ToString
-                Empresas = dsP(0)
-            End If
-            rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
-        End Using
-
-
-        'Conexion y busqueda de registros
-        Using dbC As New SqlConnection
-            dbC.ConnectionString = ConfigurationManager.ConnectionStrings("StarTconnStrDbo").ToString
-            dbC.Open()
-            Dim cmd As New SqlCommand("SELECT count(empleado) as num  FROM Empleados where activo=1", dbC)
-            Dim rdr As SqlDataReader = cmd.ExecuteReader
-            Dim dsP As String()
-            If rdr.Read Then
-                'Lectura de registros
-                ReDim dsP(3)
-                dsP(0) = rdr("num").ToString
-                Empleados = dsP(0)
-            End If
-            rdr.Close() : rdr = Nothing : cmd.Dispose() : dbC.Close() : dbC.Dispose()
-        End Using
+        Else
+            eValidar.Text = "Es necesario capturar Usuario y Contraseña."
+        End If
     End Sub
 End Class

@@ -14,7 +14,7 @@ Partial Class Principal
         Dim acceso As New ctiCatalogos
         Dim datos() As String = acceso.datosUsuarioV(Session("idusuario"))
         If datos(0) >= 3 And datos(0) <= 6 Then
-            Response.Redirect("Personal.aspx", True)
+            Response.Redirect("Default.aspx", True)
         End If
         If datos(0) = 2 Then
             direc.Visible = True

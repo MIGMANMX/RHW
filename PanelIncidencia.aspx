@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="Panel.aspx.vb" Inherits="_Panel" %>
+﻿<%@ Page Title="" Language="VB" MasterPageFile="~/Principal.master" AutoEventWireup="false" CodeFile="PanelIncidencia.aspx.vb" Inherits="_PanelIncidencia" %>
 <%@ Register src="cti/wucSucursales.ascx" tagname="wucSucursales" tagprefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -43,9 +43,9 @@
           
           </style>
       <div id="contenedor" class="auto-style1">
-          <h3>Configuración Partidas Jornadas</h3>
+          <h3>Configuración de Incidencias</h3>
           <div id="izquierdo" class="auto-style3">
-              <h5>Registro de Partidas Jornada</h5>
+              <h5>Registro de Configuración de Incidencias</h5>
                 <table>
                     <tr>
                         <td class="auto-style2">
